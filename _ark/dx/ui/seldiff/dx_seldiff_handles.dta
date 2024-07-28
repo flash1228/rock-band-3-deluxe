@@ -281,16 +281,7 @@
             }
          )
          (song
-            {cond
-               ({! $play_a_show_found_song_part}
-                  {{sprint "line" $line ".lbl"} set_token_fmt {localize play_a_show_missing_inst}}
-               )
-               {if $play_a_show_found_song_part
-                  {{sprint "line" $line ".lbl"} set_song_and_artist_name_from_sym $random_song 0}
-                  {{sprint "line" $line ".lbl"} set alt_font_resource_name pentatonic_outline}
-                  {{sprint "line" $line ".lbl"} set alt_italics 0.1}
-               }
-            }
+            {set $dx_play_a_show_line {sprint "A Mystery Song"}}
          )
          (tempo
             {cond
@@ -327,19 +318,18 @@
             {set $dx_play_a_show_line {localize play_a_show_refresh}}
          )
       }
-      {if_else {== $lineeval song}
-         {{dx_play_a_show_panel find {sprint "line" $line ".lbl"}} set_song_and_artist_name_from_sym $random_song 0}
-         {{dx_play_a_show_panel find {sprint "line" $line ".lbl"}} set_token_fmt {sprint $dx_play_a_show_line}}
-      }
+      {{dx_play_a_show_panel find {sprint "line" $line ".lbl"}} set_token_fmt {sprint $dx_play_a_show_line}}
    )
    (dx_pick_a_show
       {set $availarray (genre year tempo song length year song genre genre length song year ugc year genre song tempo length song)}
       {set $avail2array ()}
       {set $avail3array ()}
       {set $avail4array ()}
+      {set $avail5array ()}
       {resize $avail2array 0}
       {resize $avail3array 0}
       {resize $avail4array 0}
+      {resize $avail5array 0}
       {set $line1eval {random_elem $availarray}}
       {foreach $entry $availarray
          {if {&& {!= $entry ""} {!= $entry $line1eval}}
@@ -359,15 +349,22 @@
          }
       }
       {set $line4eval {random_elem $avail4array}}
-      {set $line5eval refresh}
+      {foreach $entry $avail4array
+         {if {&& {!= $entry ""} {!= $entry $line1eval} {!= $entry $line2eval} {!= $entry $line3eval} {!= $entry $line4eval}}
+            {push_back $avail5array $entry}
+         }
+      }
+      {set $line5eval {random_elem $avail5array}}
       {resize $avail2array 0}
       {resize $avail3array 0}
       {resize $avail4array 0}
+      {resize $avail5array 0}
       {$this set_line $line1eval 1}
       {$this set_line $line2eval 2}
       {$this set_line $line3eval 3}
       {$this set_line $line4eval 4}
       {$this set_line $line5eval 5}
+      {$this print_song_option_data}
       {unless {session_mgr is_local}
          {if {is_leader_local}
             {session send_msg_to_all
@@ -496,6 +493,47 @@
       {set $current_voted_song $song}
       {meta_performer set_song $song}
       {push_back $dx_playlist_array $song}
+   )
+   #define DX_SONG_PRINTER
+   (
+      (genre
+         {push_back $scorechasewritingarray {sprint $random_genre_song}}
+         {set $scorechasewritingarray {array $scorechasewritingarray}}
+      )
+      (year
+         {push_back $scorechasewritingarray {sprint $random_year_song}}
+         {set $scorechasewritingarray {array $scorechasewritingarray}}
+      )
+      (length
+         {push_back $scorechasewritingarray {sprint $random_length_song}}
+         {set $scorechasewritingarray {array $scorechasewritingarray}}
+      )
+      (song
+         {push_back $scorechasewritingarray {sprint $random_song}}
+         {set $scorechasewritingarray {array $scorechasewritingarray}}
+      )
+      (tempo
+         {push_back $scorechasewritingarray {sprint $random_tempo_song}}
+         {set $scorechasewritingarray {array $scorechasewritingarray}}
+      )
+      (fem
+         {push_back $scorechasewritingarray {sprint $random_fem_song}}
+         {set $scorechasewritingarray {array $scorechasewritingarray}}
+      )
+      (ugc
+         {push_back $scorechasewritingarray {sprint $random_ugc_song}}
+         {set $scorechasewritingarray {array $scorechasewritingarray}}
+      )
+   )
+   (print_song_option_data
+      {set $scorechasewritingarray ()}
+      {resize $scorechasewritingarray 0}
+      {switch $line1eval DX_SONG_PRINTER}
+      {switch $line2eval DX_SONG_PRINTER}
+      {switch $line3eval DX_SONG_PRINTER}
+      {switch $line4eval DX_SONG_PRINTER}
+      {switch $line5eval DX_SONG_PRINTER}
+      {write_file "GD:/dev_hdd0/game/BLUS30463/USRDIR/showoptions.dta" $scorechasewritingarray}
    )
    #define DX_PLAY_SONG_PICKER
    (
