@@ -449,6 +449,10 @@
 ;advanced
 (os_ingame_hud "In-Game HUD")
 (os_ingame_hud_desc "Control every bit of the HUD")
+(os_track_hud "Track HUD")
+(os_track_hud_desc "Control Track Specific HUD options")
+(os_popups "Track Popups...")
+(os_popups_desc "Additional features that pop up over the track")
 (os_menu_options "Menu Options")
 (os_menu_options_desc "Personalize how the menus look with custom textures")
 (os_quick_chat "Quick Chat")
@@ -740,7 +744,7 @@
 (os_speed_deny "Song Speed cannot be changed mid-song.")
 (os_speedcap "Max Song Speed is set to %d%%")
 (os_tspeed "Note Speed is set to %d%%")
-(os_angle "Track Angle")
+(os_angle "Track Angle...")
 (os_angle_desc "Adjust the highway angle for single player modes")
 (os_allow_lower_ang_off "Lower Multiplayer Angle: OFF")
 (os_allow_lower_ang_on "Lower Multiplayer Angle: ON")
@@ -2563,6 +2567,58 @@
    "Pickles are tasty!")
 (dx_splash_143
    "Pickles suck!")
+
+; Brazilian Genres
+(axebr
+   "Axé")
+(bossanova
+   "Bossa Nova")
+(bregatechnobrega
+   "Brega/Techno Brega")
+(forro
+   "Forró")
+(funkbr
+   "Brazilian Funk")
+(funkmelody
+   "Funk Melody")
+(gospel
+   "Gospel")
+(mpb
+   "MPB")
+(pagode
+   "Pagode")
+(samba
+   "Samba")
+(sertanejo
+   "Sertanejo")
+(sertanejo_universitario
+   "Sertanejo Universitário")
+(subgenre_axebr
+   "Axé")
+(subgenre_bossanova
+   "Bossa Nova")
+(subgenre_brega
+   "Brega")
+(subgenre_technobrega
+   "Techno Brega")
+(subgenre_forro
+   "Forró")
+(subgenre_funkbr
+   "Brazilian Funk")
+(subgenre_funkmelody
+   "Funk Melody")
+(subgenre_gospel
+   "Gospel")
+(subgenre_mpb
+   "MPB")
+(subgenre_pagode
+   "Pagode")
+(subgenre_samba
+   "Samba")
+(subgenre_sertanejo
+   "Sertanejo")
+(subgenre_sertanejo_universitario
+   "Sertanejo Universitário")
 
 ;ALWAYS KEEP THIS LAST SO IT LOADS ON TOP OF EVERYTHING ELSE
 ;user added locale strings
