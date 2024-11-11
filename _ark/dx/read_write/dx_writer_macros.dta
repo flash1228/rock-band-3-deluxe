@@ -107,7 +107,7 @@
    {dx_setting_saver dx_settings dx_logging_beatmatch $dx_logging_beatmatch}
    {dx_setting_saver dx_settings dx_logging_countdown $dx_logging_countdown}
    {dx_setting_saver dx_settings dx_fctype $dx_fctype}
-   {dx_setting_saver dx_settings dx_test_guitar_fx $dx_test_guitar_fx}
+   {dx_setting_saver dx_settings dx_selected_guitar_fx $dx_selected_guitar_fx}
    {dx_setting_saver dx_settings dx_current_intro_movie $dx_current_intro_movie}
    {dx_setting_saver dx_settings dx_splash_screen $dx_splash_screen}
    {dx_setting_saver dx_settings dx_streak_counter $dx_streak_counter}
@@ -128,6 +128,8 @@
    {dx_setting_saver dx_settings dx_track_overdrive_g $dx_track_overdrive_g}
    {dx_setting_saver dx_settings dx_track_overdrive_b $dx_track_overdrive_b}
    {dx_setting_saver dx_settings dx_track_username $dx_track_username}
+   {dx_setting_saver dx_settings dx_track_username_inst $dx_track_username_inst}
+   {dx_setting_saver dx_settings dx_track_username_sp_inst $dx_track_username_sp_inst}
    {dx_setting_saver dx_settings dx_track_username_size $dx_track_username_size}
    {dx_setting_saver dx_settings dx_track_username_font $dx_track_username_font}
    {dx_setting_saver dx_settings dx_track_username_alignment $dx_track_username_alignment}

@@ -461,9 +461,9 @@
          {elem {find $entry dx_fctype} 1}
       }
    }
-   {if {== {elem $entry 0} {basename dx_test_guitar_fx}}
-      {set $dx_test_guitar_fx
-         {elem {find $entry dx_test_guitar_fx} 1}
+   {if {== {elem $entry 0} {basename dx_selected_guitar_fx}}
+      {set $dx_selected_guitar_fx
+         {elem {find $entry dx_selected_guitar_fx} 1}
       }
    }
    {if {== {elem $entry 0} {basename dx_current_intro_movie}}
@@ -564,6 +564,16 @@
    {if {== {elem $entry 0} {basename dx_track_username}}
       {set $dx_track_username
          {elem {find $entry dx_track_username} 1}
+      }
+   }
+   {if {== {elem $entry 0} {basename dx_track_username_inst}}
+      {set $dx_track_username_inst
+         {elem {find $entry dx_track_username_inst} 1}
+      }
+   }
+   {if {== {elem $entry 0} {basename dx_track_username_sp_inst}}
+      {set $dx_track_username_sp_inst
+         {elem {find $entry dx_track_username_sp_inst} 1}
       }
    }
    {if {== {elem $entry 0} {basename dx_track_username_size}}
