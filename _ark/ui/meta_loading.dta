@@ -35,7 +35,7 @@
 #define kMetaLoading_Loading
 (14)
 #define META_LOADING_OUTRO_VIGNETTES
-((tv4_a_panel tv4_b_panel tv4_c_panel tv4_d_panel tv4_e_panel))
+(())
 #define FAIL_IF_TV4_IS_UP
 (#ifndef _SHIP
    {foreach
@@ -565,6 +565,9 @@
             {set
                [chosen_vignette]
                {interstitial_mgr pick_interstitial_between_screens meta_loading_outro song_select_screen}}
+         {set
+            [chosen_vignette]
+         ''}
          #ifndef _SHIP
          {if
             {ui get_vignettes_showing}
@@ -598,18 +601,19 @@
    maybe_outro_to_meta_loading_continue_screen
    (enter {world_panel unload})
    (TRANSITION_COMPLETE_MSG
-      {dx_play_cutscene
-         {cond
-            ({> {size $dx_forced_outro_vignette} 0} {random_elem $dx_forced_outro_vignette})
-            ({== {meta_performer get_last_venue_class} video} {random_elem ("tv_fallback")})
-            ({== {meta_performer get_last_venue_class} festival} {random_elem ("tv4_c")})
-            ({campaign has_reached_campaign_level campaignlevel_jet} {random_elem ("tv4_d" "tv4_e")})
-            ({campaign has_reached_campaign_level campaignlevel_bus} {random_elem ("tv4_c")})
-            ({campaign has_reached_campaign_level campaignlevel_van} {random_elem ("tv4_b")})
-            (TRUE {random_elem ("tv4_a")})
-         }
-      meta_loading_continue_screen
-      }
+      {ui goto_screen outro_to_meta_loading_continue_screen}
+      ;{dx_play_cutscene
+      ;   {cond
+      ;      ({> {size $dx_forced_outro_vignette} 0} {random_elem $dx_forced_outro_vignette})
+      ;      ({== {meta_performer get_last_venue_class} video} {random_elem ("tv_fallback")})
+      ;      ({== {meta_performer get_last_venue_class} festival} {random_elem ("tv4_c")})
+      ;      ({campaign has_reached_campaign_level campaignlevel_jet} {random_elem ("tv4_d" "tv4_e")})
+      ;      ({campaign has_reached_campaign_level campaignlevel_bus} {random_elem ("tv4_c")})
+      ;      ({campaign has_reached_campaign_level campaignlevel_van} {random_elem ("tv4_b")})
+      ;      (TRUE {random_elem ("tv4_a")})
+      ;   }
+      ;meta_loading_continue_screen
+      ;}
    )
 }
 {new
