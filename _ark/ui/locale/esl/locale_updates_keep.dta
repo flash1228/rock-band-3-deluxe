@@ -343,6 +343,7 @@
 (track_theme_successfully_loaded "Apariencia de Pista cargada correctamente")
 (track_theme_successfully_written "La Apariencia de Pista ha sído guardada correctamente")
 (you_lost "Has perdido el juego")
+(dx_missing_highmem "¡Espera! Estas jugando en RPCS3 sin el parche de memoria. \n\Es MUY recomendado que instales el parche para tener mas estabilidad.\n\n¡Ve a rb3pc.milohax.org/memoria para mas información!")
 (dx_missing_tele_patch "¡Espera! Has notado que los cabellos, instrumentos, micrófonos y otros accesorios vuelan y se teletransportan? ¡Esto se puede arreglar!\n\n¡Ve a la pagina de rb3dx.milohax.org/downloads_es y ve hacia a abajo a la sección de \qParche para bugs visuales\q para mas información!")
 (dx_remove_tele_patch "¡Espera! Notamos que instalaste el parche para arreglar bugs visuales.\nEste parche esta diseñado para usar con RPCS3 porque causa mucha inestabilidad en PS3.\n\nÚnete al Discord de Milohax (discord.gg/milohax) sí necesítas ayuda borrando el parche.")
 (dx_missing_tele2_patch "¡Espera! El parche para arreglar bugs visuales fue actualizado.\nRecomendamos que descargues el parche de nuevo para instalarlo.\nDisculpe la molestia.\n\nVisita rb3dx.milohax.org/downloads_es y ve hacia abajo y revisa la sección de \qParche para arreglar bugs visuales.\q")
@@ -820,6 +821,20 @@
 (os_logging_insane_off "'Insane': No")
 (os_logging_insane_on "'Insane': Sí")
 
+; Major Keys
+(a_major "La (A)")
+(a_sharp_major "Si Bemol (Bb)")
+(b_major "Si (B)")
+(c_major "Do (C)")
+(c_sharp_major "Re Bemol (Db)")
+(d_major "Re (D)")
+(d_sharp_major "Mi Bemol(Eb)")
+(e_major "Mi (E)")
+(f_major "Fa (F)")
+(f_sharp_major "Fa Sostenido (F#)")
+(g_major "Sol (G)")
+(g_sharp_major "La Bemol (Ab)")
+
 ; Menu backgrounds
 (career_transitions "Transiciones del Modo Tour")
 (os_bg2 "Tienda de Música")
@@ -905,6 +920,20 @@
 (os_welcome_msg "Bienvenido a la Configuración Deluxe")
 (overshell_dx_quick_chat "Chat Rápido +")
 (overshell_rb3esettings "Configuración Deluxe")
+
+; Minor Keys
+(a_minor "La Menor (Am)")
+(a_sharp_minor "Si Bemol Menor (Bbm)")
+(b_minor "Si Menor (Bm)")
+(c_minor "Do Menor (Cm)")
+(c_sharp_minor "Do Sostenido Menor (C#m)")
+(d_minor "Re Menor (Dm)")
+(d_sharp_minor "Re Sostenido Menor (D#m)")
+(e_minor "Mi Menor (Em)")
+(f_minor "Fa Menor (Fm)")
+(f_sharp_minor "Fa Sostenido Menor (F#m)")
+(g_minor "Sol Menor (Gm)")
+(g_sharp_minor "Sol Sostenido Menor (G#m)")
 
 ; New song select screen
 (dx_setlist_infinite "El repertorio interminablemente infinito")
@@ -1378,7 +1407,7 @@
 #ifdef HX_XBOX
 (community_no_server_warning "No se pudo conectar a los servidores del juego.\n\nNo podrás acceder a las Tablas de Clasificación de Xbox LIVE.  ¿Continuar de todos modos?")
 #endif
-(confirm_quit_online "perderás todo el progreso no guardado si continúas. ¿Estás seguro de que deseas continuar?")
+(confirm_quit_online "Perderás todo el progreso no guardado si continúas. ¿Estás seguro?")
 (connecting_server "Conectándose a los servidores del juego...")
 (loading_additional_content "Cargando temas descargados...")
 (country "Country")
@@ -1707,7 +1736,6 @@
 #include dx_locale_esl_tips.dta
 #include dx_locale_esl_sections.dta
 #include dx_locale_updates_assets.dta
-#include dx_locale_key_signatures.dta
 #endif
 
 #include ../../../dx/locale/dx_version.dta
