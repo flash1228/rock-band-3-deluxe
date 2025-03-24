@@ -181,7 +181,7 @@
                {== $sourcevar ugc1} {== $sourcevar rbtp_vol_1} {== $sourcevar dlc}
                {== $sourcevar rbtp_vol_2} {== $sourcevar rbtp_classic_rock}
                {== $sourcevar rbtp_country_1} {== $sourcevar rbtp_metal}
-               {== $sourcevar lego} {== $sourcevar rbtp_acdc}
+               {== $sourcevar lego} {== $sourcevar rbtp_acdc} {== $sourcevar greenday}
             }
          }
          ;disable lanes
