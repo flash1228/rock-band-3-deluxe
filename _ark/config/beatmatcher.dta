@@ -116,10 +116,17 @@
    (reset))
 #define DX_ROLL_INTERVAL_COMMON
 (
-   {get_lane_interval 0}
-   {get_lane_interval 0}
-   {get_lane_interval 165}
-   {get_lane_interval 165}
+   {get_lane_interval 0 FALSE}
+   {get_lane_interval 0 FALSE}
+   {get_lane_interval 165 FALSE}
+   {get_lane_interval 165 FALSE}
+)
+#define DX_ROLL_INTERVAL_COMMON_PRO
+(
+   {get_lane_interval 0 TRUE}
+   {get_lane_interval 0 TRUE}
+   {get_lane_interval 165 TRUE}
+   {get_lane_interval 165 TRUE}
 )
 (watcher
    (slop
@@ -180,15 +187,15 @@
       (bass
          (DX_ROLL_INTERVAL_COMMON))
       (real_guitar
-         (DX_ROLL_INTERVAL_COMMON))
+         (DX_ROLL_INTERVAL_COMMON_PRO))
       (real_guitar_22
-         (DX_ROLL_INTERVAL_COMMON))
+         (DX_ROLL_INTERVAL_COMMON_PRO))
       (real_bass
-         (DX_ROLL_INTERVAL_COMMON))
+         (DX_ROLL_INTERVAL_COMMON_PRO))
       (real_bass_22
-         (DX_ROLL_INTERVAL_COMMON))
+         (DX_ROLL_INTERVAL_COMMON_PRO))
       (real_keys
-         (DX_ROLL_INTERVAL_COMMON))))
+         (DX_ROLL_INTERVAL_COMMON_PRO))))
 (parser
    (drum_style_instruments
       (kAudioDrums))

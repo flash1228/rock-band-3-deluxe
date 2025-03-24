@@ -161,7 +161,7 @@
    }
 }
 {func get_lane_interval
-   ($default)
+   ($default $pro)
    {do
       ($return $default)
       ;looser lanes from lysix, only apply to the correct input var if enabled
@@ -171,6 +171,7 @@
       }
       {if
          {&&
+            {! $pro}
             ;if we do not have rb4 lanes enabled
             {! {modifier_mgr is_modifier_active mod_rb4_lanes}}
             ;and its an updated song
