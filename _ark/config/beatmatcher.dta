@@ -175,10 +175,10 @@
             (DX_ROLL_INTERVAL_COMMON))
          (double_lane
             (
-               {get_lane_interval 0}
-               {get_lane_interval 0}
-               {get_lane_interval 255}
-               {get_lane_interval 255}
+               {get_lane_interval 0 FALSE}
+               {get_lane_interval 0 FALSE}
+               {get_lane_interval 255 FALSE}
+               {get_lane_interval 255 FALSE}
             )
          )
       )
