@@ -114,6 +114,13 @@
          {handle
             (game downbeat)}})
    (reset))
+#define DX_ROLL_INTERVAL_COMMON
+(
+   {get_lane_interval 0}
+   {get_lane_interval 0}
+   {get_lane_interval 165}
+   {get_lane_interval 165}
+)
 (watcher
    (slop
       {if_else {modifier_mgr is_modifier_active mod_precision}
@@ -161,22 +168,10 @@
             (DX_ROLL_INTERVAL_COMMON))
          (double_lane
             (
-               {if_else {modifier_mgr is_modifier_active mod_nolanes}
-                  -100
-                  0
-               }
-               {if_else {modifier_mgr is_modifier_active mod_nolanes}
-                  -100
-                  0
-               }
-               {if_else {modifier_mgr is_modifier_active mod_nolanes}
-                  -100
-                  255
-               }
-               {if_else {modifier_mgr is_modifier_active mod_nolanes}
-                  -100
-                  255
-               }
+               {get_lane_interval 0}
+               {get_lane_interval 0}
+               {get_lane_interval 255}
+               {get_lane_interval 255}
             )
          )
       )
