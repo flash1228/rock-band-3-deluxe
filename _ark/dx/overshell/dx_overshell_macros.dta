@@ -202,8 +202,8 @@
       {overshell update_all}
    )
    (mod_nolanes
-      {if {modifier_mgr is_modifier_active mod_rb4lanes}
-         {modifier_mgr toggle_modifier_enabled mod_rb4lanes}
+      {if {modifier_mgr is_modifier_active mod_rb4_lanes}
+         {modifier_mgr toggle_modifier_enabled mod_rb4_lanes}
       }
       {modifier_mgr toggle_modifier_enabled mod_nolanes}
       {set $nolanes {! $nolanes}}
@@ -224,11 +224,11 @@
          }
       }
    )
-   (mod_rb4lanes
+   (mod_rb4_lanes
       {if {modifier_mgr is_modifier_active mod_nolanes}
          {modifier_mgr toggle_modifier_enabled mod_nolanes}
       }
-      {modifier_mgr toggle_modifier_enabled mod_rb4lanes}
+      {modifier_mgr toggle_modifier_enabled mod_rb4_lanes}
       {overshell update_all}
    )
    (mod_practiceoverdrive
