@@ -1647,6 +1647,12 @@
 (upload_error_start_single "There was a problem with the upload to GoCentral.")
 (upload_uploading "Communicating with GoCentral...")
 (vocal_parts_0 "No Vocals")
+#ifdef HX_PS3
+(loading_additional_content
+   "Loading Downloaded Content...")
+#endif
+(loading_additional_progress
+   "%s/%s Packs Loaded")
 
 ; Venue options
 (os_enablemv_off "Music Videos: OFF")
