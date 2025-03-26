@@ -106,7 +106,7 @@
    {if_else {&& {== $dx_mtv_pos_x 16.80} {== $dx_mtv_pos_y 13.78} {== $dx_mtv_pos_z 57}} ;if mtv overlay is default pos
       {$thislabel set_local_pos
          ; X pos
-         {if_else {>= {beatmatch num_active_players} {if_else {modifier_mgr is_modifier_active mod_auto_vocals} 3 2}}
+         {if_else {>= {beatmatch num_active_players} 2}
             {- {if_else {!= {rnd aspect} kWidescreenAspect} {- $x 7.65} $x} 1.74} ;band play scenario (move to make room for streak box)
             {if_else {!= {rnd aspect} kWidescreenAspect} {- $x 7.65} $x} ;singleplayer scenario (default)
          }
@@ -114,10 +114,11 @@
          $z
          ; Y pos
          {if_else $vocal_track_out
-            {if_else {== $count_instrument harm}
+            ; harm detection doesn't work, i don't know why, make it only do harm pos for now
+            ;{if_else {== $count_instrument harm}
                {- $y 7.01} ;harm scenario
-               {- $y 5.92} ;solo vox scenario
-            }
+            ;   {- $y 5.92} ;solo vox scenario
+            ;}
             {if_else {gamemode in_mode practice}
                {- $y 5.66} ;practice no vox scenario
                $y ;qp no vox scenario (default)
