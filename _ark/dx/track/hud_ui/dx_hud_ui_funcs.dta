@@ -79,10 +79,7 @@
       {if_else {&& {== $dx_mtv_pos_x 16.8} {== $dx_mtv_pos_y 13.78} {== $dx_mtv_pos_z 57}} ;if mtv overlay is default pos
          ;handle autopos
          {if_else $vocal_track_out
-            {if_else {>= {beatmatch num_active_players} {if_else {modifier_mgr is_modifier_active mod_auto_vocals} 3 2}}
-               {$thislabel set width {if_else {!= {rnd aspect} kWidescreenAspect} {- 22 7.65} 22}} ;real vox
-               {$thislabel set width {if_else {!= {rnd aspect} kWidescreenAspect} {- 25 7.65} 25}} ;AIM
-            }
+            {$thislabel set width {if_else {!= {rnd aspect} kWidescreenAspect} {- 22 7.65} 22}} ; vocals present
             {if_else {>= {beatmatch num_active_players} 2}
                {$thislabel set width {if_else {!= {rnd aspect} kWidescreenAspect} {- 34 7.65} 34}} ;2p
                {$thislabel set width {if_else {!= {rnd aspect} kWidescreenAspect} {- 37 7.65} 37}} ;1p
