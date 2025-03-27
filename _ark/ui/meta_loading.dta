@@ -201,12 +201,12 @@
                "transition vignette: (tv4_e)"})}
       #endif)
    (transition_camshot_done
-      {dx_randomize_backup_band}
       {[loaded_vignette]
          set_showing
          FALSE}
       {transition_fallback_panel set_showing TRUE}
       {transition_fallback_panel start_loading_anim}
+      {dx_randomize_backup_band}
       kDataUnhandled)
    (TRANSITION_COMPLETE_MSG
       {cond
