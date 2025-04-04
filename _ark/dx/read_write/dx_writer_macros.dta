@@ -13,6 +13,7 @@
    {dx_setting_saver dx_settings practice_score_pos ($scorepos_0 $scorepos_1 $scorepos_2)}
    {dx_setting_saver dx_settings practice_speed_control_pos ($speed_controlpos_0 $speed_controlpos_1 $speed_controlpos_2)}
    {dx_setting_saver dx_settings dx_mtv_position ($dx_mtv_pos_x $dx_mtv_pos_z $dx_mtv_pos_y)}
+   {dx_setting_saver dx_settings dx_score_base ($dx_score_base_0 $dx_score_base_1 $dx_score_base_2)}
    ;{dx_setting_saver dx_settings dx_mtv_color_rgb ($dx_mtv_color_r $dx_mtv_color_g $dx_mtv_color_b)}
    {dx_setting_saver dx_settings dx_mtv_text_font $dx_mtv_text_font}
    {dx_setting_saver dx_settings dx_mtv_text_alignment $dx_mtv_text_alignment}
