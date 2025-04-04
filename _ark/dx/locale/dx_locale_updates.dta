@@ -766,7 +766,7 @@
 (os_song_title_on "Song Title: ON")
 (os_source_off "Source: OFF")
 (os_source_on "Source: ON")
-(os_star_display_pos "Star Position")
+(os_star_display_pos "Score Position")
 (os_star_gold_fill_off "Gold Star Progress: OFF")
 (os_star_gold_fill_off_desc "Show how close you are to gold stars!")
 (os_star_gold_fill_on "Gold Star Progress: ON")

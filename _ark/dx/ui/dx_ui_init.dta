@@ -737,6 +737,7 @@ DX_CURRENT_SONG_CLEAR
 ;game hud default ui positioning
 {set $scoreboardpos_0 8} {set $scoreboardpos_1 0} {set $scoreboardpos_2 -16}
 {set $star_displaypos_0 0} {set $star_displaypos_1 0} {set $star_displaypos_2 0}
+{set $dx_score_base_0 0} {set $dx_score_base_1 0} {set $dx_score_base_2 0}
 
 ;practice mode default ui positioning
 {set $speed_controlpos_0 46} {set $speed_controlpos_1 0} {set $speed_controlpos_2 -5}
