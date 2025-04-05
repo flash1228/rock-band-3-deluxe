@@ -449,8 +449,10 @@
                }
                {if {exists artist.lbl}
                   #ifndef HX_XBOX
+                  #ifndef HX_WII
                   DX_CURRENT_SONG_TXT_WRITER
                   DX_CURRENT_SONG_JSON_WRITER
+                  #endif
                   #endif
                   {$this mtv_formatter}
                }
