@@ -167,6 +167,10 @@
       ($options
          {array 0})
 
+      #ifndef HX_WII
+      {push_back $options os_track_lengths}
+      #endif
+
       {push_back $options os_angle}
 
       {push_back $options os_popups}
@@ -210,6 +214,9 @@
    )
    (SELECT_MSG
       {switch {$component selected_sym}
+         (os_track_lengths
+            {$this show_state dxState_TrackLengths}
+         )
          (os_trackconfig
             {$this show_state dxState_TrackConfig}
          )
