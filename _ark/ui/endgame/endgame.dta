@@ -19,7 +19,9 @@
       {$this set_results}
       {$this dx_endgame_enter}
       {$this dx_song_label_setter}
+      #ifndef HX_WW
       {$this dx_endgame_play_player_sfx}
+      #endif
       {$this dx_endgame_diff_setter}
       {overshell set_use_extended_mic_arrows TRUE}
       {songs.lbl set fixed_length 1000}
