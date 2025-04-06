@@ -38513,11 +38513,9 @@ missing_song_data
             (guitar
                (6 7)
             )
-            (vocals
-               (8 9)
-            )
+            (vocals 8)
             (keys
-               (10 11)
+               (9 10)
             )
          )
       )

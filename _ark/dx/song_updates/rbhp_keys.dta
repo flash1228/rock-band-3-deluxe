@@ -4348,10 +4348,9 @@
             (bass 5)
             (guitar
                (6 7))
-            (vocals
-               (8 9))
+            (vocals 8)
             (keys
-               (10 11))))
+               (9 10))))
    )(rank
       (drum 421)
       (guitar 480)
