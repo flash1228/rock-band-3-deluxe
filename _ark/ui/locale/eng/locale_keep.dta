@@ -6785,6 +6785,9 @@
    #ifdef HX_PC
    (endgame_hb_details "VIEW GAMER CARD")
    #endif
+   #ifdef HX_WII
+   (endgame_hb_details "MORE DETAILS")
+   #endif
    (endgame_hb_finishsong "Continue")
    (endgame_hb_leave_session "Leave Session")
    (endgame_hit_count "%s Notes Hit")
@@ -13127,18 +13130,8 @@
    (overshell_green_cym "Green Cymbal")
    (overshell_guitar "Guitar")
    (overshell_hard "Hard")
-   #ifdef HX_WII
-   (overshell_invite "[noforcecase]INVITE Wii FRIENDS")
-   #endif
-   #ifndef HX_WII
    (overshell_invite "Invite Friends")
-   #endif
-   #ifdef HX_WII
-   (overshell_invite_friends "[noforcecase]INVITE Wii FRIENDS")
-   #endif
-   #ifndef HX_WII
    (overshell_invite_friends "Invite Friends")
-   #endif
    (overshell_invite_xbox_party "Invite Xbox LIVE Party")
    #ifdef HX_WII
    (overshell_import_wii_friends "[noforcecase]IMPORT Wii FRIENDS")

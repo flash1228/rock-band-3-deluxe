@@ -5,13 +5,13 @@
    ;{dx_log_writer info {sprint "func: dx_overshell_msg" " - Args: " $message}}
    ;{dx_log_writer info
    ;   {sprintf "Executed dx_overshell_msg - time: %.4fms"
-         {time
+         ;{time
             {if {! {session is_in_game}}
                {$this show_message}
                {set $dx_no_message_sound TRUE} ;prevents message sound from playing in menus
                {$this setup_message_text $message FALSE}
             }
-         }
+         ;}
    ;   }
    ;}
 }

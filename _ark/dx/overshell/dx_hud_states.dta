@@ -530,8 +530,7 @@
             {set $dx_mtv_visibility always}
             {set $dx_long_mtv_delay FALSE}
             {set $dx_tracked_changed os_mtv_vis_always}
-            {if
-               {exists beatmatch}
+            {if {$this in_game}
                {if
                   {&&
                      {! {gamemode in_mode practice}} {! {gamemode in_mode trainer}}
@@ -548,8 +547,7 @@
             {set $dx_mtv_visibility never}
             {set $dx_long_mtv_delay FALSE}
             {set $dx_tracked_changed os_mtv_vis_never}
-            {if
-               {exists beatmatch}
+            {if {$this in_game}
                {if
                   {&&
                      {! {gamemode in_mode practice}} {! {gamemode in_mode trainer}}
@@ -566,8 +564,7 @@
             {set $dx_mtv_visibility delayed}
             {set $dx_long_mtv_delay TRUE}
             {set $dx_tracked_changed os_mtv_vis_delayed}
-            {if
-               {exists beatmatch}
+            {if {$this in_game}
                {if
                   {&&
                      {! {gamemode in_mode practice}} {! {gamemode in_mode trainer}}
@@ -584,8 +581,7 @@
             {set $dx_mtv_visibility default}
             {set $dx_long_mtv_delay FALSE}
             {set $dx_tracked_changed os_mtv_vis_default}
-            {if
-               {exists beatmatch}
+            {if {$this in_game}
                {if
                   {&&
                      {! {gamemode in_mode practice}} {! {gamemode in_mode trainer}}

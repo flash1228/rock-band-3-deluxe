@@ -464,7 +464,7 @@
       {options_extras.lst set_data (DX_ANGLE_DATA)}
       {options_extras.lst set scroll_time 0}
       {options_extras.lst set circular 0}
-      {options_extras set_selected 0}
+      {options_extras.lst set_selected 0}
    )
    (update_view
       {handle

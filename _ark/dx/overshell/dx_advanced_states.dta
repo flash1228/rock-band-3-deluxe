@@ -650,6 +650,14 @@
                   0.9
                }
             }
+            {switch $dx_mic_deploy_sens
+               (0.9 {set $dx_tracked_changed os_dx_mic_od_1})
+               (0.7 {set $dx_tracked_changed os_dx_mic_od_2})
+               (0.5 {set $dx_tracked_changed os_dx_mic_od_3})
+               (0.3 {set $dx_tracked_changed os_dx_mic_od_4})
+               (0.1 {set $dx_tracked_changed os_dx_mic_od_5})
+               {set $dx_tracked_changed os_dx_mic_od_unknown}
+            }
             {dx_state_pos_tracker}
             DX_FUNCTIONAL_OPTIONS_DATA
             {set $previous_state dxState_FunctionalOptions}
