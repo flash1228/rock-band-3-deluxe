@@ -1469,10 +1469,10 @@
          {options_audio.lst set_type overshell_menu_ingame}
          {options_audio.lst set_type overshell_menu}
       }
-      {options_audio.lst restart_highlight_matanim}
-      {options_audio.lst refresh}
       DX_TRANSLATE_POS_VARIABLES_TO_LOCAL
       DX_POSITION_REMAP_DATA
+      {options_audio.lst restart_highlight_matanim}
+      {options_audio.lst refresh}
    )
    ;(SCROLL_MSG
    ;   DX_MENU_SCROLL_DESC ;updates description with currently selected modifier
