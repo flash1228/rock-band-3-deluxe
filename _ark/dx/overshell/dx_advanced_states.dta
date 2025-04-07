@@ -283,6 +283,11 @@
       options
    )
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       ;setup/reset the list tracking info
       {set $dx_list_item_selected FALSE}
       {set $dx_list_pos 0}
@@ -649,6 +654,14 @@
                   (0.1 0.9)
                   0.9
                }
+            }
+            {switch $dx_mic_deploy_sens
+               (0.9 {set $dx_tracked_changed os_dx_mic_od_1})
+               (0.7 {set $dx_tracked_changed os_dx_mic_od_2})
+               (0.5 {set $dx_tracked_changed os_dx_mic_od_3})
+               (0.3 {set $dx_tracked_changed os_dx_mic_od_4})
+               (0.1 {set $dx_tracked_changed os_dx_mic_od_5})
+               {set $dx_tracked_changed os_dx_mic_od_unknown}
             }
             {dx_state_pos_tracker}
             DX_FUNCTIONAL_OPTIONS_DATA
@@ -1084,6 +1097,11 @@
 (dxState_BotSettings
    (view options_audio)
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {set $dx_slider TRUE}
       {set $dx_slider_id dx_bot_skill}
       {instruments.sld set_num_steps 12}
@@ -1452,6 +1470,11 @@
       options_audio
    )
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {set $dx_pos_interval_list (0.01 0.1 0.5 1 5 10 50 100)}
       {set $dx_pos_remapper_array_number 3}
       {set $dx_pos_current_interval {elem $dx_pos_interval_list $dx_pos_remapper_array_number}} ;1 unit
@@ -1461,10 +1484,10 @@
          {options_audio.lst set_type overshell_menu_ingame}
          {options_audio.lst set_type overshell_menu}
       }
-      {options_audio.lst restart_highlight_matanim}
-      {options_audio.lst refresh}
       DX_TRANSLATE_POS_VARIABLES_TO_LOCAL
       DX_POSITION_REMAP_DATA
+      {options_audio.lst restart_highlight_matanim}
+      {options_audio.lst refresh}
    )
    ;(SCROLL_MSG
    ;   DX_MENU_SCROLL_DESC ;updates description with currently selected modifier

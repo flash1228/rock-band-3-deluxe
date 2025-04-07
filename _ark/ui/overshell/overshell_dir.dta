@@ -278,20 +278,27 @@
             #endif
                {push_back $options overshell_return}
             #ifdef HX_WII
-               {unless {overshell in_wiifriend_invite}
-                  {if {&&
-                        {! {platform_mgr is_online_restricted}}
-                        {! {meta_performer are_credits_pending}}
+               {do
+                  #ifdef _SHIP
+                  ($eval {overshell in_wiifriend_invite})
+                  #else
+                  ($eval FALSE)
+                  #endif
+                  {unless $eval
+                     {if {&&
+                           {! {platform_mgr is_online_restricted}}
+                           {! {meta_performer are_credits_pending}}
+                        }
+                        {$set_online_options $options $online_enabled}
                      }
-                     {$set_online_options $options $online_enabled}
-                  }
-                  {if {&&
-                        {! {memcardmgr is_disable_writing}}
-                        {! {join_invite_panel join_in_progress}}
+                     {if {&&
+                           {! {memcardmgr is_disable_writing}}
+                           {! {join_invite_panel join_in_progress}}
+                        }
+                        {push_back $options overshell_wiiprofile_options}
                      }
-                     {push_back $options overshell_wiiprofile_options}
+                     {$set_common_options $options}
                   }
-                  {$set_common_options $options}
                }
             #else
                {$set_online_options $options $online_enabled}

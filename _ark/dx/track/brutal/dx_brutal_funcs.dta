@@ -4,7 +4,7 @@
       {dx_brutal_mode_rb4 $enabled}
    }
 }
-{dx_brutal_mode_init
+{func dx_brutal_mode_init ;unused
    ($enabled)
    ;not only inits brutal mode, but restores bottom_y for track when disabled
    {beatmatch foreach_active_player $player

@@ -333,6 +333,11 @@
       options_audio
    )
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {unpack_color {$findme get color} $mycoolcolor_r $mycoolcolor_g $mycoolcolor_b}
       {$findme set color {pack_color $mycoolcolor_r $mycoolcolor_g $mycoolcolor_b}}
       {set $mycoolalpha {$findme get alpha}}
