@@ -283,11 +283,7 @@
       options
    )
    (enter
-      {$this iterate UIList $l {$l set conceal_scale 150}
-      {$l conceal}
-      {$l set conceal_scale 5}
-      {$l set_data (os_blnk)}
-      {$l refresh}}
+      
       ;setup/reset the list tracking info
       {set $dx_list_item_selected FALSE}
       {set $dx_list_pos 0}
@@ -1097,11 +1093,9 @@
 (dxState_BotSettings
    (view options_audio)
    (enter
-      {$this iterate UIList $l {$l set conceal_scale 150}
-      {$l conceal}
-      {$l set conceal_scale 5}
-      {$l set_data (os_blnk)}
-      {$l refresh}}
+      
+      {modifier_scroll.sbd set_showing TRUE}
+      {modifier_scroll.sbd set scrollbar_list options_audio.lst}
       {set $dx_slider TRUE}
       {set $dx_slider_id dx_bot_skill}
       {instruments.sld set_num_steps 12}
@@ -1191,6 +1185,8 @@
    (exit 
       {set $dx_slider FALSE}
       {options_audio.lst set scroll_time 0.25}
+      {modifier_scroll.sbd set_showing FALSE}
+      {modifier_scroll.sbd set scrollbar_list modifiers.lst}
    )
 	(on_cancel {$this show_options})
 )
@@ -1470,11 +1466,7 @@
       options_audio
    )
    (enter
-      {$this iterate UIList $l {$l set conceal_scale 150}
-      {$l conceal}
-      {$l set conceal_scale 5}
-      {$l set_data (os_blnk)}
-      {$l refresh}}
+      
       {set $dx_pos_interval_list (0.01 0.1 0.5 1 5 10 50 100)}
       {set $dx_pos_remapper_array_number 3}
       {set $dx_pos_current_interval {elem $dx_pos_interval_list $dx_pos_remapper_array_number}} ;1 unit

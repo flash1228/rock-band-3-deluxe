@@ -18,11 +18,7 @@
       options_extras
    )
    (enter
-      {$this iterate UIList $l {$l set conceal_scale 150}
-      {$l conceal}
-      {$l set conceal_scale 5}
-      {$l set_data (os_blnk)}
-      {$l refresh}}
+      
       ;setup/reset the list tracking info
       {set $dx_list_item_selected FALSE}
       {set $dx_list_pos 0}
@@ -185,11 +181,9 @@
       options_audio
    )
    (enter
-      {$this iterate UIList $l {$l set conceal_scale 150}
-      {$l conceal}
-      {$l set conceal_scale 5}
-      {$l set_data (os_blnk)}
-      {$l refresh}}
+      
+      {modifier_scroll.sbd set_showing TRUE}
+      {modifier_scroll.sbd set scrollbar_list options_audio.lst}
       {if {! {session is_in_game}}
          {$this show_message}
          {$this setup_message_text dx_track_speed_desc FALSE}
@@ -521,6 +515,8 @@
    )
    (on_cancel
       DX_OS_CLOSE_MSG
+      {modifier_scroll.sbd set_showing FALSE}
+      {modifier_scroll.sbd set scrollbar_list modifiers.lst}
       {if_else $dx_track_speed_from_modifiers
          {do
             {$this show_modifiers}
@@ -552,11 +548,7 @@
       options_end_game
    )
    (enter
-      {$this iterate UIList $l {$l set conceal_scale 150}
-      {$l conceal}
-      {$l set conceal_scale 5}
-      {$l set_data (os_blnk)}
-      {$l refresh}}
+      
       {set $dx_list_item_selected FALSE}
       {set $dx_list_pos 0}
       {set $current_list options_end_game.lst}
