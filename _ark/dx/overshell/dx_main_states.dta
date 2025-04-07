@@ -279,7 +279,9 @@
    {do
       ($options
          {array 0})
+      #ifndef HX_WII
       {push_back $options os_fcaudio}
+      #endif
       {push_back $options {if_else $dx_song_select_noise os_audio_ambience_on os_audio_ambience_off}}
       {push_back $options {if_else $dx_scroll_sound os_scroll_sound_on os_scroll_sound_off}}
       {push_back $options {if_else $dx_whammy_fx os_whammy_fx_on os_whammy_fx_off}}
@@ -457,6 +459,11 @@
 (dxState_AngleMenu
    (view options_extras)
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {set $dx_slider TRUE}
       {set $dx_slider_id dx_trackangle}
       {instruments.sld set_num_steps 16} ;number of steps for track angle slider
@@ -527,6 +534,11 @@
 (dxState_TrackAngleSliderMsg
    (view confirm_action)
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {handle
          ($this set_confirm_message
             {switch $dx_multiangle 
@@ -558,6 +570,11 @@
 (dxState_CalibrationInGame
    (view options_audio)
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       DX_CALIBRATION_INGAME_MENU
       {$this iterate Mesh $m {$m set_showing FALSE}}
       {$this iterate UIList $l
@@ -609,6 +626,11 @@
 (dxState_CalibrationInGameSetting
    (view options_audio)
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       DX_CALIBRATION_INGAME_MENU_SETTING
       {$this iterate Mesh $m {$m set_showing FALSE}}
       {$this iterate UIList $l

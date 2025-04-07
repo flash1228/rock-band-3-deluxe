@@ -18,6 +18,11 @@
       options_extras
    )
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       ;setup/reset the list tracking info
       {set $dx_list_item_selected FALSE}
       {set $dx_list_pos 0}
@@ -180,6 +185,11 @@
       options_audio
    )
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {if {! {session is_in_game}}
          {$this show_message}
          {$this setup_message_text dx_track_speed_desc FALSE}
@@ -542,6 +552,11 @@
       options_end_game
    )
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {set $dx_list_item_selected FALSE}
       {set $dx_list_pos 0}
       {set $current_list options_end_game.lst}

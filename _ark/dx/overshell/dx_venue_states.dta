@@ -27,15 +27,11 @@
       {switch {$component selected_sym}
          (os_menu_backgrounds
             {dx_state_pos_tracker}
-            DX_VENUE_OPTIONS_DATA
-            {set $previous_state dxState_MenuBG}
-            {set $dx_tracked_changed FALSE}
+            DX_OS_CLOSE_MSG
             {$this show_state dxState_MenuBG})
          (os_venue
             {dx_state_pos_tracker}
-            DX_VENUE_OPTIONS_DATA
-            {set $previous_state dxState_SelectVenue}
-            {set $dx_tracked_changed FALSE}
+            DX_OS_CLOSE_MSG
             {$this show_state dxState_SelectVenue})
          ((os_venue_intro_on os_venue_intro_off)
             {set $dx_venue_intro {! $dx_venue_intro}}

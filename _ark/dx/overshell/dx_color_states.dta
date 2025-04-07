@@ -1291,6 +1291,11 @@
 (dxState_rgbcolormenu
    (view online_options)
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {set $dx_track_to_reset_choose_character_texture TRUE}
       {set $dx_slider TRUE}
       {set $dx_slider_id dx_rgbcolormenu}
@@ -1417,6 +1422,11 @@
 (dxState_colorrSliderMsg
    (view confirm_action)
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {handle
          ($this set_confirm_message {sprint {localize color_msg} " " $dx_set_ui_rgb_r  ", " $dx_set_ui_rgb_g ", " $dx_set_ui_rgb_b})})
    (SELECT_MSG
@@ -1426,6 +1436,11 @@
 (dxState_colorgSliderMsg
    (view confirm_action)
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {handle
          ($this set_confirm_message {sprint {localize color_msg} " " $dx_set_ui_rgb_r  ", " $dx_set_ui_rgb_g ", " $dx_set_ui_rgb_b})})
    (SELECT_MSG
@@ -1435,6 +1450,11 @@
 (dxState_colorbSliderMsg
    (view confirm_action)
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {choose_character.tex iterate_refs $ref {$ref set color {pack_color $dx_set_ui_rgb_r $dx_set_ui_rgb_g $dx_set_ui_rgb_b}}}
       {handle
          ($this set_confirm_message {sprint {localize color_msg} " " $dx_set_ui_rgb_r  ", " $dx_set_ui_rgb_g ", " $dx_set_ui_rgb_b})})

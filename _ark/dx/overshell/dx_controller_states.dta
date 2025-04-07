@@ -23,6 +23,11 @@
 (dxState_ControllerMenu
    (view options_extras)
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       DX_SET_CONTROLLER_MENU
       {dx_overshell_msg {sprint {options_extras.lst selected_sym} "_desc"}}
    )
@@ -116,6 +121,11 @@
 (dxState_InstrumentSwapGuitar
    (view options)
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {do
          ($options
             {array 0})
@@ -154,6 +164,11 @@
 (dxState_InstrumentSwapKeys
    (view options)
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {do
          ($options
             {array 0})
@@ -192,6 +207,11 @@
 (dxState_InstrumentSwapVocals
    (view options)
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {do
          ($options
             {array 0})
@@ -287,6 +307,11 @@
       options_audio
    )
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {set $dx_button_list (kPad_L2 kPad_R2 kPad_L1 kPad_R1 kPad_Tri kPad_Circle kPad_X kPad_Square kPad_Select kPad_L3 kPad_R3 kPad_Start kPad_DUp kPad_DRight kPad_DDown kPad_DLeft)}
       {set $dx_list_item_selected FALSE}
       {set $dx_list_pos 0}

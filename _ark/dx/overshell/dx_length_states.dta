@@ -47,6 +47,11 @@
       options_audio
    )
    (enter
+      {$this iterate UIList $l {$l set conceal_scale 150}
+      {$l conceal}
+      {$l set conceal_scale 5}
+      {$l set_data (os_blnk)}
+      {$l refresh}}
       {if {! {session is_in_game}}
          {$this show_message}
          {$this setup_message_text dx_track_lengths_desc FALSE}
