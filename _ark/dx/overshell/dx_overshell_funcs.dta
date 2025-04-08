@@ -136,6 +136,16 @@
                   {if {== $message FALSE}
                      DX_OS_CLOSE_MSG
                   }
+                  {if_else {> {size $options} 6}
+                     {do
+                        {modifier_scroll.sbd set_showing TRUE}
+                        {modifier_scroll.sbd set scrollbar_list $current_list}
+                     }
+                     {do
+                        {modifier_scroll.sbd set_showing FALSE}
+                        {modifier_scroll.sbd set scrollbar_list modifiers.lst}
+                     }
+                  }
                }
             }
    ;      }
@@ -313,7 +323,7 @@
             {foreach $entry $options
                {set $num_of_slots {+ $num_of_slots 1}}
             }
-            {if_else {>= $num_of_slots 9}
+            {if_else {>= $num_of_slots 12}
                {set $options_circular TRUE}
                {set $options_circular FALSE}
             }
