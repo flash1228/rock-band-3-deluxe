@@ -918,8 +918,8 @@ DX_CURRENT_SONG_CLEAR
 ;{if $dx_ps3hw
 ;   {set $dx_author_finder_is_enabled FALSE}
 ;}
-;{set $dx_forced_outro_vignette ()}
-;{resize $dx_forced_outro_vignette 0}
+{set $dx_forced_outro_vignette ()}
+{resize $dx_forced_outro_vignette 0}
 
 ;{if $dx_forced_main_menu_bg
 ;   {set_elem {find $syscfg vignettes backdrops sv3} 1 $dx_forced_main_menu_bg}

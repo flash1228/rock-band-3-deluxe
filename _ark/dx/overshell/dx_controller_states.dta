@@ -46,8 +46,7 @@
          (os_instreset
             {if {! $dx_prompt_save}
                {dx_settings_dta_writer}}
-            DX_OS_CLOSE_MSG
-            DX_RESET_INST_TYPES
+                        DX_RESET_INST_TYPES
             ;{$this show_state dxState_Advanced} ;force closes the menu if a different player resets the controllers
             {overshell update_all}
          )
@@ -61,8 +60,7 @@
       DX_SET_CONTROLLER_MENU
    )
    (exit 
-      DX_OS_CLOSE_MSG
-   )
+         )
    (on_cancel
       {$this show_state dxState_Advanced}
    )
@@ -84,7 +82,7 @@
       {overshell_view_chooser}
    )
    (enter
-      DX_OS_OPEN_MSG
+      ;DX_OS_OPEN_MSG
       {set $dx_menu_message os_pad_mapping_select_desc}
       DX_MENU_DESC
    )
@@ -106,8 +104,7 @@
       DX_REMAP_PAD
    )
    (exit 
-      DX_OS_CLOSE_MSG
-      {dx_state_pos_tracker}
+            {dx_state_pos_tracker}
    )
    (on_cancel
       {$this show_state dxState_ControllerMenu}
@@ -143,11 +140,9 @@
          {dx_settings_dta_writer}}
       DX_SWAP_INSTRUMENT_TYPE_GUITAR
       {dx_log_writer info {sprint "Guitar instrument type has been changed to: " {find $syscfg joypad instrument_mapping ro_guitar}}}
-      DX_OS_CLOSE_MSG
-   )
+         )
    (exit 
-      DX_OS_CLOSE_MSG
-   )
+         )
    (on_cancel
       {$this show_state dxState_ControllerMenu}
    )
@@ -182,11 +177,9 @@
          {dx_settings_dta_writer}}
       DX_SWAP_INSTRUMENT_TYPE_KEYS
       {dx_log_writer info {sprint "Keys instrument type has been changed to: " {find $syscfg joypad instrument_mapping hx_midi_keys_xbox}}}
-      DX_OS_CLOSE_MSG
-   )
+         )
    (exit 
-      DX_OS_CLOSE_MSG
-   )
+         )
    (on_cancel
       {$this show_state dxState_ControllerMenu}
    )
@@ -221,11 +214,9 @@
          {dx_settings_dta_writer}}
       DX_SWAP_INSTRUMENT_TYPE_VOCALS
       {dx_log_writer info {sprint "Vocals instrument type has been changed to: " {find $syscfg joypad instrument_mapping analog}}}
-      DX_OS_CLOSE_MSG
-   )
+         )
    (exit 
-      DX_OS_CLOSE_MSG
-   )
+         )
    (on_cancel
       {$this show_state dxState_ControllerMenu}
    )

@@ -137,26 +137,6 @@
 
 ;modifier warnings
 
-(dxState_AutoPlayWarn
-   (view confirm_action)
-   (enter
-      {handle
-         ($this set_confirm_actions autoplay_warning (overshell_continue overshell_cancel))})
-   (SELECT_MSG
-      {switch {$component selected_sym}
-         (overshell_continue
-            {modifier_mgr toggle_modifier_enabled mod_auto_play}
-            {set $gotcha FALSE}
-            {saveload_mgr disable_autosave $user}
-            {dx_passive_messenger saving_disabled}
-            {$this leave_options}
-            {overshell update_all}
-            {ui goto_screen meta_loading_main_screen})
-         (overshell_cancel
-         {$this show_modifiers})})
-   (on_cancel
-      {$this show_modifiers}))
-
 (dxState_PostFXWarn
    (view confirm_action)
    (enter
@@ -500,97 +480,5 @@
          ($this set_confirm_message {sprintf {localize os_bgwarn}})})
    (SELECT_MSG
       {$this show_state dxState_ShadingMenu}
-   )
-)
-
-(dxState_GraphicsWarn
-   (view confirm_action)
-   (enter
-      {handle
-         ($this set_confirm_actions postfx_warning (overshell_continue overshell_cancel))})
-   (SELECT_MSG
-      {switch {$component selected_sym}
-         (overshell_continue
-            {overshell update_all}
-            {$this show_state dxState_Graphics}
-            {ui goto_screen meta_loading_main_screen}
-         )
-         (overshell_cancel
-            {$this show_state dxState_Graphics}
-         )
-      }
-   )
-   (on_cancel
-      {$this show_state dxState_Graphics}
-   )
-)
-(dxState_60FPSWarn
-   (view confirm_action)
-   (enter
-      DX_OS_CLOSE_MSG
-      {handle
-         ($this set_confirm_actions 60fps_warning (overshell_continue overshell_cancel))})
-   (SELECT_MSG
-      {switch {$component selected_sym}
-         (overshell_continue
-            {overshell update_all}
-            {set $dx_60fps {! $dx_60fps}}
-            {if $dx_60fps
-               {set $post_proc_needs_reset TRUE}
-            }
-            {dx_postfx_setter}
-            {if_else $dx_60fps
-               {do
-                  {set $dx_tracked_changed os_venuefps_60}
-                  {set $emulatefps 60}
-               }
-               {do
-                  {set $dx_tracked_changed os_venuefps_30}
-                  {set $emulatefps 30}
-               }
-            }
-            {set $in_state FALSE}
-            {$this show_state dxState_Graphics}
-            {ui goto_screen meta_loading_main_screen}
-         )
-         (overshell_cancel
-            {$this show_state dxState_Graphics}
-         )
-      }
-   )
-   (on_cancel
-      {$this show_state dxState_Graphics}
-   )
-)
-(dxState_HighLODWarn
-   (view confirm_action)
-   (enter
-      DX_OS_CLOSE_MSG
-      {handle
-         ($this set_confirm_actions highlod_warning (overshell_continue overshell_cancel))})
-   (SELECT_MSG
-      {switch {$component selected_sym}
-         (overshell_continue
-            {set $dx_force_lod {! $dx_force_lod}}
-            {if $dx_force_lod
-               {set $post_proc_needs_reset TRUE}
-            }
-            {dx_postfx_setter}
-            {overshell update_all}
-            {set $in_state FALSE}
-            {if_else $dx_force_lod
-               {set $dx_tracked_changed os_force_high_lod_on}
-               {set $dx_tracked_changed os_force_high_lod_off}
-            }
-            {$this show_state dxState_Graphics}
-            {ui goto_screen meta_loading_main_screen}
-         )
-         (overshell_cancel
-            {$this show_state dxState_Graphics}
-         )
-      }
-   )
-   (on_cancel
-      {$this show_state dxState_Graphics}
    )
 )

@@ -1,18 +1,3 @@
-#define DX_OS_OPEN_MSG
-(
-   ;opens player message panel on current player
-   {if {! {session is_in_game}}
-      {if {$this is_message_hiding} {$this show_message}}                  
-      {set $dx_no_message_sound TRUE}} ;prevents message sound from playing in menus
-)
-#define DX_OS_CLOSE_MSG
-(
-   ;closes player message panel on current player
-   {if {! {session is_in_game}}
-      {unless {$this is_message_hiding} {$this hide_message}}
-      {set $dx_menu_message ""}
-      {set $dx_no_message_sound FALSE}} ;re-allows message sound to play after closing
-)
 #define DX_MENU_SCROLL_DESC ;used to show a description for each item on a list
 (
    {if {! {session is_in_game}}
@@ -287,7 +272,9 @@
       }
       {unless {{$this get_session_mgr} is_online_enabled}
          {unless {modifier_mgr is_modifier_active mod_auto_play}
-            {$this show_state dxState_AutoPlayWarn}
+            {set $in_dx_settings TRUE}
+            {set $this_state dxState_AutoPlayWarn}
+            {$this show_state kState_EnterCredits}
          }
          {if {modifier_mgr is_modifier_active mod_auto_play}
             {do
