@@ -922,10 +922,10 @@ DX_CURRENT_SONG_CLEAR
 {resize $dx_forced_outro_vignette 0}
 
 {if $dx_forced_main_menu_bg
-   {set_elem {find $syscfg vignettes backdrops sv3} 1 $dx_forced_main_menu_bg}
+   {set_elem {find $syscfg vignettes backdrops sv3} 1 {eval $dx_forced_main_menu_bg}}
 }
 {if $dx_forced_song_select_bg
-   {set_elem {find $syscfg vignettes backdrops sv4} 1 $dx_forced_song_select_bg}
+   {set_elem {find $syscfg vignettes backdrops sv4} 1 {eval $dx_forced_song_select_bg}}
 }
 
 {switch $dx_fctype
