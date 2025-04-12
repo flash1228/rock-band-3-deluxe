@@ -105,7 +105,6 @@
 #define DX_DEFAULT_MAIN_BG
 (
    {do
-      {set $dx_forced_main_menu_bg FALSE}
       {set_elem {find $syscfg vignettes backdrops sv3} 1
          {quote
             {cond
@@ -133,6 +132,7 @@
          {if_else $dx_black_menu os_nobg_off os_nobg_on}
          {if_else $dx_black_menu 0 os_main_menu}
          {if_else $dx_black_menu 0 os_song_select}
+         {if_else $dx_black_menu 0 os_practice_screen}
          {if_else $dx_black_menu 0 os_load_song}
       )
       (select
@@ -141,22 +141,83 @@
             {unless {$this in_game} {ui goto_screen meta_loading_main_screen}}
             {if_else $dx_black_menu
                {do
+                  ;these are just copies of each none select from below, sorry
+                  {set $default_song_select_bg FALSE}
+                  {set $black_song_select_bg TRUE}
+                  {resize $dx_forced_song_select_bg 0}
+                  {set $dx_forced_song_select_bg ()}
+                  {set_elem {find $syscfg vignettes backdrops sv4} 1 {quote ("sv2_a")}}
+                  {if {== {ui current_screen} song_select_screen}
+                     {ui goto_screen meta_loading_continue_screen}
+                  }
+                  {set $default_main_menu_bg FALSE}
+                  {set $black_main_menu_bg TRUE}
+                  {resize $dx_forced_main_menu_bg 0}
+                  {set $dx_forced_main_menu_bg ()}
+                  {set_elem {find $syscfg vignettes backdrops sv3} 1 {quote ("sv4_a")}}
+                  {if {== {ui current_screen} {gamemode get main_screen}}
+                     {ui goto_screen meta_loading_main_screen}
+                  }
+                  {set $default_practice_bg FALSE}
+                  {set $black_practice_bg TRUE}
+                  {resize $dx_forced_practice_bg 0}
+                  {set $dx_forced_practice_bg ()}
+                  {set_elem {find $syscfg vignettes backdrops sv5} 1 {quote ("sv5_a")}}
+                  {if {== {ui current_screen} practice_game_screen}
+                     {ui goto_screen meta_loading_main_screen}
+                  }
+                  {set $default_transitions FALSE}
+                  {set $black_song_transition TRUE}
                   {resize $dx_forced_outro_vignette 0}
-                  {set $dx_forced_outro_vignette ("none")}
+                  {set $dx_forced_outro_vignette ()}
                }
                {do
+                  ;these are just copies of each default select from below, sorry
+                  {set $default_song_select_bg TRUE}
+                  {set $black_song_select_bg FALSE}
+                  {resize $dx_forced_song_select_bg 0}
+                  {set $dx_forced_song_select_bg ()}
+                  {set_elem {find $syscfg vignettes backdrops sv4} 1
+                     {quote
+                        {cond
+                           ({campaign has_reached_campaign_level campaignlevel_jet} ("sv4_c" "sv4_e"))
+                           ({campaign has_reached_campaign_level campaignlevel_bus} ("sv4_b"))
+                           ({campaign has_reached_campaign_level campaignlevel_van} ("sv4_a"))
+                           (TRUE ("sv4_d"))
+                        }
+                     }
+                  }
+                  {if {== {ui current_screen} song_select_screen}
+                     {ui goto_screen meta_loading_continue_screen}
+                  }
+                  {set $default_main_menu_bg TRUE}
+                  {set $black_main_menu_bg FALSE}
+                  {resize $dx_forced_main_menu_bg 0}
+                  {set $dx_forced_main_menu_bg ()}
                   DX_DEFAULT_MAIN_BG
+                  {if {== {ui current_screen} {gamemode get main_screen}}
+                     {ui goto_screen meta_loading_main_screen}
+                  }
+                  {set $default_practice_bg TRUE}
+                  {set $black_practice_bg FALSE}
+                  {resize $dx_forced_practice_bg 0}
+                  {set $dx_forced_practice_bg ()}
+                  {set_elem {find $syscfg vignettes backdrops sv5} 1 {quote ("sv5_a")}}
+                  {if {== {ui current_screen} practice_game_screen}
+                     {ui goto_screen meta_loading_main_screen}
+                  }
                   {resize $dx_forced_outro_vignette 0}
+                  {set $default_transitions TRUE}
+                  {set $black_song_transition FALSE}
                }
             }
          )
          (os_main_menu {dx_state dxState_MainMenuBG})
          (os_song_select {dx_state dxState_SongSelectMenuBG})
+         (os_practice_screen {dx_state dxState_PracticeBG})
          (os_load_song {dx_state dxState_SongLoadBG})
       )
-      (cancel
-         {dx_state dxState_VenueOptions}
-      )
+      (cancel {dx_state dxState_VenueOptions})
    )
 }
 {push_back $dx_settings_main
@@ -175,40 +236,16 @@
    ;sv8_a - splash screen
    (dxState_SongSelectMenuBG
       (view
-         default shuffle_all sv4_array sv7_array
+         default none shuffle_all sv4_array sv7_array
          sv2_a sv3_a sv3_b sv4_a sv4_b sv4_c
          sv4_d sv4_e sv5_a sv7_a sv7_b sv7_c
       )
       (select
-         (shuffle_all
-            {set $dx_forced_song_select_bg
-               (
-                  "sv2_a" "sv3_a" "sv3_b"
-                  "sv4_a" "sv4_b" "sv4_c"
-                  "sv4_d" "sv4_e" "sv5_a"
-                  "sv7_a" "sv7_b" "sv7_c"
-               )
-            }
-         )
-         (default {set $dx_forced_song_select_bg FALSE})
-         (sv4_array {set $dx_forced_song_select_bg ("sv4_a" "sv4_b" "sv4_c" "sv4_d" "sv4_e")})
-         (sv7_array {set $dx_forced_song_select_bg ("sv7_a" "sv7_b" "sv7_c" "sv3_a" "sv3_b")})
-         (sv2_a {set $dx_forced_song_select_bg ("sv2_a")})
-         (sv3_a {set $dx_forced_song_select_bg ("sv3_a")})
-         (sv3_b {set $dx_forced_song_select_bg ("sv3_b")})
-         (sv4_a {set $dx_forced_song_select_bg ("sv4_a")})
-         (sv4_b {set $dx_forced_song_select_bg ("sv4_b")})
-         (sv4_c {set $dx_forced_song_select_bg ("sv4_c")})
-         (sv4_d {set $dx_forced_song_select_bg ("sv4_d")})
-         (sv4_e {set $dx_forced_song_select_bg ("sv4_e")})
-         (sv5_a {set $dx_forced_song_select_bg ("sv5_a")})
-         (sv7_a {set $dx_forced_song_select_bg ("sv7_a")})
-         (sv7_b {set $dx_forced_song_select_bg ("sv7_b")})
-         (sv7_c {set $dx_forced_song_select_bg ("sv7_c")})
-      )
-      (cancel
-         {if_else $dx_forced_song_select_bg
-            {set_elem {find $syscfg vignettes backdrops sv4} 1 {eval $dx_forced_song_select_bg}}
+         (default
+            {set $default_song_select_bg TRUE}
+            {set $black_song_select_bg FALSE}
+            {resize $dx_forced_song_select_bg 0}
+            {set $dx_forced_song_select_bg ()}
             {set_elem {find $syscfg vignettes backdrops sv4} 1
                {quote
                   {cond
@@ -219,24 +256,156 @@
                   }
                }
             }
-         }
-         {if {== {ui current_screen} song_select_screen}
-            {ui goto_screen meta_loading_continue_screen}
-         }
-         {dx_state dxState_MenuBG}
+            {if {== {ui current_screen} song_select_screen}
+               {ui goto_screen meta_loading_continue_screen}
+            }
+         )
+         (none
+            {set $default_song_select_bg FALSE}
+            {set $black_song_select_bg TRUE}
+            {resize $dx_forced_song_select_bg 0}
+            {set $dx_forced_song_select_bg ()}
+            {set_elem {find $syscfg vignettes backdrops sv4} 1 {quote ("sv2_a")}}
+            {if {== {ui current_screen} song_select_screen}
+               {ui goto_screen meta_loading_continue_screen}
+            }
+         )
+         #define REFRESH_SV3
+         (
+            {set $default_song_select_bg FALSE}
+            {set $black_song_select_bg FALSE}
+            {set_elem {find $syscfg vignettes backdrops sv4} 1 {eval $dx_forced_song_select_bg}}
+            {if {== {ui current_screen} song_select_screen}
+               {ui goto_screen meta_loading_continue_screen}
+            }
+         )
+         (shuffle_all
+            {set $dx_forced_song_select_bg
+               (
+                  "sv2_a" "sv3_a" "sv3_b"
+                  "sv4_a" "sv4_b" "sv4_c"
+                  "sv4_d" "sv4_e" "sv5_a"
+                  "sv7_a" "sv7_b" "sv7_c"
+               )
+            }
+            REFRESH_SV3
+         )
+         (sv4_array
+            {set $dx_forced_song_select_bg ("sv4_a" "sv4_b" "sv4_c" "sv4_d" "sv4_e")}
+            REFRESH_SV3
+         )
+         (sv7_array
+            {set $dx_forced_song_select_bg ("sv7_a" "sv7_b" "sv7_c" "sv3_a" "sv3_b")}
+            REFRESH_SV3
+         )
+         (sv2_a
+            {set $dx_forced_song_select_bg ("sv2_a")}
+            REFRESH_SV3
+         )
+         (sv3_a
+            {set $dx_forced_song_select_bg ("sv3_a")}
+            REFRESH_SV3
+         )
+         (sv3_b
+            {set $dx_forced_song_select_bg ("sv3_b")}
+            REFRESH_SV3
+         )
+         (sv4_a
+            {set $dx_forced_song_select_bg ("sv4_a")}
+            REFRESH_SV3
+         )
+         (sv4_b
+            {set $dx_forced_song_select_bg ("sv4_b")}
+            REFRESH_SV3
+         )
+         (sv4_c
+            {set $dx_forced_song_select_bg ("sv4_c")}
+            REFRESH_SV3
+         )
+         (sv4_d
+            {set $dx_forced_song_select_bg ("sv4_d")}
+            REFRESH_SV3
+         )
+         (sv4_e
+            {set $dx_forced_song_select_bg ("sv4_e")}
+            REFRESH_SV3
+         )
+         (sv5_a
+            {set $dx_forced_song_select_bg ("sv5_a")}
+            REFRESH_SV3
+         )
+         (sv7_a
+            {set $dx_forced_song_select_bg ("sv7_a")}
+            REFRESH_SV3
+         )
+         (sv7_b
+            {set $dx_forced_song_select_bg ("sv7_b")}
+            REFRESH_SV3
+         )
+         (sv7_c
+            {set $dx_forced_song_select_bg ("sv7_c")}
+            REFRESH_SV3
+         )
       )
+      (message
+         {if_else $default_song_select_bg
+            {sprintf {localize current_song_select} {localize default}}
+            {if_else $black_song_select_bg
+               {sprintf {localize current_song_select} {localize none}}
+               {if_else {> {size $dx_forced_song_select_bg} 5}
+                  {sprintf {localize current_song_select} {localize shuffle_all}}
+                  {if_else {&& {> {size $dx_forced_song_select_bg} 1} {== {elem $dx_forced_song_select_bg 0} sv4_a}}
+                     {sprintf {localize current_song_select} {localize sv4_array}}
+                     {if_else {&& {> {size $dx_forced_song_select_bg} 1} {== {elem $dx_forced_song_select_bg 0} sv7_a}}
+                        {sprintf {localize current_song_select} {localize sv7_array}}
+                        {sprintf {localize current_song_select} {localize {elem $dx_forced_song_select_bg 0}}}
+                     }
+                  }
+               }
+            }            
+         }
+      )
+      (cancel {dx_state dxState_MenuBG})
    )
 }
 {push_back $dx_settings_main
    (dxState_MainMenuBG
       (view
-         default shuffle_all sv4_array sv7_array
+         default none shuffle_all sv4_array sv7_array
          sv2_a sv3_a sv3_b sv4_a sv4_b sv4_c
          sv4_d sv4_e sv5_a sv7_a sv7_b sv7_c
          sv8_a sv8_a_dx
       )
       (select
-         (default {set $dx_forced_main_menu_bg FALSE})
+         (default
+            {set $default_main_menu_bg TRUE}
+            {set $black_main_menu_bg FALSE}
+            {resize $dx_forced_main_menu_bg 0}
+            {set $dx_forced_main_menu_bg ()}
+            DX_DEFAULT_MAIN_BG
+            {if {== {ui current_screen} {gamemode get main_screen}}
+               {ui goto_screen meta_loading_main_screen}
+            }
+         )
+         (none
+            {set $default_main_menu_bg FALSE}
+            {set $black_main_menu_bg TRUE}
+            {resize $dx_forced_main_menu_bg 0}
+            {set $dx_forced_main_menu_bg ()}
+            {set_elem {find $syscfg vignettes backdrops sv3} 1 {quote ("sv4_a")}}
+            {if {== {ui current_screen} {gamemode get main_screen}}
+               {ui goto_screen meta_loading_main_screen}
+            }
+         )
+         #define REFRESH_SV4
+         (
+            {set $default_main_menu_bg FALSE}
+            {set $black_main_menu_bg FALSE}
+            {set_elem {find $syscfg vignettes backdrops sv3} 1 {eval $dx_forced_main_menu_bg}}
+            {if {== {ui current_screen} {gamemode get main_screen}}
+               {ui goto_screen meta_loading_main_screen}
+            }
+         )
          (shuffle_all
             {set $dx_forced_main_menu_bg
                (
@@ -245,42 +414,224 @@
                   "sv5_a" "sv7_a" "sv7_b" "sv7_c"
                )
             }
+            REFRESH_SV4
          )
-         (sv4_array {set $dx_forced_main_menu_bg ("sv4_a" "sv4_b" "sv4_c" "sv4_d" "sv4_e")})
-         (sv7_array {set $dx_forced_main_menu_bg ("sv7_a" "sv7_b" "sv7_c" "sv3_a" "sv3_b")})
-         (sv2_a {set $dx_forced_main_menu_bg ("sv2_a")})
-         (sv3_a {set $dx_forced_main_menu_bg ("sv3_a")})
-         (sv3_b {set $dx_forced_main_menu_bg ("sv3_b")})
-         (sv4_a {set $dx_forced_main_menu_bg ("sv4_a")})
-         (sv4_b {set $dx_forced_main_menu_bg ("sv4_b")})
-         (sv4_c {set $dx_forced_main_menu_bg ("sv4_c")})
-         (sv4_d {set $dx_forced_main_menu_bg ("sv4_d")})
-         (sv4_e {set $dx_forced_main_menu_bg ("sv4_e")})
-         (sv5_a {set $dx_forced_main_menu_bg ("sv5_a")})
-         (sv7_a {set $dx_forced_main_menu_bg ("sv7_a")})
-         (sv7_b {set $dx_forced_main_menu_bg ("sv7_b")})
-         (sv7_c {set $dx_forced_main_menu_bg ("sv7_c")})
+         (sv4_array
+            {set $dx_forced_main_menu_bg ("sv4_a" "sv4_b" "sv4_c" "sv4_d" "sv4_e")}
+            REFRESH_SV4
+         )
+         (sv7_array
+            {set $dx_forced_main_menu_bg ("sv7_a" "sv7_b" "sv7_c" "sv3_a" "sv3_b")}
+            REFRESH_SV4
+         )
+         (sv2_a
+            {set $dx_forced_main_menu_bg ("sv2_a")}
+            REFRESH_SV4
+         )
+         (sv3_a
+            {set $dx_forced_main_menu_bg ("sv3_a")}
+            REFRESH_SV4
+         )
+         (sv3_b
+            {set $dx_forced_main_menu_bg ("sv3_b")}
+            REFRESH_SV4
+         )
+         (sv4_a
+            {set $dx_forced_main_menu_bg ("sv4_a")}
+            REFRESH_SV4
+         )
+         (sv4_b
+            {set $dx_forced_main_menu_bg ("sv4_b")}
+            REFRESH_SV4
+         )
+         (sv4_c
+            {set $dx_forced_main_menu_bg ("sv4_c")}
+            REFRESH_SV4
+         )
+         (sv4_d
+            {set $dx_forced_main_menu_bg ("sv4_d")}
+            REFRESH_SV4
+         )
+         (sv4_e
+            {set $dx_forced_main_menu_bg ("sv4_e")}
+            REFRESH_SV4
+         )
+         (sv5_a
+            {set $dx_forced_main_menu_bg ("sv5_a")}
+            REFRESH_SV4
+         )
+         (sv7_a
+            {set $dx_forced_main_menu_bg ("sv7_a")}
+            REFRESH_SV4
+         )
+         (sv7_b
+            {set $dx_forced_main_menu_bg ("sv7_b")}
+            REFRESH_SV4
+         )
+         (sv7_c
+            {set $dx_forced_main_menu_bg ("sv7_c")}
+            REFRESH_SV4
+         )
          (sv8_a
             {set $dx_sv8_dx_vers FALSE}
             {set $dx_forced_main_menu_bg ("sv8_a")}
+            REFRESH_SV4
          )
          (sv8_a_dx
             {set $dx_sv8_dx_vers TRUE}
             {set $dx_forced_main_menu_bg ("sv8_a")}
+            REFRESH_SV4
          )
       )
-      (cancel
-         {dx_state dxState_MenuBG}
-         {if_else {&& $dx_sv8_dx_vers {== $dx_forced_main_menu_bg ("sv8_a")}}
-            {set $dx_sv8_dx_vers TRUE}
-            {set $dx_sv8_dx_vers FALSE}
+      (message
+         {if_else $default_main_menu_bg
+            {sprintf {localize current_main_menu} {localize default}}
+            {if_else $black_main_menu_bg
+               {sprintf {localize current_main_menu} {localize none}}
+               {if_else {> {size $dx_forced_main_menu_bg} 5}
+                  {sprintf {localize current_main_menu} {localize shuffle_all}}
+                  {if_else {&& {> {size $dx_forced_main_menu_bg} 1} {== {elem $dx_forced_main_menu_bg 0} sv4_a}}
+                     {sprintf {localize current_main_menu} {localize sv4_array}}
+                     {if_else {&& {> {size $dx_forced_main_menu_bg} 1} {== {elem $dx_forced_main_menu_bg 0} sv7_a}}
+                        {sprintf {localize current_main_menu} {localize sv7_array}}
+                        {sprintf {localize current_main_menu} {localize {elem $dx_forced_main_menu_bg 0}}}
+                     }
+                  }
+               }
+            }            
          }
-         {if_else $dx_forced_main_menu_bg
-            {set_elem {find $syscfg vignettes backdrops sv3} 1 {eval $dx_forced_main_menu_bg}}
-            DX_DEFAULT_MAIN_BG
-         }
-         {unless {$this in_game} {ui goto_screen meta_loading_main_screen}}
       )
+      (cancel {dx_state dxState_MenuBG})
+   )
+}
+{push_back $dx_settings_main
+   (dxState_PracticeBG
+      (view
+         default none shuffle_all sv4_array sv7_array
+         sv2_a sv3_a sv3_b sv4_a sv4_b sv4_c
+         sv4_d sv4_e sv5_a sv7_a sv7_b sv7_c
+         sv8_a sv8_a_dx
+      )
+      (select
+         (default
+            {set $default_practice_bg TRUE}
+            {set $black_practice_bg FALSE}
+            {resize $dx_forced_practice_bg 0}
+            {set $dx_forced_practice_bg ()}
+            {set_elem {find $syscfg vignettes backdrops sv5} 1 {quote ("sv5_a")}}
+            {if {== {ui current_screen} practice_game_screen}
+               {ui goto_screen meta_loading_main_screen}
+            }
+         )
+         (none
+            {set $default_practice_bg FALSE}
+            {set $black_practice_bg TRUE}
+            {resize $dx_forced_practice_bg 0}
+            {set $dx_forced_practice_bg ()}
+            {set_elem {find $syscfg vignettes backdrops sv5} 1 {quote ("sv5_a")}}
+            {if {== {ui current_screen} practice_game_screen}
+               {ui goto_screen meta_loading_main_screen}
+            }
+         )
+         #define REFRESH_SV5
+         (
+            {set $default_practice_bg FALSE}
+            {set $black_practice_bg FALSE}
+            {set_elem {find $syscfg vignettes backdrops sv5} 1 {eval $dx_forced_practice_bg}}
+            {if {== {ui current_screen} practice_game_screen}
+               {ui goto_screen meta_loading_main_screen}
+            }
+         )
+         (shuffle_all
+            {set $dx_forced_practice_bg
+               (
+                  "sv2_a" "sv3_a" "sv3_b" "sv4_a"
+                  "sv4_b" "sv4_c" "sv4_d" "sv4_e"
+                  "sv5_a" "sv7_a" "sv7_b" "sv7_c"
+               )
+            }
+            REFRESH_SV5
+         )
+         (sv4_array
+            {set $dx_forced_practice_bg ("sv4_a" "sv4_b" "sv4_c" "sv4_d" "sv4_e")}
+            REFRESH_SV5
+         )
+         (sv7_array
+            {set $dx_forced_practice_bg ("sv7_a" "sv7_b" "sv7_c" "sv3_a" "sv3_b")}
+            REFRESH_SV5
+         )
+         (sv2_a
+            {set $dx_forced_practice_bg ("sv2_a")}
+            REFRESH_SV5
+         )
+         (sv3_a
+            {set $dx_forced_practice_bg ("sv3_a")}
+            REFRESH_SV5
+         )
+         (sv3_b
+            {set $dx_forced_practice_bg ("sv3_b")}
+            REFRESH_SV5
+         )
+         (sv4_a
+            {set $dx_forced_practice_bg ("sv4_a")}
+            REFRESH_SV5
+         )
+         (sv4_b
+            {set $dx_forced_practice_bg ("sv4_b")}
+            REFRESH_SV5
+         )
+         (sv4_c
+            {set $dx_forced_practice_bg ("sv4_c")}
+            REFRESH_SV5
+         )
+         (sv4_d
+            {set $dx_forced_practice_bg ("sv4_d")}
+            REFRESH_SV5
+         )
+         (sv4_e
+            {set $dx_forced_practice_bg ("sv4_e")}
+            REFRESH_SV5
+         )
+         (sv5_a
+            {set $dx_forced_practice_bg ("sv5_a")}
+            REFRESH_SV5
+         )
+         (sv7_a
+            {set $dx_forced_practice_bg ("sv7_a")}
+            REFRESH_SV5
+         )
+         (sv7_b
+            {set $dx_forced_practice_bg ("sv7_b")}
+            REFRESH_SV5
+         )
+         (sv7_c
+            {set $dx_forced_practice_bg ("sv7_c")}
+            REFRESH_SV5
+         )
+         (sv8_a
+            {set $dx_forced_practice_bg ("sv8_a")}
+            REFRESH_SV5
+         )
+      )
+      (message
+         {if_else $default_practice_bg
+            {sprintf {localize current_practice} {localize default}}
+            {if_else $black_practice_bg
+               {sprintf {localize current_practice} {localize none}}
+               {if_else {> {size $dx_forced_practice_bg} 5}
+                  {sprintf {localize current_practice} {localize shuffle_all}}
+                  {if_else {&& {> {size $dx_forced_practice_bg} 1} {== {elem $dx_forced_practice_bg 0} sv4_a}}
+                     {sprintf {localize current_practice} {localize sv4_array}}
+                     {if_else {&& {> {size $dx_forced_practice_bg} 1} {== {elem $dx_forced_practice_bg 0} sv7_a}}
+                        {sprintf {localize current_practice} {localize sv7_array}}
+                        {sprintf {localize current_practice} {localize {elem $dx_forced_practice_bg 0}}}
+                     }
+                  }
+               }
+            }            
+         }
+      )
+      (cancel {dx_state dxState_MenuBG})
    )
 }
 ;tv1_a - music to record
@@ -326,7 +677,6 @@
          (none
             {set $default_transitions FALSE}
             {set $black_song_transition TRUE}
-            {set $dx_black_menu FALSE}
             {resize $dx_forced_outro_vignette 0}
             {set $dx_forced_outro_vignette ()}
          )
@@ -420,6 +770,27 @@
             {set $default_transitions FALSE}
             {set $black_song_transition FALSE}
          )
+      )
+      (message
+         {if_else $default_transitions
+            {sprintf {localize current_song_transition} {localize default}}
+            {if_else $black_song_transition
+               {sprintf {localize current_song_transition} {localize none}}
+               {if_else {> {size $dx_forced_outro_vignette} 6}
+                  {sprintf {localize current_song_transition} {localize shuffle_all}}
+                  {if_else {&& {> {size $dx_forced_outro_vignette} 1} {== {elem $dx_forced_outro_vignette 0} tv3_a}}
+                     {sprintf {localize current_song_transition} {localize song_transitions}}
+                     {if_else {&& {> {size $dx_forced_outro_vignette} 1} {== {elem $dx_forced_outro_vignette 0} tv4_a}}
+                        {sprintf {localize current_song_transition} {localize career_transitions}}
+                        {if_else {&& {> {size $dx_forced_outro_vignette} 1} {== {elem $dx_forced_outro_vignette 0} tv1_a}}
+                           {sprintf {localize current_song_transition} {localize other_transitions}}
+                           {sprintf {localize current_song_transition} {localize {elem $dx_forced_main_menu_bg 0}}}
+                        }
+                     }
+                  }
+               }
+            }            
+         }
       )
       (cancel
          #ifdef HX_XBOX

@@ -3439,7 +3439,7 @@
       {if $in_dx_settings
          {if_else {find_exists $dx_settings_main $this_state message}
             {foreach $entry {find $dx_settings_main $this_state message}
-               {if $entry
+               {if {&& $entry {!= $entry message}}
                   {dx_open_msg {eval $entry}}
                }
             }
@@ -3484,7 +3484,7 @@
                   ($temp_state $this_state)
                   ;run all of the script for this button msg
                   {foreach $entry {find $dx_settings_main $this_state button $action}
-                     {if $entry
+                     {if {&& $entry {!= $entry button}}
                         {eval $entry}
                      }
                   }
@@ -3520,7 +3520,7 @@
             {search_replace $string "_on" "" $string}
             {search_replace $string "_off" "" $string}
             {foreach $entry {find $dx_settings_main $this_state select {symbol $string}}
-               {if $entry
+               {if {&& $entry {!= $entry select}}
                   {eval $entry}
                }
             }
@@ -3545,7 +3545,7 @@
    (on_cancel
       {if $in_dx_settings
          {foreach $entry {find $dx_settings_main $this_state cancel}
-            {if $entry
+            {if {&& $entry {!= $entry cancel}}
                {eval $entry}
             }
          }

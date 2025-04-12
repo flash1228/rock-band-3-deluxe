@@ -182,29 +182,31 @@
       }
       ;(enter) in overshell state needs a slight delay to not be overwritten by vanilla state setup
       {script_task kTaskUISeconds
-         (delay 0.1)
+         (delay 0.01)
          (script
             ;call the handle to shift to correct view for state
             {do
                ($trigger {sprint "view_" $dx_picked_view ".trg"})
                ($initial_focus $current_list)
                ($in_track_mode {$this in_game})
-               ;#ifdef HX_WII {view_default_wii.trg trigger} #endif
-               
-               ;{view_default.trg trigger}
-               {view_default.trg set_view_pos $this $in_track_mode}
-               {confirm_action.lst conceal}
-               {$prev_list conceal}
-               {confirm_action.grp set_showing FALSE}
-               {{sprint $prev_group ".grp"} set_showing FALSE}
-               {{sprint $dx_picked_view ".grp"} set_showing TRUE}
-               {$current_list reveal}
-               ;{$this conceal_all_lists {$trigger get hidden}}
-               ;{$trigger trigger}
-               {$trigger set_view_pos $this $in_track_mode}
-               {$this set_focus $initial_focus}
-               {if $in_track_mode
-                  {track_mode.trg trigger}
+               {if {!= $last_state $this_state}
+                  ;#ifdef HX_WII {view_default_wii.trg trigger} #endif
+                  
+                  ;{view_default.trg trigger}
+                  {view_default.trg set_view_pos $this $in_track_mode}
+                  {confirm_action.lst conceal}
+                  {$prev_list conceal}
+                  {confirm_action.grp set_showing FALSE}
+                  {{sprint $prev_group ".grp"} set_showing FALSE}
+                  {{sprint $dx_picked_view ".grp"} set_showing TRUE}
+                  {$current_list reveal}
+                  ;{$this conceal_all_lists {$trigger get hidden}}
+                  ;{$trigger trigger}
+                  {$trigger set_view_pos $this $in_track_mode}
+                  {$this set_focus $initial_focus}
+                  {if $in_track_mode
+                     {track_mode.trg trigger}
+                  }
                }
             }
             {if_else
