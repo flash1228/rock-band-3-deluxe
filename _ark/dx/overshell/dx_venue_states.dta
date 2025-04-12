@@ -43,6 +43,9 @@
          video_01 video_02 video_03 video_04
          video_05 video_06 video_07
       )
+      (message
+         {sprintf {localize current_venue} {localize $dx_venue}}
+      )
       (select
          (random {set $force FALSE} {set $dx_venue VENUES})
          (none {set $force TRUE} {set $dx_venue BLACK_VENUE})

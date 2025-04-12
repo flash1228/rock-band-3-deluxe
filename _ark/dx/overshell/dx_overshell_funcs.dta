@@ -234,6 +234,13 @@
                   }
                }
             }
+            {if {find_exists $dx_settings_main $this_state message}
+               {foreach $entry {find $dx_settings_main $this_state message}
+                  {if $entry
+                     {dx_open_msg {eval $entry}}
+                  }
+               }
+            }
             {do
                ($show {> {size $this_list_content} 8})
                ;clean up and attach the scroll bar to this list (or not)
