@@ -555,27 +555,29 @@
    outro_vignette_loader
    (chosen_vignette '')
    (enter
-      {set [chosen_vignette] ''}
-      {if {meta_performer is_set_complete}
-         {meta_performer upload_debug_stats}
-         {set [chosen_vignette]
-            {interstitial_mgr pick_interstitial_between_screens
-               meta_loading_outro
-               song_select_screen
+      {if {! $black_song_transition}
+         {set [chosen_vignette] ''}
+         {if {meta_performer is_set_complete}
+            {meta_performer upload_debug_stats}
+            {set [chosen_vignette]
+               {interstitial_mgr pick_interstitial_between_screens
+                  meta_loading_outro
+                  song_select_screen
+               }
             }
-         }
-         #ifndef _SHIP
-         {if {ui get_vignettes_showing}
-            {print "Loading outro vignette: " [chosen_vignette] "\n"}
+            #ifndef _SHIP
+            {if {ui get_vignettes_showing}
+               {print "Loading outro vignette: " [chosen_vignette] "\n"}
+               {if {!= [chosen_vignette] ''}
+                  {[chosen_vignette] load}
+               }
+            }
+            #else
             {if {!= [chosen_vignette] ''}
                {[chosen_vignette] load}
             }
+            #endif
          }
-         #else
-         {if {!= [chosen_vignette] ''}
-            {[chosen_vignette] load}
-         }
-         #endif
       }
    )
    (exit
