@@ -727,7 +727,8 @@ DX_CURRENT_SONG_CLEAR
 {set $dx_joypad_pad_remap_3 kPad_R2}
 {set $dx_joypad_pad_remap_4 kPad_X}
 {set $dx_joypad_pad_remap_5 kPad_Select}
-
+{set $default_transitions TRUE}
+{set $black_song_transition FALSE}
 ;mtv overlay position for event mode
 ;{if $dx_event_mode
 ;   {set $mtvpos_0 -85}
