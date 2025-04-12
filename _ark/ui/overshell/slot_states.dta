@@ -2027,10 +2027,12 @@
       }
    )
    (exit
-      {if {&& {!= {ui current_screen} song_select_screen} {! {session is_in_game}} {session_mgr is_local}}
-         {restore_choose_char_size_pos}
+      {if {! $in_dx_settings}
+         {if {&& {!= {ui current_screen} song_select_screen} {! {session is_in_game}} {session_mgr is_local}}
+            {restore_choose_char_size_pos}
+         }
+         {game_options.grp remove_object choose_character.mesh}
       }
-      {game_options.grp remove_object choose_character.mesh}
    )
    (on_cancel
       {if_else $dx_screensaver
@@ -3423,16 +3425,16 @@
 (kState_EnterCredits
    (view confirm_action)
    (enter
-      ;initial hook going into dx settings
-      {if $in_dx_settings
-         {dx_state $this_state}
-      }
       ;vanilla state stuff
       {if {! $in_dx_settings}
          {handle
             ($this set_confirm_actions overshell_enter_credits
                (overshell_confirm_yes overshell_confirm_no))
          }
+      }
+      ;initial hook going into dx settings
+      {if $in_dx_settings
+         {dx_state $this_state}
       }
    )
    (SCROLL_MSG
@@ -3512,24 +3514,6 @@
       }
    )
    (SELECT_MSG
-      {if $in_dx_settings
-         {do
-            ($string {$component selected_sym})
-            ($temp_state $this_state)
-            ;remove from strings for now BAD I KNOW
-            {search_replace $string "_on" "" $string}
-            {search_replace $string "_off" "" $string}
-            {foreach $entry {find $dx_settings_main $this_state select {symbol $string}}
-               {if {&& $entry {!= $entry select}}
-                  {eval $entry}
-               }
-            }
-            ;if we didnt switch states, refresh the current state
-            {if {== $temp_state $this_state}
-               {dx_state $this_state}
-            }
-         }
-      }
       ;vanilla state stuff
       {if {! $in_dx_settings}
          {switch {$component selected_sym}
@@ -3541,31 +3525,71 @@
             (overshell_confirm_no {$this show_options_extras})
          }
       }
-   )
-   (on_cancel
       {if $in_dx_settings
-         {foreach $entry {find $dx_settings_main $this_state cancel}
-            {if {&& $entry {!= $entry cancel}}
-               {eval $entry}
+         {do
+            ($string {$component selected_sym})
+            ($temp_state $this_state)
+            ;remove from strings for now BAD I KNOW
+            {search_replace $string "_on" "" $string}
+            {search_replace $string "_off" "" $string}
+            {if {find_exists $dx_settings_main $this_state select {symbol $string}}
+               {foreach $entry {find $dx_settings_main $this_state select {symbol $string}}
+                  {if {&& $entry {!= $entry select}}
+                     {eval $entry}
+                  }
+               }
+            }
+            ;if we didnt switch states, refresh the current state
+            {if {== $temp_state $this_state}
+               {dx_state $this_state}
             }
          }
-         {dx_close_msg}
       }
+   )
+   (on_cancel
       ;vanilla state stuff
       {if {! $in_dx_settings}
          {$this show_options_extras}
+      }
+      {if $in_dx_settings
+         {if {find_exists $dx_settings_main $this_state cancel}
+            {foreach $entry {find $dx_settings_main $this_state cancel}
+               {if {&& $entry {!= $entry cancel}}
+                  {eval $entry}
+               }
+            }
+         }
+         {dx_close_msg}
       }
    )
 )
 (kState_CreditsDenial
    (view confirm_action)
    (update_view
-      {handle
-         ($this set_confirm_message overshell_credits_denial_remote_players)})
+      {if {! $in_dx_settings}
+         {handle ($this set_confirm_message overshell_credits_denial_remote_players)}
+      }
+      {if $in_dx_settings
+         {$this show_state kState_EnterCredits}
+      }
+   )
    (SELECT_MSG
-      {$this show_options_extras})
+      {if {! $in_dx_settings}
+         {$this show_options_extras}
+      }
+      {if $in_dx_settings
+         {$this show_state kState_EnterCredits}
+      }
+   )
    (on_cancel
-      {$this show_options_extras}))
+      {if {! $in_dx_settings}
+         {$this show_options_extras}
+      }
+      {if $in_dx_settings
+         {$this show_state kState_EnterCredits}
+      }
+   )
+)
 (kState_CharCreatorDenialNoProfile
    (view confirm_action)
    (choose_char_flow TRUE)
