@@ -58,172 +58,27 @@
    }
 }
 {func
-   dx_state_setup
-   ($current_overshell_state $message)
-   {unless $in_state ;the view code trick runs several times, so we need to make sure to only run the function once in the view
-      {do
-         ($menu_message 0)
-         {set $in_state TRUE} ;gate it off REMEMBER, turn this to false when running this code in a reset handle
-         {overshell_list_creation $current_overshell_state $options}
-         {set $previous_state $current_state} ;don't rely on this this is only useful for a big switch state with many entry points, aka texture states
-         {set $current_state $current_overshell_state}
+   dx_state_pos_tracker
+   ($state $pos)
+   {do
+      ($pushed 0)
+      ($arr {array 0})
+      {if $pos
+         {search_replace $pos "_on" "" $pos}
+         {search_replace $pos "_off" "" $pos}
          {foreach $entry $dx_state_tracker
-            {if {== {elem $entry 0} $current_state}
-               {$current_list set_selected {elem $entry 1}}
-               {set $dx_tracked_changed FALSE}
-               {if $message
-                  {set $menu_message {sprint {elem $entry 1} "_desc"}}
-               }
+            {if {== {elem $entry 0} $state} ;first check if we have the state tracked already
+               {set $pushed TRUE}
+               {set_elem $entry 1 {eval $pos}} ;removed the previously tracked list position
             }
          }
-         {if $message
-            {if {! $menu_message}
-               {set $menu_message {sprint {elem $options 0} "_desc"}}
-            }
-            {dx_overshell_msg $menu_message}
-         }
-         {if_else {> {size $options} 6}
-            {do
-               {modifier_scroll.sbd set_showing TRUE}
-               {modifier_scroll.sbd set scrollbar_list $current_list}
-            }
-            {do
-               {modifier_scroll.sbd set_showing FALSE}
-               {modifier_scroll.sbd set scrollbar_list modifiers.lst}
-            }
+         {if {! $pushed}
+            {push_back $arr {eval $state}}
+            {push_back $arr {eval $pos}}
+            {push_back $dx_state_tracker $arr} ;push_back a new state into the array
          }
       }
    }
-}
-
-{func
-   dx_state_pos_tracker
-   ;{dx_log_writer insane {sprint "func: dx_state_pos_tracker"}}
-   ;{dx_log_writer insane
-   ;   {sprintf "Executed dx_state_pos_tracker - time: %.4fms"
-   ;      {time
-            {set $in_state FALSE}
-            {if_else $dx_tracked_changed
-               {set $current_state_pos $dx_tracked_changed} ;probe the item we will be switching too
-               {set $current_state_pos {$current_list selected_sym}} ;probe the current list position
-            }
-            ;{unless $dx_tracked_changed
-            ;   ;clean up the list for the state transition
-            ;   {switch $num_of_slots
-            ;      (1 {$current_list set_data (os_blnk)})
-            ;      (2 {$current_list set_data (os_blnk os_blnk)})
-            ;      (3 {$current_list set_data (os_blnk os_blnk os_blnk)})
-            ;      (4 {$current_list set_data (os_blnk os_blnk os_blnk os_blnk)})
-            ;      (5 {$current_list set_data (os_blnk os_blnk os_blnk os_blnk os_blnk)})
-            ;      (6 {$current_list set_data (os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk)})
-            ;      (7 {$current_list set_data (os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk)})
-            ;   }
-            ;}
-            ;this is stupid but it works
-            {foreach $entry $dx_state_tracker
-               {if {== {elem $entry 0} $current_state} ;first check if we have the state tracked already
-                  {remove_elem $entry {elem $entry 1}} ;removed the previously tracked list position
-                  {push_back $entry $current_state_pos} ;add in the new list position
-               }
-            }
-
-            {foreach $entry $dx_state_tracker
-               {if {!= {elem $entry 0} $current_state} ;check if the state isnt in the list
-                  {set $pushtime_guitar TRUE} ;get ready to push it
-               }
-            }
-            {foreach $entry $dx_state_tracker
-               {if {== {elem $entry 0} $current_state} ;check the list again, and if it is in the list
-                  {set $pushtime_guitar FALSE} ;dont push it
-               }
-            }
-            {if $pushtime_guitar ;if we need to push
-               {push_back $dx_state_tracker ($current_state $current_state_pos)} ;push_back a new state into the array
-            }
-
-            {foreach $entry $dx_state_tracker
-               {if {!= {elem $entry 0} $current_state} ;check if the state isnt in the list
-                  {set $pushtime_drum TRUE} ;get ready to push it
-               }
-            }
-            {foreach $entry $dx_state_tracker
-               {if {== {elem $entry 0} $current_state} ;check the list again, and if it is in the list
-                  {set $pushtime_drum FALSE} ;dont push it
-               }
-            }
-            {if $pushtime_drum ;if we need to push
-               {push_back $dx_state_tracker ($current_state $current_state_pos)} ;push_back a new state into the array
-            }
-            
-            {foreach $entry $dx_state_tracker
-               {if {!= {elem $entry 0} $current_state} ;check if the state isnt in the list
-                  {set $pushtime_bass TRUE} ;get ready to push it
-               }
-            }
-            {foreach $entry $dx_state_tracker
-               {if {== {elem $entry 0} $current_state} ;check the list again, and if it is in the list
-                  {set $pushtime_bass FALSE} ;dont push it
-               }
-            }
-            {if $pushtime_bass ;if we need to push
-               {push_back $dx_state_tracker ($current_state $current_state_pos)} ;push_back a new state into the array
-            }
-            
-            {foreach $entry $dx_state_tracker
-               {if {!= {elem $entry 0} $current_state} ;check if the state isnt in the list
-                  {set $pushtime_keys TRUE} ;get ready to push it
-               }
-            }
-            {foreach $entry $dx_state_tracker
-               {if {== {elem $entry 0} $current_state} ;check the list again, and if it is in the list
-                  {set $pushtime_keys FALSE} ;dont push it
-               }
-            }
-            {if $pushtime_keys ;if we need to push
-               {push_back $dx_state_tracker ($current_state $current_state_pos)} ;push_back a new state into the array
-            }
-            {set $dx_state_tracker {array $dx_state_tracker}} ;re read the array so the vars enumerate and the array becomes static
-            {$current_list set circular FALSE}
-            {set $in_state FALSE}
-                        ;{dx_log_writer insane {array $dx_state_tracker}}
-   ;      }
-   ;   }
-   ;}
-}
-{func
-   overshell_view_chooser
-   ;{dx_log_writer insane {sprint "func: overshell_view_chooser"}}
-   ;{dx_log_writer insane
-   ;   {sprintf "Executed overshell_view_chooser - time: %.4fms"
-   ;      {time
-            ;{unless $in_state
-            ;               ;}
-            {set $actually_show_checks FALSE}
-            {handle
-               ($this
-                  update_auto_vocals_enabled
-                  {modifier_mgr is_modifier_active mod_auto_vocals})}
-            {do
-               ($no_fail_enabled
-                  {modifier_mgr is_modifier_active mod_no_fail_band})
-               {handle
-                  ($this update_no_fail_enabled $no_fail_enabled)}}
-            {set $dx_picked_view
-               {switch $num_of_slots
-                  (1 options_end_game)
-                  (2 options_end_game)
-                  (3 options_extras)
-                  (4 gamercard_users)
-                  (5 options)
-                  (6 options_audio)
-                  (7 game_options)
-                  game_options
-               }
-            }
-            $dx_picked_view
-   ;      }
-   ;   }
-   ;}
 }
 {func same_list_reveal
    ($list $data $size)
@@ -256,11 +111,10 @@
       ($prev_list $current_list)
       ($prev_group $dx_picked_view)
       ($num 0)
-      ;get state or default to dx settings main
-      {if_else $state
-         {set $this_state $state}
-         {set $this_state dxState_DeluxeSettings}
+      {if $this_state
+         {dx_state_pos_tracker $this_state {$current_list selected_sym}}
       }
+      {set $this_state $state}
       ;get list items from state array
       {foreach $entry {find $dx_settings_main $this_state view}
          ;view gets included so don't add it to the list
@@ -368,17 +222,17 @@
             }
             {set $previous_num_slot $num}
             {set $last_state $this_state}
+            ;close the message if going to a confirm screen, open otherwise
+            {if_else {== $dx_picked_view confirm_action}
+               {dx_close_msg}
+               {dx_open_msg {sprint {$current_list selected_sym} "_desc"}}
+            }
             {if {find_exists $dx_settings_main $this_state enter}
                {foreach $entry {find $dx_settings_main $this_state enter}
                   {if $entry
                      {eval $entry}
                   }
                }
-            }
-            ;close the message if going to a confirm screen, open otherwise
-            {if_else {== $dx_picked_view confirm_action}
-               {dx_close_msg}
-               {dx_open_msg {sprint {$current_list selected_sym} "_desc"}}
             }
             {do
                ($show {> {size $this_list_content} 8})
@@ -390,6 +244,24 @@
                {if_else $show
                   {modifier_scroll.sbd set scrollbar_list $current_list}
                   {modifier_scroll.sbd set scrollbar_list modifiers.lst}
+               }
+            }
+            {if {! {find_exists $dx_state_tracker $this_state}}
+               {$current_list set_selected 0}
+            }
+            {if {find_exists $dx_state_tracker $this_state}
+               {do
+                  ($data 0)
+                  {foreach $entry $dx_state_tracker
+                     {if {== {elem $entry 0} $this_state}
+                        {set $data {elem $entry 1}}
+                     }
+                  }
+                  {foreach $entry $this_list_content
+                     {if {has_substr $entry $data}
+                        {$current_list set_selected $entry}
+                     }
+                  }
                }
             }
             {$current_list refresh}
