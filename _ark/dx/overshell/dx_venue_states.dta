@@ -315,34 +315,112 @@
                )
             }
          )
-         (default {resize $dx_forced_outro_vignette 0})
+         (default
+            {resize $dx_forced_outro_vignette 0}
+            {set $default_transitions TRUE}
+            {set $black_song_transition FALSE}
+         )
          (none
+            {set $default_transitions FALSE}
+            {set $black_song_transition TRUE}
             {set $dx_black_menu FALSE}
             {resize $dx_forced_outro_vignette 0}
-            {set $dx_forced_outro_vignette ("none")}
+            {set $dx_forced_outro_vignette ()}
          )
-         (song_transitions {set $dx_forced_outro_vignette ("tv3_a" "tv3_b" "tv3_c" "tv3_d" "tv3_e" "tv3_f")})
-         (career_transitions {set $dx_forced_outro_vignette ("tv4_a" "tv4_b" "tv4_c" "tv4_d" "tv4_e")})
-         (other_transitions {set $dx_forced_outro_vignette ("tv1_a" "tv5_a" "tv6_a" "tv11_a")})
-         (tv1_a {set $dx_forced_outro_vignette ("tv1_a")})
-         (tv3_a {set $dx_forced_outro_vignette ("tv3_a")})
-         (tv3_b {set $dx_forced_outro_vignette ("tv3_b")})
-         (tv3_c {set $dx_forced_outro_vignette ("tv3_c")})
-         (tv3_d {set $dx_forced_outro_vignette ("tv3_d")})
-         (tv3_e {set $dx_forced_outro_vignette ("tv3_e")})
-         (tv3_f {set $dx_forced_outro_vignette ("tv3_f")})
-         (tv4_a {set $dx_forced_outro_vignette ("tv4_a")})
-         (tv4_b {set $dx_forced_outro_vignette ("tv4_b")})
-         (tv4_c {set $dx_forced_outro_vignette ("tv4_c")})
-         (tv4_d {set $dx_forced_outro_vignette ("tv4_d")})
-         (tv4_e {set $dx_forced_outro_vignette ("tv4_e")})
-         (tv5_a {set $dx_forced_outro_vignette ("tv5_a")})
-         (tv6_a {set $dx_forced_outro_vignette ("tv6_a")})
-         (tv11_a {set $dx_forced_outro_vignette ("tv11_a")})
+         (song_transitions
+            {set $dx_forced_outro_vignette ("tv3_a" "tv3_b" "tv3_c" "tv3_d" "tv3_e" "tv3_f")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (career_transitions
+            {set $dx_forced_outro_vignette ("tv4_a" "tv4_b" "tv4_c" "tv4_d" "tv4_e")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (other_transitions
+            {set $dx_forced_outro_vignette ("tv1_a" "tv5_a" "tv6_a" "tv11_a")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv1_a
+            {set $dx_forced_outro_vignette ("tv1_a")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv3_a
+            {set $dx_forced_outro_vignette ("tv3_a")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv3_b
+            {set $dx_forced_outro_vignette ("tv3_b")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv3_c
+            {set $dx_forced_outro_vignette ("tv3_c")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv3_d
+            {set $dx_forced_outro_vignette ("tv3_d")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv3_e
+            {set $dx_forced_outro_vignette ("tv3_e")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv3_f
+            {set $dx_forced_outro_vignette ("tv3_f")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv4_a
+            {set $dx_forced_outro_vignette ("tv4_a")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv4_b
+            {set $dx_forced_outro_vignette ("tv4_b")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv4_c
+            {set $dx_forced_outro_vignette ("tv4_c")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv4_d
+            {set $dx_forced_outro_vignette ("tv4_d")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv4_e
+            {set $dx_forced_outro_vignette ("tv4_e")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv5_a
+            {set $dx_forced_outro_vignette ("tv5_a")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv6_a
+            {set $dx_forced_outro_vignette ("tv6_a")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
+         (tv11_a
+            {set $dx_forced_outro_vignette ("tv11_a")}
+            {set $default_transitions FALSE}
+            {set $black_song_transition FALSE}
+         )
       )
       (cancel
          #ifdef HX_XBOX
-         {if {== $dx_forced_outro_vignette ("none")}
+         {if $black_song_transition
             {set $dx_xbox_show_fallback FALSE}
          }
          #endif
