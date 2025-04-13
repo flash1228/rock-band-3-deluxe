@@ -330,6 +330,7 @@
 (os_debug "Debug Menu")
 (os_debug_desc "Do not touch anything in here unless you know what you're doing or you were told to")
 (os_debug_mode "Debug Mode: ON")
+(os_dumplyrics "Dump Lyrics Array")
 (os_dumproot "Dump Root Array")
 (os_dumproot2 "Dump Root Array 2")
 (os_dx_himem_off "Large Heap: OFF")
@@ -809,6 +810,10 @@
 (os_tweaks "Tweaks")
 (os_tweaks_desc "Various tweaks to elements in and around the game")
 (os_vertical "Vertical")
+(os_lyric_display_on "Lyric Display: ON")
+(os_lyric_display_on_desc "Lyrics are shown when there is no vocals player, similar to Clone Hero and YARG")
+(os_lyric_display_off "Lyric Display: OFF")
+(os_lyric_display_off_desc "Lyrics are hidden")
 (os_vis_disabled "Crowd Meter: DISABLED")
 (os_vis_disabled_desc "Hide and disable the crowd meter, enabling crowd sing-alongs on at all times")
 (os_vis_off "Crowd Meter: HIDDEN")
@@ -1762,9 +1767,9 @@
 (theme_save_warning "Would you like to save this track theme for future sessions?")
 (track_theme_overwrite_warning "Entered theme already exists.\nOverwrite?")
 
-
 ;ALWAYS KEEP THIS LAST SO IT LOADS ON TOP OF EVERYTHING ELSE
 #include dx_locale_sources.dta
 #include dx_locale_updates_assets.dta
 #include dx_locale_sections.dta
 #include dx_locale_tips.dta
+#include dx_locale_latin_1.dta
