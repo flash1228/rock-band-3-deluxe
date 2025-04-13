@@ -241,6 +241,7 @@
          os_none
          os_none
       )
+      (message {sprintf {localize current_fc} {localize $dx_fullcombo_sound}})
       #define FC_DO_ENTRY
       (
          {do
@@ -261,8 +262,9 @@
       (enter
          {do
             ($list_temp {array 0})
+            {push_back $list_temp "goul-nug_fc"}
             {push_back $list_temp os_none}
-            {foreach $entry {file_list "sfx/streams/fc/*.mogg"} {if {!= $entry ""} {push_back $list_temp $entry}}}
+            {foreach $entry {file_list "sfx/streams/fc/*.mogg"} {if {&& {!= $entry ""} {!= $entry "goul-nug_fc"}}  {push_back $list_temp $entry}}}
             {foreach $entry {file_list "sfx/streams/fc/*.mogg"}
                {if {!= $entry ""}
                   {do
@@ -278,12 +280,28 @@
                }
             }
             {$current_list set_data $list_temp}
-            {$current_list refresh}
             {modifiers.grp set_showing TRUE}
             {modifiers.lst set_showing FALSE}
             {modifiers.lbl set_showing FALSE}
             {modifier_scroll.sbd set_showing TRUE}
             {modifier_scroll.sbd set scrollbar_list $current_list}
+            ;stolen from dx_state func, manually set selected last picked sound
+            {if {find_exists $dx_state_tracker $this_state}
+               {do
+                  ($data 0)
+                  {foreach $entry $dx_state_tracker
+                     {if {== {elem $entry 0} $this_state}
+                        {set $data {elem $entry 1}}
+                     }
+                  }
+                  {foreach $entry $list_temp
+                     {if {has_substr $entry $data}
+                        {$current_list set_selected $entry}
+                     }
+                  }
+               }
+            }
+            {$current_list refresh}
          }
       )
       (select

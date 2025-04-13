@@ -226,25 +226,6 @@
             }
             {set $previous_num_slot $num}
             {set $last_state $this_state}
-            ;close the message if going to a confirm screen, open otherwise
-            {if_else {== $dx_picked_view confirm_action}
-               {dx_close_msg}
-               {dx_open_msg {sprint {$current_list selected_sym} "_desc"}}
-            }
-            {if {find_exists $dx_settings_main $this_state enter}
-               {foreach $entry {find $dx_settings_main $this_state enter}
-                  {if $entry
-                     {eval $entry}
-                  }
-               }
-            }
-            {if {find_exists $dx_settings_main $this_state message}
-               {foreach $entry {find $dx_settings_main $this_state message}
-                  {if $entry
-                     {dx_open_msg {eval $entry}}
-                  }
-               }
-            }
             {do
                ($show {> {size $this_list_content} 8})
                ;clean up and attach the scroll bar to this list (or not)
@@ -272,6 +253,25 @@
                      {if {has_substr $entry $data}
                         {$current_list set_selected $entry}
                      }
+                  }
+               }
+            }
+            ;close the message if going to a confirm screen, open otherwise
+            {if_else {== $dx_picked_view confirm_action}
+               {dx_close_msg}
+               {dx_open_msg {sprint {$current_list selected_sym} "_desc"}}
+            }
+            {if {find_exists $dx_settings_main $this_state enter}
+               {foreach $entry {find $dx_settings_main $this_state enter}
+                  {if $entry
+                     {eval $entry}
+                  }
+               }
+            }
+            {if {find_exists $dx_settings_main $this_state message}
+               {foreach $entry {find $dx_settings_main $this_state message}
+                  {if $entry
+                     {dx_open_msg {eval $entry}}
                   }
                }
             }
