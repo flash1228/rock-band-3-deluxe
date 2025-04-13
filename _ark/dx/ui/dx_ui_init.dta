@@ -15,6 +15,7 @@
 {set $dx_high_score_report TRUE}
 {set $highscore_tracker ()}
 {resize $highscore_tracker 0}
+{set $last_tracked_state dxState_enter}
 #ifdef _SHIP
 DX_LOG_CLEAR
 DX_JSON_CLEAR

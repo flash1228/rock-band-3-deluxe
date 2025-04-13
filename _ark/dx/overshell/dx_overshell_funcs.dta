@@ -93,7 +93,7 @@
       {$list set conceal_scale 150}
       {$list conceal}
       {script_task kTaskSeconds
-         (delay 0.075)
+         (delay 0.025)
          (script
             {$list reveal}
             {$list set conceal_scale 5}
@@ -108,7 +108,9 @@
    {do
       ($this_list_content {array 0})
       ($dx_picked_view choose_char)
-      ($prev_list $current_list)
+      ($prev_list {if_else $current_list $current_list chars.lst})
+      ($last_tracked_state {if_else {== $this_state dxState_DeluxeSettings} fake $this_state})
+      ($last_tracked_num {if_else $current_list {$current_list get display_num} 1})
       ($prev_group $dx_picked_view)
       ($num 0)
       {if $this_state
@@ -155,9 +157,6 @@
          }
       }
       {$current_list set display_num $num}
-      {$current_list set min_display $num}
-      {$current_list set max_display $num}
-      {$current_list set scroll_past_max_display FALSE}
       {$current_list set scroll_time 0}
       {if_else {== $current_list users.lst}
          {gamercard_users.lbl set_showing FALSE}
@@ -189,9 +188,8 @@
                ($trigger {sprint "view_" $dx_picked_view ".trg"})
                ($initial_focus $current_list)
                ($in_track_mode {$this in_game})
-               {if {!= $last_state $this_state}
+               {if {!= $last_tracked_state $state}
                   ;#ifdef HX_WII {view_default_wii.trg trigger} #endif
-                  
                   ;{view_default.trg trigger}
                   {view_default.trg set_view_pos $this $in_track_mode}
                   {$prev_list conceal}
@@ -213,70 +211,81 @@
             }
             {if_else
                {&& ;HACK re-reveal the list if we are currently in it
-                  {!= $last_state $this_state}
-                  {== $num $previous_num_slot}
+                  {!= $last_tracked_state $this_state}
+                  {== $num $last_tracked_num}
                }
                ;lmao
-               {same_list_reveal $current_list $this_list_content $num}
+               {do
+                  {same_list_reveal $current_list $this_list_content $num}
+                  {script_task kTaskSeconds
+                     (delay 0.025)
+                     (script
+                        {fire_lasers $this_list_content $dx_picked_view $this_state}
+                     )
+                  }
+               }
                ;generate the list (normal reveal)
                {if_else {> {size $this_list_content} 0}
-                  {$current_list set_data $this_list_content}
+                  {do
+                     {$current_list set_data $this_list_content}
+                     {fire_lasers $this_list_content $dx_picked_view $this_state}
+                  }
                   {$current_list set_data (no list data found)}
                }
             }
-            {set $previous_num_slot $num}
-            {set $last_state $this_state}
-            {do
-               ($show {> {size $this_list_content} 8})
-               ;clean up and attach the scroll bar to this list (or not)
-               {modifiers.grp set_showing $show}
-               {modifiers.lst set_showing {! $show}}
-               {modifiers.lbl set_showing {! $show}}
-               {modifier_scroll.sbd set_showing $show}
-               {if_else $show
-                  {modifier_scroll.sbd set scrollbar_list $current_list}
-                  {modifier_scroll.sbd set scrollbar_list modifiers.lst}
-               }
-            }
-            {if {! {find_exists $dx_state_tracker $this_state}}
-               {$current_list set_selected 0}
-            }
-            {if {find_exists $dx_state_tracker $this_state}
-               {do
-                  ($data 0)
-                  {foreach $entry $dx_state_tracker
-                     {if {== {elem $entry 0} $this_state}
-                        {set $data {elem $entry 1}}
-                     }
-                  }
-                  {foreach $entry $this_list_content
-                     {if {has_substr $entry $data}
-                        {$current_list set_selected $entry}
-                     }
-                  }
-               }
-            }
-            ;close the message if going to a confirm screen, open otherwise
-            {if_else {== $dx_picked_view confirm_action}
-               {dx_close_msg}
-               {dx_open_msg {sprint {$current_list selected_sym} "_desc"}}
-            }
-            {if {find_exists $dx_settings_main $this_state enter}
-               {foreach $entry {find $dx_settings_main $this_state enter}
-                  {if $entry
-                     {eval $entry}
-                  }
-               }
-            }
-            {if {find_exists $dx_settings_main $this_state message}
-               {foreach $entry {find $dx_settings_main $this_state message}
-                  {if $entry
-                     {dx_open_msg {eval $entry}}
-                  }
-               }
-            }
-            {$current_list refresh}
          )
+      }
+   }
+}
+{func fire_lasers
+   ($list $view $state)
+   {do
+      ($show {> {size $list} 8})
+      ;clean up and attach the scroll bar to this list (or not)
+      {modifiers.grp set_showing $show}
+      {modifiers.lst set_showing {! $show}}
+      {modifiers.lbl set_showing {! $show}}
+      {modifier_scroll.sbd set_showing $show}
+      {if_else $show
+         {modifier_scroll.sbd set scrollbar_list $current_list}
+         {modifier_scroll.sbd set scrollbar_list modifiers.lst}
+      }
+   }
+   {if {! {find_exists $dx_state_tracker $state}}
+      {$current_list set_selected 0}
+   }
+   {if {find_exists $dx_state_tracker $state}
+      {do
+         ($data 0)
+         {foreach $entry $dx_state_tracker
+            {if {== {elem $entry 0} $state}
+               {set $data {elem $entry 1}}
+            }
+         }
+         {foreach $entry $list
+            {if {has_substr $entry $data}
+               {$current_list set_selected $entry}
+            }
+         }
+      }
+   }
+   ;close the message if going to a confirm screen, open otherwise
+   {if_else {== $view confirm_action}
+      {dx_close_msg}
+      {dx_open_msg {sprint {$current_list selected_sym} "_desc"}}
+   }
+   {if {find_exists $dx_settings_main $state enter}
+      {foreach $entry {find $dx_settings_main $state enter}
+         {if $entry
+            {eval $entry}
+         }
+      }
+   }
+   {if {find_exists $dx_settings_main $state message}
+      {foreach $entry {find $dx_settings_main $state message}
+         {if $entry
+            {dx_open_msg {eval $entry}}
+         }
       }
    }
 }
