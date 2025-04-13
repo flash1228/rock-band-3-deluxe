@@ -46,7 +46,7 @@
                   {if $dx_mtv_line_song_title
                      {push_back $dx_current_song {sprint "Song: " $song_title}}
                   }
-                  {if_else {&& $dx_mtv_line_year $dx_year_on_one_mtv_line $artistvar $yearvar}
+                  {if_else {&& $dx_mtv_year $dx_year_on_one_mtv_line $artistvar $yearvar}
                      {push_back $dx_current_song {sprint "Artist: " $artistvar ", " $yearvar}}
                      {push_back $dx_current_song {sprint "Artist: " $artistvar}}
                   }
@@ -59,7 +59,7 @@
                   {if {&& $dx_mtv_line_sub_genre $subgenrevar}
                      {push_back $dx_current_song {sprint "Sub Genre: " {localize $subgenrevar}}}
                   }
-                  {if {&& $dx_mtv_line_year {! $dx_year_on_one_mtv_line} $yearvar}
+                  {if {&& $dx_mtv_year {! $dx_year_on_one_mtv_line} $yearvar}
                      {push_back $dx_current_song {sprint "Year: " $yearvar}}
                   }
                   {if {&& $dx_mtv_line_game_origin $sourcevar}
@@ -76,7 +76,7 @@
                   {if {&& $dx_mtv_line_song_title $song_title}
                      {push_back $dx_current_song {sprint "Song: " $song_title}}
                   }
-                  {if_else {&& $dx_mtv_line_year $dx_year_on_one_mtv_line $artistvar $yearvar}
+                  {if_else {&& $dx_mtv_year $dx_year_on_one_mtv_line $artistvar $yearvar}
                      {push_back $dx_current_song {sprint $artistvar ", " $yearvar}}
                      {push_back $dx_current_song $artistvar}
                   }
@@ -89,7 +89,7 @@
                   {if {&& $dx_mtv_line_sub_genre $subgenrevar}
                      {push_back $dx_current_song {localize $subgenrevar}}
                   }
-                  {if {&& $dx_mtv_line_year {! $dx_year_on_one_mtv_line} $yearvar}
+                  {if {&& $dx_mtv_year {! $dx_year_on_one_mtv_line} $yearvar}
                      {push_back $dx_current_song $yearvar}
                   }
                   {if {&& $dx_mtv_line_game_origin $sourcevar}
