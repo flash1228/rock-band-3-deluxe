@@ -882,7 +882,7 @@
             (overshell_dx_bot_settings
                {set $in_dx_settings TRUE}
                {set $this_state dxState_BotSettings}
-               {$this show_state kState_EnterCredits})
+               {$this show_state kState_OptionsExtras})
             #ifdef HX_WII
             (overshell_wiiprofile_options
                {do
@@ -1422,7 +1422,7 @@
          (overshell_rb3esettings
             {set $in_dx_settings TRUE}
             {set $this_state dxState_DeluxeSettings}
-            {$this show_state kState_EnterCredits})
+            {$this show_state kState_OptionsExtras})
          (overshell_modifiers
             {$this show_modifiers})})
    (on_cancel
@@ -1489,7 +1489,7 @@
                {do
                   {set $in_dx_settings TRUE}
                   {set $this_state dxState_CalibrationInGame}
-                  {$this show_state kState_EnterCredits} ; dx - enter custom in-game calibration tool when in-game and offline
+                  {$this show_state kState_OptionsExtras} ; dx - enter custom in-game calibration tool when in-game and offline
                }
                {$this show_enter_calibration} ; dx - vanilla behavior
             }
@@ -1939,91 +1939,196 @@
 (kState_OptionsExtras
    (view options_audio)
    (enter
-      DX_OPTIONS_SET_DATA
-      {if_else {$this in_game}
-         {options_audio.lst set_type overshell_menu_ingame}
-         {options_audio.lst set_type overshell_menu}
-       }
-      {if {&& {!= {ui current_screen} song_select_screen} {! {session is_in_game}} {session_mgr is_local}}
-         {set $dx_choose_char_scale_x 0.4}
-         {set $dx_choose_char_scale_y 0.4}
-         {game_options.grp add_object choose_character.mesh}
-         {store_choose_char_size_pos}
-         {choose_character.mesh set_local_pos_index 2 175}
-         {choose_character.mesh set_local_scale_index 0 $dx_choose_char_scale_x} ;X
-         {choose_character.mesh set_local_scale_index 2 $dx_choose_char_scale_y} ;Y
-         {choose_character.mat set diffuse_tex choose_character.tex}
-         {choose_character.tex set_bitmap "dx/custom_textures/_additional_textures/qr_code.png"}
+      ;vanilla state stuff
+      {if {! $in_dx_settings}
+         DX_OPTIONS_SET_DATA
+         {if_else {$this in_game}
+            {options_audio.lst set_type overshell_menu_ingame}
+            {options_audio.lst set_type overshell_menu}
+          }
+         {if {&& {!= {ui current_screen} song_select_screen} {! {session is_in_game}} {session_mgr is_local}}
+            {set $dx_choose_char_scale_x 0.4}
+            {set $dx_choose_char_scale_y 0.4}
+            {game_options.grp add_object choose_character.mesh}
+            {store_choose_char_size_pos}
+            {choose_character.mesh set_local_pos_index 2 175}
+            {choose_character.mesh set_local_scale_index 0 $dx_choose_char_scale_x} ;X
+            {choose_character.mesh set_local_scale_index 2 $dx_choose_char_scale_y} ;Y
+            {choose_character.mat set diffuse_tex choose_character.tex}
+            {choose_character.tex set_bitmap "dx/custom_textures/_additional_textures/qr_code.png"}
+         }
+      }
+      ;initial hook going into dx settings
+      {if $in_dx_settings
+         {dx_state $this_state}
       }
    )
    (SELECT_MSG
-      ;this is so fucking funny
-      {if {has_substr {$component selected_sym} "camera"}
-         {cycle_free_camera}
-         DX_OPTIONS_SET_DATA
-      }
-      {switch
-         {$component selected_sym}
-         (overshell_credits
-            {$this show_enter_credits})
-         (refresh_library
-            {if {! {session is_in_game}}
-               {content_mgr remove_content kDataUnhandled}
-               {content_mgr start_refresh}
-            }
-         )
-         (report_song_location
-            {if {&& {== {ui current_screen} song_select_screen} {== {{music_library get_highlighted_node} get_node_type} kNodeSong}}
-               {dx_passive_messenger_symbol {symbol {song_mgr song_file_path {{music_library get_highlighted_node} get_token} " "}}}
-            }
-         )
-         (overshell_linking_code
-            {if_else
-               {&&
-                  {$user can_save_data}
-                  {$user is_signed_in_online}
-                  #ifdef HX_WII
-                  {server is_connected}
-                  #endif}
-               {$this show_linking_code}
-               #ifdef HX_PS3
-               {do
+      {if {! $in_dx_settings}
+         ;this is so fucking funny
+         {if {has_substr {$component selected_sym} "camera"}
+            {cycle_free_camera}
+            DX_OPTIONS_SET_DATA
+         }
+         {switch
+            {$component selected_sym}
+            (overshell_credits
+               {$this show_enter_credits})
+            (refresh_library
+               {if {! {session is_in_game}}
+                  {content_mgr remove_content kDataUnhandled}
+                  {content_mgr start_refresh}
+               }
+            )
+            (report_song_location
+               {if {&& {== {ui current_screen} song_select_screen} {== {{music_library get_highlighted_node} get_node_type} kNodeSong}}
+                  {dx_passive_messenger_symbol {symbol {song_mgr song_file_path {{music_library get_highlighted_node} get_token} " "}}}
+               }
+            )
+            (overshell_linking_code
+               {if_else
+                  {&&
+                     {$user can_save_data}
+                     {$user is_signed_in_online}
+                     #ifdef HX_WII
+                     {server is_connected}
+                     #endif}
+                  {$this show_linking_code}
+                  #ifdef HX_PS3
+                  {do
+                     {$this show_linking_code_error}
+                     {platform_mgr run_net_start_utility}}
+                  #else
                   {$this show_linking_code_error}
-                  {platform_mgr run_net_start_utility}}
+                  #endif})
+            (overshell_audition
+               #ifdef HX_XBOX
+               {cond
+                  ({!
+                        {platform_mgr has_hard_drive}}
+                     {$this show_state kState_AuditionNoHardDriveConfirm})
+                  ({&&
+                        {! $cheat_skip_ugc_membership_check}
+                        {==
+                           -1
+                           {platform_mgr get_rbn_member_pad_num}}}
+                     {$this show_state kState_AuditionNoMembershipConfirm})
+                  ({!
+                        {server is_connected}}
+                     {$this show_state kState_AuditionNoRockCentral})
+                  ({!
+                        {session_mgr is_local}}
+                     {$this show_state kState_AuditionDenialRemotePlayers})
+                  ({audition_mgr can_enter_audition}
+                     {$this show_state kState_AuditionEnterConfirm})
+                  {$this leave_options}}
                #else
-               {$this show_linking_code_error}
-               #endif})
-         (overshell_audition
-            #ifdef HX_XBOX
-            {cond
-               ({!
-                     {platform_mgr has_hard_drive}}
-                  {$this show_state kState_AuditionNoHardDriveConfirm})
-               ({&&
-                     {! $cheat_skip_ugc_membership_check}
-                     {==
-                        -1
-                        {platform_mgr get_rbn_member_pad_num}}}
-                  {$this show_state kState_AuditionNoMembershipConfirm})
-               ({!
-                     {server is_connected}}
-                  {$this show_state kState_AuditionNoRockCentral})
-               ({!
-                     {session_mgr is_local}}
-                  {$this show_state kState_AuditionDenialRemotePlayers})
-               ({audition_mgr can_enter_audition}
-                  {$this show_state kState_AuditionEnterConfirm})
-               {$this leave_options}}
-            #else
-            {$this leave_options}
-            #endif)
-         (os_screensaver
-            {set $dx_screensaver {! $dx_screensaver}}
-            {set $overshell_showing {! $overshell_showing}}
-            {overshell set_showing $overshell_showing}
-            {unless {$this in_game} {ui goto_screen meta_loading_main_screen}}
-            ;{set $previous_state kState_OptionsExtras}
-         )
+               {$this leave_options}
+               #endif)
+            (os_screensaver
+               {set $dx_screensaver {! $dx_screensaver}}
+               {set $overshell_showing {! $overshell_showing}}
+               {overshell set_showing $overshell_showing}
+               {unless {$this in_game} {ui goto_screen meta_loading_main_screen}}
+               ;{set $previous_state kState_OptionsExtras}
+            )
+         }
+      }
+      {if $in_dx_settings
+         {do
+            ($string {$component selected_sym})
+            ($temp_state $this_state)
+            ;remove from strings for now BAD I KNOW
+            {search_replace $string "_on" "" $string}
+            {search_replace $string "_off" "" $string}
+            {if {find_exists $dx_settings_main $this_state select {symbol $string}}
+               {foreach $entry {find $dx_settings_main $this_state select {symbol $string}}
+                  {if {&& $entry {!= $entry select}}
+                     {eval $entry}
+                  }
+               }
+            }
+            ;if we didnt switch states, refresh the current state
+            {if {== $temp_state $this_state}
+               {dx_state $this_state}
+            }
+         }
+      }
+   )
+   (SCROLL_MSG
+      {if $in_dx_settings
+         {if_else {find_exists $dx_settings_main $this_state message}
+            {foreach $entry {find $dx_settings_main $this_state message}
+               {if {&& $entry {!= $entry message}}
+                  {dx_open_msg {eval $entry}}
+               }
+            }
+            {dx_open_msg {sprint {$component selected_sym} "_desc"}}
+         }
+         {if {find_exists $dx_settings_main $this_state scroll}
+            {foreach $entry {find $dx_settings_main $this_state scroll}
+               {if {&& $entry {!= $entry scroll}}
+                  {eval $entry}
+               }
+            }
+         }
+      }
+   )
+   (BUTTON_DOWN_MSG
+      ;check if the dx state even wants button_down_message
+      {if_else {&& $in_dx_settings {find_exists $dx_settings_main $this_state button}}
+         ;check if that array has an action defined for the current button
+         {if_else {find_exists $dx_settings_main $this_state button $action}
+            ;we only ever want to take over up/down when inside our special list
+            {if_else
+               {||
+                  {&&
+                     {! $dx_list_item_selected}
+                     {||
+                        {== {elem {find $dx_settings_main $this_state button $action} 0} kAction_Down}
+                        {== {elem {find $dx_settings_main $this_state button $action} 0} kAction_Up}
+                     }
+                  }
+                  {&&
+                     {! $dx_slider_item_selected}
+                     {||
+                        {== {elem {find $dx_settings_main $this_state button $action} 0} kAction_Confirm}
+                        {== {elem {find $dx_settings_main $this_state button $action} 0} kAction_Cancel}
+                     }
+                  }
+               }
+               ;if we arent in our special list, release up/down presses for list scrolling
+               kDataUnhandled
+               ;if we found a button_msg for this action
+               {do
+                  ($temp_state $this_state)
+                  ;run all of the script for this button msg
+                  {foreach $entry {find $dx_settings_main $this_state button $action}
+                     {if {&& $entry {!= $entry button}}
+                        {eval $entry}
+                     }
+                  }
+                  ;if we didnt switch states, refresh the current state
+                  {if {== $temp_state $this_state}
+                     {do
+                        ($this_list_content {array 0})
+                        ;rewrite the list with new data without going through new state flow
+                        ;this keeps the highlighted option without having to track position
+                        {foreach $entry {find $dx_settings_main $this_state view}
+                           ;view gets included so don't add it to the list
+                           {if {&& $entry {!= $entry view}}
+                              ;generate this list array
+                              {push_back $this_list_content $entry}
+                           }
+                        }
+                        {$current_list set_data $this_list_content}
+                     }
+                  }
+               }
+            }
+            kDataUnhandled
+         }
+         kDataUnhandled
       }
    )
    (exit
@@ -2035,9 +2140,21 @@
       }
    )
    (on_cancel
-      {if_else $dx_screensaver
-         kDataUnhandled
-         {$this show_game_options}
+      {if {! $in_dx_settings}
+         {if_else $dx_screensaver
+            kDataUnhandled
+            {$this show_game_options}
+         }
+      }
+      {if $in_dx_settings
+         {if {find_exists $dx_settings_main $this_state cancel}
+            {foreach $entry {find $dx_settings_main $this_state cancel}
+               {if {&& $entry {!= $entry cancel}}
+                  {eval $entry}
+               }
+            }
+         }
+         {dx_close_msg}
       }
    )
 )
@@ -2235,7 +2352,9 @@
       {if_else $ingameset
          {do
             {set $ingameset FALSE}
-            {$this show_state dxState_DeluxeSettings}
+            {set $in_dx_settings TRUE}
+            {set $this_state dxState_DeluxeSettings}
+            {dx_state dxState_DeluxeSettings}
          }
          {$this show_modifiers}
       }
@@ -3425,170 +3544,28 @@
 (kState_EnterCredits
    (view confirm_action)
    (enter
-      ;vanilla state stuff
-      {if {! $in_dx_settings}
-         {handle
-            ($this set_confirm_actions overshell_enter_credits
-               (overshell_confirm_yes overshell_confirm_no))
-         }
-      }
-      ;initial hook going into dx settings
-      {if $in_dx_settings
-         {dx_state $this_state}
-      }
-   )
-   (SCROLL_MSG
-      {if $in_dx_settings
-         {if_else {find_exists $dx_settings_main $this_state message}
-            {foreach $entry {find $dx_settings_main $this_state message}
-               {if {&& $entry {!= $entry message}}
-                  {dx_open_msg {eval $entry}}
-               }
-            }
-            {dx_open_msg {sprint {$component selected_sym} "_desc"}}
-         }
-         {if {find_exists $dx_settings_main $this_state scroll}
-            {foreach $entry {find $dx_settings_main $this_state scroll}
-               {if {&& $entry {!= $entry scroll}}
-                  {eval $entry}
-               }
-            }
-         }
-      }
-   )
-   (BUTTON_DOWN_MSG
-      ;check if the dx state even wants button_down_message
-      {if_else {&& $in_dx_settings {find_exists $dx_settings_main $this_state button}}
-         ;check if that array has an action defined for the current button
-         {if_else {find_exists $dx_settings_main $this_state button $action}
-            ;we only ever want to take over up/down when inside our special list
-            {if_else
-               {||
-                  {&&
-                     {! $dx_list_item_selected}
-                     {||
-                        {== {elem {find $dx_settings_main $this_state button $action} 0} kAction_Down}
-                        {== {elem {find $dx_settings_main $this_state button $action} 0} kAction_Up}
-                     }
-                  }
-                  {&&
-                     {! $dx_slider_item_selected}
-                     {||
-                        {== {elem {find $dx_settings_main $this_state button $action} 0} kAction_Confirm}
-                        {== {elem {find $dx_settings_main $this_state button $action} 0} kAction_Cancel}
-                     }
-                  }
-               }
-               ;if we arent in our special list, release up/down presses for list scrolling
-               kDataUnhandled
-               ;if we found a button_msg for this action
-               {do
-                  ($temp_state $this_state)
-                  ;run all of the script for this button msg
-                  {foreach $entry {find $dx_settings_main $this_state button $action}
-                     {if {&& $entry {!= $entry button}}
-                        {eval $entry}
-                     }
-                  }
-                  ;if we didnt switch states, refresh the current state
-                  {if {== $temp_state $this_state}
-                     {do
-                        ($this_list_content {array 0})
-                        ;rewrite the list with new data without going through new state flow
-                        ;this keeps the highlighted option without having to track position
-                        {foreach $entry {find $dx_settings_main $this_state view}
-                           ;view gets included so don't add it to the list
-                           {if {&& $entry {!= $entry view}}
-                              ;generate this list array
-                              {push_back $this_list_content $entry}
-                           }
-                        }
-                        {$current_list set_data $this_list_content}
-                     }
-                  }
-               }
-            }
-            kDataUnhandled
-         }
-         kDataUnhandled
+      {handle
+         ($this set_confirm_actions overshell_enter_credits
+            (overshell_confirm_yes overshell_confirm_no))
       }
    )
    (SELECT_MSG
-      ;vanilla state stuff
-      {if {! $in_dx_settings}
-         {switch {$component selected_sym}
-            (overshell_confirm_yes
-               {meta_performer set_credits_pending}
-               {ui_event_mgr trigger_event quit_to_main_credits}
-               {$this leave_options}
-            )
-            (overshell_confirm_no {$this show_options_extras})
-         }
-      }
-      {if $in_dx_settings
-         {do
-            ($string {$component selected_sym})
-            ($temp_state $this_state)
-            ;remove from strings for now BAD I KNOW
-            {search_replace $string "_on" "" $string}
-            {search_replace $string "_off" "" $string}
-            {if {find_exists $dx_settings_main $this_state select {symbol $string}}
-               {foreach $entry {find $dx_settings_main $this_state select {symbol $string}}
-                  {if {&& $entry {!= $entry select}}
-                     {eval $entry}
-                  }
-               }
-            }
-            ;if we didnt switch states, refresh the current state
-            {if {== $temp_state $this_state}
-               {dx_state $this_state}
-            }
-         }
+      {switch {$component selected_sym}
+         (overshell_confirm_yes
+            {meta_performer set_credits_pending}
+            {ui_event_mgr trigger_event quit_to_main_credits}
+            {$this leave_options}
+         )
+         (overshell_confirm_no {$this show_options_extras})
       }
    )
-   (on_cancel
-      ;vanilla state stuff
-      {if {! $in_dx_settings}
-         {$this show_options_extras}
-      }
-      {if $in_dx_settings
-         {if {find_exists $dx_settings_main $this_state cancel}
-            {foreach $entry {find $dx_settings_main $this_state cancel}
-               {if {&& $entry {!= $entry cancel}}
-                  {eval $entry}
-               }
-            }
-         }
-         {dx_close_msg}
-      }
-   )
+   (on_cancel {$this show_options_extras})
 )
 (kState_CreditsDenial
    (view confirm_action)
-   (update_view
-      {if {! $in_dx_settings}
-         {handle ($this set_confirm_message overshell_credits_denial_remote_players)}
-      }
-      {if $in_dx_settings
-         {$this show_state kState_EnterCredits}
-      }
-   )
-   (SELECT_MSG
-      {if {! $in_dx_settings}
-         {$this show_options_extras}
-      }
-      {if $in_dx_settings
-         {$this show_state kState_EnterCredits}
-      }
-   )
-   (on_cancel
-      {if {! $in_dx_settings}
-         {$this show_options_extras}
-      }
-      {if $in_dx_settings
-         {$this show_state kState_EnterCredits}
-      }
-   )
+   (update_view {handle ($this set_confirm_message overshell_credits_denial_remote_players)})
+   (SELECT_MSG {$this show_options_extras})
+   (on_cancel {$this show_options_extras})
 )
 (kState_CharCreatorDenialNoProfile
    (view confirm_action)

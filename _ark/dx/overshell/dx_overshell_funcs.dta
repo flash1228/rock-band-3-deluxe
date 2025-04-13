@@ -194,9 +194,11 @@
                   
                   ;{view_default.trg trigger}
                   {view_default.trg set_view_pos $this $in_track_mode}
-                  {confirm_action.lst conceal}
                   {$prev_list conceal}
-                  {confirm_action.grp set_showing FALSE}
+                  {if {!= $current_list options_audio.lst}
+                     {options_audio.lst conceal}
+                     {options_audio.grp set_showing FALSE}
+                  }
                   {{sprint $prev_group ".grp"} set_showing FALSE}
                   {{sprint $dx_picked_view ".grp"} set_showing TRUE}
                   {$current_list reveal}

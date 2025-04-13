@@ -274,7 +274,7 @@
          {unless {modifier_mgr is_modifier_active mod_auto_play}
             {set $in_dx_settings TRUE}
             {set $this_state dxState_AutoPlayWarn}
-            {$this show_state kState_EnterCredits}
+            {$this show_state kState_OptionsExtras}
          }
          {if {modifier_mgr is_modifier_active mod_auto_play}
             {do
