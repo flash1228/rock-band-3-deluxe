@@ -3164,9 +3164,13 @@
                {help.ihp
                   set_config
                   ()})}
+         {help.ihp set_action_token kAction_Cancel help_search}
          {if
             $option
-            {help.ihp set_action_token kAction_Option $option}}})
+            {help.ihp set_action_token kAction_Option $option}}
+         {help.ihp set spacing 240}
+         {settings.ihp set_local_pos 180 0 -170}
+      })
    (set_mini_leaderboard_showing
       ($showing)
       {if_else
