@@ -420,6 +420,7 @@
          #endif
          do_script
          os_uptime
+         os_dumplyrics
          os_dumproot
          os_dumproot2
          print_hmx
