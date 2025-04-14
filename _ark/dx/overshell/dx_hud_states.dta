@@ -4,6 +4,8 @@
       ($options
          {array 0})
       {push_back $options os_mtv}
+
+      {push_back $options {if_else $dx_lyric_display_enabled os_lyric_display_on os_lyric_display_off}}
       
       {push_back $options
          {switch $dx_crowd_meter_state
@@ -72,6 +74,12 @@
          )
          (os_mtv
             {$this show_state dxState_MTVElements})
+         ((os_lyric_display_off os_lyric_display_on)
+            {set $dx_lyric_display_enabled {! $dx_lyric_display_enabled}}
+            {set $dx_tracked_changed {if_else $dx_lyric_display_enabled os_lyric_display_on os_lyric_display_off}}
+            {dx_state_pos_tracker}
+            DX_INGAME_HUD_DATA
+         )
          ((os_vis_off os_vis_on os_vis_disabled)
             {set $dx_crowd_meter_state
                {switch $dx_crowd_meter_state
@@ -861,7 +869,7 @@
          {array 0})
       ;{push_back $options {if_else $dx_mtv_line_song_title os_song_title_on os_song_title_off}}
       {push_back $options {if_else $dx_mtv_line_artist os_artist_on os_artist_off}}
-      {push_back $options {if_else $dx_mtv_line_year os_year_on os_year_off}}
+      {push_back $options {if_else $dx_mtv_year os_year_on os_year_off}}
       ;{push_back $options {if_else $dx_year_on_one_mtv_line os_yearonline_on os_yearonline_off}}
       {push_back $options {if_else $dx_mtv_line_album os_album_on os_album_off}}
       {push_back $options {if_else $dx_mtv_line_genre os_genre_on os_genre_off}}
@@ -903,8 +911,8 @@
             {set $previous_state dxState_CurrentSongSetup}
          )
          ((os_year_on os_year_off)
-            {set $dx_mtv_line_year {! $dx_mtv_line_year}}
-            {if_else $dx_mtv_line_year
+            {set $dx_mtv_year {! $dx_mtv_year}}
+            {if_else $dx_mtv_year
                {set $dx_tracked_changed os_year_on}
                {set $dx_tracked_changed os_year_off}
             }

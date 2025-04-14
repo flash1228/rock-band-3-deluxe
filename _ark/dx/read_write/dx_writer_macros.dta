@@ -60,7 +60,7 @@
    {dx_setting_saver dx_settings dx_mtv_visibility $dx_mtv_visibility}
    ;{dx_setting_saver dx_settings dx_mtv_line_song_title $dx_mtv_line_song_title}
    {dx_setting_saver dx_settings dx_mtv_line_artist $dx_mtv_line_artist}
-   {dx_setting_saver dx_settings dx_mtv_line_year $dx_mtv_line_year}
+   {dx_setting_saver dx_settings dx_mtv_year $dx_mtv_year}
    {dx_setting_saver dx_settings dx_mtv_line_album $dx_mtv_line_album}
    {dx_setting_saver dx_settings dx_mtv_line_genre $dx_mtv_line_genre}
    {dx_setting_saver dx_settings dx_mtv_line_sub_genre $dx_mtv_line_sub_genre}
@@ -119,6 +119,7 @@
    {dx_setting_saver dx_settings dx_overshell_theme $dx_overshell_theme}
    {dx_setting_saver dx_settings dx_player_icons $dx_player_icons}
    {dx_setting_saver dx_settings dx_instrument_icons $dx_instrument_icons}
+   {dx_setting_saver dx_settings dx_lyric_display_enabled $dx_lyric_display_enabled}
    {dx_setting_saver dx_settings dx_crowd_meter_state $dx_crowd_meter_state}
    {dx_setting_saver dx_settings dx_score_meter_visibility $dx_score_meter_visibility}
    {dx_setting_saver dx_settings dx_gold_star_progress $dx_gold_star_progress}
