@@ -394,9 +394,9 @@
          {elem {find $entry dx_mtv_line_artist} 1}
       }
    }
-   {if {== {elem $entry 0} {basename dx_mtv_line_year}}
-      {set $dx_mtv_line_year
-         {elem {find $entry dx_mtv_line_year} 1}
+   {if {== {elem $entry 0} {basename dx_mtv_year}}
+      {set $dx_mtv_year
+         {elem {find $entry dx_mtv_year} 1}
       }
    }
    {if {== {elem $entry 0} {basename dx_mtv_line_album}}

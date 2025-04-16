@@ -322,17 +322,31 @@
          ;make new line, fill it
          {if {|| $dx_mtv_line_artist {modifier_mgr is_modifier_active mod_fakejuke}}
             CREATE_MTV_LINE
-            {THIS_MTV_LBL set_artist_name_from_shortname {meta_performer song}}
-            {++ $this_total_lines}
-         }
-         {if {&& $dx_mtv_line_year {! {modifier_mgr is_modifier_active mod_fakejuke}}}
-            CREATE_MTV_LINE
-            {THIS_MTV_LBL set_token_fmt year_string {{song_mgr get_meta_data {meta_performer song}} year_released}}
+            {cond
+               ({&& $mastervar $dx_mtv_year {! $dx_mtv_line_album}}
+                  {THIS_MTV_LBL set_token_fmt {sprint $artistvar ", " {{song_mgr get_meta_data {meta_performer song}} year_released}}}
+               )
+               ({&& {! $mastervar} $dx_mtv_year {! $dx_mtv_line_album}}
+                  {THIS_MTV_LBL set_token_fmt {sprint "<it>" {localize store_famous_by} " </it>" $artistvar ", " {{song_mgr get_meta_data {meta_performer song}} year_released}}}
+               )
+               ({&& $mastervar $dx_mtv_year $dx_mtv_line_album {! $albumvar}}
+                  {THIS_MTV_LBL set_token_fmt {sprint $artistvar ", " {{song_mgr get_meta_data {meta_performer song}} year_released}}}
+               )
+               ({&& {! $mastervar} $dx_mtv_year $dx_mtv_line_album {! $albumvar}}
+                  {THIS_MTV_LBL set_token_fmt {sprint "<it>" {localize store_famous_by} " </it>" $artistvar ", " {{song_mgr get_meta_data {meta_performer song}} year_released}}}
+               )
+               ({|| {! $dx_mtv_year} $dx_mtv_line_album}
+                  {THIS_MTV_LBL set_artist_name_from_shortname {meta_performer song}}
+               )
+            }
             {++ $this_total_lines}
          }
          {if {&& $dx_mtv_line_album $albumvar}
             CREATE_MTV_LINE
-            {THIS_MTV_LBL set_token_fmt stringify $albumvar}
+            {if_else $dx_mtv_year
+               {THIS_MTV_LBL set_token_fmt {sprint $albumvar ", " {{song_mgr get_meta_data {meta_performer song}} year_released}}}
+               {THIS_MTV_LBL set_token_fmt stringify $albumvar}
+            }
             {++ $this_total_lines}
          }
          {if {&& $dx_mtv_line_genre {! {modifier_mgr is_modifier_active mod_fakejuke}}}
