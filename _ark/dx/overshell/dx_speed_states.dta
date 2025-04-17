@@ -565,15 +565,11 @@
    (SELECT_MSG
       {switch {$component selected_sym}
          (os_fastermode_off
-            {unless {modifier_mgr is_modifier_active mod_fastermode}
-               {modifier_mgr toggle_modifier_enabled mod_fastermode}
-            }
+            {enable_modifier mod_fastermode}
             DX_ACCELERATION_MODE_DATA
          )
          (os_fastermode_on
-            {if {modifier_mgr is_modifier_active mod_fastermode}
-               {modifier_mgr toggle_modifier_enabled mod_fastermode}
-            }
+            {disable_modifier mod_fastermode}
             DX_ACCELERATION_MODE_DATA
          )
       }

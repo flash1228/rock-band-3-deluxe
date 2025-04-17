@@ -187,9 +187,7 @@
       {overshell update_all}
    )
    (mod_nolanes
-      {if {modifier_mgr is_modifier_active mod_rb4_lanes}
-         {modifier_mgr toggle_modifier_enabled mod_rb4_lanes}
-      }
+      {disable_modifier mod_rb4_lanes}
       {modifier_mgr toggle_modifier_enabled mod_nolanes}
       {set $nolanes {! $nolanes}}
       {overshell update_all}
@@ -210,9 +208,7 @@
       }
    )
    (mod_rb4_lanes
-      {if {modifier_mgr is_modifier_active mod_nolanes}
-         {modifier_mgr toggle_modifier_enabled mod_nolanes}
-      }
+      {disable_modifier mod_nolanes}
       {modifier_mgr toggle_modifier_enabled mod_rb4_lanes}
       {overshell update_all}
    )
@@ -246,18 +242,10 @@
          {if {modifier_mgr is_modifier_active mod_fakejuke}
             {do
                {modifier_mgr toggle_modifier_enabled $modifier}
-               {if {modifier_mgr is_modifier_active mod_auto_play}
-                  {modifier_mgr toggle_modifier_enabled mod_auto_play}
-               }
-               {if {modifier_mgr is_modifier_active mod_nohud}
-                  {modifier_mgr toggle_modifier_enabled mod_nohud}
-               }
-               {if {modifier_mgr is_modifier_active mod_nopause}
-                  {modifier_mgr toggle_modifier_enabled mod_nopause}
-               }
-               {if {modifier_mgr is_modifier_active mod_dx_no_overdrive}
-                  {modifier_mgr toggle_modifier_enabled mod_dx_no_overdrive}
-               }
+               {disable_modifier mod_auto_play}
+               {disable_modifier mod_nohud}
+               {disable_modifier mod_nopause}
+               {disable_modifier mod_dx_no_overdrive}
                {$this leave_options}
                {overshell update_all}
                {ui goto_screen meta_loading_main_screen}
