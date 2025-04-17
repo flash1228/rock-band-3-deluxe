@@ -274,73 +274,41 @@
                {ui goto_screen meta_loading_continue_screen}
             }
          )
-         (shuffle_all
-            {set $dx_forced_song_select_bg
-               (
-                  "sv2_a" "sv3_a" "sv3_b"
-                  "sv4_a" "sv4_b" "sv4_c"
-                  "sv4_d" "sv4_e" "sv5_a"
-                  "sv7_a" "sv7_b" "sv7_c"
-               )
-            }
-            REFRESH_SV3
+         #define ALL_SV
+         (
+            (
+               "sv2_a" "sv3_a" "sv3_b" "sv4_a"
+               "sv4_b" "sv4_c" "sv4_d" "sv4_e"
+               "sv5_a" "sv7_a" "sv7_b" "sv7_c"
+            )
          )
-         (sv4_array
-            {set $dx_forced_song_select_bg ("sv4_a" "sv4_b" "sv4_c" "sv4_d" "sv4_e")}
-            REFRESH_SV3
+         #define SV4_SV
+         (
+            (
+               "sv4_a" "sv4_b" "sv4_c" "sv4_d" "sv4_e"
+            )
          )
-         (sv7_array
-            {set $dx_forced_song_select_bg ("sv7_a" "sv7_b" "sv7_c" "sv3_a" "sv3_b")}
-            REFRESH_SV3
+         #define SV7_SV
+         (
+            (
+               "sv4_a" "sv4_b" "sv4_c" "sv4_d" "sv4_e"
+            )
          )
-         (sv2_a
-            {set $dx_forced_song_select_bg ("sv2_a")}
-            REFRESH_SV3
-         )
-         (sv3_a
-            {set $dx_forced_song_select_bg ("sv3_a")}
-            REFRESH_SV3
-         )
-         (sv3_b
-            {set $dx_forced_song_select_bg ("sv3_b")}
-            REFRESH_SV3
-         )
-         (sv4_a
-            {set $dx_forced_song_select_bg ("sv4_a")}
-            REFRESH_SV3
-         )
-         (sv4_b
-            {set $dx_forced_song_select_bg ("sv4_b")}
-            REFRESH_SV3
-         )
-         (sv4_c
-            {set $dx_forced_song_select_bg ("sv4_c")}
-            REFRESH_SV3
-         )
-         (sv4_d
-            {set $dx_forced_song_select_bg ("sv4_d")}
-            REFRESH_SV3
-         )
-         (sv4_e
-            {set $dx_forced_song_select_bg ("sv4_e")}
-            REFRESH_SV3
-         )
-         (sv5_a
-            {set $dx_forced_song_select_bg ("sv5_a")}
-            REFRESH_SV3
-         )
-         (sv7_a
-            {set $dx_forced_song_select_bg ("sv7_a")}
-            REFRESH_SV3
-         )
-         (sv7_b
-            {set $dx_forced_song_select_bg ("sv7_b")}
-            REFRESH_SV3
-         )
-         (sv7_c
-            {set $dx_forced_song_select_bg ("sv7_c")}
-            REFRESH_SV3
-         )
+         (shuffle_all {set $dx_forced_song_select_bg ALL_SV} REFRESH_SV3)
+         (sv4_array {set $dx_forced_song_select_bg SV4_SV} REFRESH_SV3)
+         (sv7_array {set $dx_forced_song_select_bg SV7_SV} REFRESH_SV3)
+         (sv2_a {set $dx_forced_song_select_bg ("sv2_a")} REFRESH_SV3)
+         (sv3_a {set $dx_forced_song_select_bg ("sv3_a")} REFRESH_SV3)
+         (sv3_b {set $dx_forced_song_select_bg ("sv3_b")} REFRESH_SV3)
+         (sv4_a {set $dx_forced_song_select_bg ("sv4_a")} REFRESH_SV3)
+         (sv4_b {set $dx_forced_song_select_bg ("sv4_b")} REFRESH_SV3)
+         (sv4_c {set $dx_forced_song_select_bg ("sv4_c")} REFRESH_SV3)
+         (sv4_d {set $dx_forced_song_select_bg ("sv4_d")} REFRESH_SV3)
+         (sv4_e {set $dx_forced_song_select_bg ("sv4_e")} REFRESH_SV3)
+         (sv5_a {set $dx_forced_song_select_bg ("sv5_a")} REFRESH_SV3)
+         (sv7_a {set $dx_forced_song_select_bg ("sv7_a")} REFRESH_SV3)
+         (sv7_b {set $dx_forced_song_select_bg ("sv7_b")} REFRESH_SV3)
+         (sv7_c {set $dx_forced_song_select_bg ("sv7_c")} REFRESH_SV3)
       )
       (message
          {if_else $default_song_select_bg
@@ -401,82 +369,23 @@
                {ui goto_screen meta_loading_main_screen}
             }
          )
-         (shuffle_all
-            {set $dx_forced_main_menu_bg
-               (
-                  "sv2_a" "sv3_a" "sv3_b" "sv4_a"
-                  "sv4_b" "sv4_c" "sv4_d" "sv4_e"
-                  "sv5_a" "sv7_a" "sv7_b" "sv7_c"
-               )
-            }
-            REFRESH_SV4
-         )
-         (sv4_array
-            {set $dx_forced_main_menu_bg ("sv4_a" "sv4_b" "sv4_c" "sv4_d" "sv4_e")}
-            REFRESH_SV4
-         )
-         (sv7_array
-            {set $dx_forced_main_menu_bg ("sv7_a" "sv7_b" "sv7_c" "sv3_a" "sv3_b")}
-            REFRESH_SV4
-         )
-         (sv2_a
-            {set $dx_forced_main_menu_bg ("sv2_a")}
-            REFRESH_SV4
-         )
-         (sv3_a
-            {set $dx_forced_main_menu_bg ("sv3_a")}
-            REFRESH_SV4
-         )
-         (sv3_b
-            {set $dx_forced_main_menu_bg ("sv3_b")}
-            REFRESH_SV4
-         )
-         (sv4_a
-            {set $dx_forced_main_menu_bg ("sv4_a")}
-            REFRESH_SV4
-         )
-         (sv4_b
-            {set $dx_forced_main_menu_bg ("sv4_b")}
-            REFRESH_SV4
-         )
-         (sv4_c
-            {set $dx_forced_main_menu_bg ("sv4_c")}
-            REFRESH_SV4
-         )
-         (sv4_d
-            {set $dx_forced_main_menu_bg ("sv4_d")}
-            REFRESH_SV4
-         )
-         (sv4_e
-            {set $dx_forced_main_menu_bg ("sv4_e")}
-            REFRESH_SV4
-         )
-         (sv5_a
-            {set $dx_forced_main_menu_bg ("sv5_a")}
-            REFRESH_SV4
-         )
-         (sv7_a
-            {set $dx_forced_main_menu_bg ("sv7_a")}
-            REFRESH_SV4
-         )
-         (sv7_b
-            {set $dx_forced_main_menu_bg ("sv7_b")}
-            REFRESH_SV4
-         )
-         (sv7_c
-            {set $dx_forced_main_menu_bg ("sv7_c")}
-            REFRESH_SV4
-         )
-         (sv8_a
-            {set $dx_sv8_dx_vers FALSE}
-            {set $dx_forced_main_menu_bg ("sv8_a")}
-            REFRESH_SV4
-         )
-         (sv8_a_dx
-            {set $dx_sv8_dx_vers TRUE}
-            {set $dx_forced_main_menu_bg ("sv8_a")}
-            REFRESH_SV4
-         )
+         (shuffle_all {set $dx_forced_main_menu_bg ALL_SV} REFRESH_SV4 )
+         (sv4_array {set $dx_forced_main_menu_bg SV4_SV} REFRESH_SV4)
+         (sv7_array {set $dx_forced_main_menu_bg SV7_SV} REFRESH_SV4)
+         (sv2_a {set $dx_forced_main_menu_bg ("sv2_a")} REFRESH_SV4)
+         (sv3_a {set $dx_forced_main_menu_bg ("sv3_a")} REFRESH_SV4)
+         (sv3_b {set $dx_forced_main_menu_bg ("sv3_b")} REFRESH_SV4)
+         (sv4_a {set $dx_forced_main_menu_bg ("sv4_a")} REFRESH_SV4)
+         (sv4_b {set $dx_forced_main_menu_bg ("sv4_b")} REFRESH_SV4)
+         (sv4_c {set $dx_forced_main_menu_bg ("sv4_c")} REFRESH_SV4)
+         (sv4_d {set $dx_forced_main_menu_bg ("sv4_d")} REFRESH_SV4)
+         (sv4_e {set $dx_forced_main_menu_bg ("sv4_e")} REFRESH_SV4)
+         (sv5_a {set $dx_forced_main_menu_bg ("sv5_a")} REFRESH_SV4)
+         (sv7_a {set $dx_forced_main_menu_bg ("sv7_a")} REFRESH_SV4)
+         (sv7_b {set $dx_forced_main_menu_bg ("sv7_b")} REFRESH_SV4)
+         (sv7_c {set $dx_forced_main_menu_bg ("sv7_c")} REFRESH_SV4)
+         (sv8_a {set $dx_sv8_dx_vers FALSE} {set $dx_forced_main_menu_bg ("sv8_a")} REFRESH_SV4)
+         (sv8_a_dx {set $dx_sv8_dx_vers TRUE} {set $dx_forced_main_menu_bg ("sv8_a")} REFRESH_SV4)
       )
       (message
          {if_else $default_main_menu_bg
@@ -537,76 +446,22 @@
                {ui goto_screen meta_loading_main_screen}
             }
          )
-         (shuffle_all
-            {set $dx_forced_practice_bg
-               (
-                  "sv2_a" "sv3_a" "sv3_b" "sv4_a"
-                  "sv4_b" "sv4_c" "sv4_d" "sv4_e"
-                  "sv5_a" "sv7_a" "sv7_b" "sv7_c"
-               )
-            }
-            REFRESH_SV5
-         )
-         (sv4_array
-            {set $dx_forced_practice_bg ("sv4_a" "sv4_b" "sv4_c" "sv4_d" "sv4_e")}
-            REFRESH_SV5
-         )
-         (sv7_array
-            {set $dx_forced_practice_bg ("sv7_a" "sv7_b" "sv7_c" "sv3_a" "sv3_b")}
-            REFRESH_SV5
-         )
-         (sv2_a
-            {set $dx_forced_practice_bg ("sv2_a")}
-            REFRESH_SV5
-         )
-         (sv3_a
-            {set $dx_forced_practice_bg ("sv3_a")}
-            REFRESH_SV5
-         )
-         (sv3_b
-            {set $dx_forced_practice_bg ("sv3_b")}
-            REFRESH_SV5
-         )
-         (sv4_a
-            {set $dx_forced_practice_bg ("sv4_a")}
-            REFRESH_SV5
-         )
-         (sv4_b
-            {set $dx_forced_practice_bg ("sv4_b")}
-            REFRESH_SV5
-         )
-         (sv4_c
-            {set $dx_forced_practice_bg ("sv4_c")}
-            REFRESH_SV5
-         )
-         (sv4_d
-            {set $dx_forced_practice_bg ("sv4_d")}
-            REFRESH_SV5
-         )
-         (sv4_e
-            {set $dx_forced_practice_bg ("sv4_e")}
-            REFRESH_SV5
-         )
-         (sv5_a
-            {set $dx_forced_practice_bg ("sv5_a")}
-            REFRESH_SV5
-         )
-         (sv7_a
-            {set $dx_forced_practice_bg ("sv7_a")}
-            REFRESH_SV5
-         )
-         (sv7_b
-            {set $dx_forced_practice_bg ("sv7_b")}
-            REFRESH_SV5
-         )
-         (sv7_c
-            {set $dx_forced_practice_bg ("sv7_c")}
-            REFRESH_SV5
-         )
-         (sv8_a
-            {set $dx_forced_practice_bg ("sv8_a")}
-            REFRESH_SV5
-         )
+         (shuffle_all {set $dx_forced_practice_bg ALL_SV} REFRESH_SV5)
+         (sv4_array {set $dx_forced_practice_bg SV4_SV} REFRESH_SV5)
+         (sv7_array {set $dx_forced_practice_bg SV7_SV} REFRESH_SV5)
+         (sv2_a {set $dx_forced_practice_bg ("sv2_a")} REFRESH_SV5)
+         (sv3_a {set $dx_forced_practice_bg ("sv3_a")} REFRESH_SV5)
+         (sv3_b {set $dx_forced_practice_bg ("sv3_b")} REFRESH_SV5)
+         (sv4_a {set $dx_forced_practice_bg ("sv4_a")} REFRESH_SV5)
+         (sv4_b {set $dx_forced_practice_bg ("sv4_b")} REFRESH_SV5)
+         (sv4_c {set $dx_forced_practice_bg ("sv4_c")} REFRESH_SV5)
+         (sv4_d {set $dx_forced_practice_bg ("sv4_d")} REFRESH_SV5)
+         (sv4_e {set $dx_forced_practice_bg ("sv4_e")} REFRESH_SV5)
+         (sv5_a {set $dx_forced_practice_bg ("sv5_a")} REFRESH_SV5)
+         (sv7_a {set $dx_forced_practice_bg ("sv7_a")} REFRESH_SV5)
+         (sv7_b {set $dx_forced_practice_bg ("sv7_b")} REFRESH_SV5)
+         (sv7_c {set $dx_forced_practice_bg ("sv7_c")} REFRESH_SV5)
+         (sv8_a {set $dx_forced_practice_bg ("sv8_a")} REFRESH_SV5)
       )
       (message
          {if_else $default_practice_bg
