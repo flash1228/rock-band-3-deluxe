@@ -378,14 +378,8 @@
    (dxState_ReloadDenyMsg
       (view overshell_continue overshell_cancel)
       (enter {handle ($this set_confirm_actions os_reload_deny (overshell_continue))})
-      (select
-         (overshell_continue
-            {dx_state dxState_CameraMenu}
-         )
-      )
-      (cancel
-         {dx_state dxState_CameraMenu}
-      )
+      (select (overshell_continue {dx_state dxState_CameraMenu}))
+      (cancel {dx_state dxState_CameraMenu})
    )
 }
 
@@ -411,13 +405,7 @@
    (dxState_ShadingMenuWarning
       (view overshell_continue overshell_cancel)
       (enter {handle ($this set_confirm_actions os_bgwarn (overshell_continue))})
-      (select
-         (overshell_continue
-            {dx_state dxState_ShadingMenu}
-         )
-      )
-      (cancel
-         {dx_state dxState_ShadingMenu}
-      )
+      (select (overshell_continue {dx_state dxState_ShadingMenu}))
+      (cancel {dx_state dxState_ShadingMenu})
    )
 }
