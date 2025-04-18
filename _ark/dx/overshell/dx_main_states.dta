@@ -38,7 +38,9 @@
          (os_venue_options
             {dx_state dxState_VenueOptions})
          (os_track_theme
-            {dx_state #ifdef HX_WII dxState_TextureMenu #else dxState_TrackThemeLoader #endif})
+            ;{dx_state #ifdef HX_WII dxState_TextureMenu #else dxState_TrackThemeLoader #endif}
+            {dx_state dxState_TextureMenu}
+         )
          (os_graphics
             {dx_state dxState_Graphics})
          (os_audio_sfx

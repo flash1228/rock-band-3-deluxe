@@ -2043,7 +2043,7 @@
             {search_replace $string "_off" "" $string}
             {if {find_exists $dx_settings_main $this_state select {symbol $string}}
                {foreach $entry {find $dx_settings_main $this_state select {symbol $string}}
-                  {if {&& $entry {!= $entry select}}
+                  {if $entry
                      {eval $entry}
                   }
                }
@@ -2137,6 +2137,15 @@
             {restore_choose_char_size_pos}
          }
          {game_options.grp remove_object choose_character.mesh}
+      }
+      {if $in_dx_settings
+         {if {find_exists $dx_settings_main $this_state exit}
+            {foreach $entry {find $dx_settings_main $this_state exit}
+               {if {&& $entry {!= $entry exit}}
+                  {eval $entry}
+               }
+            }
+         }
       }
    )
    (on_cancel
