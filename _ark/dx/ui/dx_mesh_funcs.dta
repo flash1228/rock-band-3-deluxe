@@ -71,7 +71,7 @@
    {set $neg_half_width {* $half_width -1}}
    {set $neg_half_height {* $half_height -1}}
 
-   {$mesh set keep_mesh_data True}
+   {$mesh set keep_mesh_data TRUE}
    {$mesh set mutable kMutableAll}
    
    {$mesh set num_verts 8}
