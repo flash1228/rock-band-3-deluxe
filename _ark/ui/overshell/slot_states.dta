@@ -2055,6 +2055,22 @@
          }
       }
    )
+   (VIRTUAL_KEYBOARD_RESULT_MSG
+      {if
+         {&&
+            $in_dx_settings
+            {find_exists $dx_settings_main $this_state virtual_keyboard}
+            $ok
+            $this
+            {! {== $text ""}}
+         }
+         {foreach $entry {find $dx_settings_main $this_state virtual_keyboard}
+            {if {&& $entry {!= $entry virtual_keyboard}}
+               {eval $entry}
+            }
+         }
+      }
+   )
    (SCROLL_MSG
       {if $in_dx_settings
          {if_else {find_exists $dx_settings_main $this_state message}

@@ -634,7 +634,7 @@
                         {set $data {elem $entry 1}}
                      }
                   }
-                  {foreach $entry $list_temp
+                  {foreach $entry $options
                      {if {has_substr $entry $data}
                         {$current_list set_selected $entry}
                      }
