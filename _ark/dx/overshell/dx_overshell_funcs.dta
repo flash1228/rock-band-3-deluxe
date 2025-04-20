@@ -92,7 +92,7 @@
       {$list refresh}
       {$list set conceal_scale 150}
       {$list conceal}
-      {script_task kTaskSeconds
+      {script_task kTaskUISeconds
          (delay 0.025)
          (script
             {$list reveal}
@@ -217,7 +217,7 @@
                ;lmao
                {do
                   {same_list_reveal $current_list $this_list_content $num}
-                  {script_task kTaskSeconds
+                  {script_task kTaskUISeconds
                      (delay 0.025)
                      (script
                         {fire_lasers $this_list_content $dx_picked_view $this_state}
