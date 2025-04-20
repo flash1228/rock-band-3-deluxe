@@ -2052,6 +2052,15 @@
             {if {== $temp_state $this_state}
                {dx_state $this_state}
             }
+            {if {!= $temp_state $this_state}
+               {if {find_exists $dx_settings_main $temp_state exit}
+                  {foreach $entry {find $dx_settings_main $temp_state exit}
+                     {if {&& $entry {!= $entry exit}}
+                        {eval $entry}
+                     }
+                  }
+               }
+            }
          }
       }
    )
@@ -2172,6 +2181,13 @@
          }
       }
       {if $in_dx_settings
+         {if {find_exists $dx_settings_main $this_state exit}
+            {foreach $entry {find $dx_settings_main $this_state exit}
+               {if {&& $entry {!= $entry exit}}
+                  {eval $entry}
+               }
+            }
+         }
          {if {find_exists $dx_settings_main $this_state cancel}
             {foreach $entry {find $dx_settings_main $this_state cancel}
                {if {&& $entry {!= $entry cancel}}

@@ -108,6 +108,7 @@
             }
          }
       )
+      (message {sprintf {localize current_theme} {sprint $dx_track_theme_name}})
       (enter
          {do
             ($options
