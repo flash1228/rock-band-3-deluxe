@@ -7,6 +7,11 @@
          {if_else {== $dx_venue none} 0 {if_else $dx_enable_mv_venues os_enablemv_on os_enablemv_off}}
          {if_else {== $dx_venue none} 0 {if_else $dx_venue_swap os_venue_swap_on os_venue_swap_off}}
          {if_else {== $dx_venue none} 0 {if_else $dx_random_backup_band os_random_backup_band_on os_random_backup_band_off}}
+         {if_else {! $dx_anim_genres} os_anim_custom_vanilla 0}
+         {if_else {== $dx_anim_genres rocker} os_anim_custom_rocker 0}
+         {if_else {== $dx_anim_genres spazz} os_anim_custom_spazz 0}
+         {if_else {== $dx_anim_genres dramatic} os_anim_custom_dramatic 0}
+         {if_else {== $dx_anim_genres banger} os_anim_custom_banger 0}
       )
       (select
          (os_menu_backgrounds {dx_state dxState_MenuBG})
@@ -15,6 +20,11 @@
          (os_enablemv {set $dx_enable_mv_venues {! $dx_enable_mv_venues}})
          (os_venue_swap {set $dx_venue_swap {! $dx_venue_swap}})
          (os_random_backup_band {set $dx_random_backup_band {! $dx_random_backup_band}})
+         (os_anim_custom_vanilla {set $dx_anim_genres rocker})
+         (os_anim_custom_rocker {set $dx_anim_genres spazz})
+         (os_anim_custom_spazz {set $dx_anim_genres dramatic})
+         (os_anim_custom_dramatic {set $dx_anim_genres banger})
+         (os_anim_custom_banger {set $dx_anim_genres FALSE})
       )
       (cancel
          {dx_state dxState_DeluxeSettings}

@@ -279,11 +279,6 @@
          }
          {if_else $dx_additional_parts os_additional_parts_on os_additional_parts_off}
          {if_else $dx_song_delay os_songdelay_on os_songdelay_off}
-         {if_else {! $dx_anim_genres} os_anim_custom_vanilla 0}
-         {if_else {== $dx_anim_genres rocker} os_anim_custom_rocker 0}
-         {if_else {== $dx_anim_genres spazz} os_anim_custom_spazz 0}
-         {if_else {== $dx_anim_genres dramatic} os_anim_custom_dramatic 0}
-         {if_else {== $dx_anim_genres banger} os_anim_custom_banger 0}
          #ifndef HX_WII
          {switch $dx_current_intro_movie
             (deluxe os_intro_deluxe)
@@ -323,11 +318,6 @@
          (os_dx_mic_od_4 MIC_OD_LIST)
          (os_dx_mic_od_5 MIC_OD_LIST)
          (os_dx_mic_od_unkown MIC_OD_LIST)
-         (os_anim_custom_vanilla {set $dx_anim_genres rocker})
-         (os_anim_custom_rocker {set $dx_anim_genres spazz})
-         (os_anim_custom_spazz {set $dx_anim_genres dramatic})
-         (os_anim_custom_dramatic {set $dx_anim_genres banger})
-         (os_anim_custom_banger {set $dx_anim_genres FALSE})
          (os_additional_parts {set $dx_additional_parts {! $dx_additional_parts}})
          (os_songdelay {set $dx_song_delay {! $dx_song_delay}})
          (os_intro_deluxe {set $dx_current_intro_movie vanilla})
