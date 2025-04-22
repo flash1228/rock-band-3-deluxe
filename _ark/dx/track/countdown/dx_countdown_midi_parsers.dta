@@ -527,9 +527,9 @@
                }
             }
             ;{if [log_enabled_keys] {dx_log_writer countdown {sprint "starting parsing note"}}}
-            {if {<= $keys_note_tracker_2_size 4000}
+            ;{if {<= $keys_note_tracker_2_size 4000}
                ;{if [log_enabled_keys] {dx_log_writer countdown {sprint $keys_note_tracker_2_size "," {* {beat_to_seconds $mp.start} 1000} "," {* {beat_to_seconds $mp.end} 1000} "," $mp.start "," $mp.end "," [dx_batch_start_beat_keys] "," $mp.length "," $mp.prev_start "," $mp.prev_end "," $mp.data "," $mp.val }}}
-            }
+            ;}
 
             ; If this note starts a new batch
             {if {> {- $mp.start [dx_batch_start_beat_keys]} 0.02}
