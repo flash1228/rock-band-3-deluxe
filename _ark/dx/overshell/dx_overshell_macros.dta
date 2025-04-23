@@ -194,7 +194,9 @@
    )
    (mod_brutalmode
       {unless {modifier_mgr is_modifier_active mod_brutalmode}
-         {$this show_state dxState_BrutalWarn}
+         {set $in_dx_settings TRUE}
+         {set $this_state dxState_BrutalWarn}
+         {$this show_state kState_OptionsExtras}
       }
       {if {modifier_mgr is_modifier_active mod_brutalmode}
          {do
@@ -226,7 +228,9 @@
          {dx_passive_messenger_symbol {sprint {localize dx_track_speed_locked}}}
          {do
             {set $dx_track_speed_from_modifiers TRUE}
-            {$this show_state dxState_TrackSpeeds}
+            {set $in_dx_settings TRUE}
+            {set $this_state dxState_TrackSpeeds}
+            {$this show_state kState_OptionsExtras}
          }
       }
    )
@@ -237,7 +241,9 @@
       }
       {unless {{$this get_session_mgr} is_online_enabled}
          {unless {modifier_mgr is_modifier_active mod_fakejuke}
-            {$this show_state dxState_FakeJukeWarn}
+            {set $in_dx_settings TRUE}
+            {set $this_state dxState_FakeJukeWarn}
+            {$this show_state kState_OptionsExtras}
          }
          {if {modifier_mgr is_modifier_active mod_fakejuke}
             {do
@@ -286,14 +292,18 @@
          {session_mgr disconnect}
          {modifier_mgr toggle_modifier_enabled $modifier}
          {if {$this in_game}
-            {$this show_state dxState_ModifierSongLoad}
+            {set $in_dx_settings TRUE}
+            {set $this_state dxState_ModifierSongLoad}
+            {$this show_state kState_OptionsExtras}
          }
          {overshell update_all}
       }
    )
    (mod_chmode
       {unless {modifier_mgr is_modifier_active mod_chmode}
-         {$this show_state dxState_CHModeWarn}
+         {set $in_dx_settings TRUE}
+         {set $this_state dxState_CHModeWarn}
+         {$this show_state kState_OptionsExtras}
       }
       {if {modifier_mgr is_modifier_active mod_chmode}
          {do
@@ -312,7 +322,9 @@
    (mod_calibration
       {unless
          {modifier_mgr is_modifier_active mod_calibration}
-         {$this show_state dxState_CalibrationWarn}
+         {set $in_dx_settings TRUE}
+         {set $this_state dxState_CalibrationWarn}
+         {$this show_state kState_OptionsExtras}
       }
       {if
          {modifier_mgr is_modifier_active mod_calibration}
@@ -328,7 +340,9 @@
    (mod_precision
       {unless
          {modifier_mgr is_modifier_active mod_precision}
-         {$this show_state dxState_PrecisionWarn}
+         {set $in_dx_settings TRUE}
+         {set $this_state dxState_PrecisionWarn}
+         {$this show_state kState_OptionsExtras}
       }
       {if
          {modifier_mgr is_modifier_active mod_precision}

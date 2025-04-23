@@ -121,7 +121,24 @@
       ($this_list_content {array 0})
       ($dx_picked_view choose_char)
       ($prev_list {if_else $current_list $current_list chars.lst})
-      ($last_tracked_state {if_else {== $this_state dxState_DeluxeSettings} fake $this_state})
+      ($last_tracked_state
+         {if_else
+            {||
+               ;these are all of the "first states" for dx settings states
+               {== $this_state dxState_BrutalWarn}
+               {== $this_state dxState_TrackSpeeds}
+               {== $this_state dxState_FakeJukeWarn}
+               {== $this_state dxState_AutoPlayWarn}
+               {== $this_state dxState_ModifierSongLoad}
+               {== $this_state dxState_CHModeWarn}
+               {== $this_state dxState_CalibrationWarn}
+               {== $this_state dxState_PrecisionWarn}
+               {== $this_state dxState_DeluxeSettings}
+            }
+            fake
+            $this_state
+         }
+      )
       ($last_tracked_num {if_else $current_list {$current_list get display_num} 1})
       ($prev_group $dx_picked_view)
       ($num 0)
