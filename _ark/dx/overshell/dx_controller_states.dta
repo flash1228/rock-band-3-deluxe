@@ -27,6 +27,8 @@
          )
          (os_instreset
             {if {! $dx_prompt_save} {dx_settings_dta_writer}}
+            {leave_dx_settings}
+            {$this hide_message}
             DX_RESET_INST_TYPES
             ;{$this show_state dxState_Advanced} ;force closes the menu if a different player resets the controllers
             {overshell update_all}
@@ -67,6 +69,8 @@
       (message os_instrumentswap_menu_guitar_desc)
       (select
          (keys
+            {leave_dx_settings}
+            {$this hide_message}
             DX_RESET_INST_TYPES ;resets all instruments to default before faking a new one
             {set $dx_joypad_type_guitar kControllerKeys}
             {if {! $dx_prompt_save} {dx_settings_dta_writer}}
@@ -74,6 +78,8 @@
             {dx_log_writer info {sprint "Guitar instrument type has been changed to: " {find $syscfg joypad instrument_mapping ro_guitar}}}
          )
          (drums
+            {leave_dx_settings}
+            {$this hide_message}
             DX_RESET_INST_TYPES ;resets all instruments to default before faking a new one
             {set $dx_joypad_type_guitar kControllerDrum}
             {if {! $dx_prompt_save} {dx_settings_dta_writer}}
@@ -81,6 +87,8 @@
             {dx_log_writer info {sprint "Guitar instrument type has been changed to: " {find $syscfg joypad instrument_mapping ro_guitar}}}
          )
          (vocals
+            {leave_dx_settings}
+            {$this hide_message}
             DX_RESET_INST_TYPES ;resets all instruments to default before faking a new one
             {set $dx_joypad_type_guitar kControllerVocals}
             {if {! $dx_prompt_save} {dx_settings_dta_writer}}
@@ -98,6 +106,8 @@
       (message os_instrumentswap_menu_keys_desc)
       (select
          (guitar
+            {leave_dx_settings}
+            {$this hide_message}
             DX_RESET_INST_TYPES ;resets all instruments to default before faking a new one
             {set $dx_joypad_type_keys kControllerGuitar}
             {if {! $dx_prompt_save} {dx_settings_dta_writer}}
@@ -105,6 +115,8 @@
             {dx_log_writer info {sprint "Keys instrument type has been changed to: " {find $syscfg joypad instrument_mapping hx_midi_keys_xbox}}}
          )
          (drums
+            {leave_dx_settings}
+            {$this hide_message}
             DX_RESET_INST_TYPES ;resets all instruments to default before faking a new one
             {set $dx_joypad_type_keys kControllerDrum}
             {if {! $dx_prompt_save} {dx_settings_dta_writer}}
@@ -112,6 +124,8 @@
             {dx_log_writer info {sprint "Keys instrument type has been changed to: " {find $syscfg joypad instrument_mapping hx_midi_keys_xbox}}}
          )
          (vocals
+            {leave_dx_settings}
+            {$this hide_message}
             DX_RESET_INST_TYPES ;resets all instruments to default before faking a new one
             {set $dx_joypad_type_keys kControllerVocals}
             {if {! $dx_prompt_save} {dx_settings_dta_writer}}
@@ -128,6 +142,8 @@
       (message os_instrumentswap_menu_vocals_desc)
       (select
             (guitar
+               {leave_dx_settings}
+               {$this hide_message}
                DX_RESET_INST_TYPES ;resets all instruments to default before faking a new one
                {set $dx_joypad_type_vocals kControllerGuitar}
                {if {! $dx_prompt_save} {dx_settings_dta_writer}}
@@ -135,6 +151,8 @@
                {dx_log_writer info {sprint "Vocals instrument type has been changed to: " {find $syscfg joypad instrument_mapping analog}}}
             )
             (drums
+               {leave_dx_settings}
+               {$this hide_message}
                DX_RESET_INST_TYPES ;resets all instruments to default before faking a new one
                {set $dx_joypad_type_vocals kControllerDrum}
                {if {! $dx_prompt_save} {dx_settings_dta_writer}}
@@ -142,6 +160,8 @@
                {dx_log_writer info {sprint "Vocals instrument type has been changed to: " {find $syscfg joypad instrument_mapping analog}}}
             )
             (keys
+               {leave_dx_settings}
+               {$this hide_message}
                DX_RESET_INST_TYPES ;resets all instruments to default before faking a new one
                {set $dx_joypad_type_vocals kControllerKeys}
                {if {! $dx_prompt_save} {dx_settings_dta_writer}}
