@@ -138,9 +138,9 @@
          #endif
          {if_else $dx_high_score_report os_high_score_on os_high_score_off}
          {if_else $dx_countdown_enabled os_countdown_on os_countdown_off}
-         {if_else {== $dx_hide_on_countdown single} os_hide_on_countdown_single}
-         {if_else {== $dx_hide_on_countdown multi} os_hide_on_countdown_multi}
-         {if_else {== $dx_hide_on_countdown off} os_hide_on_countdown_off}
+         {if_else {== $dx_hide_on_countdown single} os_hide_on_countdown_single 0}
+         {if_else {== $dx_hide_on_countdown multi} os_hide_on_countdown_multi 0}
+         {if_else {== $dx_hide_on_countdown off} os_hide_on_countdown_off 0}
          {if_else $dx_end_song_feedback os_end_song_feedback_on os_end_song_feedback_off}
          {if_else $dx_you_rock os_you_rock_on os_you_rock_off}
       )
