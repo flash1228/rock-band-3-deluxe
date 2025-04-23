@@ -7,13 +7,7 @@
          os_quick_chat
          os_functional_options
          ;only show the controller menu when not in-game and only on applicable instruments or when faking is active
-         {if_else
-            {&&
-               {! {session is_in_game}} ;prevents soft-lock, swapping instrument type in-game would prevent player from rejoining
-               {!= {{$this get_user} get_controller_type} kControllerGuitar}
-               {!= {{$this get_user} get_controller_type} kControllerDrums}
-               {!= {{$this get_user} get_controller_type} kControllerKeys}
-            }
+         {if_else {! {session is_in_game}} ;prevents soft-lock, swapping instrument type in-game would prevent player from rejoining
             os_controller
             0
          }

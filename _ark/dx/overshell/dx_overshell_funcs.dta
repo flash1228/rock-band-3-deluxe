@@ -1,10 +1,10 @@
 {func leave_dx_settings
    {set $in_dx_settings FALSE}
    {set $dx_slider FALSE}
-   {set $in_dx_settings FALSE}
    {set $in_slider_state FALSE}
    {set $dx_list_item_selected FALSE}
    {dx_close_msg}
+   {set $dx_msg_opened TRUE}
    {modifier_scroll.sbd set_showing FALSE}
    {modifier_scroll.sbd set scrollbar_list modifiers.lst}
    {handle ($this init)}

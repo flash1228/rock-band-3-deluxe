@@ -1959,6 +1959,7 @@
       }
       ;initial hook going into dx settings
       {if $in_dx_settings
+         {set $dx_msg_opened FALSE}
          {dx_state $this_state}
       }
    )
@@ -2166,6 +2167,7 @@
                }
             }
          }
+         {dx_close_msg}
       }
    )
    (on_cancel
