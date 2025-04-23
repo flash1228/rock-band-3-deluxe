@@ -1630,7 +1630,7 @@
 (os_font_title "Font")
 (os_font_title_desc "Font for the score in-game")
 (os_fretboard "Highway")
-(os_fretboard_desc "Base graphice for the highway/fretboard in-game")
+(os_fretboard_desc "Base graphics for the highway/fretboard in-game")
 (os_gems "Gems")
 (os_gems_desc "Texture for the notes")
 (os_keyboard "Keyboard")
