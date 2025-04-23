@@ -6,7 +6,7 @@
    {set $dx_mtv_holder {array ()}}
    {set $dx_state_tracker {array ()}}
 }
-
+{set $dx_button_list (kPad_L2 kPad_R2 kPad_L1 kPad_R1 kPad_Tri kPad_Circle kPad_X kPad_Square kPad_Select kPad_L3 kPad_R3 kPad_Start kPad_DUp kPad_DRight kPad_DDown kPad_DLeft)}
 #ifdef HX_WII
 {set $dx_window_offset 83.41675008341676}  ; ngc input offset
 #else
