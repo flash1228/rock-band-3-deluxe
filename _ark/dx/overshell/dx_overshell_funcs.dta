@@ -183,13 +183,17 @@
       ;{$current_list set circular $options_circular}
 
       ;if we have setup a confirm dialog, we need to call it manually to see the nice description
-      {if
+      {if_else
          {&&
             {== {elem $this_list_content 0} overshell_continue}
             {== {elem $this_list_content 1} overshell_cancel}
          }
-         {set $dx_picked_view confirm_action}
-         {set $current_list confirm_action.lst}
+         {do
+            {confirm_question.lbl set alpha 1}
+            {set $dx_picked_view confirm_action}
+            {set $current_list confirm_action.lst}
+         }
+         {confirm_question.lbl set alpha 0}
       }
       ;(enter) in overshell state needs a slight delay to not be overwritten by vanilla state setup
       {script_task kTaskUISeconds
