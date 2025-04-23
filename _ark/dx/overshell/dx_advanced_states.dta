@@ -1054,9 +1054,7 @@
          }
       )
       (cancel
-         {set $dx_slider FALSE}
-         {set $in_dx_settings FALSE}
-         {set $in_slider_state FALSE}
+         {leave_dx_settings}
          {$this show_options}
       )
    )

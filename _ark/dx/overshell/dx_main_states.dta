@@ -52,12 +52,7 @@
       (cancel
          {do
             ($options {array 0})
-            {set $in_dx_settings FALSE}
-            {dx_close_msg}
-            {modifier_scroll.sbd set_showing FALSE}
-            {modifier_scroll.sbd set scrollbar_list modifiers.lst}
-            ;{handle ($this setup_providers)}
-            {handle ($this init)}
+            {leave_dx_settings}
             ;{if_else $dx_prompt_save
             ;   {$this show_state dxState_SaveWarn}
             ;   {if_else $dx_settings_error

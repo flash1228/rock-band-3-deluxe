@@ -43,7 +43,6 @@
       (enter
          {if $dx_customizer
             {$this iterate Mesh $m {$m set_showing FALSE}}
-            {choose_character.mesh set_showing TRUE}
             {unless $dx_moved_once
                #ifdef RB3E
                {set $list_move_down_number 0}

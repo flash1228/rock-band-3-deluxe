@@ -81,13 +81,16 @@
    (choose_char_flow TRUE)
    (remote_status remote_status_choose_char)
    (enter
-      {if $dx_track_to_reset_choose_character_texture
-         {choose_character.tex set_bitmap {sprint "dx/custom_textures/_additional_textures/choose_character.png"}}} ; dx - restore original character icon if it was changed
+      {choose_char.grp set_showing TRUE}
+      {chars.lst set_showing TRUE}
+      {chars.lst set_provider {$this get_char_provider}}
+      {chars.lst refresh}
       {prefab_mgr load_portraits $this}
       {if
          {{$this get_user}
             is_local}
          {$this update_character_list}}
+      {chars.lst refresh}
       {handle
          ($this set_default_option '')}
       {handle
@@ -1416,6 +1419,7 @@
          (overshell_av_settings
             {$this show_options_av_settings})
          (overshell_extras
+            {leave_dx_settings}
             {$this show_options_extras})
          (overshell_wiispeak_options
             {$this show_options_wiispeak})
@@ -1946,16 +1950,11 @@
             {options_audio.lst set_type overshell_menu_ingame}
             {options_audio.lst set_type overshell_menu}
           }
+         {options_audio.grp set_showing TRUE}
+         {options_audio.lst set_showing TRUE}
+         {options_audio.lst reveal}
          {if {&& {!= {ui current_screen} song_select_screen} {! {session is_in_game}} {session_mgr is_local}}
-            {set $dx_choose_char_scale_x 0.4}
-            {set $dx_choose_char_scale_y 0.4}
-            {game_options.grp add_object choose_character.mesh}
-            {store_choose_char_size_pos}
-            {choose_character.mesh set_local_pos_index 2 175}
-            {choose_character.mesh set_local_scale_index 0 $dx_choose_char_scale_x} ;X
-            {choose_character.mesh set_local_scale_index 2 $dx_choose_char_scale_y} ;Y
-            {choose_character.mat set diffuse_tex choose_character.tex}
-            {choose_character.tex set_bitmap "dx/custom_textures/_additional_textures/qr_code.png"}
+            {dx_passive_messenger_symbol {sprint "put the qr code here"}}
          }
       }
       ;initial hook going into dx settings
@@ -2159,12 +2158,6 @@
       }
    )
    (exit
-      {if {! $in_dx_settings}
-         {if {&& {!= {ui current_screen} song_select_screen} {! {session is_in_game}} {session_mgr is_local}}
-            {restore_choose_char_size_pos}
-         }
-         {game_options.grp remove_object choose_character.mesh}
-      }
       {if $in_dx_settings
          {if {find_exists $dx_settings_main $this_state exit}
             {foreach $entry {find $dx_settings_main $this_state exit}
@@ -2345,6 +2338,11 @@
    (update_view
       {$this update_modifiers_list})
    (enter
+      {modifiers.grp set_showing TRUE}
+      {modifiers.lst set_showing TRUE}
+      {modifiers.lbl set_showing TRUE}
+      {modifier_scroll.sbd set_showing TRUE}
+      {modifier_scroll.sbd set scrollbar_list modifiers.lst}
       {modifiers.lst set_selected 0}
       {dx_overshell_msg mod_drum_surface_navigation_desc})
    (exit

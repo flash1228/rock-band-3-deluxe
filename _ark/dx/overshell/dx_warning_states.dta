@@ -11,7 +11,7 @@
          (overshell_continue
             {dx_state dxState_Graphics}
             {if {session_mgr is_local}
-               {set $in_dx_settings FALSE}
+               {leave_dx_settings}
                {$this leave_options}
                {ui goto_screen meta_loading_main_screen}
             }
@@ -46,7 +46,7 @@
             }
             {dx_state dxState_Graphics}
             {if {session_mgr is_local}
-               {set $in_dx_settings FALSE}
+               {leave_dx_settings}
                {$this leave_options}
                {ui goto_screen meta_loading_main_screen}
             }
@@ -79,7 +79,7 @@
             {dx_postfx_setter}
             {dx_state dxState_Graphics}
             {if {session_mgr is_local}
-               {set $in_dx_settings FALSE}
+               {leave_dx_settings}
                {$this leave_options}
                {ui goto_screen meta_loading_main_screen}
             }
@@ -109,15 +109,14 @@
             {set $gotcha FALSE}
             {saveload_mgr disable_autosave $user}
             {dx_passive_messenger saving_disabled}
-            {set $in_dx_settings FALSE}
+            {leave_dx_settings}
             {$this leave_options}
-            {overshell update_all}
             {ui goto_screen meta_loading_main_screen}
          )
          (overshell_cancel {$this show_modifiers})
       )
       (cancel
-         {set $in_dx_settings FALSE}
+         {leave_dx_settings}
          {$this show_modifiers}
       )
    )
