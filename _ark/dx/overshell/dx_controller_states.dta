@@ -152,7 +152,7 @@
       (cancel {dx_state dxState_ControllerMenu})
    )
 }
-
+#ifdef DISABLED
 ;#define kPad_L2
 ;(0)
 ;#define kPad_R2
@@ -467,3 +467,4 @@
       {$this show_state dxState_ControllerMenu}
    )
 )
+#endif
