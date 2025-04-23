@@ -160,7 +160,9 @@ DX_CURRENT_SONG_CLEAR
 {foreach_int $i 0 3
    {set_var {sprint "dx_perfects_count_" $i} 0}
 }
-
+{set $dx_list_pos 0}
+{set $dx_list_item_selected FALSE}
+{set $dx_pos_remapper_array_number 3}
 {set $dx_track_username TRUE}
 {set $dx_track_username_size 2}
 {set $dx_track_username_font pentatonic_outline}

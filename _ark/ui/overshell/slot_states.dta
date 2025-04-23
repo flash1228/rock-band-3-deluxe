@@ -2109,6 +2109,7 @@
                {||
                   {&&
                      {! $dx_list_item_selected}
+                     {! $in_slider_state}
                      {||
                         {== {elem {find $dx_settings_main $this_state button $action} 0} kAction_Down}
                         {== {elem {find $dx_settings_main $this_state button $action} 0} kAction_Up}
@@ -2116,6 +2117,7 @@
                   }
                   {&&
                      {! $dx_slider_item_selected}
+                     $in_slider_state
                      {||
                         {== {elem {find $dx_settings_main $this_state button $action} 0} kAction_Confirm}
                         {== {elem {find $dx_settings_main $this_state button $action} 0} kAction_Cancel}

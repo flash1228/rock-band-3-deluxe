@@ -788,17 +788,25 @@
             {$findme set_local_pos $dx_set_ui_pos_0 $dx_set_ui_pos_1 $dx_set_ui_pos_2}
          }
       )
+      (exit
+         {set $dx_list_pos 0}
+         {set $dx_list_item_selected FALSE}
+         {set $dx_pos_remapper_array_number 3}
+      )
       (enter
          {set $dx_pos_interval_list (0.01 0.1 0.5 1 5 10 50 100)}
-         {set $dx_pos_remapper_array_number 3}
          {set $dx_pos_current_interval {elem $dx_pos_interval_list $dx_pos_remapper_array_number}} ;1 unit
-         {set $dx_list_item_selected FALSE}
-         {set $dx_list_pos 0}
-         {if_else {$this in_game}
-            {$current_list set_type overshell_menu_ingame}
-            {$current_list set_type overshell_menu}
-         }
          DX_TRANSLATE_POS_VARIABLES_TO_LOCAL
+         {do
+            ($arr {find $dx_settings_main $this_state view})
+            ($data {array 0})
+            {foreach $entry $arr
+               {if {!= $entry view}
+                  {push_back $data $entry}
+               }
+            }
+            {$current_list set_data $data}
+         }
       )
       #define LIST_POS_DIREC
       (
@@ -977,6 +985,7 @@
       (enter
          {set $dx_slider TRUE}
          {set $dx_slider_id dx_bot_skill}
+         {set $in_slider_state TRUE}
          {instruments.sld set_num_steps 12}
          {instruments.sld set_current $dx_bot_skill}
          {if $dx_slider_item_selected
@@ -1047,6 +1056,7 @@
       (cancel
          {set $dx_slider FALSE}
          {set $in_dx_settings FALSE}
+         {set $in_slider_state FALSE}
          {$this show_options}
       )
    )
