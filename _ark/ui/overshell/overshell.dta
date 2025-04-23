@@ -21,14 +21,14 @@
          (state_handlers
             #include slot_states.dta
             ;#include ../../dx/overshell/dx_speed_states.dta
-            ;#include ../../dx/overshell/dx_color_states.dta
             ;#include ../../dx/overshell/dx_controller_states.dta
-            #include ../../dx/overshell/dx_milo_states.dta
+            ;#include ../../dx/overshell/dx_milo_states.dta
          )
          (enter
             #include ../../dx/overshell/dx_main_states.dta
             #include ../../dx/overshell/dx_hud_states.dta
             #include ../../dx/overshell/dx_advanced_states.dta
+            #include ../../dx/overshell/dx_color_states.dta
             #include ../../dx/overshell/dx_length_states.dta
             #include ../../dx/overshell/dx_venue_states.dta
             #include ../../dx/overshell/dx_warning_states.dta

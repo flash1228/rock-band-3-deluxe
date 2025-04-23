@@ -559,3 +559,60 @@
       (cancel {dx_state dxState_ShadingMenu})
    )
 }
+
+{push_back $dx_settings_main
+   (dxState_colorrSliderMsg
+      (view overshell_continue overshell_cancel)
+      (enter
+         {handle
+            ($this set_confirm_actions {sprint {localize color_msg} " " $dx_set_ui_rgb_r  ", " $dx_set_ui_rgb_g ", " $dx_set_ui_rgb_b} (overshell_continue))})
+      (select
+         (overshell_continue
+            {set $colorrslider FALSE}
+            {dx_state dxState_rgbcolormenu}
+         )
+      )
+      (cancel
+         {set $colorrslider FALSE}
+         {dx_state dxState_rgbcolormenu}
+      )
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_colorgSliderMsg
+      (view overshell_continue overshell_cancel)
+      (enter
+         {handle
+            ($this set_confirm_actions {sprint {localize color_msg} " " $dx_set_ui_rgb_r  ", " $dx_set_ui_rgb_g ", " $dx_set_ui_rgb_b} (overshell_continue))})
+      (select
+         (overshell_continue
+            {set $colorrslider FALSE}
+            {dx_state dxState_rgbcolormenu}
+         )
+      )
+      (cancel
+         {set $colorrslider FALSE}
+         {dx_state dxState_rgbcolormenu}
+      )
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_colorbSliderMsg
+      (view overshell_continue overshell_cancel)
+      (enter
+         {handle
+            ($this set_confirm_actions {sprint {localize color_msg} " " $dx_set_ui_rgb_r  ", " $dx_set_ui_rgb_g ", " $dx_set_ui_rgb_b} (overshell_continue))})
+      (select
+         (overshell_continue
+            {set $colorrslider FALSE}
+            {dx_state dxState_rgbcolormenu}
+         )
+      )
+      (cancel
+         {set $colorrslider FALSE}
+         {dx_state dxState_rgbcolormenu}
+      )
+   )
+}
