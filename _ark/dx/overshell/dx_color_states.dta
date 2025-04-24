@@ -681,7 +681,7 @@
             ;actually set our variable, based on the pressed action
             {switch $action
                ((kAction_Left kAction_Down)
-                  {if {> {eval {var {sprint $this_var}}} 0}
+                  {if {>= {eval {var {sprint $this_var}}} 0.01}
                      {set_var {sprint $this_var} {- {eval {var $this_var}} 0.01}}
                   }
                   {preview.tex iterate_refs $ref {$ref set color {pack_color $dx_set_ui_rgb_r $dx_set_ui_rgb_g $dx_set_ui_rgb_b}}}
@@ -717,12 +717,20 @@
          (kAction_Cancel
             {if_else $dx_list_item_selected
                {set $dx_list_item_selected FALSE}
-               {switch $dx_set_ui_rgb_tracked_ui
-                  (overdrive {dx_state dxState_ColorSelector})
-                  (highway_overdrive_text {dx_state dxState_TrackHighwayOverdrive})
-                  (highway_username_text {dx_state dxState_TrackHighwayUsername})
-                  (highway_streak_text {dx_state dxState_TrackHighwayStreak})
-                  (lyric_highlight {dx_state dxState_InGameHUD})
+               {do
+                  {if {exists preview.grp}
+                     {delete preview.grp}
+                     {delete preview.mesh}
+                     {delete preview.tex}
+                     {delete preview.mat}
+                  }
+                  {switch $dx_set_ui_rgb_tracked_ui
+                     (overdrive {dx_state dxState_ColorSelector})
+                     (highway_overdrive_text {dx_state dxState_TrackHighwayOverdrive})
+                     (highway_username_text {dx_state dxState_TrackHighwayUsername})
+                     (highway_streak_text {dx_state dxState_TrackHighwayStreak})
+                     (lyric_highlight {dx_state dxState_InGameHUD})
+                  }
                }
             }
          )
