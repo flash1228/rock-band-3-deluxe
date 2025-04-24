@@ -229,7 +229,6 @@
                {do
                   {if_else $dx_track_speed_from_modifiers
                      {do
-                        {auto_vocals.chk set_showing FALSE}
                         {leave_dx_settings}
                         {$this show_modifiers}
                         {set $dx_track_speed_from_modifiers FALSE}
@@ -239,6 +238,7 @@
                         {dx_state dxState_SetSpeeds}
                      }
                   }
+                  {auto_vocals.chk set_showing FALSE}
                }
             }
          )

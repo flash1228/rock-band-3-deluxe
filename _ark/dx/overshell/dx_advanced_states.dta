@@ -7,7 +7,7 @@
          os_quick_chat
          os_functional_options
          ;only show the controller menu when not in-game and only on applicable instruments or when faking is active
-         {if_else {! {session is_in_game}} ;prevents soft-lock, swapping instrument type in-game would prevent player from rejoining
+         {if_else {&& {session_mgr is_local} {! {session is_in_game}}} ;prevents soft-lock, swapping instrument type in-game would prevent player from rejoining
             os_controller
             0
          }
@@ -108,23 +108,17 @@
             {set $dx_icon_real_bass "b"}
             {set $dx_icon_drum_pro "d"}
          )
-         (os_player_icons_on
-            {set $dx_player_icons FALSE}
-            {set $dx_tracked_changed os_player_icons_off}
-            {set $dx_overshell_platform wii}
-            {overshell exit}
-            {overshell enter}
-            SET_STRIP_COLOR
-         )
-         (os_player_icons_off
-            {set $dx_player_icons TRUE}
-            {set $dx_tracked_changed os_player_icons_on}
-            #ifdef HX_PS3
-            {set $dx_overshell_platform ps3}
-            #endif
-            #ifdef HX_XBOX
-            {set $dx_overshell_platform xbox}
-            #endif
+         (os_player_icons
+            {set $dx_player_icons {! $dx_player_icons}}
+            {if_else $dx_player_icons
+               {set $dx_overshell_platform wii}
+               #ifdef HX_PS3
+               {set $dx_overshell_platform ps3}
+               #endif
+               #ifdef HX_XBOX
+               {set $dx_overshell_platform xbox}
+               #endif
+            }
             {overshell exit}
             {overshell enter}
             SET_STRIP_COLOR
