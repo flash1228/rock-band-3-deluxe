@@ -443,10 +443,7 @@
       (view
          os_noang
          os_angmult
-         {if_else $dx_allow_lower_angle
-            os_allow_lower_ang_on
-            os_allow_lower_ang_off
-         }
+         {if_else $dx_allow_lower_angle os_allow_lower_ang_on os_allow_lower_ang_off}
       )
       (enter
          {set $dx_slider TRUE}

@@ -166,6 +166,7 @@
 }
 {push_back $dx_settings_main
    (dxState_MenuColor
+      (message pos_remap_desc)
       (view
          {if_else {&& $dx_list_item_selected {!= $dx_list_pos 0}} os_blnk os_reset_color}
          {if_else {&& $dx_list_item_selected {!= $dx_list_pos 1} {!= $dx_list_pos 0}} os_blnk {sprintf {localize os_menu_color_r} {int {+ 0.5 {* $dx_menu_color_r 100}}}}}
@@ -524,6 +525,7 @@
          {if_else {&& $dx_list_item_selected {!= $dx_list_pos 3}} os_blnk {sprint {localize os_vertical}  ": " $dx_set_ui_pos_2}}
          {if_else {&& $dx_list_item_selected {!= $dx_list_pos 4}} os_blnk {sprint {localize os_zspace}  ": " $dx_set_ui_pos_1}}
       )
+      (message pos_remap_desc)
       #define DX_TRANSLATE_POS_VARIABLES_TO_LOCAL
       (
          {switch $dx_set_ui_pos_tracked_ui
@@ -897,6 +899,7 @@
          {sprintf "7: %s" $dx_chat_preset_6}
          {sprintf "8: %s" $dx_chat_preset_7}
       )
+      (message os_pick_a_phrase)
       (button
          (kAction_Confirm
             {switch {$current_list selected_data}
@@ -935,7 +938,9 @@
 {push_back $dx_settings_main
    (dxState_SelectChatPreset
       (view DX_QUICK_CHAT_PHRASES)
-      (message chat_this_option)
+      (message 
+         {sprintf {localize chat_this_option} {eval {var {sprint "dx_chat_preset_" $dx_selected_chat_index}}}}
+      )
       (button
          (kAction_Confirm
             {switch $dx_selected_chat_index

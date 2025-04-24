@@ -9,11 +9,11 @@
             ($this set_confirm_actions postfx_warning (overshell_continue overshell_cancel))})
       (select
          (overshell_continue
-            {dx_state dxState_Graphics}
+            {leave_dx_settings}
+            {$this leave_options}
+            {overshell update_all}
             {if {session_mgr is_local}
-               {leave_dx_settings}
-               {$this leave_options}
-               {ui goto_screen meta_loading_main_screen}
+               {ui sync_screen meta_loading_main_screen 0}
             }
          )
          (overshell_cancel
@@ -44,11 +44,11 @@
                {set $emulatefps 60}
                {set $emulatefps 30}
             }
-            {dx_state dxState_Graphics}
+            {leave_dx_settings}
+            {$this leave_options}
+            {overshell update_all}
             {if {session_mgr is_local}
-               {leave_dx_settings}
-               {$this leave_options}
-               {ui goto_screen meta_loading_main_screen}
+               {ui sync_screen meta_loading_main_screen 0}
             }
          )
          (overshell_cancel
@@ -77,11 +77,11 @@
                {set $post_proc_needs_reset TRUE}
             }
             {dx_postfx_setter}
-            {dx_state dxState_Graphics}
+            {leave_dx_settings}
+            {$this leave_options}
+            {overshell update_all}
             {if {session_mgr is_local}
-               {leave_dx_settings}
-               {$this leave_options}
-               {ui goto_screen meta_loading_main_screen}
+               {ui sync_screen meta_loading_main_screen 0}
             }
          )
          (overshell_cancel
@@ -111,13 +111,15 @@
             {dx_passive_messenger saving_disabled}
             {leave_dx_settings}
             {$this leave_options}
-            {ui goto_screen meta_loading_main_screen}
+            {overshell update_all}
+            {if {session_mgr is_local}
+               {ui sync_screen meta_loading_main_screen 0}
+            }
          )
-         (overshell_cancel {$this show_modifiers})
+         (overshell_cancel {leave_dx_settings} {$this show_modifiers})
       )
       (cancel
-         {leave_dx_settings}
-         {$this show_modifiers}
+         {leave_dx_settings} {$this show_modifiers}
       )
    )
 }
@@ -151,8 +153,8 @@
    (dxState_SettingsWarn
       (view overshell_continue overshell_cancel)
       (enter {handle ($this set_confirm_actions settings_warning (overshell_continue))})
-      (select (overshell_continue {$this show_modifiers}))
-      (cancel {$this show_modifiers})
+      (select (overshell_continue {leave_dx_settings} {$this show_modifiers}))
+      (cancel {leave_dx_settings} {$this show_modifiers})
    )
 }
 
@@ -166,13 +168,14 @@
                {dx_state dxState_SaveWarnError}
                {do
                   {dx_settings_dta_writer}
+                  {leave_dx_settings}
                   {$this show_game_options}
                }
             }
          )
-         (os_dontsave {$this show_game_options})
+         (os_dontsave {leave_dx_settings} {$this show_game_options})
       )
-      (cancel {$this show_game_options})
+      (cancel {leave_dx_settings} {$this show_game_options})
    )
 }
 
@@ -224,8 +227,8 @@
    (dxState_SaveWarnError
       (view overshell_continue overshell_cancel)
       (enter {handle ($this set_confirm_actions settings_error (overshell_continue))})
-      (select (overshell_continue {$this show_game_options}))
-      (cancel {$this show_game_options})
+      (select (overshell_continue {leave_dx_settings} {$this show_game_options}))
+      (cancel {leave_dx_settings} {$this show_game_options})
    )
 }
 
@@ -242,8 +245,8 @@
    (dxState_SaveWarnErrorAV
       (view overshell_continue overshell_cancel)
       (enter {handle ($this set_confirm_actions settings_error (overshell_continue))})
-      (select (overshell_continue {$this show_options_av_settings}))
-      (cancel {$this show_options_av_settings})
+      (select (overshell_continue {leave_dx_settings} {$this show_options_av_settings}))
+      (cancel {leave_dx_settings} {$this show_options_av_settings})
    )
 }
 
@@ -271,9 +274,12 @@
       (enter {handle ($this set_confirm_actions postfx_warning (overshell_continue overshell_cancel))})
       (select
          (overshell_continue
+            {leave_dx_settings}
+            {$this leave_options}
             {overshell update_all}
-            {dx_state dxState_PostFX}
-            {ui goto_screen meta_loading_main_screen}
+            {if {session_mgr is_local}
+               {ui sync_screen meta_loading_main_screen 0}
+            }
          )
          (overshell_cancel {dx_state dxState_PostFX})
       )
@@ -294,7 +300,9 @@
             {set $dx_moved_once FALSE}
             {session disconnect}
             {session_mgr disconnect}
+            {leave_dx_settings}
             {$this leave_options}
+            {overshell update_all}
             ;{overshell set_active_status kOvershellInactive}
             {set $rb3_songlist
                (
@@ -343,13 +351,16 @@
             {set $gotcha FALSE}
             {saveload_mgr disable_autosave $user}
             {dx_passive_messenger saving_disabled}
+            {leave_dx_settings}
             {$this leave_options}
             {overshell update_all}
-            {ui goto_screen meta_loading_main_screen}
+            {if {session_mgr is_local}
+               {ui sync_screen meta_loading_main_screen 0}
+            }
          )
-         (overshell_cancel {$this show_modifiers})
+         (overshell_cancel {leave_dx_settings} {$this show_modifiers})
       )
-      (cancel {$this show_modifiers})
+      (cancel {leave_dx_settings} {$this show_modifiers})
    )
 }
 
@@ -366,13 +377,16 @@
             {dx_passive_messenger saving_disabled}
             {disable_modifier mod_calibration}
             {disable_modifier mod_precision}
+            {leave_dx_settings}
             {$this leave_options}
             {overshell update_all}
-            {ui goto_screen meta_loading_main_screen}
+            {if {session_mgr is_local}
+               {ui sync_screen meta_loading_main_screen 0}
+            }
          )
-         (overshell_cancel {$this show_modifiers})
+         (overshell_cancel {leave_dx_settings} {$this show_modifiers})
       )
-      (cancel {$this show_modifiers})
+      (cancel {leave_dx_settings} {$this show_modifiers})
    )
 }
 
@@ -385,13 +399,16 @@
             {modifier_mgr toggle_modifier_enabled mod_brutalmode}
             {set $dx_stars_needs_reset TRUE}
             {set $dx_multiplier_ring_needs_reset TRUE}
+            {leave_dx_settings}
             {$this leave_options}
             {overshell update_all}
-            {ui goto_screen meta_loading_main_screen}
+            {if {session_mgr is_local}
+               {ui sync_screen meta_loading_main_screen 0}
+            }
          )
-         (overshell_cancel {$this show_modifiers})
+         (overshell_cancel {leave_dx_settings} {$this show_modifiers})
       )
-      (cancel {$this show_modifiers})
+      (cancel {leave_dx_settings} {$this show_modifiers})
    )
 }
 
@@ -404,13 +421,16 @@
             {modifier_mgr toggle_modifier_enabled mod_calibration}
             {disable_modifier mod_precision}
             {disable_modifier mod_chmode}
+            {leave_dx_settings}
             {$this leave_options}
             {overshell update_all}
-            {ui goto_screen meta_loading_main_screen}
+            {if {session_mgr is_local}
+               {ui sync_screen meta_loading_main_screen 0}
+            }
          )
-         (overshell_cancel {$this show_modifiers})
+         (overshell_cancel {leave_dx_settings} {$this show_modifiers})
       )
-      (cancel {$this show_modifiers})
+      (cancel {leave_dx_settings} {$this show_modifiers})
    )
 }
 
@@ -424,13 +444,16 @@
             {set $dx_rails_needs_reset FALSE}
             {disable_modifier mod_calibration}
             {disable_modifier mod_chmode}
+            {leave_dx_settings}
             {$this leave_options}
             {overshell update_all}
-            {ui goto_screen meta_loading_main_screen}
+            {if {session_mgr is_local}
+               {ui sync_screen meta_loading_main_screen 0}
+            }
          )
-         (overshell_cancel {$this show_modifiers})
+         (overshell_cancel {leave_dx_settings} {$this show_modifiers})
       )
-      (cancel {$this show_modifiers})
+      (cancel {leave_dx_settings} {$this show_modifiers})
    )
 }
 
@@ -497,12 +520,16 @@
       (enter {handle ($this set_confirm_actions debug_warning (overshell_confirm_yes overshell_confirm_no))})
       (select
          (overshell_confirm_yes
+            {leave_dx_settings}
             {$this leave_options}
-            {ui goto_screen meta_loading_main_screen}
+            {overshell update_all}
+            {if {session_mgr is_local}
+               {ui sync_screen meta_loading_main_screen 0}
+            }
          )
-         (overshell_confirm_no {$this show_modifiers})
+         (overshell_confirm_no {leave_dx_settings} {$this show_modifiers})
       )
-      (cancel {$this show_modifiers})
+      (cancel {leave_dx_settings} {$this show_modifiers})
    )
 }
 

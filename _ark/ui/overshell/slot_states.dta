@@ -2082,13 +2082,15 @@
    )
    (SCROLL_MSG
       {if $in_dx_settings
-         {if_else {find_exists $dx_settings_main $this_state message}
-            {foreach $entry {find $dx_settings_main $this_state message}
-               {if {&& $entry {!= $entry message}}
-                  {dx_open_msg {eval $entry}}
+         {if {!= $current_list confirm_action.lst}
+            {if_else {find_exists $dx_settings_main $this_state message}
+               {foreach $entry {find $dx_settings_main $this_state message}
+                  {if {&& $entry {!= $entry message}}
+                     {dx_open_msg {eval $entry}}
+                  }
                }
+               {dx_open_msg {sprint {$component selected_sym} "_desc"}}
             }
-            {dx_open_msg {sprint {$component selected_sym} "_desc"}}
          }
          {if {find_exists $dx_settings_main $this_state scroll}
             {foreach $entry {find $dx_settings_main $this_state scroll}
@@ -2162,7 +2164,7 @@
       {if $in_dx_settings
          {if {find_exists $dx_settings_main $this_state exit}
             {foreach $entry {find $dx_settings_main $this_state exit}
-               {if {&& $entry {!= $entry exit}}
+               {if $entry
                   {eval $entry}
                }
             }
@@ -2180,14 +2182,14 @@
       {if $in_dx_settings
          {if {find_exists $dx_settings_main $this_state exit}
             {foreach $entry {find $dx_settings_main $this_state exit}
-               {if {&& $entry {!= $entry exit}}
+               {if $entry
                   {eval $entry}
                }
             }
          }
          {if {find_exists $dx_settings_main $this_state cancel}
             {foreach $entry {find $dx_settings_main $this_state cancel}
-               {if {&& $entry {!= $entry cancel}}
+               {if $entry
                   {eval $entry}
                }
             }

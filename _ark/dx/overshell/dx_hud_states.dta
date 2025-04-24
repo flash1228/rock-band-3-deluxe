@@ -4,11 +4,9 @@
          os_mtv
          {if_else $dx_lyric_display_enabled os_lyric_display_on os_lyric_display_off}
          os_lyric_highlight_color
-         {switch $dx_crowd_meter_state
-            (dx_on os_vis_on)
-            (dx_off os_vis_off)
-            (dx_disabled os_vis_disabled)
-         }
+         {if_else {== $dx_crowd_meter_state dx_on} os_vis_on 0}
+         {if_else {== $dx_crowd_meter_state dx_off} os_vis_off 0}
+         {if_else {== $dx_crowd_meter_state dx_disabled} os_vis_disabled 0}
          {if_else $dx_gold_star_progress os_star_gold_fill_on os_star_gold_fill_off}
          os_star_display_pos
          os_solo_box_pos
@@ -90,6 +88,7 @@
          os_highway_text
          os_trackconfig
       )
+      (message pos_remap_desc)
       (select
          (os_track_lengths {dx_state dxState_TrackLengths})
          (os_trackconfig {dx_state dxState_TrackConfig})
@@ -140,7 +139,7 @@
          {if_else $dx_countdown_enabled os_countdown_on os_countdown_off}
          {if_else {== $dx_hide_on_countdown single} os_hide_on_countdown_single 0}
          {if_else {== $dx_hide_on_countdown multi} os_hide_on_countdown_multi 0}
-         {if_else {== $dx_hide_on_countdown off} os_hide_on_countdown_off 0}
+         {if_else {== $dx_hide_on_countdown off} os_hide_on_countdown_disable 0}
          {if_else $dx_end_song_feedback os_end_song_feedback_on os_end_song_feedback_off}
          {if_else $dx_you_rock os_you_rock_on os_you_rock_off}
       )
@@ -152,7 +151,7 @@
          (os_countdown {set $dx_countdown_enabled {! $dx_countdown_enabled}})
          (os_end_song_feedback {set $dx_end_song_feedback {! $dx_end_song_feedback}})
          (os_you_rock {set $dx_you_rock {! $dx_you_rock}})
-         (os_hide_on_countdown_off {set $dx_hide_on_countdown single})
+         (os_hide_on_countdown_disable {set $dx_hide_on_countdown single})
          (os_hide_on_countdown_multi {set $dx_hide_on_countdown off})
          (os_hide_on_countdown_single {set $dx_hide_on_countdown multi})
       )
@@ -243,17 +242,17 @@
 {push_back $dx_settings_main
    (dxState_SongTimerElements
       (view
-         {if_else {== $dx_time_remaining_direction off} os_time_remaining_off 0}
+         {if_else {== $dx_time_remaining_direction off} os_time_remaining_disable 0}
          {if_else {== $dx_time_remaining_direction down} os_time_remaining_down 0}
          {if_else {== $dx_time_remaining_direction up} os_time_remaining_up 0}
          {if_else $dx_disp_total_time os_total_time_on os_total_time_off}
-         {if_else $dx_time_remaining_pos_top os_time_remaining_on_top_on os_time_remaining_on_top_off}
+         {if_else $dx_time_remaining_pos_top os_time_remaining_top_on os_time_remaining_top_off}
       )
       (select
-         (os_time_remaining_off {set $dx_time_remaining_direction down})
+         (os_time_remaining_disable {set $dx_time_remaining_direction down})
          (os_time_remaining_down {set $dx_time_remaining_direction up})
          (os_time_remaining_up {set $dx_time_remaining_direction off})
-         (os_time_remaining_on_top {set $dx_time_remaining_pos_top {! $dx_time_remaining_pos_top}})
+         (os_time_remaining_top {set $dx_time_remaining_pos_top {! $dx_time_remaining_pos_top}})
          (os_total_time {set $dx_disp_total_time {! $dx_disp_total_time}})
       )
       (cancel {dx_state dxState_InGameHUD})
@@ -294,6 +293,7 @@
          {if_else $dx_mtv_line_section os_section_on os_section_off}
          {if_else $dx_mtv_line_bpm os_bpm_on os_bpm_off}
       )
+      (message os_mtv_message_desc)
       (select
          #define MTV_REFRESH
          (
@@ -561,6 +561,7 @@
          {if_else {&& $dx_list_item_selected {!= $dx_list_pos 4}} os_blnk {sprint {localize os_alignment}  ": " $dx_set_ui_text_alignment}}
          {if_else {&& $dx_list_item_selected {!= $dx_list_pos 5}} os_blnk {sprint os_font $dx_set_ui_text_font}}
       )
+      (message pos_remap_desc)
       #define DX_TRANSLATE_LABEL_VARIABLES_TO_LOCAL
       (
          {switch $dx_set_ui_label_tracked_ui

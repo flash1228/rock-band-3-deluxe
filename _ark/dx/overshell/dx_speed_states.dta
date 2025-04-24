@@ -42,7 +42,7 @@
             ;actually set our variable, based on the pressed action
             {switch $action
                ((kAction_Left kAction_Down)
-                  {if {> {eval {var {sprint $this_var}}} 1.05}
+                  {if {> {eval {var {sprint $this_var}}} 1.00}
                      {set_var {sprint $this_var} {- {eval {var $this_var}} 0.05}}
                   }
                )
@@ -229,6 +229,7 @@
                {do
                   {if_else $dx_track_speed_from_modifiers
                      {do
+                        {auto_vocals.chk set_showing FALSE}
                         {leave_dx_settings}
                         {$this show_modifiers}
                         {set $dx_track_speed_from_modifiers FALSE}

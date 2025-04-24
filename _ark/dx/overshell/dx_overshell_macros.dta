@@ -203,9 +203,12 @@
             {modifier_mgr toggle_modifier_enabled $modifier}
             {set $dx_stars_needs_reset TRUE}
             {set $dx_multiplier_ring_needs_reset TRUE}
+            {leave_dx_settings}
             {$this leave_options}
             {overshell update_all}
-            {ui goto_screen meta_loading_main_screen}
+            {if {session_mgr is_local}
+               {ui sync_screen meta_loading_main_screen 0}
+            }
          }
       }
    )
@@ -252,9 +255,12 @@
                {disable_modifier mod_nohud}
                {disable_modifier mod_nopause}
                {disable_modifier mod_dx_no_overdrive}
+               {leave_dx_settings}
                {$this leave_options}
                {overshell update_all}
-               {ui goto_screen meta_loading_main_screen}
+               {if {session_mgr is_local}
+                  {ui sync_screen meta_loading_main_screen 0}
+               }
             }
          }
       }
@@ -279,9 +285,12 @@
                   {modifier_mgr toggle_modifier_enabled mod_nohud}
                   {modifier_mgr toggle_modifier_enabled mod_nopause}
                }
+               {leave_dx_settings}
                {$this leave_options}
                {overshell update_all}
-               {ui goto_screen meta_loading_main_screen}
+               {if {session_mgr is_local}
+                  {ui sync_screen meta_loading_main_screen 0}
+               }
             }
          }
       }
@@ -313,9 +322,12 @@
             {if {== $dx_rails none}
                {set $dx_rails "rock band 3"}
             }
+            {leave_dx_settings}
             {$this leave_options}
             {overshell update_all}
-            {ui goto_screen meta_loading_main_screen}
+            {if {session_mgr is_local}
+               {ui sync_screen meta_loading_main_screen 0}
+            }
          }
       }
    )
@@ -331,9 +343,12 @@
          {do
             {modifier_mgr toggle_modifier_enabled $modifier}
             {set $dx_multiplier_ring_needs_reset TRUE}
+            {leave_dx_settings}
             {$this leave_options}
             {overshell update_all}
-            {ui goto_screen meta_loading_main_screen}
+            {if {session_mgr is_local}
+               {ui sync_screen meta_loading_main_screen 0}
+            }
          }
       }
    )
@@ -353,9 +368,12 @@
                {set $dx_rails "rock band 3"}
             }
             {modifier_mgr toggle_modifier_enabled $modifier}
+            {leave_dx_settings}
             {$this leave_options}
             {overshell update_all}
-            {ui goto_screen meta_loading_main_screen}
+            {if {session_mgr is_local}
+               {ui sync_screen meta_loading_main_screen 0}
+            }
          }
       }
    )
