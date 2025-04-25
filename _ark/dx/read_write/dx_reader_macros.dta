@@ -1504,6 +1504,11 @@
          {elem {find $entry default_diff3} 1}
       }
    }
+   {if {== {elem $entry 0} {basename dx_entered_play_a_show}}
+      {set $dx_entered_play_a_show
+         {elem {find $entry dx_entered_play_a_show} 1}
+      }
+   }
 )
 #define LOADING_EVENT_OPTIONS
 (

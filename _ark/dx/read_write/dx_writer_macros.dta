@@ -283,6 +283,7 @@
    {dx_setting_saver dx_values default_diff1 $default_diff1}
    {dx_setting_saver dx_values default_diff2 $default_diff2}
    {dx_setting_saver dx_values default_diff3 $default_diff3}
+   {dx_setting_saver dx_values dx_entered_play_a_show $dx_entered_play_a_show}
 )
 #define DX_MODIFIER_POPULATION
 (
