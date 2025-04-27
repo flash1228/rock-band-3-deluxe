@@ -82,10 +82,6 @@
          {if_else $dx_postfx {if_else $dx_noise os_noise_on os_noise_off} 0}
          os_cycleaspect
       )
-      ;(enter
-      ;   {overshell_view_chooser}
-      ;   {dx_state_setup dxState_Graphics TRUE}
-      ;)
       (select
          (os_venuefps
             {if_else {== $dx_detected_platform platform_rpcs3}
@@ -99,9 +95,15 @@
                      {set $emulatefps 60}
                      {set $emulatefps 30}
                   }
+                  {if {! $gfx_warn_once}
+                     {set $gfx_warn_once TRUE}
+                     {dx_state dxState_GraphicsWarn}
+                  }
+               }
+               {if {! $gfx_warn_once}
+                  {set $gfx_warn_once TRUE}
                   {dx_state dxState_GraphicsWarn}
                }
-               {dx_state dxState_60FPSWarn}
             }
          )
          (os_vsync
@@ -116,7 +118,10 @@
                      {set $post_proc_needs_reset TRUE}
                   }
                   {dx_postfx_setter}
-                  {dx_state dxState_GraphicsWarn}
+                  {if {! $gfx_warn_once}
+                     {set $gfx_warn_once TRUE}
+                     {dx_state dxState_GraphicsWarn}
+                  }
                }
                {dx_state dxState_HighLODWarn}
             }
@@ -124,11 +129,17 @@
          (os_postfx
             {dx_set_postfx {! $dx_postfx}}
             {dx_postfx_setter}
-            {dx_state dxState_GraphicsWarn}
+            {if {! $gfx_warn_once}
+               {set $gfx_warn_once TRUE}
+               {dx_state dxState_GraphicsWarn}
+            }
          )
          (os_venue_lights
             {set $dx_venue_lights {! $dx_venue_lights}}
-            {dx_state dxState_GraphicsWarn}
+            {if {! $gfx_warn_once}
+               {set $gfx_warn_once TRUE}
+               {dx_state dxState_GraphicsWarn}
+            }
          )
          (os_camera_shake
             {set $dx_camera_shake {! $dx_camera_shake}}
@@ -136,7 +147,10 @@
                {set $post_proc_needs_reset TRUE}
             }
             {dx_postfx_setter}
-            {dx_state dxState_GraphicsWarn}
+            {if {! $gfx_warn_once}
+               {set $gfx_warn_once TRUE}
+               {dx_state dxState_GraphicsWarn}
+            }
          )
          (os_camera_blur
             {set $dx_camera_blur {! $dx_camera_blur}}
@@ -144,7 +158,10 @@
                {set $post_proc_needs_reset TRUE}
             }
             {dx_postfx_setter}
-            {dx_state dxState_GraphicsWarn}
+            {if {! $gfx_warn_once}
+               {set $gfx_warn_once TRUE}
+               {dx_state dxState_GraphicsWarn}
+            }
          )
          (os_blur
             {set $dx_motion_blur {! $dx_motion_blur}}
@@ -152,7 +169,10 @@
                {set $post_proc_needs_reset TRUE}
             }
             {dx_postfx_setter}
-            {dx_state dxState_GraphicsWarn}
+            {if {! $gfx_warn_once}
+               {set $gfx_warn_once TRUE}
+               {dx_state dxState_GraphicsWarn}
+            }
          )
          (os_noise
             {set $dx_noise {! $dx_noise}}
@@ -160,7 +180,10 @@
                {set $post_proc_needs_reset TRUE}
             }
             {dx_postfx_setter}
-            {dx_state dxState_GraphicsWarn}
+            {if {! $gfx_warn_once}
+               {set $gfx_warn_once TRUE}
+               {dx_state dxState_GraphicsWarn}
+            }
          )
          (os_cycleaspect
             {dx_cycle_aspect}
