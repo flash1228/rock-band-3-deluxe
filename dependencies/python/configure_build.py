@@ -160,7 +160,7 @@ def ark_file_filter(file: Path):
 ark_files = []
 
 mip_entries = {
-    Path("_ark", "dx", "custom_textures", "gems"): 4,
+    #Path("_ark", "dx", "custom_textures", "gems"): 4,
     Path("_ark", "dx", "custom_textures", "_additional_textures", "countdown_circle.png"): 4,
     Path("_ark", "dx", "custom_textures", "_additional_textures", "countdown_circle_meter_wipe.png"): 4,
 }
