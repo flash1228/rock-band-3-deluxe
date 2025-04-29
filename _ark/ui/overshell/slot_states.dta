@@ -687,7 +687,9 @@
    (enter
       {game_options.lst set circular FALSE}
       {if $dx_customizer
-         {$this show_state dxState_TextureMenu}
+         {set $in_dx_settings TRUE}
+         {set $this_state dxState_TextureMenu}
+         {$this show_state kState_OptionsExtras}
       }
    )
    (update_view
@@ -1453,7 +1455,9 @@
          {options_av_settings.lst set_type overshell_menu}
       }
       {if $dx_customizer
-         {$this show_state dxState_AppearanceMenu}
+         {set $in_dx_settings TRUE}
+         {set $this_state dxState_AppearanceMenu}
+         {$this show_state kState_OptionsExtras}
       }
    )
    (update_view
@@ -1583,7 +1587,11 @@
          {dx_modifier_dta_writer}
       }
       {if_else $dx_settings_error
-         {$this show_state dxState_SaveWarnErrorAV}
+         {do
+            {set $in_dx_settings TRUE}
+            {set $this_state dxState_SaveWarnErrorAV}
+            {$this show_state kState_OptionsExtras}
+         }
          {$this show_options_av_settings}
       }
    )
@@ -1595,7 +1603,9 @@
    )
    (enter
       {if $dx_customizer
-         {$this show_state dxState_AppearanceMenu}
+         {set $in_dx_settings TRUE}
+         {set $this_state dxState_AppearanceMenu}
+         {$this show_state kState_OptionsExtras}
       }
       {if_else {$this in_game}
          {options_audio.lst set_type overshell_menu_ingame}
@@ -1701,7 +1711,11 @@
    (on_cancel
       {dx_values_dta_writer}
       {if_else $dx_settings_error
-         {$this show_state dxState_SaveWarnError}
+         {do
+            {set $in_dx_settings TRUE}
+            {set $this_state dxState_SaveWarnError}
+            {$this show_state kState_OptionsExtras}
+         }
          {$this show_game_options}
       }
    )
@@ -2385,7 +2399,11 @@
          {dx_modifier_dta_writer}
       }
       {if_else $dx_settings_error
-         {$this show_state dxState_SaveWarnError}
+         {do
+            {set $in_dx_settings TRUE}
+            {set $this_state dxState_SaveWarnError}
+            {$this show_state kState_OptionsExtras}
+         }
          {$this show_game_options}
       }
    )
@@ -2400,8 +2418,8 @@
          {do
             {set $ingameset FALSE}
             {set $in_dx_settings TRUE}
-            {set $this_state dxState_DeluxeSettings}
-            {dx_state dxState_DeluxeSettings}
+            {set $this_state kState_OptionsExtras}
+            {$this show_state kState_OptionsExtras}
          }
          {$this show_modifiers}
       }

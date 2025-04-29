@@ -134,6 +134,10 @@
                {== $this_state dxState_CalibrationWarn}
                {== $this_state dxState_PrecisionWarn}
                {== $this_state dxState_CalibrationInGame}
+               {== $this_state dxState_SaveWarnError}
+               {== $this_state dxState_SaveWarnErrorAV}
+               {&& {== $this_state dxState_TextureMenu} $dx_customizer {$this in_game}}
+               {&& {== $this_state dxState_AppearanceMenu} $dx_customizer {$this in_game}}
                {== $this_state dxState_DeluxeSettings}
             }
             fake

@@ -619,6 +619,16 @@
                      {push_back {find $dx_settings_main dxState_DTATextureLoader select}
                         $array
                      }
+                     {if
+                        {&&
+                           {!= $dx_tracked_texture_loader overdrive}
+                           {!= $dx_tracked_texture_loader highways}
+                           {!= $dx_tracked_texture_loader streaks}
+                        }
+                        {push_back {find $dx_settings_main dxState_DTATextureLoader select {eval $entry}}
+                           {quote {set $dx_refresh_beatmatch TRUE}}
+                        }
+                     }
                      {push_back {find $dx_settings_main dxState_DTATextureLoader select {eval $entry}}
                         {quote DO_TEXTURE_SEL}
                      }
@@ -647,7 +657,7 @@
             {preview.mesh set_trans_parent preview.grp}
             {preview.grp add_object preview.mesh}
             {preview.grp set_showing TRUE}
-            {preview.grp set_local_pos 7 0 {+ 235 {* $dx_choose_char_scale_y 200}}}
+            {preview.grp set_local_pos 7 0 {+ {if_else {$this in_game} 0 235} {* $dx_choose_char_scale_y {if_else {$this in_game} 1 200}}}}
             {preview.mesh set_showing TRUE}
             {$current_list set_data $options}
             {modifiers.grp set_showing TRUE}
@@ -771,6 +781,7 @@
                     }
                 )
             }
+            {set $dx_refresh_beatmatch TRUE}
             {dx_state dxState_TextureMenu}
          )
          (guitar
@@ -779,6 +790,7 @@
                 (highways {set $dx_highway_guitar_needs_reset TRUE} {set $dx_highway_guitar $dx_tracked_highway} {set $dx_local_highway_guitar $dx_tracked_highway})
                 (streaks {set $dx_streak_guitar_needs_reset TRUE} {set $dx_streak_guitar $dx_tracked_spotlight} {set $dx_local_streak_guitar $dx_tracked_spotlight})
             }
+            {set $dx_refresh_beatmatch TRUE}
             {dx_state dxState_TextureMenu}
          )
          (bass
@@ -787,6 +799,7 @@
                 (highways {set $dx_highway_bass_needs_reset TRUE} {set $dx_highway_bass $dx_tracked_highway} {set $dx_local_highway_bass $dx_tracked_highway})
                 (streaks {set $dx_streak_bass_needs_reset TRUE} {set $dx_streak_bass $dx_tracked_spotlight} {set $dx_local_streak_bass $dx_tracked_spotlight})
             }
+            {set $dx_refresh_beatmatch TRUE}
             {dx_state dxState_TextureMenu}
          )
          (drums
@@ -795,6 +808,7 @@
                 (highways {set $dx_highway_drum_needs_reset TRUE} {set $dx_highway_drum $dx_tracked_highway} {set $dx_local_highway_drum $dx_tracked_highway})
                 (streaks {set $dx_streak_drum_needs_reset TRUE} {set $dx_streak_drum $dx_tracked_spotlight} {set $dx_local_streak_drum $dx_tracked_spotlight})
             }
+            {set $dx_refresh_beatmatch TRUE}
             {dx_state dxState_TextureMenu}
          )
          (keys
@@ -803,6 +817,7 @@
                 (highways {set $dx_highway_keys_needs_reset TRUE} {set $dx_highway_keys $dx_tracked_highway} {set $dx_local_highway_keys $dx_tracked_highway})
                 (streaks {set $dx_streak_keys_needs_reset TRUE} {set $dx_streak_keys $dx_tracked_spotlight} {set $dx_local_streak_keys $dx_tracked_spotlight})
             }
+            {set $dx_refresh_beatmatch TRUE}
             {dx_state dxState_TextureMenu}
          )
          (pro_keys
@@ -811,6 +826,7 @@
                 (highways {set $dx_highway_prokeys_needs_reset TRUE} {set $dx_highway_prokeys $dx_tracked_highway} {set $dx_local_highway_prokeys $dx_tracked_highway})
                 (streaks {set $dx_streak_prokeys_needs_reset TRUE} {set $dx_streak_prokeys $dx_tracked_spotlight} {set $dx_local_streak_prokeys $dx_tracked_spotlight})
             }
+            {set $dx_refresh_beatmatch TRUE}
             {dx_state dxState_TextureMenu}
          )
       )
