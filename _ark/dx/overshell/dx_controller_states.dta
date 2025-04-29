@@ -29,7 +29,7 @@
             {if {! $dx_prompt_save} {dx_settings_dta_writer}}
             {leave_dx_settings}
             DX_RESET_INST_TYPES
-            ;{$this show_state dxState_Advanced} ;force closes the menu if a different player resets the controllers
+            ;{dx_state dxState_Advanced} ;force closes the menu if a different player resets the controllers
             {overshell update_all}
          )
          (os_pad_mapping {dx_state dxState_PadMappingSwap})
