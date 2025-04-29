@@ -168,7 +168,6 @@ mip_entries = {
 def find_mip_entry(path: Path):
     for key, value in mip_entries.items():
         if path.is_relative_to(key):
-            print(path)
             return value
 
     return None
