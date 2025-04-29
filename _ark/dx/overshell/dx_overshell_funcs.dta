@@ -133,6 +133,7 @@
                {== $this_state dxState_CHModeWarn}
                {== $this_state dxState_CalibrationWarn}
                {== $this_state dxState_PrecisionWarn}
+               {== $this_state dxState_CalibrationInGame}
                {== $this_state dxState_DeluxeSettings}
             }
             fake

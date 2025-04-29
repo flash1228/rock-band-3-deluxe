@@ -338,10 +338,9 @@
          overshell_calibration
       )
       (enter
-         {set $dx_in_calibration TRUE} ;force game to unpause
-         {handle ($this update)}
-         {set $in_slider_state TRUE}
-         {set $dx_slider_item_selected TRUE}
+         {if {exists beatmatch}
+            {beatmatch set_overshell_pause FALSE}
+         }
          {$this iterate Mesh $m {$m set_showing FALSE}}
          {$this iterate UIList $l
             {$l set_local_pos_index 0 {+ {$l get_local_pos_index 0} 200}}
@@ -366,14 +365,14 @@
          (kAction_Confirm CALIB_LIST)
       )
       (cancel
-         {set $dx_in_calibration FALSE} ;re-pause the game after leaving
+         {if {exists beatmatch}
+            {beatmatch set_overshell_pause {modifier_mgr is_modifier_active mod_nopause}}
+         }
          {$this iterate Mesh $m {$m set_showing TRUE}}
          {$this iterate UIList $l
             {$l set_local_pos_index 0 {- {$l get_local_pos_index 0} 200}}
             {$l set_local_pos_index 2 {- {$l get_local_pos_index 2} 250}}
          }
-         {set $dx_slider_item_selected FALSE}
-         {set $in_slider_state FALSE}
          {$this show_options_av_settings}
       )
    )
