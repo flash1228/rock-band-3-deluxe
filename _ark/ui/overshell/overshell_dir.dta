@@ -671,6 +671,7 @@
             {{$this find platform_color.mat} set color {pack_color $dx_menu_color_r $dx_menu_color_g $dx_menu_color_b}})
          (update_char_provider
             ($provider)
+            {chars.lst set_provider $provider}
             {chars.lst refresh})
          (update_users_provider
             ($provider)

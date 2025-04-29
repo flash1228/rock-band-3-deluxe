@@ -83,8 +83,10 @@
    (enter
       {choose_char.grp set_showing TRUE}
       {chars.lst set_showing TRUE}
-      {chars.lst set_provider {$this get_char_provider}}
+      ;{chars.lst set_provider {$this get_char_provider}}
       {chars.lst refresh}
+      {chars.lst set display_num 7}
+      {chars.lst set_type character_list}
       {prefab_mgr load_portraits $this}
       {if
          {{$this get_user}
