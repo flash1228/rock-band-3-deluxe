@@ -10,6 +10,6 @@ out_path = sys.argv[2]
 
 f = open(out_path, "w")
 for dir in directory.glob("*/"):
-    f.write(f"('{dir.stem}'\n#include {dir.stem}/theme.dta \n)\n")
+    f.write(f"({dir.stem}\n#include {dir.stem}/theme.dta \n)\n")
 
 f.close()

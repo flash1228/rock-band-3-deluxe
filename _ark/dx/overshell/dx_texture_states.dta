@@ -915,7 +915,6 @@
             {set_var $dx_model_var {$current_list selected_sym}}
             {set_var $dx_model_reset_var TRUE}
             {dx_state dxState_TextureMenu}
-            {dx_log_writer insane {sprint {dx_get_theme_data gems {$current_list selected_sym}}}}
          )
       )
       (cancel {dx_state dxState_TextureMenu})
