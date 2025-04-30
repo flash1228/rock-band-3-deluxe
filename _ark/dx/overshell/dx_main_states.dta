@@ -110,6 +110,13 @@
             {set $dx_vsync {! $dx_vsync}}
             {rnd set_sync $dx_vsync}
          )
+         (os_ultra_shadows
+            {set $dx_ultra_shadows {! $dx_ultra_shadows}}
+            {if {! $gfx_warn_once}
+               {set $gfx_warn_once TRUE}
+               {dx_state dxState_GraphicsWarn}
+            }
+         )
          (os_force_high_lod
             {if_else {== $dx_detected_platform platform_rpcs3}
                {do
