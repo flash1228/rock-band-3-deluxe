@@ -44,7 +44,8 @@
    ("world/shared/world_chars.milo"
       MAIN_HEAP)
    ("world/shared/wind.milo"
-      MAIN_HEAP))
+      MAIN_HEAP)
+)
 (ui
    ("ui/colors_default.milo")
    ("ui/overshell/overshell_player_common.milo")
@@ -52,7 +53,9 @@
    ("ui/resource/color.milo")
    ("ui/global/dialog_common.milo")
    ("ui/track/track_shared.milo")
-   ("ui/resource/fonts/default.milo"))
+   ("ui/resource/fonts/default.milo")
+   ("dx/models/gems/circle.milo")
+)
 #else
 (synth
    ("sfx/audio_mixer.milo")
@@ -160,5 +163,7 @@
    ("ui/resource/list/list_song_select_shortcut.milo")
    ("ui/resource/list/list_filters.milo")
    ("ui/resource/list/list_filter_categories.milo")
-   ("ui/resource/star_display_ml.milo"))
+   ("ui/resource/star_display_ml.milo")
+   ("dx/models/gems/circle.milo" MAIN_HEAP)
+)
 #endif

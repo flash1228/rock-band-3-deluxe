@@ -489,7 +489,14 @@
          (print_platform
             {dx_passive_messenger_symbol {sprintf "%s" {localize $dx_detected_platform}}}
          )
-         (do_script {run DX_ACE_PATH})
+         (do_script
+            #ifndef HX_WII
+            {run DX_ACE_PATH}
+            #else
+            {set $iwanttologstuff TRUE}
+            {dx_log_writer insane {sprint {find $syscfg themedata}}}
+            #endif
+         )
          (print_objects {dx_print_objects})
          (os_logging {dx_state dxState_LogSettings})
          (os_dx_himem_off {dx_state dxState_HimemWarn})

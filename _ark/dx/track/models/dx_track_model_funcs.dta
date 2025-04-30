@@ -1,0 +1,59 @@
+{func dx_get_theme_data ($category $theme)
+	;{unless $dx_theme_data_initialized
+		;{dx_init_theme_data}
+	;}
+	{set $iwanttologstuff TRUE}
+	{dx_log_writer insane {sprint "Getting theme data " $category "/" $theme}}
+	{find 
+		DX_THEMEDATA
+		$category
+		$theme
+	}
+}
+
+{func dx_get_theme_widget ($theme $instrument $type $id)
+	{set $iwanttologstuff TRUE}
+	{dx_log_writer insane {sprint "Finding track widget for theme " $theme " of type " $type " #" $id}}
+	{dx_log_writer insane {sprint "Can I find the instrument? " {find {dx_get_theme_data gems $theme} $instrument}}}
+	{if_else {|| {== $theme default} {! {find_exists {dx_get_theme_data gems $theme} $instrument}}}
+		{do
+			{switch $instrument
+				(guitar
+					{switch $type
+						(strum {elem (NORMALGEM_SET) $id})
+						(hopo {elem (HOPOGEM_SET) id})
+						(strum_style {elem (STARGEM_SET) $id})
+						(hopo_style {elem (STARHOPO_SET) $id})
+					}
+				)
+			}
+		}
+		{elem {find {dx_get_theme_data gems $theme} $instrument $type} $id}
+	}
+}
+
+{func dx_is_subdir_loaded ($parentdir $subdirpath)
+	{set $idx -1}
+	{find_elem {$parentdir get_array subdirs} $subdirpath $idx}
+	{!= $idx -1}
+}
+
+{func dx_remove_subdir_path ($dir $path)
+	{find_elem {$dir get_array subdirs} $idx}
+	{$dir remove (subdirs $idx)}
+}
+
+{func dx_update_model_themes ($trackpanel)
+	{set $gem_model_path {sprint "dx/models/gems/" $dx_current_gem_model_theme "/theme.milo"}}
+	{unless {dx_is_subdir_loaded {$trackpanel loaded_dir} $gem_model_path}
+		{{$trackpanel loaded_dir} insert (subdirs 0) $gem_model_path}
+	}
+	{$trackpanel iterate GemTrackDir $dir
+		{if {|| {! {$dir has (loaded_model_theme)}} {!= {$dir get loaded_model_theme} $gem_model_path}}
+			{if {$dir has (loaded_model_theme)}
+				{dx_remove_subdir_path $dir $gem_model_path}
+			}
+			{$dir insert (subdirs 0) $gem_model_path}
+		}
+	}
+}
