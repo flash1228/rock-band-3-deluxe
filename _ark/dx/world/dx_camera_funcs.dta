@@ -68,6 +68,73 @@
       }
    }
 }
+{func dx_char_hider
+   ($enabled)
+   {if $enabled
+      {ui foreach_screen $screen
+         {$screen foreach_panel $panel
+            {if {$panel loaded_dir}
+               {{$panel loaded_dir} iterate RndDir $b
+                  {$b iterate BandCharacter $c
+                     {switch {$c get instrument_type}
+                        (guitar
+                           {if {! {{song_mgr get_meta_data {symbol {meta_performer song}}} has_part guitar}}
+                              {$c iterate RndDir $y
+                                 {set_this $y}
+                                 {$this iterate Mesh $m
+                                    {$m set_showing FALSE}
+                                 }
+                              }
+                           }
+                        )
+                        (bass
+                           {if {! {{song_mgr get_meta_data {symbol {meta_performer song}}} has_part bass}}
+                              {$c iterate RndDir $y
+                                 {set_this $y}
+                                 {$this iterate Mesh $m
+                                    {$m set_showing FALSE}
+                                 }
+                              }
+                           }
+                        )
+                        (drum
+                           {if {! {{song_mgr get_meta_data {symbol {meta_performer song}}} has_part drum}}
+                              {$c iterate RndDir $y
+                                 {set_this $y}
+                                 {$this iterate Mesh $m
+                                    {$m set_showing FALSE}
+                                 }
+                              }
+                           }
+                        )
+                        (keyboard
+                           {if {! {{song_mgr get_meta_data {symbol {meta_performer song}}} has_part keys}}
+                              {$c iterate RndDir $y
+                                 {set_this $y}
+                                 {$this iterate Mesh $m
+                                    {$m set_showing FALSE}
+                                 }
+                              }
+                           }
+                        )
+                        (mic
+                           {if {! {{song_mgr get_meta_data {symbol {meta_performer song}}} has_part vocals}}
+                              {$c iterate RndDir $y
+                                 {set_this $y}
+                                 {$this iterate Mesh $m
+                                    {$m set_showing FALSE}
+                                 }
+                              }
+                           }
+                        )
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+}
 {func
    dx_noise_setter
    ($world)
