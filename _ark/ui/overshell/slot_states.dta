@@ -2364,11 +2364,13 @@
       {modifier_scroll.sbd set_showing TRUE}
       {modifier_scroll.sbd set scrollbar_list modifiers.lst}
       {modifiers.lst set_selected 0}
-      {dx_overshell_msg mod_drum_surface_navigation_desc})
+      {set $dx_msg_opened FALSE}
+      {dx_open_msg mod_drum_surface_navigation_desc})
    (exit
       {unless
          {$this in_game}
-         DX_AUTOSAVE})
+         DX_AUTOSAVE}
+      {dx_close_msg})
    (SCROLL_MSG
       DX_MENU_SCROLL_DESC ;updates description with currently selected modifier
    )
