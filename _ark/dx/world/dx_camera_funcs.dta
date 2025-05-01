@@ -298,17 +298,18 @@
       ({&& {session_mgr is_local} {&& $black_song_transition {! $default_transitions}}}
          {do
             #ifdef HX_XBOX {set $dx_xbox_show_fallback TRUE} #endif
+
             {set_elem {find $syscfg vignettes interstitials preloading_screen #ifdef HX_WII pregame_screen #else game_screen #endif} 1 (TRUE ())}
             {set_elem {find $syscfg vignettes interstitials meta_loading_outro song_select_screen} 1 (TRUE ())}
          }
       )
-      ({&& {session_mgr is_local} {! $default_transitions}}
+      ({&& {session_mgr is_local} {! $black_song_transition} {! $default_transitions}}
          {do
             {set_elem {find $syscfg vignettes interstitials preloading_screen #ifdef HX_WII pregame_screen #else game_screen #endif} 1 {quote (1 {unquote {eval $dx_forced_outro_vignette}})}}
             {set_elem {find $syscfg vignettes interstitials meta_loading_outro song_select_screen} 1 {quote (1 {unquote {eval $dx_forced_outro_vignette}})}}
          }
       )
-      ({|| {&& $default_transitions {! $black_song_transition}} {! {session_mgr is_local}}}
+      ({|| {&& {== {size $dx_forced_outro_vignette} 0} {! $black_song_transition}} {! {session_mgr is_local}}}
          {do
             ;{set $dx_forced_outro_vignette FALSE}
             {set_elem {find $syscfg vignettes interstitials preloading_screen #ifdef HX_WII pregame_screen #else game_screen #endif} 1 {quote ({'||' {meta_performer festival_reward} {!= {gamemode get game_screen} game_screen}} ())}}
