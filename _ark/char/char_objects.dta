@@ -1709,17 +1709,23 @@
             ($tambourine
                {$this find tambourine.grp})
             ($show_mic
-               {==
-                  $inst
-                  "mic"})
+               {&&
+                  {! {modifier_mgr is_modifier_active mod_air_guitar}}
+                  {== $inst "mic"}
+               }
+            )
             ($show_tam
-               {==
-                  $inst
-                  "tambourine"})
+               {&&
+                  {! {modifier_mgr is_modifier_active mod_air_guitar}}
+                  {== $inst "tambourine"}
+               }
+            )
             ($show_cowbell
-               {==
-                  $inst
-                  "cowbell"})
+               {&&
+                  {! {modifier_mgr is_modifier_active mod_air_guitar}}
+                  {== $inst "cowbell"}
+               }
+            )
             #ifdef HX_PS3
             {if $mic
                {foreach $entry $mic_meshes
