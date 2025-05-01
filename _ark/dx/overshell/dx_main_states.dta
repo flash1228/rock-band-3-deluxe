@@ -87,26 +87,18 @@
       )
       (select
          (os_venuefps
-            {if_else {== $dx_detected_platform platform_rpcs3}
-               {do
-                  {set $dx_60fps {! $dx_60fps}}
-                  {if $dx_60fps
-                     {set $post_proc_needs_reset TRUE}
-                  }
-                  {dx_postfx_setter}
-                  {if_else $dx_60fps
-                     {set $emulatefps 60}
-                     {set $emulatefps 30}
-                  }
-                  {if {! $gfx_warn_once}
-                     {set $gfx_warn_once TRUE}
-                     {dx_state dxState_GraphicsWarn}
-                  }
-               }
-               {if {! $gfx_warn_once}
-                  {set $gfx_warn_once TRUE}
-                  {dx_state dxState_GraphicsWarn}
-               }
+            {set $dx_60fps {! $dx_60fps}}
+            {if $dx_60fps
+               {set $post_proc_needs_reset TRUE}
+            }
+            {dx_postfx_setter}
+            {if_else $dx_60fps
+               {set $emulatefps 60}
+               {set $emulatefps 30}
+            }
+            {if {! $gfx_warn_once}
+               {set $gfx_warn_once TRUE}
+               {dx_state dxState_GraphicsWarn}
             }
          )
          (os_vsync
@@ -121,18 +113,13 @@
             }
          )
          (os_force_high_lod
-            {if_else {== $dx_detected_platform platform_rpcs3}
-               {do
-                  {set $dx_force_lod {! $dx_force_lod}}
-                  {if $dx_force_lod
-                     {set $post_proc_needs_reset TRUE}
-                  }
-                  {dx_postfx_setter}
-                  {if {! $gfx_warn_once}
-                     {set $gfx_warn_once TRUE}
-                     {dx_state dxState_GraphicsWarn}
-                  }
-               }
+            {set $dx_force_lod {! $dx_force_lod}}
+            {if $dx_force_lod
+               {set $post_proc_needs_reset TRUE}
+            }
+            {dx_postfx_setter}
+            {if {! $lod_warn_once}
+               {set $lod_warn_once TRUE}
                {dx_state dxState_HighLODWarn}
             }
          )
