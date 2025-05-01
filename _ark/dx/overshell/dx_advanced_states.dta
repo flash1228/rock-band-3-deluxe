@@ -11,7 +11,7 @@
             os_controller
             0
          }
-         {if_else {|| $dx_debug $dx_event_mode}
+         {if_else {&& {|| $dx_debug $dx_event_mode} {session_mgr is_local}}
             os_debug
             0
          }
