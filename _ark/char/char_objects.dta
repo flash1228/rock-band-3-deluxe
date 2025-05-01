@@ -1709,7 +1709,7 @@
             ($tambourine
                {$this find tambourine.grp})
             ($show_mic
-               {if_else {exists song_mgr}
+               {if_else {&& {== {ui current_screen} game} {exists song_mgr}}
                   {&&
                      {! {modifier_mgr is_modifier_active mod_air_guitar}}
                      {&& {exists song_mgr} {{song_mgr get_meta_data {symbol {meta_performer song}}} has_part vocals}}
@@ -1722,7 +1722,7 @@
                }
             )
             ($show_tam
-               {if_else {exists song_mgr}
+               {if_else {&& {== {ui current_screen} game} {exists song_mgr}}
                   {&&
                      {! {modifier_mgr is_modifier_active mod_air_guitar}}
                      {&& {exists song_mgr} {{song_mgr get_meta_data {symbol {meta_performer song}}} has_part vocals}}
@@ -1735,7 +1735,7 @@
                }
             )
             ($show_cowbell
-               {if_else {exists song_mgr}
+               {if_else {&& {== {ui current_screen} game} {exists song_mgr}}
                   {&&
                      {! {modifier_mgr is_modifier_active mod_air_guitar}}
                      {&& {exists song_mgr} {{song_mgr get_meta_data {symbol {meta_performer song}}} has_part vocals}}
