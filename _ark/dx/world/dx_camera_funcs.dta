@@ -23,7 +23,7 @@
    ;   }
    ;}
 }
-#ifdef HX_PS3
+
 {func dx_ultra_shadows
    ($enabled)
    {if $enabled
@@ -44,7 +44,7 @@
       }
    }
 }
-#endif
+
 {func dx_air_guitar
    ($enabled)
    {if $enabled
@@ -70,7 +70,7 @@
 }
 {func dx_char_hider
    ($enabled)
-   {if $enabled
+   {if {&& {exists song_mgr} $enabled}
       {ui foreach_screen $screen
          {$screen foreach_panel $panel
             {if {$panel loaded_dir}
