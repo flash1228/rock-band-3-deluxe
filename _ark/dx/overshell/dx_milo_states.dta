@@ -185,6 +185,7 @@
       )
    )
 }
+#ifdef DISABLED
 (dxState_MiloMat
    (view
       {do
@@ -554,3 +555,4 @@
       {dx_state dxState_MiloMat}
    )
 )
+#endif
