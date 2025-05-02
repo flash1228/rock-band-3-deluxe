@@ -1,6 +1,54 @@
+#define MOVE_IT
+(
+   {$this iterate Mesh $m {$m set_showing FALSE}}
+   {if {$this in_game}
+      {unless $dx_moved_once
+         #ifdef RB3E
+         {set $list_move_down_number 0}
+         #else
+         {set $list_move_down_number 250}
+         #endif
+         {if_else
+            {&&
+               {user_mgr get_user_from_slot 2} ;check if user on slot 2 exists
+               {== {{user_mgr get_user_from_slot 2} get_track_type} kTrackVocals}
+            }
+            {$this iterate UIList $l
+               {$l set_local_pos_index 2 {- {$l get_local_pos_index 2} $list_move_down_number}} ;move vocal type menu straight down
+            }
+            {$this iterate UIList $l
+               {$l set_local_pos_index 0 {+ {$l get_local_pos_index 0} 200}} ;move 5l type menu up and to the right
+               {$l set_local_pos_index 2 {+ {$l get_local_pos_index 2} 250}}
+            }
+         }
+         {set $dx_moved_once TRUE}
+      }
+   }
+)
+#define MOVE_IT_BACK
+(
+   {$this iterate Mesh $m {$m set_showing TRUE}}
+   {if $dx_moved_once
+      {set $dx_moved_once FALSE}
+      {if_else
+         {&&
+            {user_mgr get_user_from_slot 2} ;check if user on slot 2 exists
+            {== {{user_mgr get_user_from_slot 2} get_track_type} kTrackVocals}
+         }
+         {$this iterate UIList $l
+            {$l set_local_pos_index 2 {+ {$l get_local_pos_index 2} $list_move_down_number}}
+         }
+         {$this iterate UIList $l
+            {$l set_local_pos_index 0 {- {$l get_local_pos_index 0} 200}}
+            {$l set_local_pos_index 2 {- {$l get_local_pos_index 2} 250}}
+         }
+      }
+   }
+)
 {push_back $dx_settings_main
    (dxState_MiloPanels
       (view os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk)
+      (message none)
       (enter
          {do
             ($options {array 0})
@@ -16,34 +64,43 @@
                }
             }
             {$current_list set_data $options}
-         }
-      )
-      (select
-         (_fallthrough
+            {chars.sbd set scrollbar_list $current_list}
+            {chars.sbd set_showing {! {$this in_game}}}
+            {if_else {$this in_game}
+               {$current_list set_type overshell_menu_ingame}
+               {$current_list set_type overshell_menu}
+            }
             {set $categorizemetrail ()}
             {resize $categorizemetrail 0}
             {set $findmetrail ()}
             {resize $findmetrail 0}
-
-            {set $temp {$current_list selected_sym}}
-            {set $findme {{sprint $temp} loaded_dir}}
-
-            {push_back $findmetrail $findme}
-            {set $findmetrail {array $findmetrail}}
+            MOVE_IT
+         }
+      )
+      (select
+         (_fallthrough
+            {set $findme {{sprint {$current_list selected_sym}} loaded_dir}}
+            {push_back $findmetrail {eval $findme}}
             {dx_state dxState_MiloObjects}
          )
       )
-      (on_cancel {dx_state dxState_Debug})
+      (cancel
+         {do
+            {dx_state dxState_Debug}
+            MOVE_IT_BACK
+         }
+      )
    )
 }
 
 {push_back $dx_settings_main
    (dxState_MiloObjects
       (view os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk)
+      (message none)
       (enter
          {do
             ($options {array 0})
-            {if {>= {size $findmetrail} 1}
+            {if {> {size $findmetrail} 1}
                {set $findme
                   {elem $findmetrail {- {size $findmetrail} 1}}
                }
@@ -58,23 +115,28 @@
                {sort $options}
             }
             {$current_list set_data $options}
+            {chars.sbd set scrollbar_list $current_list}
+            {chars.sbd set_showing {! {$this in_game}}}
+            MOVE_IT
          }
       )
       (select
          (_fallthrough
             {set $categorizeme {$current_list selected_sym}}
-            {push_back $categorizemetrail $categorizeme}
-            {set $categorizemetrail {array $categorizemetrail}}
+            {push_back $categorizemetrail {eval $categorizeme}}
             {dx_state dxState_MiloFind}
          )
       )
       (cancel
          {do
-            {resize $categorizemetrail {- {size $categorizemetrail} 1}}
+            {if {> {size $findmetrail} 0}
+               {resize $findmetrail {- {size $findmetrail} 1}}
+            }
             {if_else {>= {size $categorizemetrail} 1}
                {dx_state dxState_MiloFind}
                {dx_state dxState_MiloPanels}
             }
+            MOVE_IT_BACK
          }
       )
    )
@@ -82,6 +144,7 @@
 {push_back $dx_settings_main
    (dxState_MiloFind
       (view os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk)
+      (message none)
       (enter
          {do
             ($options {array 0})
@@ -90,7 +153,7 @@
                   {elem $findmetrail {- {size $findmetrail} 1}}
                }
             }
-            {if {>= {size $categorizeme} 1}
+            {if {>= {size $categorizemetrail} 1}
                {set $categorizeme
                   {elem $categorizemetrail {- {size $categorizemetrail} 1}}
                }
@@ -105,6 +168,9 @@
                {sort $options}
             }
             {$current_list set_data $options}
+            {chars.sbd set scrollbar_list $current_list}
+            {chars.sbd set_showing {! {$this in_game}}}
+            MOVE_IT
          }
       )
       (select
@@ -118,8 +184,7 @@
                {set $findme {$findme find {$current_list selected_sym}}}
             }
             {if {has_substr $categorizeme Dir}
-               {push_back $findmetrail $findme}
-               {set $findmetrail {array $findmetrail}}
+               {push_back $findmetrail {eval $findme}}
                {dx_state dxState_MiloObjects}
             }
             {if {has_substr $categorizeme Label} {dx_state dxState_PositionRemapper}}
@@ -133,25 +198,20 @@
                (Group {dx_state dxState_PositionRemapper})
                ;(Mat {dx_state dxState_MiloMat})
                (BandCharacter
-                  {push_back $findmetrail $findme}
-                  {set $findmetrail {array $findmetrail}}
+                  {push_back $findmetrail {eval $findme}}
                   {dx_state dxState_MiloObjects})
                ;(AmbientOcclusion {dx_state dxState_MiloAO})
                (Character
-                  {push_back $findmetrail $findme}
-                  {set $findmetrail {array $findmetrail}}
+                  {push_back $findmetrail {eval $findme}}
                   {dx_state dxState_MiloObjects})
                (BandWardrobe
-                  {push_back $findmetrail $findme}
-                  {set $findmetrail {array $findmetrail}}
+                  {push_back $findmetrail {eval $findme}}
                   {dx_state dxState_MiloObjects})
                (BandScoreboard
-                  {push_back $findmetrail $findme}
-                  {set $findmetrail {array $findmetrail}}
+                  {push_back $findmetrail {eval $findme}}
                   {dx_state dxState_MiloObjects})
                (BandStarDisplay
-                  {push_back $findmetrail $findme}
-                  {set $findmetrail {array $findmetrail}}
+                  {push_back $findmetrail {eval $findme}}
                   {dx_state dxState_MiloObjects})
                (Wind {dx_state dxState_MiloWind})
                (BandCamShot kDataUnhandled)
@@ -177,11 +237,14 @@
          )
       )
       (cancel
-         {resize $findmetrail {- {size $findmetrail} 1}}
+         {if {> {size $categorizemetrail} 0}
+            {resize $categorizemetrail {- {size $categorizemetrail} 1}}
+         }
          {if_else {>= {size $findmetrail} 1}
             {dx_state dxState_MiloObjects}
             {dx_state dxState_MiloPanels}
          }
+         MOVE_IT_BACK
       )
    )
 }
