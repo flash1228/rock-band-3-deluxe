@@ -88,6 +88,7 @@
                   }
                }
                {set $dx_customizer FALSE}
+               {set $dx_moved_once FALSE}
                {leave_dx_settings}
                {$this leave_options}
                {overshell update_all}
@@ -192,7 +193,7 @@
             {set $dx_texture_array (#include ../custom_textures/stars/score_star_frame/_list.dta)}
             {dx_state dxState_DTATextureLoader}
          )
-         (os_font
+         (os_font_title
             {set $dx_tracked_texture_loader font}
             {set $dx_tracked_texture_category FALSE}
             {set $dx_choose_char_scale_x 0.3}
@@ -611,30 +612,6 @@
                   }
                }
             }
-            {foreach $entry $options
-               {if {!= $entry ""}
-                  {do
-                     ($array {array 0})
-                     {push_back $array {eval $entry}}
-                     {push_back {find $dx_settings_main dxState_DTATextureLoader select}
-                        $array
-                     }
-                     {if
-                        {&&
-                           {!= $dx_tracked_texture_loader overdrive}
-                           {!= $dx_tracked_texture_loader highways}
-                           {!= $dx_tracked_texture_loader streaks}
-                        }
-                        {push_back {find $dx_settings_main dxState_DTATextureLoader select {eval $entry}}
-                           {quote {set $dx_refresh_beatmatch TRUE}}
-                        }
-                     }
-                     {push_back {find $dx_settings_main dxState_DTATextureLoader select {eval $entry}}
-                        {quote DO_TEXTURE_SEL}
-                     }
-                  }
-               }
-            }
             ;if no textures were found inside or outside of the ark, that's a bug and likely the paths used in the variables are incorrect
             {if {== {size $options} 0} ;if nothing was found at all
                {set $options (cant find textures 'this is a bug')} ;fill the list so it doesnt crash
@@ -663,7 +640,7 @@
             {chars.grp set_showing TRUE}
             {chars.lst set_showing FALSE}
             {chars.lbl set_showing FALSE}
-            {chars.sbd set_showing TRUE}
+            {chars.sbd set_showing {! {$this in_game}}}
             {chars.sbd set scrollbar_list $current_list}
             ;stolen from dx_state func, manually set selected last picked sound
             ;{if {find_exists $dx_state_tracker $this_state}
@@ -718,7 +695,17 @@
       )
       (scroll SCROLL_TEXTURE_SETTER)
       (select
-         
+         (_fallthrough
+            {if
+               {&&
+                  {!= $dx_tracked_texture_loader overdrive}
+                  {!= $dx_tracked_texture_loader highways}
+                  {!= $dx_tracked_texture_loader streaks}
+               }
+               {set $dx_refresh_beatmatch TRUE}
+            }
+            DO_TEXTURE_SEL
+         )
       )
       (exit 
          {if {exists preview.grp}
