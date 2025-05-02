@@ -164,6 +164,5 @@
    ("ui/resource/list/list_filters.milo")
    ("ui/resource/list/list_filter_categories.milo")
    ("ui/resource/star_display_ml.milo")
-   ("dx/models/gems/circle.milo" MAIN_HEAP)
 )
 #endif
