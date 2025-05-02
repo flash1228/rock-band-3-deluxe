@@ -15716,7 +15716,7 @@ If checked, this panel will not be affected by the postprocs."
       (kerning float (help "Additional kerning applied to text object"))
       (italics
          float
-         (range 0 100)
+         (range 0 0.5) ;was 100
          (help "Italics for text object")
       )
       (fit_type
@@ -15831,7 +15831,7 @@ If checked, this panel will not be affected by the postprocs."
       )
       (alt_italics
          float
-         (range 0 100)
+         (range 0 1) ;was 100
          (help "Italics for text object's alt font")
       )
       (alt_alpha
