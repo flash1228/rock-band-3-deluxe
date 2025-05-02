@@ -353,7 +353,7 @@
                         {!= $type "unknown type"}
                      }
                      {if_else {== $type "object"}
-                        {$findme get {symbol $prop}}
+                        {sprint {$findme get $prop}}
                         {$findme get $prop}
                      }
                      "unknown"
@@ -379,7 +379,7 @@
                                     {!= $type "unknown type"}
                                  }
                                  {if_else {== $type "object"}
-                                    {$findme get {symbol $prop}}
+                                    {sprint {$findme get $prop}}
                                     {$findme get $prop}
                                  }
                                  "unknown"
