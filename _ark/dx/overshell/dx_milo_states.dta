@@ -106,7 +106,16 @@
 {push_back $dx_settings_main
    (dxState_MiloObjects
       (view os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk os_blnk)
-      (message none)
+      (message
+         {do
+            ($prop {$current_list selected_sym})
+            ($message {sprint "Help not found"})
+            {if {find_exists $dx_milo_objects $prop description}
+               {set $message {sprint {elem {find $dx_milo_objects $prop description} 1}}}
+            }
+            {sprint $message}
+         }
+      )
       (enter
          {do
             ($options {array 0})
@@ -283,7 +292,13 @@
       (enter
          {do
             ($found {find_exists $dx_milo_objects $categorizeme editor})
-            ($arr {if_else $found {find $dx_milo_objects $categorizeme editor} ('cant' 'find' 'editor' 'array' 'in' 'objects' 'dta')})
+            ($size {if_else $found {size {find $dx_milo_objects $categorizeme editor}} 0})
+            ($arr
+               {if_else {&& $found {> $size 1}}
+                  {find $dx_milo_objects $categorizeme editor}
+                  ('cant' 'find' 'editor' 'array' 'in' 'objects' 'dta')
+               }
+            )
             ($data {array 0})
             {foreach $entry $arr
                {if {!= {sprint $entry} editor}
@@ -305,7 +320,9 @@
       (message
          {do
             ($prop {$current_list selected_sym})
-            ($cur {$findme get $prop})
+            ($found {find_exists $dx_milo_objects $categorizeme editor})
+            ($size {if_else $found {size {find $dx_milo_objects $categorizeme editor}} 0})
+            ($cur {if_else {&& $found {> $size 1}} {$findme get $prop} "error"})
             ($message {sprint "Help not found"})
             {if {find_exists $dx_milo_objects $categorizeme editor $prop help}
                {set $message {sprint {elem {find $dx_milo_objects $categorizeme editor $prop help} 1}}}
