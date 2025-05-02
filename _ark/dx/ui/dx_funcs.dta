@@ -364,6 +364,14 @@
       $str
    }
 }
+{func endswith
+  ($haystack $needle)
+  {do
+    ($expected_pos {- {strlen $haystack} {strlen $needle}})
+    ($needle_pos {find_substr $haystack $needle})
+    {== $needle_pos $expected_pos}
+  }
+}
 #include ../world/dx_camera_funcs.dta
 #include ../game/dx_game_funcs.dta
 #include ../game/dx_game_reset_funcs.dta
