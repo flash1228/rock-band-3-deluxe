@@ -144,6 +144,9 @@ if args.platform != "wii":
 
 
 def ark_file_filter(file: Path):
+    # macos fucking sucks actually
+    if ".DS_Store" in file.parts:
+        return False
     if file.is_dir():
         return False
     if file.suffix.endswith("_ps3") and args.platform != "ps3":
@@ -177,10 +180,6 @@ def find_mip_entry(path: Path):
     return None
 
 for f in filter(ark_file_filter, Path("_ark").rglob("*")):
-    # macos fucking sucks actually
-    if ".DS_Store" in f.parts:
-        continue
-
     match f.suffixes:
         case [".png"]:
             output_directory = Path("obj", args.platform, "ark").joinpath(
