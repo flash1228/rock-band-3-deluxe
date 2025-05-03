@@ -60,6 +60,7 @@
                      (overshell_real_bass kTrackRealBass)
                      (overshell_keys kTrackKeys)
                      (overshell_real_keys kTrackRealKeys)
+                     ((overshell_vocal_solo overshell_vocal_harmony) kTrackVocals)
                   }
                }
                {set $dupe_allowed FALSE} ; block dupe if another player already has this part
