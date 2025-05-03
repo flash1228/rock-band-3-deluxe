@@ -908,7 +908,7 @@
          }
       )
       (message
-         {sprint ""}
+         none
       )
       (select
          (_fallthrough
