@@ -52,13 +52,13 @@
       (cancel
          {do
             ($options {array 0})
-            {leave_dx_settings}
             {if_else $dx_prompt_save
                {dx_state dxState_SaveWarn}
                {if_else $dx_settings_error
                   {dx_state dxState_SaveWarnError}
                   {do
                      {dx_settings_dta_writer}
+                     {leave_dx_settings}
                      {$this show_game_options}
                   }
                }
@@ -321,6 +321,7 @@
          overshell_calibration
       )
       (enter
+         {set $linoscal TRUE}
          {if {exists beatmatch}
             {beatmatch set_overshell_pause FALSE}
          }
@@ -342,12 +343,16 @@
                   {set $dx_calibration_mode audio}
                   {dx_state dxState_CalibrationInGameSetting}
                )
-               (2 {$this show_enter_calibration}) ;enter vanilla calibration screen
+               (2
+                  {set $linoscal FALSE}
+                  {$this show_enter_calibration} ;enter vanilla calibration screen
+               )
             }
          )
          (kAction_Confirm CALIB_LIST)
       )
       (cancel
+         {set $linoscal FALSE}
          {if {exists beatmatch}
             {beatmatch set_overshell_pause {modifier_mgr is_modifier_active mod_nopause}}
          }
