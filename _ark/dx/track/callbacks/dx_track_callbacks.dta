@@ -179,6 +179,11 @@
                ;      {{{{{coop_track_panel find gem_track_resources} find smasher_plate_guitar} find gem_smasher0} find stop_burn.trig} trigger}
                ;   )
                ;}
+               {if $dx_reset_average_jdj
+                  {set [total_offset] 0}
+                  {set [num_gems_hit] 1}
+                  {set $dx_reset_average_jdj FALSE}
+               }
                {set [total_offset] {+ [total_offset] [offset]}}
                ;debug, show values
                {if {|| $dx_judgment_dbg $linoscal}
