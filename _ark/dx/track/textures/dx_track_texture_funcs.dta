@@ -378,13 +378,13 @@
                      {$surf set normal_map $tex}
                      {$surf set emissive_multiplier $mult}
                      #endif
+                     
+                     {if_else {|| {== $inst bass} {== $inst real_bass}}
+                        {bassgroove_plane.mat set diffuse_tex $this_streak_tex}
+                        {peakstate_plane.mat set diffuse_tex $this_streak_tex}
+                     }
+                     {unless {== $current_streak none} {dx_custom_texture_setter FALSE streaks $this_streak_tex $current_streak}}
                   }
-
-                  {if_else {|| {== $inst bass} {== $inst real_bass}}
-                     {bassgroove_plane.mat set diffuse_tex $this_streak_tex}
-                     {peakstate_plane.mat set diffuse_tex $this_streak_tex}
-                  }
-                  {unless {== $current_streak none} {dx_custom_texture_setter FALSE streaks $this_streak_tex $current_streak}}
 
                   ;overdrive shading fixer
                   {do
@@ -445,8 +445,10 @@
          {unless {session_mgr is_local}
             {dx_log_writer info {sprint "dx_sync_remote_textures: PREPPING TO SEND TEXTURES"}}
             {switch $instrument
-               ((kTrackGuitar kTrackRealGuitar) {set $instrument guitar})
-               ((kTrackBass kTrackRealBass) {set $instrument bass})
+               (kTrackGuitar {set $instrument guitar})
+               (kTrackRealGuitar {set $instrument real_guitar})
+               (kTrackBass {set $instrument bass})
+               (kTrackRealBass {set $instrument real_bass})
                (kTrackDrum {set $instrument drum})
                (kTrackKeys {set $instrument keys})
                (kTrackRealKeys {set $instrument real_keys})
