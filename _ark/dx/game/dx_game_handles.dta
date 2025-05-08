@@ -78,6 +78,21 @@
       ;   }
       ;}
    )
+   (dx_on_game_coda
+      ; auto-deploy vocal BRE if using a low deploy sensitivity
+      {beatmatch foreach_active_player $player
+         {if {&& {== {$player instrument} vocals} {{$player get_user} is_local} {> $dx_mic_deploy_sens 0.3}}
+            {script_task
+               kTaskSeconds
+               (delay 1.5) ; gives time for the BRE shield to pop-in before activating
+               (script
+                  {$player remote_hit_last_coda_gem}
+                  {$player send_hit_last_coda_gem}
+               )
+            }
+         }
+      }
+   )
    (dx_on_game_over
       {if $dx_mtvup {{{gamemode get track_panel} find mtv_overlay} set_showing FALSE}}
       {dx_game_var_reset}

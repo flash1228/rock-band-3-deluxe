@@ -1829,7 +1829,7 @@
 (os_random_backup_band_off "Random Backup Band: OFF")
 (os_random_backup_band_off_desc "Stay with the same band after every song")
 (os_random_backup_band_on "Random Backup Band: ON")
-(os_random_backup_band_on_desc "Swap backup band every song unless stand-ins are set")
+(os_random_backup_band_on_desc "Swap backup band every song unless stand-ins are set\n(not recommended on console)")
 (os_venue "Select Venue...")
 (os_venue_desc "Choose where to rock or focus up with no venue")
 (os_venue_desc_report "Current Selected Venue:\n%s")
@@ -1843,7 +1843,7 @@
 (os_venue_swap_off "Rotate Venues: OFF")
 (os_venue_swap_off_desc "Finish the show in the same venue after every song mid-setlist")
 (os_venue_swap_on "Rotate Venues: ON")
-(os_venue_swap_on_desc "Book a new venue after every song mid-setlist")
+(os_venue_swap_on_desc "Book a new venue after every song mid-setlist\n(not recommended on console)")
 
 ; Venues
 (arena_01 "Wilshire Forum")
