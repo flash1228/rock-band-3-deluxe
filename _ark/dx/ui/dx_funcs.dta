@@ -348,6 +348,33 @@
       }
    }
 }
+{func dx_unlock_pre_orders
+   ($user)
+   {if {== {ui current_screen} main_hub_screen}
+      {switch {$user get_slot_num}
+         (0
+            {main_hub_panel unlock_gamestop_award 0}
+            {main_hub_panel unlock_x79_award 0}
+            {main_hub_panel unlock_d2010_award 0}
+         )
+         (1
+            {main_hub_panel unlock_gamestop_award 1}
+            {main_hub_panel unlock_x79_award 1}
+            {main_hub_panel unlock_d2010_award 1}
+         )
+         (2
+            {main_hub_panel unlock_gamestop_award 2}
+            {main_hub_panel unlock_x79_award 2}
+            {main_hub_panel unlock_d2010_award 2}
+         )
+         (3
+            {main_hub_panel unlock_gamestop_award 3}
+            {main_hub_panel unlock_x79_award 3}
+            {main_hub_panel unlock_d2010_award 3}
+         )
+      }
+   }
+}
 #include ../world/dx_camera_funcs.dta
 #include ../game/dx_game_funcs.dta
 #include ../game/dx_game_reset_funcs.dta
