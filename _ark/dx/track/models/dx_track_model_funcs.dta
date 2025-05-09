@@ -136,7 +136,7 @@
 
 {func dx_update_model_themes
    ($trackpanel)
-   {set $iwanttologstuff TRUE}
+   ;{set $iwanttologstuff TRUE}
    {set $gem_model_path
       {sprint "dx/models/gems/" $dx_current_gem_model_theme "/theme.milo"}
    }
