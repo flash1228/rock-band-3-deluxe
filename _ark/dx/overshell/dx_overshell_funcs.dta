@@ -220,6 +220,7 @@
                {== $this_state dxState_CalibrationWarn}
                {== $this_state dxState_PrecisionWarn}
                {== $this_state dxState_CalibrationInGame}
+               {== $this_state dxState_BotSettings}
                {== $this_state dxState_SaveWarnError}
                {== $this_state dxState_SaveWarnErrorAV}
                {&& {== $this_state dxState_TextureMenu} $dx_customizer {$this in_game}}
@@ -285,6 +286,12 @@
       {if_else {$this in_game}
          {$current_list set_type overshell_menu_ingame}
          {$current_list set_type overshell_menu}
+      }
+
+      ;this is so lazy, please rewrite bot settings to not use a slider
+      {if {== $this_state dxState_BotSettings}
+         {set $current_list options_audio.lst}
+         {set $dx_picked_view options_audio}
       }
       ;circular breaks things
       ;{set $options_circular {>= {size $this_list_content} 12}}

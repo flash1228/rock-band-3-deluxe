@@ -960,6 +960,7 @@
          {if_else $dx_bot_4 os_dx_bot_4_on os_dx_bot_4_off}
          {if_else $dx_bot_5 os_dx_bot_5_on os_dx_bot_5_off}
       )
+      (message none)
       (enter
          {set $dx_slider TRUE}
          {set $dx_slider_id dx_bot_skill}
