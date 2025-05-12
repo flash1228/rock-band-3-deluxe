@@ -111,7 +111,7 @@
    dx_track_theme_name
    ($dx_dta_name)
    #ifdef HX_XBOX {sprint "GAME:/dx_track_theme_" $dx_dta_name ".dta"} #endif
-   #ifdef HX_WII {sprint "SD:/dx_track_theme_" $dx_dta_name ".dta"} #endif
+   #ifdef HX_WII {sprint "sd:/rb3/dx_track_theme_" $dx_dta_name ".dta"} #endif
    #ifdef HX_PS3 {sprint "GD:/dev_hdd0/game/" DX_TITLE_ID "/USRDIR/dx_track_theme_" $dx_dta_name ".dta"} #endif
 }
 
