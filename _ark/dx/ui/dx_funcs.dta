@@ -111,7 +111,7 @@
    dx_track_theme_name
    ($dx_dta_name)
    #ifdef HX_XBOX {sprint "GAME:/dx_track_theme_" $dx_dta_name ".dta"} #endif
-   #ifdef HX_WII {sprint "SD:/dx_track_theme_" $dx_dta_name ".dta"} #endif
+   #ifdef HX_WII {sprint "sd:/rb3/dx_track_theme_" $dx_dta_name ".dta"} #endif
    #ifdef HX_PS3 {sprint "GD:/dev_hdd0/game/" DX_TITLE_ID "/USRDIR/dx_track_theme_" $dx_dta_name ".dta"} #endif
 }
 
@@ -345,6 +345,33 @@
          ($search_start {- $search_end {strlen $needle}})
          ($search_str {substr $str $search_start $search_end})
          {strieq $search_str $needle}
+      }
+   }
+}
+{func dx_unlock_pre_orders
+   ($user)
+   {if {== {ui current_screen} main_hub_screen}
+      {switch {$user get_slot_num}
+         (0
+            {main_hub_panel unlock_gamestop_award 0}
+            {main_hub_panel unlock_x79_award 0}
+            {main_hub_panel unlock_d2010_award 0}
+         )
+         (1
+            {main_hub_panel unlock_gamestop_award 1}
+            {main_hub_panel unlock_x79_award 1}
+            {main_hub_panel unlock_d2010_award 1}
+         )
+         (2
+            {main_hub_panel unlock_gamestop_award 2}
+            {main_hub_panel unlock_x79_award 2}
+            {main_hub_panel unlock_d2010_award 2}
+         )
+         (3
+            {main_hub_panel unlock_gamestop_award 3}
+            {main_hub_panel unlock_x79_award 3}
+            {main_hub_panel unlock_d2010_award 3}
+         )
       }
    }
 }

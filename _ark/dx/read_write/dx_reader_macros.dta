@@ -173,12 +173,10 @@
          {elem {find $entry tracked_themes} 1}
       }
    }
-   {if {== {elem $entry 0} {basename dx_forced_main_menu_bg}}
-      {set $dx_forced_main_menu_bg
-         {elem {find $entry dx_forced_main_menu_bg} 1}
+   {if {== {elem $entry 0} {basename dx_stored_main_menu_bg}}
+      {set $dx_stored_main_menu_bg
+         {elem {find $entry dx_stored_main_menu_bg} 1}
       }
-      ;backwards compatible save
-      {if {! $dx_forced_main_menu_bg} {set $dx_forced_main_menu_bg ()}}
    }
    {if {== {elem $entry 0} {basename default_main_menu_bg}}
       {set $default_main_menu_bg
@@ -190,12 +188,10 @@
          {elem {find $entry black_main_menu_bg} 1}
       }
    }
-   {if {== {elem $entry 0} {basename dx_forced_song_select_bg}}
-      {set $dx_forced_song_select_bg
-         {elem {find $entry dx_forced_song_select_bg} 1}
+   {if {== {elem $entry 0} {basename dx_stored_song_select_bg}}
+      {set $dx_stored_song_select_bg
+         {elem {find $entry dx_stored_song_select_bg} 1}
       }
-      ;backwards compatible save
-      {if {! $dx_forced_song_select_bg} {set $dx_forced_song_select_bg ()}}
    }
    {if {== {elem $entry 0} {basename default_song_select_bg}}
       {set $default_song_select_bg
@@ -207,12 +203,10 @@
          {elem {find $entry black_song_select_bg} 1}
       }
    }
-   {if {== {elem $entry 0} {basename dx_forced_practice_bg}}
-      {set $dx_forced_practice_bg
-         {elem {find $entry dx_forced_practice_bg} 1}
+   {if {== {elem $entry 0} {basename dx_stored_practice_bg}}
+      {set $dx_stored_practice_bg
+         {elem {find $entry dx_stored_practice_bg} 1}
       }
-      ;backwards compatible save
-      {if {! $dx_forced_practice_bg} {set $dx_forced_practice_bg ()}}
    }
    {if {== {elem $entry 0} {basename default_practice_bg}}
       {set $default_practice_bg
@@ -229,9 +223,9 @@
          {elem {find $entry dx_sv8_dx_vers} 1}
       }
    }
-   {if {== {elem $entry 0} {basename dx_forced_outro_vignette}}
-      {set $dx_forced_outro_vignette
-         {elem {find $entry dx_forced_outro_vignette} 1}
+   {if {== {elem $entry 0} {basename dx_stored_outro_vignette}}
+      {set $dx_stored_outro_vignette
+         {elem {find $entry dx_stored_outro_vignette} 1}
       }
    }
    {if {== {elem $entry 0} {basename black_song_transition}}
