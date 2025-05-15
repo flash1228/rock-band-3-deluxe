@@ -12,6 +12,9 @@ platform/wii
 obj
 out
 
+#net dta, should remain vanilla unless you specifically want bank8 debug online with rb3e
+_ark/config/net.dta
+
 #generated files by additional game scripts
 scripts/dx_config.ini
 demo
