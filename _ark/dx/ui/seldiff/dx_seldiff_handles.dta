@@ -962,7 +962,7 @@
       ;}
    )
    (dx_pick_a_show
-      {set $availarray (genre year ugc song album artist #ifdef HX_PS3 diff #endif length)}
+      {set $availarray (year ugc song album artist length #ifdef HX_PS3 diff genre #endif)}
       {set $avail2array ()}
       {set $avail3array ()}
       {set $avail4array ()}
