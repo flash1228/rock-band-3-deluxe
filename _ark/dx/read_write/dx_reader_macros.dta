@@ -178,14 +178,14 @@
          {elem {find $entry dx_stored_main_menu_bg} 1}
       }
    }
-   {if {== {elem $entry 0} {basename default_main_menu_bg}}
-      {set $default_main_menu_bg
-         {elem {find $entry default_main_menu_bg} 1}
+   {if {== {elem $entry 0} {basename dx_default_main_menu}}
+      {set $dx_default_main_menu
+         {elem {find $entry dx_default_main_menu} 1}
       }
    }
-   {if {== {elem $entry 0} {basename black_main_menu_bg}}
-      {set $black_main_menu_bg
-         {elem {find $entry black_main_menu_bg} 1}
+   {if {== {elem $entry 0} {basename dx_black_main_menu}}
+      {set $dx_black_main_menu
+         {elem {find $entry dx_black_main_menu} 1}
       }
    }
    {if {== {elem $entry 0} {basename dx_stored_song_select_bg}}
@@ -193,14 +193,14 @@
          {elem {find $entry dx_stored_song_select_bg} 1}
       }
    }
-   {if {== {elem $entry 0} {basename default_song_select_bg}}
-      {set $default_song_select_bg
-         {elem {find $entry default_song_select_bg} 1}
+   {if {== {elem $entry 0} {basename dx_default_song_select}}
+      {set $dx_default_song_select
+         {elem {find $entry dx_default_song_select} 1}
       }
    }
-   {if {== {elem $entry 0} {basename black_song_select_bg}}
-      {set $black_song_select_bg
-         {elem {find $entry black_song_select_bg} 1}
+   {if {== {elem $entry 0} {basename dx_black_song_select}}
+      {set $dx_black_song_select
+         {elem {find $entry dx_black_song_select} 1}
       }
    }
    {if {== {elem $entry 0} {basename dx_stored_practice_bg}}
@@ -208,14 +208,14 @@
          {elem {find $entry dx_stored_practice_bg} 1}
       }
    }
-   {if {== {elem $entry 0} {basename default_practice_bg}}
-      {set $default_practice_bg
-         {elem {find $entry default_practice_bg} 1}
+   {if {== {elem $entry 0} {basename dx_default_practice}}
+      {set $dx_default_practice
+         {elem {find $entry dx_default_practice} 1}
       }
    }
-   {if {== {elem $entry 0} {basename black_practice_bg}}
-      {set $black_practice_bg
-         {elem {find $entry black_practice_bg} 1}
+   {if {== {elem $entry 0} {basename dx_black_practice}}
+      {set $dx_black_practice
+         {elem {find $entry dx_black_practice} 1}
       }
    }
    {if {== {elem $entry 0} {basename dx_sv8_dx_vers}}
@@ -228,14 +228,14 @@
          {elem {find $entry dx_stored_outro_vignette} 1}
       }
    }
-   {if {== {elem $entry 0} {basename black_song_transition}}
-      {set $black_song_transition
-         {elem {find $entry black_song_transition} 1}
+   {if {== {elem $entry 0} {basename dx_black_song_transition}}
+      {set $dx_black_song_transition
+         {elem {find $entry dx_black_song_transition} 1}
       }
    }
-   {if {== {elem $entry 0} {basename default_transitions}}
-      {set $default_transitions
-         {elem {find $entry default_transitions} 1}
+   {if {== {elem $entry 0} {basename dx_default_transitions}}
+      {set $dx_default_transitions
+         {elem {find $entry dx_default_transitions} 1}
       }
    }
    {if {== {elem $entry 0} {basename emulate_fps}}

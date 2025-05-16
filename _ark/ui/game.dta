@@ -281,7 +281,7 @@
    outro_vignette_loader
    (chosen_vignette '')
    (load
-      {if {! $black_song_transition}
+      {if {! $dx_black_song_transition}
          {set
             [chosen_vignette]
             ''}

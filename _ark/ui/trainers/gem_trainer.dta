@@ -527,7 +527,7 @@
    DeJitterPanel
    trainer_background_panel
    (file
-      {if_else {|| $default_practice_bg $black_practice_bg}
+      {if_else {|| $dx_default_practice $dx_black_practice}
          "../../world/vignette/shell/sv5_a.milo"
          {sprint "../../world/vignette/shell/" {random_elem $dx_stored_practice_bg} ".milo"}
       }

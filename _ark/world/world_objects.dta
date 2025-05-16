@@ -1604,14 +1604,14 @@
                         set
                         showing
                         FALSE}}}}
-                        {set $default_song_select_bg TRUE}
-{set $black_song_select_bg FALSE}
+                        {set $dx_default_song_select TRUE}
+{set $dx_black_song_select FALSE}
             {if
                {||
                   $dx_customizer
-                  {&& {== {ui current_screen} song_select_screen} $black_song_select_bg}
-                  {&& {== {ui current_screen} {gamemode get main_screen}} $black_main_menu_bg}
-                  {&& {== {ui current_screen} practice_screen} $black_practice_bg}
+                  {&& {== {ui current_screen} song_select_screen} $dx_black_song_select}
+                  {&& {== {ui current_screen} {gamemode get main_screen}} $dx_black_main_menu}
+                  {&& {== {ui current_screen} practice_screen} $dx_black_practice}
                } ; dx - hide background vignettes for menu speedups or for black venue ;{&& {game is_up} {== $dx_venue none}}
                {if [scene0]
                   {[scene0] set showing FALSE}
