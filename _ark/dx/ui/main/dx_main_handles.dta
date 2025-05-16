@@ -56,7 +56,6 @@
          {unless {modifier_mgr is_modifier_active enable_popup_help}
             {modifier_mgr toggle_modifier_enabled enable_popup_help}
          }
-
          ;setup the main menu
          {menu_buttons.grp set_local_pos -350 0 -90}
          {if {! {exists event.lbl}}
@@ -132,6 +131,11 @@
       {dx_build.lbl set_token_fmt rb3e_mod_string}
       {dx_build.lbl set_showing TRUE}
       {dx_admin_mode}
+      {if {modifier_mgr is_modifier_active mod_auto_play}
+         {$this disable qp_fmp.btn}
+         {$this disable tour_fmp.btn}
+         {$this set_focus mb_playnow.btn}
+      }
    )
    (lbl_maker
       ($label $x $y $align $content)
