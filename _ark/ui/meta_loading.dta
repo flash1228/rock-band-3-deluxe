@@ -555,7 +555,7 @@
    outro_vignette_loader
    (chosen_vignette '')
    (enter
-      {if {! $black_song_transition}
+      {if {! $dx_black_song_transition}
          {set [chosen_vignette] ''}
          {if {meta_performer is_set_complete}
             {meta_performer upload_debug_stats}

@@ -107,6 +107,8 @@
          (overshell_continue
             {modifier_mgr toggle_modifier_enabled mod_auto_play}
             {set $gotcha FALSE}
+            {rock_central force_logout}
+            {rock_central block_login TRUE}
             {saveload_mgr disable_autosave $user}
             {dx_passive_messenger saving_disabled}
             {leave_dx_settings}
