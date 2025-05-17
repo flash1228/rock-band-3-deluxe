@@ -393,7 +393,12 @@
          {if_else $dx_detailed_hit_timing os_hit_timing_on os_hit_timing_off}
       )
       (select
-         (os_perfects_indicator {set $dx_perfects_indicator {! $dx_perfects_indicator}})
+         (os_perfects_indicator
+            {if_else {&& {! $dx_perfects_indicator} {$this in_game}}
+               {dx_state dxState_JudgmentWarn}
+               {set $dx_perfects_indicator {! $dx_perfects_indicator}}
+            }
+         )
          (os_perfects_ctr {set $dx_perfects_ctr {! $dx_perfects_ctr}})
          (os_detailed_hit {set $dx_detailed_hit_stats {! $dx_detailed_hit_stats}})
          (os_hit_timing {set $dx_detailed_hit_timing {! $dx_detailed_hit_timing}})

@@ -686,6 +686,7 @@
 (os_highway_overdrive_on_desc "Overdrive display on highway is enabled")
 (os_highway_perfects "Judgments")
 (os_highway_perfects_desc "Displays Individual Player Accuracy on the Highway")
+(judgment_warn "Judgments cannot be enabled mid-song. Quit the current song to enable this setting.")
 (os_highway_streak "Streak")
 (os_highway_streak_desc "Displays Individual Player Note Streak on the Highway")
 (os_highway_streak_gh3_delay_off "GH3 Streak: OFF")
