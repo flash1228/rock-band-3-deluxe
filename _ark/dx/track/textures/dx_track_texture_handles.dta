@@ -4,40 +4,12 @@
       {dx_log_writer info {sprint "Setting up textures"}}
       {unless {modifier_mgr is_modifier_active mod_nohud} ;don't run anything if performance mode is enabled
          {do ;if we havent
-            {if {! {exists fcframe.tex}}
-               {new Tex fcframe.tex} ;generate a new texture to hold the fc indicator
-            }
-            {if {! {exists multframe.tex}}
-               {new Tex multframe.tex} ;generate a new texture to hold the non fc texture
-            }
-            {{coop_track_panel find fcframe.tex} set_bitmap
-               {if_else {== $dx_multiplier_ring none}
-                  {sprint "dx/custom_textures/multiplier_ring/multiplier_ring_plate_fc/rock band 3.png"}
-                  {do
-                     {set $temp $dx_multiplier_ring}
-                     {search_replace $temp "'" "" $temp}
-                     {sprint "dx/custom_textures/multiplier_ring/multiplier_ring_plate_fc/" $temp ".png"}
-                  }
+            {if {exists beatmatch}
+               {beatmatch foreach_active_player $player
+                  {dx_ring_fc_enabler $player}
                }
             }
-            {{coop_track_panel find multframe.tex} set_bitmap
-               {if_else {== $dx_multiplier_ring none}
-                  {sprint "dx/custom_textures/multiplier_ring/multiplier_ring_plate/rock band 3.png"}
-                  {do
-                     {set $temp $dx_multiplier_ring}
-                     {search_replace $temp "'" "" $temp}
-                     {sprint "dx/custom_textures/multiplier_ring/multiplier_ring_plate/" $temp ".png"}
-                  }
-               }
-            }
-            {if_else $dx_fc_ring
-               {{coop_track_panel find streak_meter_plate.tex} iterate_refs $ref {$ref set diffuse_tex fcframe.tex}}
-               {{coop_track_panel find streak_meter_plate.tex} iterate_refs $ref {$ref set diffuse_tex multframe.tex}}
-            }
-            {{coop_track_panel find fcframe.tex} iterate_refs $ref {$ref set diffuse_tex fcframe.tex}}
-            {{coop_track_panel find multframe.tex} iterate_refs $ref {$ref set diffuse_tex multframe.tex}}
          }
-
          {dx_custom_texture_setter multiplier_ring multiplier_ring_fx_stripes fx_peak_stripes.tex $dx_multiplier_ring}
          {dx_custom_texture_setter multiplier_ring multiplier_ring_glow multiplier_meter_glow.tex $dx_multiplier_ring}
          {if {== $dx_multiplier_ring none} {set $dx_multiplier_ring 'rock band 3'}} ; ew
