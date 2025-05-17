@@ -29,6 +29,7 @@
             {dx_track_fc_reset $dx_fc_glow $player}
          }
       }
+      {dx_game_over_clean_highways}
    }
 }
 {func dx_practice_on_extend
@@ -38,4 +39,5 @@
          {dx_track_fc_reset $dx_fc_glow $player}
       }
    }
+   {dx_game_over_clean_highways}
 }

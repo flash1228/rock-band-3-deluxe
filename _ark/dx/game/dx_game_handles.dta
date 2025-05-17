@@ -57,6 +57,7 @@
                   #endif
                   {set $dx_current_free_cam "Free camera: off"}
                }
+               {dx_game_over_clean_highways}
                {beatmatch foreach_active_player $player
                   {if {{$player get_user} is_local}
                      {if {! {modifier_mgr is_modifier_active mod_auto_play}}
@@ -74,6 +75,7 @@
       ;   {sprintf "Executed dx_on_game_exit - time: %.4fms"
             {time
                {dx_game_var_reset}
+               {dx_game_over_clean_highways}
             }
       ;   }
       ;}
@@ -97,8 +99,10 @@
       {if $dx_mtvup {{{gamemode get track_panel} find mtv_overlay} set_showing FALSE}}
       {dx_game_var_reset}
       {dx_invalidate_scores}
+      {dx_game_over_clean_highways}
    )
    (dx_on_game_won
+      {dx_game_over_clean_highways}
       {if {&& $dx_mtvup {! {gamemode in_mode practice}} {! {gamemode in_mode trainer}}}
          {if $dx_mtvup {{{gamemode get track_panel} find mtv_overlay} set_showing FALSE}}
          {beatmatch foreach_active_player $player

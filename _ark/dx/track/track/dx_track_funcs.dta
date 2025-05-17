@@ -195,6 +195,16 @@
    }
 }
 
+{func dx_game_over_clean_highways
+   ;clean up highway stuff
+   {beatmatch foreach_active_player $player
+      {dx_indv_note_streak $dx_track_streak $player {{$player get_user} get_slot_num} 0 0 0}
+      {dx_show_user_overdrive $dx_track_overdrive $player {{$player get_user} get_slot_num} 0}
+      {dx_perfect_hit_ctr FALSE $player {{$player get_user} get_slot_num} $dx_detailed_hit_stats 0}
+      {dx_fc_disabler $player {{$player get_user} get_slot_num} 0 0}
+   }
+}
+
 {func dx_track_update_countdown ($trackdir)
    {set_this $trackdir}
    {if_else {exists countdown.grp}
