@@ -98,10 +98,7 @@
          {$this check_missed} ;run the logic to check our current misses
          {dx_fc_glow_enabler $dx_fc_glow [player] [num_gems_pass] [num_gems_miss]}
       )
-      (check_missed
-         {dx_fc_glow_disabler $dx_fc_glow [player] [slot] [num_gems_pass] [num_gems_miss]}
-         {dx_miss_fc_remover [player] [slot]}
-      )
+      (check_missed {dx_fc_disabler [player] [slot] [num_gems_pass] [num_gems_miss]})
       (offset 0)
       (timing 0)
       (accuracy 0)

@@ -7,8 +7,6 @@
       {set_var {sprint "brutal_number_" $i} -26}
       {set_var {sprint "dx_perfects_count_" $i} 0}
       {set_var {sprint "dx_stop_od_" $i} FALSE}
-      {set_var {sprint $i "_missed_once"} FALSE}
-      {set_var {sprint $i "_caughtmissed"} FALSE}
       {set_var {sprint "num_gems_combo_" $i} FALSE}
    }
    {foreach $entry (guitar bass drum keys real_guitar real_bass real_drum real_keys)
