@@ -182,6 +182,12 @@
                {! {== $current_highway none}}
                {! {== $current_streak none}}
                {! {== $current_overdrive none}}
+               ;kinda horrid to allow this all to run if one is only changing the colors here but meh
+               {||
+                  {!= $dx_overdrive_r 0.71}
+                  {!= $dx_overdrive_g 0.54}
+                  {!= $dx_overdrive_b 0.0}
+               }
                {! {== $current_rails none}}
                {&& $dx_song_key_var {modifier_mgr is_modifier_active mod_highlight_key} {== {$player instrument} real_keys}}
             }
@@ -416,10 +422,21 @@
                      ($intense {if_else $default TRUE {! $shad}})
                      ($surf "overdrive_plane.mat")
                      ($tex {if_else {|| $default $shad} '' $this_overdrive_tex})
-                  
+                     {if {== $current_overdrive none}
+                        {set $current_overdrive "rock band 3"}
+                     }
                      {$surf set color {pack_color $dx_overdrive_r $dx_overdrive_g $dx_overdrive_b}}
                      {$surf set diffuse_tex $this_overdrive_tex}
-                     {unless {== $current_overdrive none}
+                     {if {== $current_overdrive "rock band 3"}
+                        {switch $inst
+                           ((bass real_bass) {dx_custom_texture_setter FALSE overdrive $this_overdrive_tex "_rb3_bass"})
+                           ((guitar real_guitar) {dx_custom_texture_setter FALSE overdrive $this_overdrive_tex "_1_rb3_guitar"})
+                           (keys {dx_custom_texture_setter FALSE overdrive $this_overdrive_tex "_rb3_keys"})
+                           (real_keys {dx_custom_texture_setter FALSE overdrive $this_overdrive_tex "_rb3_prokeys"})
+                           ((drum real_drum) {dx_custom_texture_setter FALSE overdrive $this_overdrive_tex "_rb3_drums"})
+                        }
+                     }
+                     {if {!= $current_overdrive "rock band 3"}
                         {dx_custom_texture_setter FALSE overdrive $this_overdrive_tex $current_overdrive}
                      }
                      {$surf set diffuse_tex $this_overdrive_tex}
