@@ -13,7 +13,7 @@
 {func
    dx_close_msg
    ;closes message if open
-   {if {! {$this in_game}}
+   {if {|| {! {$this in_game}} {== {ui current_screen} coop_endgame_screen}}
       {if $dx_msg_opened
          {set $dx_msg_opened FALSE}
          {$this hide_message}
@@ -283,7 +283,7 @@
          {gamercard_users.lbl set_showing FALSE}
          {gamercard_users.lbl set_showing TRUE}
       }
-      {if_else {$this in_game}
+      {if_else {&& {$this in_game} {!= {ui current_screen} coop_endgame_screen}}
          {$current_list set_type overshell_menu_ingame}
          {$current_list set_type overshell_menu}
       }
@@ -318,7 +318,7 @@
             {do
                ($trigger {sprint "view_" $dx_picked_view ".trg"})
                ($initial_focus $current_list)
-               ($in_track_mode {$this in_game})
+               ($in_track_mode {&& {$this in_game} {!= {ui current_screen} coop_endgame_screen}})
                {if {!= $last_tracked_state $state}
                   ;#ifdef HX_WII {view_default_wii.trg trigger} #endif
                   ;{view_default.trg trigger}
