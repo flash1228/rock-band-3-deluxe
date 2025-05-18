@@ -70,6 +70,22 @@
    (retracted_position TRUE)
    (on_start
       ($user)
+      ;if the user finishes a song while still in dx_settings we have to clean it up as soon as possible
+      ;this assumes only one player is playing. if we have two players, and one is in dx settings when another joins
+      ;shit....
+      {if {$user is_participating}
+         {if $in_dx_settings
+            {leave_dx_settings}
+         }
+         {if $linoscal
+            {set $linoscal FALSE}
+            {$this iterate Mesh $m {$m set_showing TRUE}}
+            {$this iterate UIList $l
+               {$l set_local_pos_index 0 {- {$l get_local_pos_index 0} 200}}
+               {$l set_local_pos_index 2 {- {$l get_local_pos_index 2} 250}}
+            }
+         }
+      }
       {if
          {'||'
             {$user is_participating}

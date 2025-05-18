@@ -340,6 +340,11 @@
                (2
                   {set $linoscal FALSE}
                   {set $dx_reset_average_jdj FALSE}
+                  {$this iterate Mesh $m {$m set_showing TRUE}}
+                  {$this iterate UIList $l
+                     {$l set_local_pos_index 0 {- {$l get_local_pos_index 0} 200}}
+                     {$l set_local_pos_index 2 {- {$l get_local_pos_index 2} 250}}
+                  }
                   {$this show_enter_calibration} ;enter vanilla calibration screen
                )
             }
@@ -369,19 +374,20 @@
          os_exit_cal_one ;message telling user to press start to exit
          os_exit_cal_two
       )
-      #define CALIB_FORCE_SEL
-      (
-         {if_else {== $dx_calibration_mode video}
-            {$current_list set_selected 0}
-            {$current_list set_selected 1}
-         }
-      )
+      (scroll_disabled)
       (enter
-         CALIB_FORCE_SEL
+         {$current_list set_selected 0}
+         {set $dx_list_item_selected TRUE}
       )
       (select
-         (os_exit_cal_one {dx_state dxState_CalibrationInGame})
-         (os_exit_cal_two {dx_state dxState_CalibrationInGame})
+         (os_exit_cal_one
+            {set $dx_list_item_selected FALSE}
+            {dx_state dxState_CalibrationInGame}
+         )
+         (os_exit_cal_two
+            {set $dx_list_item_selected FALSE}
+            {dx_state dxState_CalibrationInGame}
+         )
       )
       (button
          #define CALIB_LEFT
@@ -421,12 +427,13 @@
          )
          (kAction_Left CALIB_LEFT)
          (kAction_Right CALIB_LEFT)
+         (kAction_Up kDataUnhandled)
+         (kAction_Down kDataUnhandled)
          (kAction_Confirm kDataUnhandled)
          (kAction_Cancel kDataUnhandled)
-         (kAction_Up CALIB_FORCE_SEL)
-         (kAction_Down CALIB_FORCE_SEL)
          ;pressing start will exit menu to allow user to continue playing with normal frets while calibrating
          (kAction_Start
+            {set $dx_list_item_selected FALSE}
             {$this iterate Mesh $m {$m set_showing TRUE}}
             {$this iterate UIList $l
                {$l set_local_pos_index 0 {- {$l get_local_pos_index 0} 200}}
