@@ -2590,7 +2590,12 @@
    (enter
       {if $dx_in_show_flow
          {game_options.lst set_data (play_one play_two play_three play_four play_five play_six play_show)}
-         {set $dx_play_a_show_required_votes {+ $dx_play_a_show_required_votes 1}}
+         {set $dx_play_a_show_required_votes 0}
+         {user_mgr foreach_user $user
+            {if {$user is_participating}
+               {++ $dx_play_a_show_required_votes}
+            }
+         }
       }
       {if {! $dx_in_show_flow}
          {$this update_part_select_list}
@@ -3279,7 +3284,6 @@
    ;(ready_to_play TRUE)
    (on_cancel
       {if $votingallowed
-         {set $dx_play_a_show_required_votes {- $dx_play_a_show_required_votes 1}}
          {$this show_state kState_ChoosePart}}))
 (kState_SongOptionsCancel
    (view cancel_song)
