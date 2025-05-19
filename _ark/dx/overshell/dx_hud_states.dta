@@ -4,9 +4,9 @@
          os_mtv
          {if_else $dx_lyric_display_enabled os_lyric_display_on os_lyric_display_off}
          os_lyric_highlight_color
-         {if_else {== $dx_crowd_meter_state dx_on} os_vis_on 0}
-         {if_else {== $dx_crowd_meter_state dx_off} os_vis_off 0}
-         {if_else {== $dx_crowd_meter_state dx_disabled} os_vis_disabled 0}
+         {if_else {== $dx_crowd_meter_hud dx_on} os_vis_default 0}
+         {if_else {== $dx_crowd_meter_hud dx_off} os_vis_static 0}
+         {if_else {== $dx_crowd_meter_hud dx_disabled} os_vis_disabled 0}
          {if_else $dx_gold_star_progress os_star_gold_fill_on os_star_gold_fill_off}
          os_star_display_pos
          os_solo_box_pos
@@ -40,17 +40,19 @@
          )
          #define CROWD_METER_SELECT
          (
-            {set $dx_crowd_meter_state
-               {switch $dx_crowd_meter_state
-                  (dx_on dx_off)
-                  (dx_off dx_disabled)
-                  (dx_disabled dx_on)
+            {do
+               {set $dx_crowd_meter_hud
+                  {switch $dx_crowd_meter_hud
+                     (dx_on dx_off)
+                     (dx_off dx_disabled)
+                     (dx_disabled dx_on)
+                  }
                }
+               {dx_toggle_fail_feedback}
             }
-            {dx_toggle_fail_feedback}
          )
-         (os_vis_off CROWD_METER_SELECT)
-         (os_vis_on CROWD_METER_SELECT)
+         (os_vis_static CROWD_METER_SELECT)
+         (os_vis_default CROWD_METER_SELECT)
          (os_vis_disabled CROWD_METER_SELECT)
          (os_song_timer {dx_state dxState_SongTimerElements})
          (os_song_progress {dx_state dxState_ProgressBarElements})
