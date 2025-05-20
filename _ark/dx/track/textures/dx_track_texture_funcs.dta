@@ -95,7 +95,7 @@
    ;{dx_log_writer insane {sprint "func: dx_custom_texture_setter" " - " $category ", " $path ", " $sourcetex ", " $customtex}}
    ;{dx_log_writer insane
    ;   {sprintf "Executed dx_custom_texture_setter - time: %.4fms"
-         {time
+         {if $customtex
             {search_replace $customtex "'" "" $customtex}
             {set $dx_failover_tex FALSE}
             {if {&& {exists beatmatch} $dx_customizer $dx_refresh_beatmatch}
@@ -144,8 +144,12 @@
    {dx_log_writer info {sprint "color_me_milo_lite"}}
    
    {user_mgr foreach_user $user
-      {set $player {$user get_player}}
-      {unless {== {$player instrument} vocals}
+      {if
+         {&&
+            {! {== {$user get_track_type} kTrackVocals}}
+            {$user get_player}
+         }
+         {set $player {$user get_player}}
          {if_else
             {&&
                {eval {var {sprint "dx_remote_slot" {{$player get_user} get_slot_num} "_highway"}}} ; check if we received a remote texture
@@ -157,18 +161,18 @@
             }
             ; apply online user's textures
             {do
-               {set $current_highway {eval {var {sprint "dx_remote_slot" {{$player get_user} get_slot_num} "_highway"}}}}
-               {set $current_streak {eval {var {sprint "dx_remote_slot" {{$player get_user} get_slot_num} "_streak"}}}}
-               {set $current_overdrive {eval {var {sprint "dx_remote_slot" {{$player get_user} get_slot_num} "_overdrive"}}}}
-               {set $current_rails {eval {var {sprint "dx_remote_slot" {{$player get_user} get_slot_num} "_rails"}}}}
+               {set $current_highway {sprint {eval {var {sprint "dx_remote_slot" {{$player get_user} get_slot_num} "_highway"}}}}}
+               {set $current_streak {sprint {eval {var {sprint "dx_remote_slot" {{$player get_user} get_slot_num} "_streak"}}}}}
+               {set $current_overdrive {sprint {eval {var {sprint "dx_remote_slot" {{$player get_user} get_slot_num} "_overdrive"}}}}}
+               {set $current_rails {sprint {eval {var {sprint "dx_remote_slot" {{$player get_user} get_slot_num} "_rails"}}}}}
             }
             ; apply local user's textures
             {do
                {set $instrument {if_else {== {$player instrument} real_drum} drum {$player instrument}}}
-               {set $current_highway {eval {var {sprint "dx_highway_" $instrument}}}}
-               {set $current_streak {eval {var {sprint "dx_streak_" $instrument}}}}
-               {set $current_overdrive {eval {var {sprint "dx_overdrive_" $instrument}}}}
-               {set $current_rails $dx_rails}
+               {set $current_highway {sprint {eval {var {sprint "dx_highway_" $instrument}}}}}
+               {set $current_streak {sprint {eval {var {sprint "dx_streak_" $instrument}}}}}
+               {set $current_overdrive {sprint {eval {var {sprint "dx_overdrive_" $instrument}}}}}
+               {set $current_rails {sprint $dx_rails}}
             }
          }
 
@@ -178,6 +182,12 @@
                {! {== $current_highway none}}
                {! {== $current_streak none}}
                {! {== $current_overdrive none}}
+               ;kinda horrid to allow this all to run if one is only changing the colors here but meh
+               {||
+                  {!= $dx_overdrive_r 0.71}
+                  {!= $dx_overdrive_g 0.54}
+                  {!= $dx_overdrive_b 0.0}
+               }
                {! {== $current_rails none}}
                {&& $dx_song_key_var {modifier_mgr is_modifier_active mod_highlight_key} {== {$player instrument} real_keys}}
             }
@@ -270,9 +280,10 @@
                }
                {set $this_rails_bracket_tex smasher_plate_bracket.tex}
             }
-            
-            {track_rails_kb.mat set diffuse_tex $this_rails_tex}
-            {rails.mat set diffuse_tex $this_rails_tex}
+            {if $this_rails_tex
+               {track_rails_kb.mat set diffuse_tex $this_rails_tex}
+               {rails.mat set diffuse_tex $this_rails_tex}
+            }
             {switch {$player instrument}
                (bass {{{{{get_track_panel} find gem_track_resources} find smasher_plate_bass} find smasher_plate_bracket.mat} set diffuse_tex $this_rails_bracket_tex})
                (guitar {{{{{get_track_panel} find gem_track_resources} find smasher_plate_guitar} find smasher_plate_bracket.mat} set diffuse_tex $this_rails_bracket_tex})
@@ -411,10 +422,21 @@
                      ($intense {if_else $default TRUE {! $shad}})
                      ($surf "overdrive_plane.mat")
                      ($tex {if_else {|| $default $shad} '' $this_overdrive_tex})
-                  
+                     {if {== $current_overdrive none}
+                        {set $current_overdrive "rock band 3"}
+                     }
                      {$surf set color {pack_color $dx_overdrive_r $dx_overdrive_g $dx_overdrive_b}}
                      {$surf set diffuse_tex $this_overdrive_tex}
-                     {unless {== $current_overdrive none}
+                     {if {== $current_overdrive "rock band 3"}
+                        {switch $inst
+                           ((bass real_bass) {dx_custom_texture_setter FALSE overdrive $this_overdrive_tex "_rb3_bass"})
+                           ((guitar real_guitar) {dx_custom_texture_setter FALSE overdrive $this_overdrive_tex "_1_rb3_guitar"})
+                           (keys {dx_custom_texture_setter FALSE overdrive $this_overdrive_tex "_rb3_keys"})
+                           (real_keys {dx_custom_texture_setter FALSE overdrive $this_overdrive_tex "_rb3_prokeys"})
+                           ((drum real_drum) {dx_custom_texture_setter FALSE overdrive $this_overdrive_tex "_rb3_drums"})
+                        }
+                     }
+                     {if {!= $current_overdrive "rock band 3"}
                         {dx_custom_texture_setter FALSE overdrive $this_overdrive_tex $current_overdrive}
                      }
                      {$surf set diffuse_tex $this_overdrive_tex}

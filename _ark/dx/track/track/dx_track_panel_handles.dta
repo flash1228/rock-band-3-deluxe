@@ -5,9 +5,12 @@
          {gold_star_handler hide_stars}
       }
       {unless {$this get dx_is_nohud}
-         {{coop_track_panel find fcframe.tex} iterate_refs $ref {$ref set diffuse_tex streak_meter_plate.tex}} ;apply the fc texture to the ring material
-         {{coop_track_panel find multframe.tex} iterate_refs $ref {$ref set diffuse_tex streak_meter_plate.tex}} ;apply the fc texture to the ring material
-         {{coop_track_panel find streak_meter_plate.tex} iterate_refs $ref {$ref set diffuse_tex streak_meter_plate.tex}} ;apply the fc texture to the ring material
+         {do
+            {beatmatch foreach_active_player $player
+               {set_this {find_obj DX_GEMTRACKDIR streak_meter}}
+               {streak_meter_plate.mat set diffuse_tex streak_meter_plate.tex} ;apply the fc texture to the ring material
+            }
+         }
          {{coop_track_panel find dx_star_base.tex} iterate_refs $ref {$ref set diffuse_tex score_star_frame.tex}} ;apply the fc texture to the ring material
          {{coop_track_panel find score_star_frame.tex} iterate_refs $ref {$ref set diffuse_tex score_star_frame.tex}} ;apply the fc texture to the ring material
          #ifdef THIS_IS_DISABLED
@@ -170,8 +173,10 @@
          {if {! {gamemode in_mode practice}}
             {dx_new_set_song_progress_backer $dx_song_progress_bar}
          }
-         {if {! {modifier_mgr is_modifier_active mod_brutalmode}} ;brutal mode relies on crowd meter accuracy
-            {if {== $dx_crowd_meter_state dx_disabled} {adjust_crowd_rating 1}} ;max out crowd meter when it's disabled for crowd audio
+         {if {|| {exists beatmatch} {! {modifier_mgr is_modifier_active mod_brutalmode}}} ;brutal mode relies on crowd meter accuracy
+            {if {== $dx_crowd_meter_hud dx_disabled}
+               {beatmatch foreach_active_player $p {$p set_crowd_rating 1}} ;max out crowd meter when it's disabled for crowd audio
+            }
          }
          {if $dx_mtvup {{{gamemode get track_panel} find mtv_overlay} mtv_formatter}} ;this is here to fix some issues with auto-positioning - luna
          {script_task kTaskSeconds (delay 1)

@@ -66,6 +66,9 @@
    )
    (dx_endgame_enter
       {dx_presence_manager}
+      {if $in_dx_settings
+         {leave_dx_settings}
+      }
       {$this dx_auto_endgame}
       {$this dx_swap_venue_mid_setlist}
       {if

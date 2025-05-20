@@ -70,6 +70,20 @@
    (retracted_position TRUE)
    (on_start
       ($user)
+      ;if the user finishes a song while still in dx_settings we have to clean it up as soon as possible
+      ;this assumes only one player is playing. if we have two players, and one is in dx settings when another joins
+      ;shit....
+      {if {$user is_participating}
+         {if $linoscal
+            {set $linoscal FALSE}
+            {leave_dx_settings}
+            {$this iterate Mesh $m {$m set_showing TRUE}}
+            {$this iterate UIList $l
+               {$l set_local_pos_index 0 {- {$l get_local_pos_index 0} 200}}
+               {$l set_local_pos_index 2 {- {$l get_local_pos_index 2} 250}}
+            }
+         }
+      }
       {if
          {'||'
             {$user is_participating}
@@ -2576,7 +2590,12 @@
    (enter
       {if $dx_in_show_flow
          {game_options.lst set_data (play_one play_two play_three play_four play_five play_six play_show)}
-         {set $dx_play_a_show_required_votes {+ $dx_play_a_show_required_votes 1}}
+         {set $dx_play_a_show_required_votes 0}
+         {user_mgr foreach_user $user
+            {if {$user is_participating}
+               {++ $dx_play_a_show_required_votes}
+            }
+         }
       }
       {if {! $dx_in_show_flow}
          {$this update_part_select_list}
@@ -3265,7 +3284,6 @@
    ;(ready_to_play TRUE)
    (on_cancel
       {if $votingallowed
-         {set $dx_play_a_show_required_votes {- $dx_play_a_show_required_votes 1}}
          {$this show_state kState_ChoosePart}}))
 (kState_SongOptionsCancel
    (view cancel_song)

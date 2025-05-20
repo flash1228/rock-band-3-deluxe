@@ -280,6 +280,15 @@
 }
 
 {push_back $dx_settings_main
+   (dxState_JudgmentWarn
+      (view overshell_continue overshell_cancel)
+      (enter {handle ($this set_confirm_actions judgment_warn (overshell_continue))})
+      (select (overshell_continue {dx_state dxState_TrackPerfects}))
+      (cancel {dx_state dxState_TrackPerfects})
+   )
+}
+
+{push_back $dx_settings_main
    (dxState_PostFXWarn
       (view overshell_continue overshell_cancel)
       (enter {handle ($this set_confirm_actions postfx_warning (overshell_continue overshell_cancel))})

@@ -1064,7 +1064,6 @@
          {play_header.lbl set text_token {sprint " "}}
       }
       {set $votingallowed TRUE}
-      {set $dx_play_a_show_required_votes 0}
       {overshell begin_override_flow kOverrideFlow_None}
       {overshell begin_override_flow kOverrideFlow_SongSettings}
    )

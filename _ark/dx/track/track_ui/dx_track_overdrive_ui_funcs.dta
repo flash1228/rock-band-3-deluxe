@@ -1,38 +1,45 @@
 ; shows the current overdrive of each player at the bottom of their respective highways
 {func
    dx_show_user_overdrive
-   ($enabled $player $slot)
+   ($enabled $player $slot $od)
    {if $enabled
       {do
          ($label {sprint "dx_track_label_overdrive" $slot ".lbl"})
          ($color {sprint "dx_track_label_overdrive" $slot ".color"})
          {set_this {find_obj DX_GEMTRACKDIR band_power_meter}} ;change context to the current checked player overdrive meter dir
-         {if_else {|| {$player is_deploying} {>= {$player band_energy} 0.50}} ;color the label gold when od is ready or during activating
+         {if_else {|| {$player is_deploying} {>= $od 0.50}} ;color the label gold when od is ready or during activating
             {$color set color {pack_color $dx_gold_ui_r $dx_gold_ui_g $dx_gold_ui_b}} ;gold when active
             {$color set color {pack_color $dx_track_overdrive_r $dx_track_overdrive_g $dx_track_overdrive_b}} ;user color when inactive
          }
-         {if_else {>= {$player band_energy} 0.01} ;report the overdrive until empty
+         {if_else {>= $od 0.01} ;report the overdrive until empty
             {$label set_token_fmt dx_overdrive_report {* {$player band_energy} 100}} ;overdrive reported percent with 2 decimal places
             {$label set_token_fmt os_blnk} ;blank the label while empty
          }
       }
    }
 }
+{func get_player_od
+   ($player)
+   {do
+      ($od {$player band_energy})
+      $od
+   }
+}
 ; prep od ready popup
 {func
    dx_calc_overdrive
-   ($enabled $player $slot)
+   ($enabled $player $slot $od)
    ;fire popup once and then gate firing again until drained
    {if {&& $enabled {! {gamemode in_mode trainer}}}
       {cond
-         ({&& {>= {$player band_energy} 0.5} {! {eval {var {sprint "dx_stop_od_" $slot}}}}} ;once od is ready and if not popped already
+         ({&& {>= $od 0.5} {! {eval {var {sprint "dx_stop_od_" $slot}}}}} ;once od is ready and if not popped already
             {set_var {sprint "dx_stop_od_" $slot} TRUE} ;gate popup until next drain
             {set_this {find_obj DX_GEMTRACKDIR player_feedback}} ;set current context of this user
             {bass_super_streak.lbl set_token_fmt dx_overdrive_ready} ;set text for popup to od ready locale
             {super_streak_start.trig trigger} ;fire trigger for text popup
             {dx_remove_groove_label $player} ;remove text popup trigger
          )
-         ({<= {$player band_energy} 0.01} ;once drained
+         ({<= $od 0.01} ;once drained
             {set_var {sprint "dx_stop_od_" $slot} FALSE} ;allow popups again for this user when od is ready
          )
          kDataUnhandled

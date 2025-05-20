@@ -170,6 +170,18 @@
       $return
    }
 }
+{func dx_check_rb3e_modifier
+   ($modifier)
+   {do
+      ($return FALSE)
+      {if {find_exists $syscfg modifiers modifiers $modifier}
+         {if {modifier_mgr is_modifier_active $modifier}
+            {set $return TRUE}
+         }
+      }
+      $return
+   }
+}
 {func get_lane_interval
    ($default $pro)
    {do

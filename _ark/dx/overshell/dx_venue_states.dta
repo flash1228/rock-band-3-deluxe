@@ -616,7 +616,20 @@
             }            
          }
       )
-      (cancel {dx_state dxState_MenuBG})
+      (cancel
+         ;fix improper transition sets
+         {if {== {size $dx_stored_practice_bg} 0}
+            {if $dx_black_practice {set $dx_default_practice FALSE}}
+            {if $dx_default_practice {set $dx_black_practice FALSE}}
+            {if {&& {! $dx_default_practice} {! $dx_black_practice}}
+               {set $dx_default_practice TRUE}
+            }
+         }
+         {if {> {size $dx_stored_practice_bg} 0}
+            {set $dx_default_practice FALSE}
+            {set $dx_black_practice FALSE}
+         }
+         {dx_state dxState_MenuBG})
    )
 }
 ;tv1_a - music to record
