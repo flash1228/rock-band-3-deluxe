@@ -59,7 +59,7 @@
                         {fade.anim animate})
                   }
                   {switch $dx_mtv_visibility
-                     (always {fade.anim set_frame 50})
+                     (always {fade.anim set_frame {if_else $dx_customizer 0 50}})
                      (never {fade.anim set_frame 0})
                      (default {fade.anim animate})
                      (delayed {fade.anim animate})
