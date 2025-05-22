@@ -1,4 +1,358 @@
 {push_back $dx_settings_main
+   (dxState_HighwayTheme
+      (view
+         #ifndef HX_WII
+         os_track_lengths
+         #endif
+         os_surfaces
+         os_gem_themer
+         os_hits
+         os_playerstats
+         os_other
+      )
+      (select
+         (os_track_lengths {dx_state dxState_TrackLengths})
+         (os_surfaces {dx_state dxState_HighwayThemeSurfaces})
+         (os_gem_themer {dx_state dxState_HighwayThemeGems})
+         (os_hits {dx_state dxState_HighwayThemeHits})
+         (os_playerstats {dx_state dxState_HighwayPlayerStats})
+         (os_other {dx_state dxState_HighwayOther})
+      )
+      (cancel {dx_state dxState_TextureMenu})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_HighwayThemeSurfaces
+      (view
+         os_fretboard
+         os_spotlight
+         os_emissive
+         os_keyboard
+         os_shading
+      )
+      (select
+         (os_fretboard
+            {set $dx_tracked_texture_loader highways}
+            {set $dx_tracked_texture_category FALSE}
+            {set $dx_choose_char_scale_x 0.2}
+            {set $dx_choose_char_scale_y 0.4}
+            {set $dx_texture_array (#include ../custom_textures/highways/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_spotlight
+            {set $dx_tracked_texture_loader streaks}
+            {set $dx_tracked_texture_category FALSE}
+            {set $dx_choose_char_scale_x 0.2}
+            {set $dx_choose_char_scale_y 0.4}
+            {set $dx_texture_array (#include ../custom_textures/streaks/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_emissive
+            {set $dx_tracked_texture_loader overdrive}
+            {set $dx_tracked_texture_category FALSE}
+            {set $dx_choose_char_scale_x 0.2}
+            {set $dx_choose_char_scale_y 0.4}
+            {set $dx_texture_array (#include ../custom_textures/overdrive/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_keyboard
+            {set $dx_tracked_texture_loader keyboard_lanes}
+            {set $dx_tracked_texture_category keyboard}
+            {set $dx_choose_char_scale_x 0.2}
+            {set $dx_choose_char_scale_y 0.4}
+            {set $dx_texture_array (#include ../custom_textures/keyboard/keyboard_lanes/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_shading {dx_state dxState_ShadingMenu})
+      )
+      (cancel {dx_state dxState_HighwayTheme})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_HighwayThemeGems
+      (view
+         os_gems
+         ;#ifndef HX_WII
+         ;os_gem_models
+         ;#endif
+         os_sus
+         os_beat_lines
+      )
+      (select
+         (os_gems
+            {set $dx_tracked_texture_loader gems_default}
+            {set $dx_tracked_texture_category gems}
+            {set $dx_choose_char_scale_x 0.2}
+            {set $dx_choose_char_scale_y 0.4}
+            {set $dx_texture_array (#include ../custom_textures/gems/gems_default/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_gem_models
+            {set $dx_tracked_model_loader gems}
+            {set $dx_model_array (#include ../models/gems/_list.dta)}
+            {set $dx_model_var dx_current_gem_model_theme}
+            {set $dx_model_reset_var dx_gem_model_needs_reset}
+            {dx_state dxState_DTAModelLoader}
+         )
+         (os_sus 
+            {set $dx_tracked_texture_loader sustains}
+            {set $dx_tracked_texture_category FALSE}
+            {set $dx_choose_char_scale_x 0.4}
+            {set $dx_choose_char_scale_y 0.15}
+            {set $dx_texture_array (#include ../custom_textures/sustains/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_beat_lines
+            {set $dx_tracked_texture_loader beat_lines}
+            {set $dx_tracked_texture_category rails}
+            {set $dx_choose_char_scale_x 0.4}
+            {set $dx_choose_char_scale_y 0.15}
+            {set $dx_texture_array (#include ../custom_textures/rails/beat_lines/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+      )
+      (cancel {dx_state dxState_HighwayTheme})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_HighwayThemeHits
+      (view
+         os_smashers
+         os_flares
+         os_particles
+      )
+      (select
+         (os_smashers
+            {set $dx_tracked_texture_loader strikeline_guitar}
+            {set $dx_tracked_texture_category strikeline}
+            {set $dx_choose_char_scale_x 0.2}
+            {set $dx_choose_char_scale_y 0.4}
+            {set $dx_texture_array (#include ../custom_textures/strikeline/strikeline_guitar/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_flares
+            {set $dx_tracked_texture_loader flares_guitar_style}
+            {set $dx_tracked_texture_category flares}
+            {set $dx_choose_char_scale_x 0.3}
+            {set $dx_choose_char_scale_y 0.3}
+            {set $dx_texture_array (#include ../custom_textures/flares/flares_guitar_style/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_particles
+            {set $dx_tracked_texture_loader particles_spark}
+            {set $dx_tracked_texture_category particles}
+            {set $dx_choose_char_scale_x 0.3}
+            {set $dx_choose_char_scale_y 0.3}
+            {set $dx_texture_array (#include ../custom_textures/particles/particles_spark/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+      )
+      (cancel {dx_state dxState_HighwayTheme})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_HighwayPlayerStats
+      (view
+         os_highway_text
+         os_popups
+         os_solo_box
+         os_odbar
+         os_multiring
+      )
+      (select
+         (os_highway_text {dx_state dxState_TrackHighwayText})
+         (os_popups {dx_state dxState_TrackPopups})
+         (os_solo_box
+            {set $dx_tracked_texture_loader solo_box}
+            {set $dx_tracked_texture_category FALSE}
+            {set $dx_choose_char_scale_x 0.3}
+            {set $dx_choose_char_scale_y 0.3}
+            {set $dx_texture_array (#include ../custom_textures/solo_box/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_odbar
+            {set $dx_tracked_texture_loader od_bar_background}
+            {set $dx_tracked_texture_category overdrive_bar}
+            {set $dx_choose_char_scale_x 0.4}
+            {set $dx_choose_char_scale_y 0.1}
+            {set $dx_texture_array (#include ../custom_textures/overdrive_bar/od_bar_background/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_multiring
+            {set $dx_tracked_texture_loader multiplier_ring_plate_fc}
+            {set $dx_tracked_texture_category multiplier_ring}
+            {set $dx_choose_char_scale_x 0.6}
+            {set $dx_choose_char_scale_y 0.4}
+            {set $dx_texture_array (#include ../custom_textures/multiplier_ring/multiplier_ring_plate_fc/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+      )
+      (cancel {dx_state dxState_HighwayTheme})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_HighwayOther
+      (view
+         os_angle
+         os_lanes
+         os_rails
+         os_trackconfig
+      )
+      (select
+         (os_rails
+            {set $dx_tracked_texture_loader rails_track}
+            {set $dx_tracked_texture_category rails}
+            {set $dx_choose_char_scale_x 0.3}
+            {set $dx_choose_char_scale_y 0.3}
+            {set $dx_texture_array (#include ../custom_textures/rails/rails_track/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_lanes
+            {set $dx_tracked_texture_loader gem_mash_green_emmisive}
+            {set $dx_tracked_texture_category lanes}
+            {set $dx_choose_char_scale_x 0.3}
+            {set $dx_choose_char_scale_y 0.3}
+            {set $dx_texture_array (#include ../custom_textures/lanes/gem_mash_green_emmisive/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_trackconfig {dx_state dxState_TrackConfig})
+         (os_angle {dx_state dxState_AngleMenu})
+      )
+      (cancel {dx_state dxState_HighwayTheme})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_HudTheme
+      (view
+         os_mtv
+         os_ingame_hud
+         os_score_box
+         os_stars
+         os_font_title
+         os_bre
+         os_crowdmeter
+      )
+      (select
+         (os_mtv {dx_state dxState_MTVElements})
+         (os_ingame_hud {dx_state dxState_InGameHUD})
+         (os_score_box
+            {set $dx_tracked_texture_loader scoreboard_frame}
+            {set $dx_tracked_texture_category score}
+            {set $dx_choose_char_scale_x 0.4}
+            {set $dx_choose_char_scale_y 0.15}
+            {set $dx_texture_array (#include ../custom_textures/score/scoreboard_frame/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_stars
+            {set $dx_tracked_texture_loader score_star_frame}
+            {set $dx_tracked_texture_category stars}
+            {set $dx_choose_char_scale_x 0.3}
+            {set $dx_choose_char_scale_y 0.3}
+            {set $dx_texture_array (#include ../custom_textures/stars/score_star_frame/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_font_title
+            {set $dx_tracked_texture_loader font}
+            {set $dx_tracked_texture_category FALSE}
+            {set $dx_choose_char_scale_x 0.3}
+            {set $dx_choose_char_scale_y 0.3}
+            {set $dx_texture_array (#include ../custom_textures/font/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_bre
+            {set $dx_tracked_texture_loader bre_shield}
+            {set $dx_tracked_texture_category bre}
+            {set $dx_choose_char_scale_x 0.3}
+            {set $dx_choose_char_scale_y 0.3}
+            {set $dx_texture_array (#include ../custom_textures/bre/bre_shield/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_crowdmeter
+            {set $dx_tracked_texture_loader crowd_meter_frame}
+            {set $dx_tracked_texture_category crowd_meter}
+            {set $dx_choose_char_scale_x 0.1}
+            {set $dx_choose_char_scale_y 0.5}
+            {set $dx_texture_array (#include ../custom_textures/crowd_meter/crowd_meter_frame/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+      )
+      (cancel {dx_state dxState_TextureMenu})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_VocalTheme
+      (view
+         os_voxhw
+         os_voxarrow
+         os_voxnotes
+         os_voxod
+      )
+      (select
+         (os_voxhw
+            {set $dx_tracked_texture_loader vocal_highway_bg}
+            {set $dx_tracked_texture_category vocal_highway}
+            {set $dx_choose_char_scale_x 0.3}
+            {set $dx_choose_char_scale_y 0.3}
+            {set $dx_texture_array (#include ../custom_textures/vocal_highway/vocal_highway_bg/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_voxarrow
+            {set $dx_tracked_texture_loader vocal_arrow}
+            {set $dx_tracked_texture_category vocal_arrows}
+            {set $dx_choose_char_scale_x 0.2}
+            {set $dx_choose_char_scale_y 0.4}
+            {set $dx_texture_array (#include ../custom_textures/vocal_arrows/vocal_arrow/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_voxnotes
+            {set $dx_tracked_texture_loader vocal_note_tube}
+            {set $dx_tracked_texture_category vocal_note}
+            {set $dx_choose_char_scale_x 0.2}
+            {set $dx_choose_char_scale_y 0.4}
+            {set $dx_texture_array (#include ../custom_textures/vocal_note/vocal_note_tube/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_voxod
+            {set $dx_tracked_texture_loader vocal_overdrive_now_bar}
+            {set $dx_tracked_texture_category vocal_overdrive}
+            {set $dx_choose_char_scale_x 0.4}
+            {set $dx_choose_char_scale_y 0.2}
+            {set $dx_texture_array (#include ../custom_textures/vocal_overdrive/vocal_overdrive_now_bar/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+      )
+      (cancel {dx_state dxState_TextureMenu})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_MenuThemer
+      (view
+         os_menu_theme
+         os_menu_color
+      )
+      (select
+         (os_menu_theme {dx_state dxState_MenuTheme})
+         (os_menu_color
+            ;setup/reset the list tracking info
+            {set $dx_list_item_selected FALSE}
+            {set $dx_list_pos 0}
+            {dx_state dxState_MenuColor}
+         )
+      )
+      (cancel {dx_state dxState_TextureMenu})
+   )
+}
+
+
+{push_back $dx_settings_main
    (dxState_TextureMenu
       (view
          {if_else $dx_customizer
@@ -13,35 +367,11 @@
             realtime_customize
             0
          }
-         os_fretboard
-         os_spotlight
-         os_emissive
+         os_highway
          os_setcol
-         os_shading
-         os_gems
-         ;#ifndef HX_WII
-         ;os_gem_models
-         ;#endif
-         os_smashers
-         os_flares
-         os_particles
-         os_sus
-         os_lanes
-         os_score_box
-         os_stars
-         os_font_title
-         os_solo_box
-         os_bre
-         os_crowdmeter
-         os_rails
-         os_beat_lines
-         os_odbar
-         os_multiring
-         os_keyboard
-         os_voxhw
-         os_voxarrow
-         os_voxnotes
-         os_voxod
+         os_hud_theme
+         os_vocal_theme
+         os_menu_themer
       )
       (enter
          {if $dx_customizer
@@ -102,211 +432,15 @@
          )
          (os_milo {dx_state dxState_MiloPanels})
          (os_setcol {dx_state dxState_ColorSelector})
-         (os_shading {dx_state dxState_ShadingMenu})
+         (os_highway {dx_state dxState_HighwayTheme})
+         (os_hud_theme {dx_state dxState_HudTheme})
+         (os_vocal_theme {dx_state dxState_VocalTheme})
+         (os_menu_themer {dx_state dxState_MenuThemer})
          ;in each of the cases of these selected options, we must define parameters before we lead to the next state
          ;all images use the same state
          ;$dx_tracked_texture_loader - the name of the folder that contains the texture "dx/custom_textures/highways/*.png"
          ;$dx_tracked_texture_category - if this image path above exists in a sub-folder. ex. "gems_default" lives in "gems" folder
          ;$dx_choose_char_scale_x (y) - the scale used to set up the choose character preview image mesh for this set of images 
-         (os_fretboard
-            {set $dx_tracked_texture_loader highways}
-            {set $dx_tracked_texture_category FALSE}
-            {set $dx_choose_char_scale_x 0.2}
-            {set $dx_choose_char_scale_y 0.4}
-            {set $dx_texture_array (#include ../custom_textures/highways/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_spotlight
-            {set $dx_tracked_texture_loader streaks}
-            {set $dx_tracked_texture_category FALSE}
-            {set $dx_choose_char_scale_x 0.2}
-            {set $dx_choose_char_scale_y 0.4}
-            {set $dx_texture_array (#include ../custom_textures/streaks/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_emissive
-            {set $dx_tracked_texture_loader overdrive}
-            {set $dx_tracked_texture_category FALSE}
-            {set $dx_choose_char_scale_x 0.2}
-            {set $dx_choose_char_scale_y 0.4}
-            {set $dx_texture_array (#include ../custom_textures/overdrive/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_gems
-            {set $dx_tracked_texture_loader gems_default}
-            {set $dx_tracked_texture_category gems}
-            {set $dx_choose_char_scale_x 0.2}
-            {set $dx_choose_char_scale_y 0.4}
-            {set $dx_texture_array (#include ../custom_textures/gems/gems_default/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_gem_models
-            {set $dx_tracked_model_loader gems}
-            {set $dx_model_array (#include ../models/gems/_list.dta)}
-            {set $dx_model_var dx_current_gem_model_theme}
-            {set $dx_model_reset_var dx_gem_model_needs_reset}
-            {dx_state dxState_DTAModelLoader}
-         )
-         (os_smashers
-            {set $dx_tracked_texture_loader strikeline_guitar}
-            {set $dx_tracked_texture_category strikeline}
-            {set $dx_choose_char_scale_x 0.2}
-            {set $dx_choose_char_scale_y 0.4}
-            {set $dx_texture_array (#include ../custom_textures/strikeline/strikeline_guitar/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_flares
-            {set $dx_tracked_texture_loader flares_guitar_style}
-            {set $dx_tracked_texture_category flares}
-            {set $dx_choose_char_scale_x 0.3}
-            {set $dx_choose_char_scale_y 0.3}
-            {set $dx_texture_array (#include ../custom_textures/flares/flares_guitar_style/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_particles
-            {set $dx_tracked_texture_loader particles_spark}
-            {set $dx_tracked_texture_category particles}
-            {set $dx_choose_char_scale_x 0.3}
-            {set $dx_choose_char_scale_y 0.3}
-            {set $dx_texture_array (#include ../custom_textures/particles/particles_spark/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_sus 
-            {set $dx_tracked_texture_loader sustains}
-            {set $dx_tracked_texture_category FALSE}
-            {set $dx_choose_char_scale_x 0.4}
-            {set $dx_choose_char_scale_y 0.15}
-            {set $dx_texture_array (#include ../custom_textures/sustains/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_score_box
-            {set $dx_tracked_texture_loader scoreboard_frame}
-            {set $dx_tracked_texture_category score}
-            {set $dx_choose_char_scale_x 0.4}
-            {set $dx_choose_char_scale_y 0.15}
-            {set $dx_texture_array (#include ../custom_textures/score/scoreboard_frame/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_beat_lines
-            {set $dx_tracked_texture_loader beat_lines}
-            {set $dx_tracked_texture_category rails}
-            {set $dx_choose_char_scale_x 0.4}
-            {set $dx_choose_char_scale_y 0.15}
-            {set $dx_texture_array (#include ../custom_textures/rails/beat_lines/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_stars
-            {set $dx_tracked_texture_loader score_star_frame}
-            {set $dx_tracked_texture_category stars}
-            {set $dx_choose_char_scale_x 0.3}
-            {set $dx_choose_char_scale_y 0.3}
-            {set $dx_texture_array (#include ../custom_textures/stars/score_star_frame/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_font_title
-            {set $dx_tracked_texture_loader font}
-            {set $dx_tracked_texture_category FALSE}
-            {set $dx_choose_char_scale_x 0.3}
-            {set $dx_choose_char_scale_y 0.3}
-            {set $dx_texture_array (#include ../custom_textures/font/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_solo_box
-            {set $dx_tracked_texture_loader solo_box}
-            {set $dx_tracked_texture_category FALSE}
-            {set $dx_choose_char_scale_x 0.3}
-            {set $dx_choose_char_scale_y 0.3}
-            {set $dx_texture_array (#include ../custom_textures/solo_box/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_bre
-            {set $dx_tracked_texture_loader bre_shield}
-            {set $dx_tracked_texture_category bre}
-            {set $dx_choose_char_scale_x 0.3}
-            {set $dx_choose_char_scale_y 0.3}
-            {set $dx_texture_array (#include ../custom_textures/bre/bre_shield/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_rails
-            {set $dx_tracked_texture_loader rails_track}
-            {set $dx_tracked_texture_category rails}
-            {set $dx_choose_char_scale_x 0.3}
-            {set $dx_choose_char_scale_y 0.3}
-            {set $dx_texture_array (#include ../custom_textures/rails/rails_track/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_lanes
-            {set $dx_tracked_texture_loader gem_mash_green_emmisive}
-            {set $dx_tracked_texture_category lanes}
-            {set $dx_choose_char_scale_x 0.3}
-            {set $dx_choose_char_scale_y 0.3}
-            {set $dx_texture_array (#include ../custom_textures/lanes/gem_mash_green_emmisive/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_odbar
-            {set $dx_tracked_texture_loader od_bar_background}
-            {set $dx_tracked_texture_category overdrive_bar}
-            {set $dx_choose_char_scale_x 0.4}
-            {set $dx_choose_char_scale_y 0.1}
-            {set $dx_texture_array (#include ../custom_textures/overdrive_bar/od_bar_background/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_multiring
-            {set $dx_tracked_texture_loader multiplier_ring_plate_fc}
-            {set $dx_tracked_texture_category multiplier_ring}
-            {set $dx_choose_char_scale_x 0.6}
-            {set $dx_choose_char_scale_y 0.4}
-            {set $dx_texture_array (#include ../custom_textures/multiplier_ring/multiplier_ring_plate_fc/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_crowdmeter
-            {set $dx_tracked_texture_loader crowd_meter_frame}
-            {set $dx_tracked_texture_category crowd_meter}
-            {set $dx_choose_char_scale_x 0.1}
-            {set $dx_choose_char_scale_y 0.5}
-            {set $dx_texture_array (#include ../custom_textures/crowd_meter/crowd_meter_frame/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_keyboard
-            {set $dx_tracked_texture_loader keyboard_lanes}
-            {set $dx_tracked_texture_category keyboard}
-            {set $dx_choose_char_scale_x 0.2}
-            {set $dx_choose_char_scale_y 0.4}
-            {set $dx_texture_array (#include ../custom_textures/keyboard/keyboard_lanes/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_voxhw
-            {set $dx_tracked_texture_loader vocal_highway_bg}
-            {set $dx_tracked_texture_category vocal_highway}
-            {set $dx_choose_char_scale_x 0.3}
-            {set $dx_choose_char_scale_y 0.3}
-            {set $dx_texture_array (#include ../custom_textures/vocal_highway/vocal_highway_bg/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_voxarrow
-            {set $dx_tracked_texture_loader vocal_arrow}
-            {set $dx_tracked_texture_category vocal_arrows}
-            {set $dx_choose_char_scale_x 0.2}
-            {set $dx_choose_char_scale_y 0.4}
-            {set $dx_texture_array (#include ../custom_textures/vocal_arrows/vocal_arrow/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_voxnotes
-            {set $dx_tracked_texture_loader vocal_note_tube}
-            {set $dx_tracked_texture_category vocal_note}
-            {set $dx_choose_char_scale_x 0.2}
-            {set $dx_choose_char_scale_y 0.4}
-            {set $dx_texture_array (#include ../custom_textures/vocal_note/vocal_note_tube/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_voxod
-            {set $dx_tracked_texture_loader vocal_overdrive_now_bar}
-            {set $dx_tracked_texture_category vocal_overdrive}
-            {set $dx_choose_char_scale_x 0.4}
-            {set $dx_choose_char_scale_y 0.2}
-            {set $dx_texture_array (#include ../custom_textures/vocal_overdrive/vocal_overdrive_now_bar/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
       )
       (cancel
          {if_else $dx_customizer
@@ -641,7 +775,7 @@
             {preview.mesh set_trans_parent preview.grp}
             {preview.grp add_object preview.mesh}
             {preview.grp set_showing TRUE}
-            {preview.grp set_local_pos {if_else {$this in_game} 0 7} 0 {+ {if_else {$this in_game} 20 0} {* $dx_choose_char_scale_y {if_else {$this in_game} 1 0}}}}
+            {preview.grp set_local_pos {if_else {$this in_game} 0 7} 0 {+ {if_else {$this in_game} 20 200} {* $dx_choose_char_scale_y {if_else {$this in_game} 1 0}}}}
             {preview.mesh set_showing TRUE}
             {$current_list set_data $options}
             {chars.grp set_showing TRUE}
@@ -722,7 +856,35 @@
             {delete preview.mat}
          }
       )
-      (cancel {dx_state dxState_TextureMenu})
+      (cancel
+         {switch $dx_tracked_texture_loader
+            ((highways overdrive streaks keyboard_lanes)
+               {dx_state dxState_HighwayThemeSurfaces}
+            )
+            ((highways overdrive streaks keyboard_lanes)
+               {dx_state dxState_HighwayThemeSurfaces}
+            )
+            ((gems_default gems sustains beat_lines)
+               {dx_state dxState_HighwayThemeGems}
+            )
+            ((strikeline_guitar flares_guitar_style particles_spark)
+               {dx_state dxState_HighwayThemeHits}
+            )
+            ((solo_box od_bar_background multiplier_ring_plate_fc)
+               {dx_state dxState_HighwayPlayerStats}
+            )
+            ((rails_track gem_mash_green_emmisive)
+               {dx_state dxState_HighwayOther}
+            )
+            ((scoreboard_frame score_star_frame font bre_shield crowd_meter_frame)
+               {dx_state dxState_HudTheme}
+            )
+            ((vocal_highway_bg vocal_arrow vocal_note_tube vocal_overdrive_now_bar)
+               {dx_state dxState_VocalTheme}
+            )
+            {dx_state dxState_TextureMenu}
+         }
+      )
    )
 }
 
@@ -849,36 +1011,6 @@
 }
 
 {push_back $dx_settings_main
-   (dxState_SustainSelection
-      (view
-         os_nosus
-         os_rb2sus
-         os_rb3sus
-         os_rb4sus
-      )
-      (select
-         (os_rb3sus
-            {set $dx_sustain_needs_reset TRUE}
-            {set $dx_sustain rb3}
-         )
-         (os_rb2sus
-            {set $dx_sustain_needs_reset TRUE}
-            {set $dx_sustain rb2}
-         )
-         (os_rb4sus
-            {set $dx_sustain_needs_reset TRUE}
-            {set $dx_sustain rb4}
-         )
-         (os_nosus
-            {set $dx_sustain_needs_reset FALSE}
-            {set $dx_sustain empty}
-         )
-      )
-      (cancel {dx_state dxState_TextureMenu})
-   )
-}
-
-{push_back $dx_settings_main
    (dxState_ShadingMenu
       (view
          {if_else $dx_highway_bass_shading os_dx_hw_bass_shade_on os_dx_hw_bass_shade_off}
@@ -900,7 +1032,7 @@
          (os_dx_hw_drum_shade {set $dx_highway_drum_shading {! $dx_highway_drum_shading}})
          (os_dx_od_drum_shade {set $dx_overdrive_drum_shading {! $dx_overdrive_drum_shading}})
       )
-      (cancel {dx_state dxState_TextureMenu})
+      (cancel {dx_state dxState_HighwayThemeSurfaces})
    )
 }
 
@@ -937,6 +1069,6 @@
             }
          )
       )
-      (cancel {dx_state dxState_TextureMenu})
+      (cancel {dx_state dxState_HighwayThemeGems})
    )
 }

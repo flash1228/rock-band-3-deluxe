@@ -732,7 +732,7 @@
                      (highway_overdrive_text {dx_state dxState_TrackHighwayOverdrive})
                      (highway_username_text {dx_state dxState_TrackHighwayUsername})
                      (highway_streak_text {dx_state dxState_TrackHighwayStreak})
-                     (lyric_highlight {dx_state dxState_InGameHUD})
+                     (lyric_highlight {dx_state dxState_LyricDisplay})
                   }
                }
             }

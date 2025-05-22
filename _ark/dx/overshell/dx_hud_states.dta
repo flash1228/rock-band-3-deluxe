@@ -1,43 +1,50 @@
 {push_back $dx_settings_main
-   (dxState_InGameHUD
+   (dxState_InGameFeatures
       (view
-         os_mtv
-         {if_else $dx_lyric_display_enabled os_lyric_display_on os_lyric_display_off}
-         os_lyric_highlight_color
-         {if_else {== $dx_crowd_meter_hud dx_on} os_vis_default 0}
-         {if_else {== $dx_crowd_meter_hud dx_off} os_vis_static 0}
-         {if_else {== $dx_crowd_meter_hud dx_disabled} os_vis_disabled 0}
-         {if_else $dx_gold_star_progress os_star_gold_fill_on os_star_gold_fill_off}
-         os_star_display_pos
-         os_solo_box_pos
-         os_song_timer
-         #ifndef HX_WII
-         os_song_progress
-         #endif
-         {switch $dx_streak_counter
-            (single os_streak_counter_single)
-            (multi os_streak_counter_multi)
-            (off os_streak_counter_off)
-         }
-         os_practice_hud
+         os_lyric_display
+         os_online
+         os_bandinfo
+         os_audio_sfx
       )
       (select
-         (os_star_gold_fill {set $dx_gold_star_progress {! $dx_gold_star_progress}})
-         (os_scoreboard_pos
-            {set $dx_set_ui_pos_tracked_ui scoreboard}
-            {dx_state dxState_PositionRemapper}
-         )
-         (os_star_display_pos
-            {set $dx_set_ui_pos_tracked_ui star_display}
-            {dx_state dxState_PositionRemapper}
-         )
-         (os_practice_hud {dx_state dxState_ScreenElements_Practice})
-         (os_mtv {dx_state dxState_MTVElements})
+         (os_lyric_display {dx_state dxState_LyricDisplay})
+         (os_bandinfo {dx_state dxState_BandInfo})
+         (os_online {dx_state dxState_OnlineFeatures})
+         (os_audio_sfx {dx_state dxState_AudioSFX})
+      )
+      (cancel {dx_state dxState_DeluxeSettings})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_LyricDisplay
+      (view
+         {if_else $dx_lyric_display_enabled os_lyric_display_on os_lyric_display_off}
+         os_lyric_highlight_color
+      )
+      (select
          (os_lyric_display {set $dx_lyric_display_enabled {! $dx_lyric_display_enabled}})
          (os_lyric_highlight_color
             {set $dx_set_ui_rgb_tracked_ui lyric_highlight}
             {dx_state dxState_rgbcolormenu}
          )
+      )
+      (cancel {dx_state dxState_InGameFeatures})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_BandInfo
+      (view
+         ;crowd meter
+         {if_else {== $dx_crowd_meter_hud dx_on} os_vis_default 0}
+         {if_else {== $dx_crowd_meter_hud dx_off} os_vis_static 0}
+         {if_else {== $dx_crowd_meter_hud dx_disabled} os_vis_disabled 0}
+         {if_else $dx_fail_flash os_fail_flash_on os_fail_flash_off}
+         ;stars
+         {if_else $dx_gold_star_progress os_star_gold_fill_on os_star_gold_fill_off}
+      )
+      (select
          #define CROWD_METER_SELECT
          (
             {do
@@ -54,91 +61,66 @@
          (os_vis_static CROWD_METER_SELECT)
          (os_vis_default CROWD_METER_SELECT)
          (os_vis_disabled CROWD_METER_SELECT)
-         (os_song_timer {dx_state dxState_SongTimerElements})
-         (os_song_progress {dx_state dxState_ProgressBarElements})
+         (os_fail_flash {set $dx_fail_flash {! $dx_fail_flash}})
+         (os_star_gold_fill {set $dx_gold_star_progress {! $dx_gold_star_progress}})
+      )
+      (cancel {dx_state dxState_InGameFeatures})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_InGameHUD
+      (view
+         ;solo box position
+         ;os_scoreboard_pos
+         os_star_display_pos
+         os_solo_box_pos
+         {if_else {gamemode in_mode practice} os_practice_hud 0}
+      )
+      (select
+         ;(os_scoreboard_pos
+         ;   {set $dx_set_ui_pos_tracked_ui scoreboard}
+         ;   {dx_state dxState_PositionRemapper})
+         (os_star_display_pos
+            {set $dx_set_ui_pos_tracked_ui star_display}
+            {dx_state dxState_PositionRemapper}
+         )
          (os_solo_box_pos
             {set $dx_set_ui_pos_tracked_ui solo_box}
             {dx_state dxState_PositionRemapper}
          )
-         (os_streak_counter_single {set $dx_streak_counter multi})
-         (os_streak_counter_multi {set $dx_streak_counter off})
-         (os_streak_counter_off {set $dx_streak_counter single})
+         (os_practice_hud {dx_state dxState_ScreenElements_Practice})
       )
       (cancel {dx_state dxState_Advanced})
    )
 }
 
 {push_back $dx_settings_main
-   (dxState_TrackHUD
+   (dxState_OnlineFeatures
       (view
-         #ifndef HX_WII
-         os_track_lengths
-         #endif
-         os_angle
-         os_popups
          {if_else $dx_dim_remote_players os_dim_remote_players_on os_dim_remote_players_off}
          {if_else $dx_force_remote_vox os_force_remote_vox_on os_force_remote_vox_off}
-         {if_else $dx_fail_flash os_fail_flash_on os_fail_flash_off}
-         #ifdef HX_WII
-         {if_else $dx_fc_glow os_wii_fc_glow_on os_wii_fc_glow_off}
-         #else
-         {if_else {== $dx_fctype ring} os_fc_ring 0}
-         {if_else {== $dx_fctype glow} os_fc_glow 0}
-         {if_else {== $dx_fctype both} os_fc_both 0}
-         {if_else {== $dx_fctype off} os_fc_off 0}
-         #endif
-         os_highway_text
-         os_trackconfig
+         os_quick_chat
       )
-      ;(message pos_remap_desc)
       (select
-         (os_track_lengths {dx_state dxState_TrackLengths})
-         (os_trackconfig {dx_state dxState_TrackConfig})
-         (os_angle {dx_state dxState_AngleMenu})
-         (os_popups {dx_state dxState_TrackPopups})
-         (os_highway_text {dx_state dxState_TrackHighwayText})
-         (os_wii_fc_glow {set $dx_fc_glow {! $dx_fc_glow}})
          (os_dim_remote_players {set $dx_dim_remote_players {! $dx_dim_remote_players}})
-         (os_fail_flash {set $dx_fail_flash {! $dx_fail_flash}})
-         (os_high_score {set $dx_high_score_report {! $dx_high_score_report}})
          (os_force_remote_vox
             {set $dx_force_remote_vox {! $dx_force_remote_vox}}
             {if {&& {$this in_game} $dx_active_vocals} {coop_track_panel dx_force_remote_vox}}
          )
-         (os_fc_both
-            {set $dx_fctype ring}
-            {set $dx_fc_ring TRUE}
-            {set $dx_fc_glow FALSE}
-         )
-         (os_fc_ring
-            {set $dx_fctype glow}
-            {set $dx_fc_ring FALSE}
-            {set $dx_fc_glow TRUE}
-         )
-         (os_fc_glow
-            {set $dx_fctype off}
-            {set $dx_fc_ring FALSE}
-            {set $dx_fc_glow FALSE}
-         )
-         (os_fc_off
-            {set $dx_fctype both}
-            {set $dx_fc_ring TRUE}
-            {set $dx_fc_glow TRUE}
-         )
+         (os_quick_chat {dx_state dxState_ChatSettings})
       )
-      (cancel {dx_state dxState_Advanced})
+      (cancel {dx_state dxState_InGameFeatures})
    )
 }
+
+
 {push_back $dx_settings_main
    (dxState_TrackPopups
       (view
          {if_else $dx_note_streak_popups os_note_streak_on os_note_streak_off}
          {if_else $dx_od_ready_popups os_od_ready_on os_od_ready_off}
-         #ifndef HX_WII
-         {if_else $dx_diff_popups os_diff_on os_diff_off}
-         #endif
          {if_else $dx_high_score_report os_high_score_on os_high_score_off}
-         {if_else $dx_countdown_enabled os_countdown_on os_countdown_off}
          {if_else {== $dx_hide_on_countdown single} os_hide_with_countdown_single 0}
          {if_else {== $dx_hide_on_countdown multi} os_hide_with_countdown_multi 0}
          {if_else {== $dx_hide_on_countdown off} os_hide_with_countdown_disable 0}
@@ -149,15 +131,13 @@
          (os_high_score {set $dx_high_score_report {! $dx_high_score_report}})
          (os_note_streak {set $dx_note_streak_popups {! $dx_note_streak_popups}})
          (os_od_ready {set $dx_od_ready_popups {! $dx_od_ready_popups}})
-         (os_diff {set $dx_diff_popups {! $dx_diff_popups}})
-         (os_countdown {set $dx_countdown_enabled {! $dx_countdown_enabled}})
          (os_end_song_feedback {set $dx_end_song_feedback {! $dx_end_song_feedback}})
          (os_you_rock {set $dx_you_rock {! $dx_you_rock}})
          (os_hide_with_countdown_disable {set $dx_hide_on_countdown single})
          (os_hide_with_countdown_multi {set $dx_hide_on_countdown off})
          (os_hide_with_countdown_single {set $dx_hide_on_countdown multi})
       )
-      (cancel {dx_state dxState_TrackHUD})
+      (cancel {dx_state dxState_HighwayPlayerStats})
    )
 }
 
@@ -216,68 +196,7 @@
             MTV_TRIGGER
          )
       )
-      (cancel {dx_state dxState_InGameHUD})
-   )
-}
-
-{push_back $dx_settings_main
-   (dxState_ScoreElements
-      (view
-         os_scoreboard_pos
-         os_star_display_pos
-         {if_else $dx_gold_star_progress os_star_gold_fill_on os_star_gold_fill_off}
-      )
-      (select
-         (os_scoreboard_pos
-            {set $dx_set_ui_pos_tracked_ui scoreboard}
-            {dx_state dxState_PositionRemapper})
-         (os_star_display_pos
-            {set $dx_set_ui_pos_tracked_ui star_display}
-            {dx_state dxState_PositionRemapper}
-         )
-         (os_star_gold_fill {set $dx_gold_star_progress {! $dx_gold_star_progress}})
-      )
-      (cancel {dx_state dxState_InGameHUD})
-   )
-}
-
-{push_back $dx_settings_main
-   (dxState_SongTimerElements
-      (view
-         {if_else {== $dx_time_remaining_direction off} os_time_remaining_disable 0}
-         {if_else {== $dx_time_remaining_direction down} os_time_remaining_down 0}
-         {if_else {== $dx_time_remaining_direction up} os_time_remaining_up 0}
-         {if_else $dx_disp_total_time os_total_time_on os_total_time_off}
-         {if_else $dx_time_remaining_pos_top os_time_remaining_top_on os_time_remaining_top_off}
-      )
-      (select
-         (os_time_remaining_disable {set $dx_time_remaining_direction down})
-         (os_time_remaining_down {set $dx_time_remaining_direction up})
-         (os_time_remaining_up {set $dx_time_remaining_direction off})
-         (os_time_remaining_top {set $dx_time_remaining_pos_top {! $dx_time_remaining_pos_top}})
-         (os_total_time {set $dx_disp_total_time {! $dx_disp_total_time}})
-      )
-      (cancel {dx_state dxState_InGameHUD})
-   )
-}
-
-{push_back $dx_settings_main
-   (dxState_ProgressBarElements
-      (view
-         {if_else $dx_song_progress_bar os_bar_time_on os_bar_time_off}
-         {if_else $dx_overdrive_progress os_bar_overdrive_on os_bar_overdrive_off}
-         {if_else $dx_solo_progress os_bar_solo_on os_bar_solo_off}
-         {if_else $dx_bre_progress os_bar_bre_on os_bar_bre_off}
-         {if_else $dx_icon_progress os_bar_icon_on os_bar_icon_off}
-      )
-      (select
-         (os_bar_overdrive {set $dx_overdrive_progress {! $dx_overdrive_progress}})
-         (os_bar_solo {set $dx_solo_progress {! $dx_solo_progress}})
-         (os_bar_bre {set $dx_bre_progress {! $dx_bre_progress}})
-         (os_bar_icon {set $dx_icon_progress {! $dx_icon_progress}})
-         (os_bar_time {set $dx_song_progress_bar {! $dx_song_progress_bar}})
-      )
-      (cancel {dx_state dxState_InGameHUD})
+      (cancel {dx_state dxState_InGameFeatures})
    )
 }
 
@@ -357,8 +276,8 @@
    (dxState_TrackHighwayText
       (view
          os_highway_username
-         os_highway_overdrive
          os_highway_streak
+         os_highway_overdrive
          os_highway_perfects
       )
       (select
@@ -377,12 +296,12 @@
                }
             }
          )
-         (os_highway_perfects {dx_state dxState_TrackPerfects})
+         (os_highway_streak {dx_state dxState_TrackHighwayStreak})
          (os_highway_username {dx_state dxState_TrackHighwayUsername})
          (os_highway_overdrive {dx_state dxState_TrackHighwayOverdrive})
-         (os_highway_streak {dx_state dxState_TrackHighwayStreak})
+         (os_highway_perfects {dx_state dxState_TrackPerfects})
       )
-      (cancel {dx_state dxState_TrackHUD})
+      (cancel {dx_state dxState_HighwayPlayerStats})
    )
 }
 
@@ -405,7 +324,7 @@
          (os_detailed_hit {set $dx_detailed_hit_stats {! $dx_detailed_hit_stats}})
          (os_hit_timing {set $dx_detailed_hit_timing {! $dx_detailed_hit_timing}})
       )
-      (cancel {dx_state dxState_TrackHighwayText})
+      (cancel {dx_state dxState_InGameFeatures})
    )
 }
 
@@ -913,7 +832,7 @@
          (kAction_Cancel
             {if_else $dx_list_item_selected
                {set $dx_list_item_selected FALSE}
-               {dx_state dxState_TrackHUD}
+               {dx_state dxState_HighwayOther}
             }
          )
          ;if we pressed Up or Down while inside a selected list item

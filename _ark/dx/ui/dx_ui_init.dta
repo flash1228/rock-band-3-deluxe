@@ -418,7 +418,7 @@ DX_CURRENT_SONG_CLEAR
 ;{set $dx_song_tonality_var "No Song Key Found"}
 ;{set $dx_song_key_var "No Song Key Found"}
 
-{set $dx_player_icons TRUE}
+;{set $dx_player_icons TRUE}
 
 #ifdef HX_WII
 {set $dx_overshell_platform wii}
@@ -892,11 +892,11 @@ DX_CURRENT_SONG_CLEAR
    )
 }
 
-#ifndef HX_WII
-{unless $dx_player_icons
-   {set $dx_overshell_platform wii}
-}
-#endif
+;#ifndef HX_WII
+;{unless $dx_player_icons
+;   {set $dx_overshell_platform wii}
+;}
+;#endif
 
 ; don't show cache warning on first time
 {if {== $dx_song_update_hash_old "nothing"}

@@ -93,7 +93,7 @@
          (kAction_Cancel
             {if_else $dx_list_item_selected
                {set $dx_list_item_selected FALSE}
-               {dx_state dxState_TrackHUD}
+               {dx_state dxState_HighwayTheme}
             }
          )
          ;if we pressed Up or Down while inside a selected list item
