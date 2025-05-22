@@ -641,21 +641,24 @@
 
          ;setup our preview texture object
          {if {! {exists preview.grp}}
-            {new Group preview.grp}
-            {top_bg.grp add_object preview.grp}
-            {preview.grp set_trans_parent top_bg.grp}
-            {new Tex preview.tex}
-            {new Mesh preview.mesh}
-            {new Mat preview.mat}
+            {do
+               ($group {if_else {$this in_game} "all.grp" "top_bg.grp"})
+               {new Group preview.grp}
+               {$group add_object preview.grp}
+               {preview.grp set_trans_parent $group}
+               {new Tex preview.tex}
+               {new Mesh preview.mesh}
+               {new Mat preview.mat}
+            }
          }
          {preview.mat set diffuse_tex preview.tex}
          {preview.mat set blend kBlendSrcAlpha}
          {preview.mesh set mat preview.mat}
-         {dx_generate_quad_mesh preview.mesh {* 0.4 500} {* 0.05 500}}
+         {dx_generate_quad_mesh preview.mesh {* 0.4 {if_else {$this in_game} 30 500}} {* 0.05 {if_else {$this in_game} 30 500}}}
          {preview.mesh set_trans_parent preview.grp}
          {preview.grp add_object preview.mesh}
          {preview.grp set_showing TRUE}
-         {preview.grp set_local_pos 7 0 {+ 80 {* 0.2 200}}}
+         {preview.grp set_local_pos {if_else {$this in_game} 0 7} 0 {+ {if_else {$this in_game} 20 80} {* 0.2 {if_else {$this in_game} 1 200}}}}
          {preview.mesh set_showing TRUE}
          {preview.tex set_bitmap {sprint "dx/custom_textures/_additional_textures/generic_white_box.png"}}
          {preview.tex iterate_refs $ref {$ref set color {pack_color $dx_set_ui_rgb_r $dx_set_ui_rgb_g $dx_set_ui_rgb_b}}}
