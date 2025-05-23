@@ -35,7 +35,7 @@
          (os_pad_mapping {dx_state dxState_PadMappingSwap})
          (os_button_remapper {dx_state dxState_ButtonRemapper})
       )
-      (cancel {dx_state dxState_Advanced})
+      (cancel {dx_state dxState_DeluxeSettings})
    )
 }
 

@@ -1,34 +1,32 @@
 {push_back $dx_settings_main
    (dxState_Advanced
       (view
-         os_ingame_hud
-         os_track_hud
-         os_menu_options
-         os_quick_chat
+         #ifndef HX_WII os_menu_options #endif
          os_functional_options
-         ;only show the controller menu when not in-game and only on applicable instruments or when faking is active
-         {if_else {&& {session_mgr is_local} {! {session is_in_game}}} ;prevents soft-lock, swapping instrument type in-game would prevent player from rejoining
-            os_controller
-            0
-         }
+         os_pedantic_settings
          {if_else {session_mgr is_local}
             os_debug
             0
          }
+         #ifdef HX_XBOX
+         #ifdef RB3E
+         #ifndef RB3E_EMULATOR
+         os_reboot
+         #endif
+         #endif
+         #endif
       )
       (select
-         (os_ingame_hud {dx_state dxState_InGameHUD})
-         (os_track_hud {dx_state dxState_TrackHUD})
          (os_menu_options {dx_state dxState_MenuOptions})
-         (os_quick_chat {dx_state dxState_ChatSettings})
+         (os_pedantic_settings {dx_state dxState_WhoCares})
          (os_functional_options {dx_state dxState_FunctionalOptions})
-         (os_controller {dx_state dxState_ControllerMenu})
          (os_debug
             ;{if_else $dx_debug_first
             ;   {dx_state dxState_DebugWarn}
                {dx_state dxState_Debug}
             ;}
          )
+         (os_reboot {dx_state dxState_RebootWarn})
       )
       (cancel {dx_state dxState_DeluxeSettings})
    )
@@ -47,10 +45,7 @@
             (rb3 os_icons_rb3)
             (rb4 os_icons_rb4)
          }
-         {if_else $dx_player_icons os_player_icons_on os_player_icons_off}
          #endif
-         os_menu_theme
-         os_menu_color
       )
       (enter
          SET_STRIP_COLOR
@@ -70,13 +65,6 @@
             {if {== {ui current_screen} song_select_screen}
                {song_select_panel refresh_selected_song}
             }
-         )
-         (os_menu_theme {dx_state dxState_MenuTheme})
-         (os_menu_color
-            ;setup/reset the list tracking info
-            {set $dx_list_item_selected FALSE}
-            {set $dx_list_pos 0}
-            {dx_state dxState_MenuColor}
          )
          (os_icons_rb3
             {set $dx_instrument_icons rb4}
@@ -107,21 +95,6 @@
             {set $dx_icon_real_guitar "g"}
             {set $dx_icon_real_bass "b"}
             {set $dx_icon_drum_pro "d"}
-         )
-         (os_player_icons
-            {set $dx_player_icons {! $dx_player_icons}}
-            {if_else $dx_player_icons
-               {set $dx_overshell_platform wii}
-               #ifdef HX_PS3
-               {set $dx_overshell_platform ps3}
-               #endif
-               #ifdef HX_XBOX
-               {set $dx_overshell_platform xbox}
-               #endif
-            }
-            {overshell exit}
-            {overshell enter}
-            SET_STRIP_COLOR
          )
       )
       (cancel
@@ -155,7 +128,7 @@
          )
          
       )
-      (cancel {dx_state dxState_MenuOptions})
+      (cancel {dx_state dxState_MenuThemer})
    )
 }
 {push_back $dx_settings_main
@@ -240,7 +213,7 @@
          (kAction_Cancel
             {if_else $dx_list_item_selected
                {set $dx_list_item_selected FALSE}
-               {dx_state dxState_MenuOptions}
+               {dx_state dxState_MenuThemer}
             }
          )
          ;if we pressed Up or Down while inside a selected list item
@@ -267,7 +240,7 @@
             os_dx_mic_od_unknown
          }
          {if_else $dx_additional_parts os_additional_parts_on os_additional_parts_off}
-         {if_else $dx_song_delay os_songdelay_on os_songdelay_off}
+         ;{if_else $dx_song_delay os_songdelay_on os_songdelay_off}
          #ifndef HX_WII
          {switch $dx_current_intro_movie
             (deluxe os_intro_deluxe)
@@ -918,7 +891,7 @@
             {dx_state dxState_SelectChatPreset}
          )
       )
-      (cancel {dx_state dxState_Advanced})
+      (cancel {dx_state dxState_OnlineFeatures})
    )
 }
 {push_back $dx_settings_main

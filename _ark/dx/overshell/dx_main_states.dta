@@ -9,18 +9,13 @@
          }
          os_venue_options
          os_track_theme
-         ;#ifndef HX_WII
-         os_graphics
-         ;#endif
-         os_audio_sfx
+         os_features
          os_advanced
-         #ifdef HX_XBOX
-         #ifdef RB3E
-         #ifndef RB3E_EMULATOR
-         os_reboot
-         #endif
-         #endif
-         #endif
+         ;only show the controller menu when not in-game and only on applicable instruments or when faking is active
+         {if_else {&& {session_mgr is_local} {! {session is_in_game}}} ;prevents soft-lock, swapping instrument type in-game would prevent player from rejoining
+            os_controller
+            0
+         }
       )
       (select
          (os_set_speeds
@@ -29,19 +24,11 @@
          (os_track_speeds
             {dx_state dxState_TrackSpeeds}
          )
-         (os_venue_options
-            {dx_state dxState_VenueOptions})
-         (os_track_theme
-            {dx_state #ifdef HX_WII dxState_TextureMenu #else dxState_TrackThemeLoader #endif}
-         )
-         (os_graphics
-            {dx_state dxState_Graphics})
-         (os_audio_sfx
-            {dx_state dxState_AudioSFX})
-         (os_advanced
-            {dx_state dxState_Advanced})
-         (os_reboot
-            {dx_state dxState_RebootWarn})
+         (os_venue_options {dx_state dxState_VenueOptions})
+         (os_track_theme {dx_state #ifdef HX_WII dxState_TextureMenu #else dxState_TrackThemeLoader #endif})
+         (os_features {dx_state dxState_InGameFeatures})
+         (os_advanced {dx_state dxState_Advanced})
+         (os_controller {dx_state dxState_ControllerMenu})
       )
       (cancel
          {do
@@ -62,156 +49,19 @@
    )
 }
 {push_back $dx_settings_main
-   (dxState_Graphics
-      (view
-         {if_else $dx_60fps os_venuefps_on os_venuefps_off}
-         {if_else {== $dx_detected_platform platform_rpcs3}
-            {if_else $dx_vsync os_vsync_on os_vsync_off}
-            0
-         }
-         #ifdef HX_PS3
-         {if_else $dx_ultra_shadows os_ultra_shadows_on os_ultra_shadows_off}
-         #endif
-         {if_else $dx_force_lod os_force_high_lod_on os_force_high_lod_off}
-         {if_else $dx_postfx os_postfx_on os_postfx_off}
-         {if_else $dx_venue_lights os_venue_lights_on os_venue_lights_off}
-         {if_else $dx_postfx {if_else $dx_motion_blur os_blur_on os_blur_off} 0}
-         {if_else $dx_postfx {if_else $dx_camera_shake os_camera_shake_on os_camera_shake_off} 0}
-         {if_else $dx_postfx {if_else $dx_camera_blur os_camera_blur_on os_camera_blur_off} 0}
-         {if_else $dx_postfx {if_else $dx_noise os_noise_on os_noise_off} 0}
-         os_cycleaspect
-      )
-      (select
-         (os_venuefps
-            {set $dx_60fps {! $dx_60fps}}
-            {if $dx_60fps
-               {set $post_proc_needs_reset TRUE}
-            }
-            {dx_postfx_setter}
-            {if_else $dx_60fps
-               {set $emulatefps 60}
-               {set $emulatefps 30}
-            }
-            {if {! $gfx_warn_once}
-               {set $gfx_warn_once TRUE}
-               {dx_state dxState_GraphicsWarn}
-            }
-         )
-         (os_vsync
-            {set $dx_vsync {! $dx_vsync}}
-            {rnd set_sync $dx_vsync}
-         )
-         (os_ultra_shadows
-            {set $dx_ultra_shadows {! $dx_ultra_shadows}}
-            {if {! $gfx_warn_once}
-               {set $gfx_warn_once TRUE}
-               {dx_state dxState_GraphicsWarn}
-            }
-         )
-         (os_force_high_lod
-            {set $dx_force_lod {! $dx_force_lod}}
-            {if $dx_force_lod
-               {set $post_proc_needs_reset TRUE}
-            }
-            {dx_postfx_setter}
-            {if {! $lod_warn_once}
-               {set $lod_warn_once TRUE}
-               {dx_state dxState_HighLODWarn}
-            }
-         )
-         (os_postfx
-            {dx_set_postfx {! $dx_postfx}}
-            {dx_postfx_setter}
-            {if {! $gfx_warn_once}
-               {set $gfx_warn_once TRUE}
-               {dx_state dxState_GraphicsWarn}
-            }
-         )
-         (os_venue_lights
-            {set $dx_venue_lights {! $dx_venue_lights}}
-            {if {! $gfx_warn_once}
-               {set $gfx_warn_once TRUE}
-               {dx_state dxState_GraphicsWarn}
-            }
-         )
-         (os_camera_shake
-            {set $dx_camera_shake {! $dx_camera_shake}}
-            {if $dx_camera_shake
-               {set $post_proc_needs_reset TRUE}
-            }
-            {dx_postfx_setter}
-            {if {! $gfx_warn_once}
-               {set $gfx_warn_once TRUE}
-               {dx_state dxState_GraphicsWarn}
-            }
-         )
-         (os_camera_blur
-            {set $dx_camera_blur {! $dx_camera_blur}}
-            {if $dx_camera_blur
-               {set $post_proc_needs_reset TRUE}
-            }
-            {dx_postfx_setter}
-            {if {! $gfx_warn_once}
-               {set $gfx_warn_once TRUE}
-               {dx_state dxState_GraphicsWarn}
-            }
-         )
-         (os_blur
-            {set $dx_motion_blur {! $dx_motion_blur}}
-            {if $dx_motion_blur
-               {set $post_proc_needs_reset TRUE}
-            }
-            {dx_postfx_setter}
-            {if {! $gfx_warn_once}
-               {set $gfx_warn_once TRUE}
-               {dx_state dxState_GraphicsWarn}
-            }
-         )
-         (os_noise
-            {set $dx_noise {! $dx_noise}}
-            {if $dx_noise
-               {set $post_proc_needs_reset TRUE}
-            }
-            {dx_postfx_setter}
-            {if {! $gfx_warn_once}
-               {set $gfx_warn_once TRUE}
-               {dx_state dxState_GraphicsWarn}
-            }
-         )
-         (os_cycleaspect
-            {dx_cycle_aspect}
-         )
-      )
-      (cancel
-         {dx_state dxState_DeluxeSettings}
-      )
-   )
-}
-{push_back $dx_settings_main
    (dxState_AudioSFX
       (view
-         ;#ifndef HX_WII
-         os_fcaudio
-         ;#endif
-         {if_else $dx_song_select_noise os_audio_ambience_on os_audio_ambience_off}
-         {if_else $dx_scroll_sound os_scroll_sound_on os_scroll_sound_off}
-         {if_else $dx_whammy_fx os_whammy_fx_on os_whammy_fx_off}
-         {if_else $dx_instrument_fx os_audio_instsfx_on os_audio_instsfx_off}
+         os_toggle_synth
          {switch $dx_selected_guitar_fx
             (0 os_cyclefx_chorus) (1 os_cyclefx_wah) (2 os_cyclefx_flanger)
             (3 os_cyclefx_delay) (4 os_cyclefx_none) (5 os_cyclefx_do_nothing)
          }
-         os_toggle_synth
-         {if_else $dx_jurgen_sound os_jurgen_sound_on os_jurgen_sound_off}
-         {if_else $dx_nice_sound os_nice_sound_on os_nice_sound_off}
+         {if_else $dx_whammy_fx os_whammy_fx_on os_whammy_fx_off}
+         os_sfx
       )
       (select
-         (os_jurgen_sound {set $dx_jurgen_sound {! $dx_jurgen_sound}})
-         (os_audio_ambience {set $dx_song_select_noise {! $dx_song_select_noise}})
-         (os_scroll_sound {set $dx_scroll_sound {! $dx_scroll_sound}})
+         (os_sfx {dx_state dxState_TheSFX})
          (os_whammy_fx {set $dx_whammy_fx {! $dx_whammy_fx}})
-         (os_audio_instsfx {set $dx_instrument_fx {! $dx_instrument_fx}})
-         (os_nice_sound {set $dx_nice_sound {! $dx_nice_sound}})
          #define CYCLE_MSG
          (
             {++ $dx_selected_guitar_fx} ;unrolling the cycle_guitar_fx function to track it separately from the real variable
@@ -232,12 +82,30 @@
             {toggle_instrument_synth}
             {change_instrument_synth_volume 127}
          )
-         (os_fcaudio
-            {dx_state dxState_FullComboSFX}
-         )
       )
       (cancel
-         {dx_state dxState_DeluxeSettings}
+         {dx_state dxState_InGameFeatures}
+      )
+   )
+}
+{push_back $dx_settings_main
+   (dxState_TheSFX
+      (view
+         {if_else $dx_song_select_noise os_audio_ambience_on os_audio_ambience_off}
+         {if_else $dx_scroll_sound os_scroll_sound_on os_scroll_sound_off}
+         {if_else $dx_instrument_fx os_audio_instsfx_on os_audio_instsfx_off}
+         {if_else $dx_jurgen_sound os_jurgen_sound_on os_jurgen_sound_off}
+         {if_else $dx_nice_sound os_nice_sound_on os_nice_sound_off}
+      )
+      (select
+         (os_jurgen_sound {set $dx_jurgen_sound {! $dx_jurgen_sound}})
+         (os_audio_ambience {set $dx_song_select_noise {! $dx_song_select_noise}})
+         (os_scroll_sound {set $dx_scroll_sound {! $dx_scroll_sound}})
+         (os_audio_instsfx {set $dx_instrument_fx {! $dx_instrument_fx}})
+         (os_nice_sound {set $dx_nice_sound {! $dx_nice_sound}})
+      )
+      (cancel
+         {dx_state dxState_AudioSFX}
       )
    )
 }
@@ -303,7 +171,7 @@
          )
       )
       (cancel
-         {dx_state dxState_AudioSFX}
+         {dx_state dxState_FullCombo}
       )
    )
 }
@@ -355,7 +223,7 @@
          {set $linoscal FALSE}
          {set $dx_reset_average_jdj FALSE}
          {if {exists beatmatch}
-            {beatmatch set_overshell_pause {modifier_mgr is_modifier_active mod_nopause}}
+            {beatmatch set_overshell_pause {|| {modifier_mgr is_modifier_active mod_nopause} {modifier_mgr is_modifier_active mod_fakejuke}}}
          }
          {$this iterate Mesh $m {$m set_showing TRUE}}
          {$this iterate UIList $l
@@ -508,7 +376,7 @@
          {set $dx_slider FALSE}
          {set $in_slider_state FALSE}
          {dx_track_angle_var_reset}
-         {dx_state dxState_TrackHUD}
+         {dx_state dxState_HighwayTheme}
       )
    )
 }

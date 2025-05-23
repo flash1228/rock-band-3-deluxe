@@ -176,13 +176,6 @@
 #define DX_MODIFIER_HANDLERS
 (
    (mod_nohud
-      {if {modifier_mgr is_modifier_active mod_nohud}
-         {if {modifier_mgr is_modifier_active mod_fakejuke}
-            {modifier_mgr toggle_modifier_enabled mod_fakejuke}
-            {modifier_mgr toggle_modifier_enabled mod_auto_play}
-            {modifier_mgr toggle_modifier_enabled mod_nopause}
-         }
-      }
       {modifier_mgr toggle_modifier_enabled mod_nohud}
       {overshell update_all}
    )
@@ -252,9 +245,9 @@
             {do
                {modifier_mgr toggle_modifier_enabled $modifier}
                {disable_modifier mod_auto_play}
-               {disable_modifier mod_nohud}
-               {disable_modifier mod_nopause}
-               {disable_modifier mod_dx_no_overdrive}
+               ;{disable_modifier mod_nohud}
+               ;{disable_modifier mod_nopause}
+               ;{disable_modifier mod_dx_no_overdrive}
                {leave_dx_settings}
                {$this leave_options}
                {overshell update_all}
@@ -282,8 +275,8 @@
                {modifier_mgr toggle_modifier_enabled $modifier}
                {if {modifier_mgr is_modifier_active mod_fakejuke}
                   {modifier_mgr toggle_modifier_enabled mod_fakejuke}
-                  {modifier_mgr toggle_modifier_enabled mod_nohud}
-                  {modifier_mgr toggle_modifier_enabled mod_nopause}
+                  ;{modifier_mgr toggle_modifier_enabled mod_nohud}
+                  ;{modifier_mgr toggle_modifier_enabled mod_nopause}
                }
                {leave_dx_settings}
                {$this leave_options}

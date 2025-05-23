@@ -12,12 +12,12 @@
       {==
          {gamemode get max_players}
          1})
-   (allow_overdrive_phrases {! {&& {session_mgr is_local} {modifier_mgr is_modifier_active mod_dx_no_overdrive}}})
+   (allow_overdrive_phrases {! {&& {session_mgr is_local} {|| {modifier_mgr is_modifier_active mod_dx_no_overdrive} {modifier_mgr is_modifier_active mod_fakejuke}}}})
    (allow_drum_fills TRUE)
    (can_lose TRUE)
    (disable_guitar_fx FALSE)
    (disable_keys_fx FALSE)
-   (enable_overdrive {! {&& {session_mgr is_local} {modifier_mgr is_modifier_active mod_dx_no_overdrive}}})
+   (enable_overdrive {! {&& {session_mgr is_local} {|| {modifier_mgr is_modifier_active mod_dx_no_overdrive} {modifier_mgr is_modifier_active mod_fakejuke}}}})
    (enable_streak TRUE)
    (max_players 4)
    (min_players 1)
