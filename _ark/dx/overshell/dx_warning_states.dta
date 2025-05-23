@@ -112,7 +112,7 @@
             {saveload_mgr disable_autosave $user}
             {dx_passive_messenger saving_disabled}
             {leave_dx_settings}
-            {$this leave_options}
+            {$this remove_user}
             {overshell update_all}
             {if {session_mgr is_local}
                {ui sync_screen meta_loading_main_screen 0}
@@ -372,7 +372,7 @@
             {saveload_mgr disable_autosave $user}
             {dx_passive_messenger saving_disabled}
             {leave_dx_settings}
-            {$this leave_options}
+            {$this remove_user}
             {overshell update_all}
             {if {session_mgr is_local}
                {ui sync_screen meta_loading_main_screen 0}
@@ -398,7 +398,7 @@
             {disable_modifier mod_calibration}
             {disable_modifier mod_precision}
             {leave_dx_settings}
-            {$this leave_options}
+            {$this remove_user}
             {overshell update_all}
             {if {session_mgr is_local}
                {ui sync_screen meta_loading_main_screen 0}
@@ -420,7 +420,7 @@
             {set $dx_stars_needs_reset TRUE}
             {set $dx_multiplier_ring_needs_reset TRUE}
             {leave_dx_settings}
-            {$this leave_options}
+            {$this remove_user}
             {overshell update_all}
             {if {session_mgr is_local}
                {ui sync_screen meta_loading_main_screen 0}
@@ -442,7 +442,7 @@
             {disable_modifier mod_precision}
             {disable_modifier mod_chmode}
             {leave_dx_settings}
-            {$this leave_options}
+            {$this remove_user}
             {overshell update_all}
             {if {session_mgr is_local}
                {ui sync_screen meta_loading_main_screen 0}
@@ -465,7 +465,7 @@
             {disable_modifier mod_calibration}
             {disable_modifier mod_chmode}
             {leave_dx_settings}
-            {$this leave_options}
+            {$this remove_user}
             {overshell update_all}
             {if {session_mgr is_local}
                {ui sync_screen meta_loading_main_screen 0}
@@ -540,7 +540,7 @@
       (select
          (overshell_confirm_yes
             {leave_dx_settings}
-            {$this leave_options}
+            {$this remove_user}
             {overshell update_all}
             {if {session_mgr is_local}
                {ui sync_screen meta_loading_main_screen 0}
