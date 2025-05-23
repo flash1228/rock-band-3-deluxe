@@ -170,7 +170,7 @@
             {dx_state dxState_DTATextureLoader}
          )
       )
-      (cancel {dx_state dxState_HighwayTheme})
+      (cancel {dx_state dxState_HighwayThemeGems})
    )
 }
 
@@ -375,7 +375,10 @@
          os_setcol
          os_hud_theme
          os_vocal_theme
-         os_menu_themer
+         {if_else $dx_customizer
+            0
+            os_menu_themer
+         }
       )
       (enter
          {if $dx_customizer
