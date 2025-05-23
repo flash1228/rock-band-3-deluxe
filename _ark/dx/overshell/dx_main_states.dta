@@ -16,13 +16,6 @@
             os_controller
             0
          }
-         #ifdef HX_XBOX
-         #ifdef RB3E
-         #ifndef RB3E_EMULATOR
-         os_reboot
-         #endif
-         #endif
-         #endif
       )
       (select
          (os_set_speeds
@@ -36,7 +29,6 @@
          (os_features {dx_state dxState_InGameFeatures})
          (os_advanced {dx_state dxState_Advanced})
          (os_controller {dx_state dxState_ControllerMenu})
-         (os_reboot {dx_state dxState_RebootWarn})
       )
       (cancel
          {do
@@ -231,7 +223,7 @@
          {set $linoscal FALSE}
          {set $dx_reset_average_jdj FALSE}
          {if {exists beatmatch}
-            {beatmatch set_overshell_pause {modifier_mgr is_modifier_active mod_nopause}}
+            {beatmatch set_overshell_pause {|| {modifier_mgr is_modifier_active mod_nopause} {modifier_mgr is_modifier_active mod_fakejuke}}}
          }
          {$this iterate Mesh $m {$m set_showing TRUE}}
          {$this iterate UIList $l
@@ -384,7 +376,7 @@
          {set $dx_slider FALSE}
          {set $in_slider_state FALSE}
          {dx_track_angle_var_reset}
-         {dx_state dxState_TrackHUD}
+         {dx_state dxState_HighwayTheme}
       )
    )
 }

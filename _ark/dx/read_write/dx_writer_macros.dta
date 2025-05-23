@@ -126,7 +126,7 @@
    {dx_setting_saver dx_settings dx_joypad_pad_remap_4 $dx_joypad_pad_remap_4}
    {dx_setting_saver dx_settings dx_joypad_pad_remap_5 $dx_joypad_pad_remap_5}
    {dx_setting_saver dx_settings dx_overshell_theme $dx_overshell_theme}
-   ;{dx_setting_saver dx_settings dx_player_icons $dx_player_icons}
+   {dx_setting_saver dx_settings dx_player_icons $dx_player_icons}
    {dx_setting_saver dx_settings dx_instrument_icons $dx_instrument_icons}
    {dx_setting_saver dx_settings dx_lyric_display_enabled $dx_lyric_display_enabled}
    {dx_setting_saver dx_settings dx_lyric_highlight_color ($dx_lyric_highlight_r $dx_lyric_highlight_g $dx_lyric_highlight_b)}

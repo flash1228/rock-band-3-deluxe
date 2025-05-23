@@ -6,17 +6,17 @@
          #endif
          os_surfaces
          os_gem_themer
-         os_hits
          os_playerstats
-         os_other
+         os_angle
+         ;os_trackconfig
       )
       (select
          (os_track_lengths {dx_state dxState_TrackLengths})
          (os_surfaces {dx_state dxState_HighwayThemeSurfaces})
          (os_gem_themer {dx_state dxState_HighwayThemeGems})
-         (os_hits {dx_state dxState_HighwayThemeHits})
          (os_playerstats {dx_state dxState_HighwayPlayerStats})
-         (os_other {dx_state dxState_HighwayOther})
+         (os_angle {dx_state dxState_AngleMenu})
+         (os_trackconfig {dx_state dxState_TrackConfig})
       )
       (cancel {dx_state dxState_TextureMenu})
    )
@@ -77,8 +77,11 @@
          ;#ifndef HX_WII
          ;os_gem_models
          ;#endif
-         os_sus
+         os_smashers
+         os_hits
          os_beat_lines
+         os_lanes
+         os_rails
       )
       (select
          (os_gems
@@ -96,14 +99,6 @@
             {set $dx_model_reset_var dx_gem_model_needs_reset}
             {dx_state dxState_DTAModelLoader}
          )
-         (os_sus 
-            {set $dx_tracked_texture_loader sustains}
-            {set $dx_tracked_texture_category FALSE}
-            {set $dx_choose_char_scale_x 0.4}
-            {set $dx_choose_char_scale_y 0.15}
-            {set $dx_texture_array (#include ../custom_textures/sustains/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
          (os_beat_lines
             {set $dx_tracked_texture_loader beat_lines}
             {set $dx_tracked_texture_category rails}
@@ -112,19 +107,6 @@
             {set $dx_texture_array (#include ../custom_textures/rails/beat_lines/_list.dta)}
             {dx_state dxState_DTATextureLoader}
          )
-      )
-      (cancel {dx_state dxState_HighwayTheme})
-   )
-}
-
-{push_back $dx_settings_main
-   (dxState_HighwayThemeHits
-      (view
-         os_smashers
-         os_flares
-         os_particles
-      )
-      (select
          (os_smashers
             {set $dx_tracked_texture_loader strikeline_guitar}
             {set $dx_tracked_texture_category strikeline}
@@ -133,6 +115,36 @@
             {set $dx_texture_array (#include ../custom_textures/strikeline/strikeline_guitar/_list.dta)}
             {dx_state dxState_DTATextureLoader}
          )
+         (os_rails
+            {set $dx_tracked_texture_loader rails_track}
+            {set $dx_tracked_texture_category rails}
+            {set $dx_choose_char_scale_x 0.3}
+            {set $dx_choose_char_scale_y 0.3}
+            {set $dx_texture_array (#include ../custom_textures/rails/rails_track/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_lanes
+            {set $dx_tracked_texture_loader gem_mash_green_emmisive}
+            {set $dx_tracked_texture_category lanes}
+            {set $dx_choose_char_scale_x 0.3}
+            {set $dx_choose_char_scale_y 0.3}
+            {set $dx_texture_array (#include ../custom_textures/lanes/gem_mash_green_emmisive/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_hits {dx_state dxState_HighwayThemeHits})
+      )
+      (cancel {dx_state dxState_HighwayTheme})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_HighwayThemeHits
+      (view
+         os_flares
+         os_particles
+         os_sus
+      )
+      (select
          (os_flares
             {set $dx_tracked_texture_loader flares_guitar_style}
             {set $dx_tracked_texture_category flares}
@@ -147,6 +159,14 @@
             {set $dx_choose_char_scale_x 0.3}
             {set $dx_choose_char_scale_y 0.3}
             {set $dx_texture_array (#include ../custom_textures/particles/particles_spark/_list.dta)}
+            {dx_state dxState_DTATextureLoader}
+         )
+         (os_sus 
+            {set $dx_tracked_texture_loader sustains}
+            {set $dx_tracked_texture_category FALSE}
+            {set $dx_choose_char_scale_x 0.4}
+            {set $dx_choose_char_scale_y 0.15}
+            {set $dx_texture_array (#include ../custom_textures/sustains/_list.dta)}
             {dx_state dxState_DTATextureLoader}
          )
       )
@@ -190,38 +210,6 @@
             {set $dx_texture_array (#include ../custom_textures/multiplier_ring/multiplier_ring_plate_fc/_list.dta)}
             {dx_state dxState_DTATextureLoader}
          )
-      )
-      (cancel {dx_state dxState_HighwayTheme})
-   )
-}
-
-{push_back $dx_settings_main
-   (dxState_HighwayOther
-      (view
-         os_angle
-         os_lanes
-         os_rails
-         os_trackconfig
-      )
-      (select
-         (os_rails
-            {set $dx_tracked_texture_loader rails_track}
-            {set $dx_tracked_texture_category rails}
-            {set $dx_choose_char_scale_x 0.3}
-            {set $dx_choose_char_scale_y 0.3}
-            {set $dx_texture_array (#include ../custom_textures/rails/rails_track/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_lanes
-            {set $dx_tracked_texture_loader gem_mash_green_emmisive}
-            {set $dx_tracked_texture_category lanes}
-            {set $dx_choose_char_scale_x 0.3}
-            {set $dx_choose_char_scale_y 0.3}
-            {set $dx_texture_array (#include ../custom_textures/lanes/gem_mash_green_emmisive/_list.dta)}
-            {dx_state dxState_DTATextureLoader}
-         )
-         (os_trackconfig {dx_state dxState_TrackConfig})
-         (os_angle {dx_state dxState_AngleMenu})
       )
       (cancel {dx_state dxState_HighwayTheme})
    )
@@ -337,6 +325,7 @@
       (view
          os_menu_theme
          os_menu_color
+         {if_else $dx_player_icons os_player_icons_on os_player_icons_off}
       )
       (select
          (os_menu_theme {dx_state dxState_MenuTheme})
@@ -345,6 +334,21 @@
             {set $dx_list_item_selected FALSE}
             {set $dx_list_pos 0}
             {dx_state dxState_MenuColor}
+         )
+         (os_player_icons
+            {set $dx_player_icons {! $dx_player_icons}}
+            {if_else $dx_player_icons
+               {set $dx_overshell_platform wii}
+               #ifdef HX_PS3
+               {set $dx_overshell_platform ps3}
+               #endif
+               #ifdef HX_XBOX
+               {set $dx_overshell_platform xbox}
+               #endif
+            }
+            {overshell exit}
+            {overshell enter}
+            SET_STRIP_COLOR
          )
       )
       (cancel {dx_state dxState_TextureMenu})
@@ -864,17 +868,14 @@
             ((highways overdrive streaks keyboard_lanes)
                {dx_state dxState_HighwayThemeSurfaces}
             )
-            ((gems_default gems sustains beat_lines)
+            ((gems_default gems beat_lines strikeline_guitar rails_track gem_mash_green_emmisive)
                {dx_state dxState_HighwayThemeGems}
             )
-            ((strikeline_guitar flares_guitar_style particles_spark)
+            ((sustains flares_guitar_style particles_spark)
                {dx_state dxState_HighwayThemeHits}
             )
             ((solo_box od_bar_background multiplier_ring_plate_fc)
                {dx_state dxState_HighwayPlayerStats}
-            )
-            ((rails_track gem_mash_green_emmisive)
-               {dx_state dxState_HighwayOther}
             )
             ((scoreboard_frame score_star_frame font bre_shield crowd_meter_frame)
                {dx_state dxState_HudTheme}

@@ -8,6 +8,13 @@
             os_debug
             0
          }
+         #ifdef HX_XBOX
+         #ifdef RB3E
+         #ifndef RB3E_EMULATOR
+         os_reboot
+         #endif
+         #endif
+         #endif
       )
       (select
          (os_menu_options {dx_state dxState_MenuOptions})
@@ -19,6 +26,7 @@
                {dx_state dxState_Debug}
             ;}
          )
+         (os_reboot {dx_state dxState_RebootWarn})
       )
       (cancel {dx_state dxState_DeluxeSettings})
    )
@@ -120,7 +128,7 @@
          )
          
       )
-      (cancel {dx_state dxState_TextureMenu})
+      (cancel {dx_state dxState_MenuThemer})
    )
 }
 {push_back $dx_settings_main
@@ -205,7 +213,7 @@
          (kAction_Cancel
             {if_else $dx_list_item_selected
                {set $dx_list_item_selected FALSE}
-               {dx_state dxState_TextureMenu}
+               {dx_state dxState_MenuThemer}
             }
          )
          ;if we pressed Up or Down while inside a selected list item
@@ -232,7 +240,7 @@
             os_dx_mic_od_unknown
          }
          {if_else $dx_additional_parts os_additional_parts_on os_additional_parts_off}
-         {if_else $dx_song_delay os_songdelay_on os_songdelay_off}
+         ;{if_else $dx_song_delay os_songdelay_on os_songdelay_off}
          #ifndef HX_WII
          {switch $dx_current_intro_movie
             (deluxe os_intro_deluxe)

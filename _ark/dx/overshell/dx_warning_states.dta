@@ -360,13 +360,13 @@
          (overshell_continue
             {set $dx_dont_save_mod TRUE}
             {enable_modifier mod_auto_play}
-            {enable_modifier mod_nohud}
-            {enable_modifier mod_nopause}
+            ;{enable_modifier mod_nohud}
+            ;{enable_modifier mod_nopause}
             {enable_modifier mod_fakejuke}
-            {enable_modifier mod_dx_no_overdrive}
+            ;{enable_modifier mod_dx_no_overdrive}
             {set $dx_mtv_visibility default}
             {set $dx_mtv_line_bpm FALSE}
-            {disable_modifier mod_drum_fills}
+            ;{disable_modifier mod_drum_fills}
             {set $dx_venue_intro FALSE}
             {set $gotcha FALSE}
             {saveload_mgr disable_autosave $user}
@@ -512,14 +512,14 @@
       (enter {handle ($this set_confirm_actions reboot_warning (overshell_continue overshell_cancel))})
       (select
          (overshell_continue {rb3e_relaunch_game})
-         (overshell_cancel {dx_state dxState_DeluxeSettings})
+         (overshell_cancel {dx_state dxState_Advanced})
       )
-      (cancel {dx_state dxState_DeluxeSettings})
+      (cancel {dx_state dxState_Advanced})
    )
 }
 
 {push_back $dx_settings_main
-   (dxState_RebootWarn
+   (dxState_DebugWarn
       (view overshell_continue overshell_cancel)
       (enter {handle ($this set_confirm_actions debug_warning (os_iunderstand os_takemeback))})
       (select

@@ -91,7 +91,7 @@
          )
          (os_practice_hud {dx_state dxState_ScreenElements_Practice})
       )
-      (cancel {dx_state dxState_Advanced})
+      (cancel {dx_state dxState_HudTheme})
    )
 }
 
@@ -196,7 +196,7 @@
             MTV_TRIGGER
          )
       )
-      (cancel {dx_state dxState_InGameFeatures})
+      (cancel {dx_state dxState_HudTheme})
    )
 }
 

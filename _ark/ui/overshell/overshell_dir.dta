@@ -784,7 +784,10 @@
                   ;Shows the pause button only if session is local and nopause is enabled
                   {if
                      {&&
-                        {modifier_mgr is_modifier_active mod_nopause}
+                        {||
+                           {modifier_mgr is_modifier_active mod_nopause}
+                           {modifier_mgr is_modifier_active mod_fakejuke}
+                        }
                         {session_mgr is_local}
                         $restart
                      }
