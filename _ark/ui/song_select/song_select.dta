@@ -451,7 +451,7 @@
          kAction_Right
          kAction_Option})
    (poll
-      {if {|| $dx_in_show_flow {! $dx_more_info_toggle}}
+      {if {|| $dx_in_show_flow #ifdef RB3E TRUE #else {! $dx_more_info_toggle} #endif}
          {if {song.lst is_scrolling}
             {if {exists author_finder}
                {delete author_finder}
@@ -515,19 +515,46 @@
    (dx_authorfinder
       {set $dx_song_data_processed FALSE}
       {set $dx_path_failed FALSE}
-      {if_else {&& {! $dx_path_failed} $dx_author_finder_is_enabled {! {gamemode in_mode trainer}}}
+      {if_else #ifdef RB3E TRUE #else {&& {! $dx_path_failed} $dx_author_finder_is_enabled {! {gamemode in_mode trainer}}} #endif
          {do
             {if {exists author_finder}
                {delete author_finder}
             }
             {script_task kTaskUISeconds
-               (delay 0.75)
+               #ifndef RB3E (delay 0.75) #endif
                (name author_finder)
                (script
+                  #ifdef RB3E
+                  {set $namevar FALSE}
+                  {set $artistvar FALSE}
+                  {set $albumvar FALSE}
+                  {set $sourcevar FALSE}
+                  {set $genrevar FALSE}
+                  {set $subgenrevar FALSE}
+                  {do
+                     ($song {{music_library get_highlighted_node} get_token})
+                     ($id {{song_mgr get_meta_data $song} id})
+                     {set $namevar {rb3e_get_song_name $id}}
+                     {set $artistvar {rb3e_get_artist $id}}
+                     {set $albumvar {rb3e_get_album $id}}
+                     {set $sourcevar {rb3e_get_origin $id}}
+                     {set $genrevar {rb3e_get_genre $id}}
+                     ;{print_debug
+                     ;   {sprint
+                     ;      "NAME: " $namevar
+                     ;      " - ARTIST: " $artistvar
+                     ;      " - ALBUM: " $albumvar
+                     ;      " - SOURCE: " $sourcevar
+                     ;      " - GENRE: " $genrevar
+                     ;   }
+                     ;}
+                  }
+                  #else
                   {dx_author_finder_var_reset}
                   {meta_performer set_song {{music_library get_highlighted_node} get_token}}
                   {set $dx_song_data_processed FALSE}
                   {preload_panel dx_load_tip_and_author_finder}
+                  #endif
                   {if $sourcevar
                      DX_SOURCE_SWITCH
                   }
@@ -788,6 +815,10 @@
    (dx_diff_setter
       {{song_select_panel find song_demo.lbl} set_showing FALSE}
       {{song_select_panel find song_demo.lbl} set_token_fmt os_blnk}
+      #ifdef RB3E
+      {set $probeforfinder TRUE}
+      {$this dx_more_info_load}
+      #else
       {if_else $dx_author_finder_is_enabled
          {if_else $dx_more_info_toggle
             {do
@@ -807,6 +838,7 @@
             {dx_song_name_album.lbl set_album_name {music_library get_highlighted_node}}
          }
       }
+      #endif
       {dx_song_name_genre_title.lbl
          set_token_fmt
          {{music_library get_highlighted_node} genre}
@@ -1264,7 +1296,7 @@
                   $text
                   ""}}}
          ;sanitize player input
-         {set $got_text {dx_special_char $text}}
+         {set $got_text {fix_special_chars $text}}
          ;force song sort
          {{music_library get view_settings_provider} refresh_all_settings}
          {song_select_filter_panel filter_enter}
@@ -1274,6 +1306,12 @@
          {song_select_filter_panel filter_exit}
          ;jump to top of song select
          {music_library skip_to_shortcut 1}
+         #ifdef NOT_YET_MERGED
+         #ifdef RB3E
+         {rb3e_search_song_name {sprint $got_text}}
+         #endif
+         #endif
+         #ifndef NOT_YET_MERGED
          ;jump to the first letter shortcut
          {switch {str_elem $got_text 0}
             ((0 1 2 3 4 5 6 7 8 9)
@@ -1312,11 +1350,11 @@
                {||
                   {&&
                      {== {{music_library get_highlighted_node} get_node_type} kNodeSong}
-                     {has_substr {dx_special_char {{music_library get_highlighted_node} title}} $got_text}
+                     {has_substr {fix_special_chars {{music_library get_highlighted_node} title}} $got_text}
                   }
                   {&&
                      {== {{music_library get_highlighted_node} get_node_type} kNodeSong}
-                     {has_substr {dx_special_char {{music_library get_highlighted_node} get_token}} $got_text}
+                     {has_substr {fix_special_chars {{music_library get_highlighted_node} get_token}} $got_text}
                   }
                }
                kDataUnhandled
@@ -1328,11 +1366,11 @@
                      {== {{music_library get_highlighted_node} get_node_type} kNodeFunction}
                      {&&
                         {== {{music_library get_highlighted_node} get_node_type} kNodeSong}
-                        {! {has_substr {dx_special_char {{music_library get_highlighted_node} get_token}} $got_text}}
+                        {! {has_substr {fix_special_chars {{music_library get_highlighted_node} get_token}} $got_text}}
                      }
                      {&&
                         {== {{music_library get_highlighted_node} get_node_type} kNodeSong}
-                        {! {has_substr {dx_special_char {{music_library get_highlighted_node} title}} $got_text}}
+                        {! {has_substr {fix_special_chars {{music_library get_highlighted_node} title}} $got_text}}
                      }
                   }
                   {if_else {== {song.lst selected_pos} {- {song.lst num_data} 3}}
@@ -1341,8 +1379,8 @@
                   }
                }
             }
-            
          }
+         #endif
       }
    )
    (SELECT_MSG
@@ -2072,10 +2110,12 @@
    (main_mode_button_held
       ($user $raw_button $action $pad_num)
       {cond
+         #ifndef RB3E
          ({&& {== $action kAction_ShellOption} $dx_more_info_toggle}
             {set $probeforfinder TRUE}
             {$this dx_more_info_load}
          )
+         #endif
          ({== $action kAction_Confirm}
             {unless
                {'||'
@@ -3209,6 +3249,31 @@
          {do
             {leaderboard_hide.trg trigger}
             {difficulty_show.trg trigger}}})
+   #define DX_SET_DIFFS
+   (
+      {if_else $dx_song_select_rings
+         {drum_pro.idd set instrument_type band}
+         {drum_pro.idd set instrument_type real_drum}
+      }
+      {guitar.idd set_song $token}
+      {bass.idd set_song $token}
+      {drum.idd set_song $token}
+      {vocals.idd set_song $token}
+      {harmony.idd set_song $token}
+      {keys.idd set_song $token}
+      {guitar_pro.idd set_song $token}
+      {bass_pro.idd set_song $token}
+      {drum_pro.idd set_song $token}
+      {keys_pro.idd set_song $token}
+      {band.idd set_song $token}
+   )
+   (dx_set_diff
+      ($shortname)
+      {do
+         ($token $shortname)
+         DX_SET_DIFFS
+      }
+   )
    (refresh_selected_song
       {$this refresh_top}
       {do
@@ -3275,21 +3340,7 @@
                {do
                   ($token
                      {$item get_token})
-                  {if_else $dx_song_select_rings
-                     {drum_pro.idd set instrument_type band}
-                     {drum_pro.idd set instrument_type real_drum}
-                  }
-                  {guitar.idd set_song $token}
-                  {bass.idd set_song $token}
-                  {drum.idd set_song $token}
-                  {vocals.idd set_song $token}
-                  {harmony.idd set_song $token}
-                  {keys.idd set_song $token}
-                  {guitar_pro.idd set_song $token}
-                  {bass_pro.idd set_song $token}
-                  {drum_pro.idd set_song $token}
-                  {keys_pro.idd set_song $token}
-                  {band.idd set_song $token}
+                  DX_SET_DIFFS
                   {if_else $dx_song_select_rings
                      {do
                         {guitar.idd set_showing FALSE}
@@ -3373,7 +3424,9 @@
                         {dx_song_name_year_title.lbl set_showing FALSE}
                      }
                   }
-                  {live_diffs.grp set_showing TRUE}})
+                  {live_diffs.grp set_showing TRUE}
+               }
+            )
             (kNodeStoreSong
                {guitar.idd
                   set_rank

@@ -1226,8 +1226,16 @@
 (overshell_real_bass_22 "Pro Bass 22")
 (press_to_load_meta "Hold <alt>b</alt> to load metadata")
 (song_search "Song Search")
+#ifdef NOT_YET_MERGED
+#ifdef RB3E
+(song_search_desc "Search for Song Title or Artist Name")
+(song_search_title "Song/Artist")
+#endif
+#endif
+#ifndef NOT_YET_MERGED
 (song_search_desc "Search for Song Title or Shortname")
 (song_search_title "Song Title")
+#endif
 (the2020s "'20s Songs")
 
 ; Overdrive
@@ -1280,8 +1288,8 @@
 (play_a_show_author "A song charted by %s")
 (play_a_show_bandvote "Band Vote:")
 (play_a_show_community "A song from the community")
-(play_a_show_diff "A %s tier song")
-(play_a_show_diff_an "An %s tier song")
+(play_a_show_diff "A %s song on %s")
+(play_a_show_diff_an "An %s song on %s")
 (play_a_show_fast "A fast song")
 (play_a_show_genre "A %s song")
 (play_a_show_get_songs "Getting Songs")
