@@ -1011,7 +1011,9 @@
       {$this set_line $line4eval 4}
       {$this set_line $line5eval 5}
       {$this set_line $line6eval 6}
+      #ifndef HX_WII
       {$this print_song_option_data}
+      #endif
    )
    (handle_album_art
       {if {! $current_voted_song}
@@ -1068,8 +1070,10 @@
          {play_header.lbl set text_token {sprint " "}}
       }
       {set $votingallowed TRUE}
+      #ifdef _SHIP
       {overshell begin_override_flow kOverrideFlow_None}
       {overshell begin_override_flow kOverrideFlow_SongSettings}
+      #endif
    )
    (calc_highest_vote
       {set $vote_check_array ()}
