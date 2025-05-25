@@ -521,7 +521,7 @@
                {delete author_finder}
             }
             {script_task kTaskUISeconds
-               #ifndef RB3E (delay 0.75) #endif
+               #ifdef RB3E (delay 0.25) #else (delay 0.75) #endif
                (name author_finder)
                (script
                   #ifdef RB3E
@@ -531,6 +531,7 @@
                   {set $sourcevar FALSE}
                   {set $genrevar FALSE}
                   {set $subgenrevar FALSE}
+                  {set $authorvar FALSE}
                   {do
                      ($song {{music_library get_highlighted_node} get_token})
                      ($id {{song_mgr get_meta_data $song} id})
