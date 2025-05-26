@@ -12,6 +12,7 @@
          }
          os_pad_mapping
          {if_else {== $dx_joypad_type_vocals kControllerVocals} os_button_remapper 0}
+         os_slot_options
       )
       (select
          (os_instrumentswap
@@ -34,8 +35,146 @@
          )
          (os_pad_mapping {dx_state dxState_PadMappingSwap})
          (os_button_remapper {dx_state dxState_ButtonRemapper})
+         (os_slot_options
+            ;{if_else $dx_slot_options_warn_seen
+               {dx_state dxState_SlotOptions}
+            ;   {dx_state dxState_SlotOptionsWarn}
+            ;}
+         )
       )
       (cancel {dx_state dxState_DeluxeSettings})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_SlotOptions
+      (view
+         os_reset_everything
+         os_allowed_instruments
+         {if_else $dx_linear_join_order os_linear_join_order_on os_linear_join_order_off}
+      )
+      (enter
+         ; temp until overshell size is fixed for warn list
+         {unless $dx_slot_options_warn_seen
+            {dx_passive_messenger os_slot_options_warn}
+            {set $dx_slot_options_warn_seen TRUE}
+         }
+      )
+      (select
+         (os_reset_everything
+            {set $dx_linear_join_order FALSE}
+
+            {set $dx_instruments_slot_1 (guitar real_guitar keys)}
+            {set $dx_instruments_slot_2 (drum)}
+            {set $dx_instruments_slot_3 (vocals)}
+            {set $dx_instruments_slot_4 (guitar real_guitar keys)}
+
+            {set $dx_instruments_aim_slot_1 (guitar real_guitar keys drum vocals)}
+            {set $dx_instruments_aim_slot_2 (guitar real_guitar keys drum vocals)}
+            {set $dx_instruments_aim_slot_3 (guitar real_guitar keys drum vocals)}
+            {set $dx_instruments_aim_slot_4 (guitar real_guitar keys drum vocals)}
+
+            {set $dx_slot_options_changed TRUE}
+         )
+         (os_allowed_instruments {dx_state dxState_AllowedInstruments})
+         (os_linear_join_order {set $dx_linear_join_order {! $dx_linear_join_order}} {set $dx_slot_options_changed TRUE})
+      )
+      (cancel
+         #ifdef RB3E
+         {if_else {&& $dx_slot_options_changed {! $dx_prompt_save}}
+            {dx_state dxState_SlotOptionsReboot}
+            {dx_state dxState_ControllerMenu}
+         }
+         #else
+         {dx_state dxState_ControllerMenu}
+         #endif
+      )
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_AllowedInstruments
+      (view
+         os_allowed_instruments_normal
+         mod_auto_vocals
+      )
+      (select
+         (os_allowed_instruments_normal {set $editing_aim_slots FALSE} {dx_state dxState_Slots})
+         (mod_auto_vocals {set $editing_aim_slots TRUE} {dx_state dxState_Slots})
+      )
+      (cancel {dx_state dxState_SlotOptions})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_Slots
+      (view
+         os_slot1
+         os_slot2
+         os_slot3
+         os_slot4
+      )
+      (select
+         (os_slot1 {set $slot_to_edit slot1} {dx_state dxState_AllowedInstrumentsForSlot})
+         (os_slot2 {set $slot_to_edit slot2} {dx_state dxState_AllowedInstrumentsForSlot})
+         (os_slot3 {set $slot_to_edit slot3} {dx_state dxState_AllowedInstrumentsForSlot})
+         (os_slot4 {set $slot_to_edit slot4} {dx_state dxState_AllowedInstrumentsForSlot})
+      )
+      (cancel {dx_state dxState_AllowedInstruments})
+   )
+}
+
+
+#define DX_APPLY_SLOT_OPTIONS
+(
+   {cond
+      ({== $slot_to_edit slot1}
+         {if_else $editing_aim_slots
+            {set $dx_instruments_aim_slot_1 $current_slot_array}
+            {set $dx_instruments_slot_1 $current_slot_array}
+         }
+      )
+      ({== $slot_to_edit slot2}
+         {if_else $editing_aim_slots
+            {set $dx_instruments_aim_slot_2 $current_slot_array}
+            {set $dx_instruments_slot_2 $current_slot_array}
+         }
+      )
+      ({== $slot_to_edit slot3}
+         {if_else $editing_aim_slots
+            {set $dx_instruments_aim_slot_3 $current_slot_array}
+            {set $dx_instruments_slot_3 $current_slot_array}
+         }
+      )
+      ({== $slot_to_edit slot4}
+         {if_else $editing_aim_slots
+            {set $dx_instruments_aim_slot_4 $current_slot_array}
+            {set $dx_instruments_slot_4 $current_slot_array}
+         }
+      )
+   }
+   {set $dx_slot_options_changed TRUE}
+   {dx_state dxState_Slots}
+)
+{push_back $dx_settings_main
+   (dxState_AllowedInstrumentsForSlot
+      (view
+         os_strings_keys_only
+         os_all_but_drums
+         os_drums_only
+         os_all_but_vocals
+         os_vocals_only
+         os_allow_all
+      )
+      (select
+         (os_strings_keys_only {set $current_slot_array (guitar real_guitar keys)} DX_APPLY_SLOT_OPTIONS)
+         (os_all_but_drums {set $current_slot_array (guitar real_guitar keys vocals)} DX_APPLY_SLOT_OPTIONS)
+         (os_drums_only {set $current_slot_array (drum)} DX_APPLY_SLOT_OPTIONS)
+         (os_all_but_vocals {set $current_slot_array (guitar real_guitar keys drum)} DX_APPLY_SLOT_OPTIONS)
+         (os_vocals_only {set $current_slot_array (vocals)} DX_APPLY_SLOT_OPTIONS)
+         (os_allow_all {set $current_slot_array (guitar real_guitar keys drum vocals)} DX_APPLY_SLOT_OPTIONS)
+      )
+      (cancel {dx_state dxState_Slots})
    )
 }
 
