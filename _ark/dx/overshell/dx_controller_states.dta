@@ -86,6 +86,7 @@
             {dx_state dxState_ControllerMenu}
          }
          #else
+         {if {&& $dx_slot_options_changed {! $dx_prompt_save}} {dx_settings_dta_writer}}
          {dx_state dxState_ControllerMenu}
          #endif
       )
