@@ -74,7 +74,13 @@
             {set $dx_instruments_aim_slot_3 (guitar real_guitar keys drum vocals)}
             {set $dx_instruments_aim_slot_4 (guitar real_guitar keys drum vocals)}
 
+            #ifdef RB3E
             {set $dx_slot_options_changed TRUE}
+            #else
+            {set $dx_slot_options_changed FALSE}
+            #endif
+
+            {if {! $dx_prompt_save} {dx_settings_dta_writer}}
          )
          (os_allowed_instruments {dx_state dxState_AllowedInstruments})
          (os_linear_join_order {set $dx_linear_join_order {! $dx_linear_join_order}} {set $dx_slot_options_changed TRUE})
@@ -87,6 +93,7 @@
          }
          #else
          {if {&& $dx_slot_options_changed {! $dx_prompt_save}} {dx_settings_dta_writer}}
+         {set $dx_slot_options_changed FALSE}
          {dx_state dxState_ControllerMenu}
          #endif
       )
@@ -160,20 +167,24 @@
 {push_back $dx_settings_main
    (dxState_AllowedInstrumentsForSlot
       (view
+         os_allow_all
          os_strings_keys_only
          os_all_but_drums
          os_drums_only
          os_all_but_vocals
          os_vocals_only
-         os_allow_all
+         os_all_but_keys
+         os_keys_only
       )
       (select
+         (os_allow_all {set $current_slot_array (guitar real_guitar keys drum vocals)} DX_APPLY_SLOT_OPTIONS)
          (os_strings_keys_only {set $current_slot_array (guitar real_guitar keys)} DX_APPLY_SLOT_OPTIONS)
          (os_all_but_drums {set $current_slot_array (guitar real_guitar keys vocals)} DX_APPLY_SLOT_OPTIONS)
          (os_drums_only {set $current_slot_array (drum)} DX_APPLY_SLOT_OPTIONS)
          (os_all_but_vocals {set $current_slot_array (guitar real_guitar keys drum)} DX_APPLY_SLOT_OPTIONS)
          (os_vocals_only {set $current_slot_array (vocals)} DX_APPLY_SLOT_OPTIONS)
-         (os_allow_all {set $current_slot_array (guitar real_guitar keys drum vocals)} DX_APPLY_SLOT_OPTIONS)
+         (os_all_but_keys {set $current_slot_array (guitar real_guitar drum vocals)} DX_APPLY_SLOT_OPTIONS)
+         (os_keys_only {set $current_slot_array (keys)} DX_APPLY_SLOT_OPTIONS)
       )
       (cancel {dx_state dxState_Slots})
    )
