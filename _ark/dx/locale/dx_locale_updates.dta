@@ -297,6 +297,7 @@
 (mod_mirror_mode_desc "Lefty mode without being a lefty!")
 (os_reboot "Reboot Game")
 (os_reboot_desc "Completely reboot Rock Band 3 Deluxe.")
+(rebooting_game "Restarting game...")
 #endif
 
 ; Custom Pro Drum Goals
@@ -1226,8 +1227,16 @@
 (overshell_real_bass_22 "Pro Bass 22")
 (press_to_load_meta "Hold <alt>b</alt> to load metadata")
 (song_search "Song Search")
+#ifdef NOT_YET_MERGED
+#ifdef RB3E
+(song_search_desc "Search for Song Title or Artist Name")
+(song_search_title "Song/Artist")
+#endif
+#endif
+#ifndef NOT_YET_MERGED
 (song_search_desc "Search for Song Title or Shortname")
 (song_search_title "Song Title")
+#endif
 (the2020s "'20s Songs")
 
 ; Overdrive
@@ -1280,8 +1289,8 @@
 (play_a_show_author "A song charted by %s")
 (play_a_show_bandvote "Band Vote:")
 (play_a_show_community "A song from the community")
-(play_a_show_diff "A %s tier song")
-(play_a_show_diff_an "An %s tier song")
+(play_a_show_diff "A %s song on %s")
+(play_a_show_diff_an "An %s song on %s")
 (play_a_show_fast "A fast song")
 (play_a_show_genre "A %s song")
 (play_a_show_get_songs "Getting Songs")
@@ -1436,12 +1445,28 @@
 (mapped_button_13 "Dpad Right")
 (mapped_button_14 "Dpad Down")
 (mapped_button_15 "Dpad Left")
+(mod_auto_vocals_desc "Allowed instruments when All Instruments Mode is enabled")
+(os_all_but_drums "All But Drums")
+(os_all_but_drums_desc "All instruments can be in this slot, except Drums")
+(os_all_but_keys "All But Keys")
+(os_all_but_keys_desc "All instruments can be in this slot, except Keys")
+(os_all_but_vocals "All But Vocals")
+(os_all_but_vocals_desc "All instruments can be in this slot, except Vocals")
+(os_allow_all "Allow All")
+(os_allow_all_desc "All instruments can be in this slot")
+(os_allowed_instruments "Allowed Instruments")
+(os_allowed_instruments_desc "Instruments allowed in each individual slot")
+(os_allowed_instruments_normal "Normal")
+(os_allowed_instruments_normal_desc "Allowed instruments during normal gameplay")
 (os_button_remapper "PadTar Binds...")
 (os_button_remapper_desc "Remap in game buttons for pad play")
 (os_controller "Controller")
 (os_controller_desc "Remap your instrument type or pad controls for ultimate compatibility")
+(os_drums_only "Drums Only")
+(os_drums_only_desc "Only Drums can be in this slot")
 (os_ghdrums "Guitar Hero Drums")
 (os_ghguitar "Guitar Hero Guitar")
+(os_gotit "Got it")
 (os_instreset "[Reset instrument type]")
 (os_instreset_desc "Reverts all controllers back to normal")
 (os_instrumentswap "Instrument type")
@@ -1449,13 +1474,42 @@
 (os_instrumentswap_menu_guitar_desc "Select new Instrument type\nGuitar -> ...")
 (os_instrumentswap_menu_keys_desc "Select new Instrument type\nKeys -> ...")
 (os_instrumentswap_menu_vocals_desc "Select new Instrument type\nVocals -> ...")
+(os_keys_only "Keys Only")
+(os_keys_only_desc "Only Keys can be in this slot")
+(os_linear_join_order_on "Join Order: Left to Right")
+(os_linear_join_order_on_desc "Players will join from left to right\n(1, 2, 3, 4)")
+(os_linear_join_order_off "Join Order: Default")
+(os_linear_join_order_off_desc "Players will join using the default order\n(1, 4, 3, 2)")
+(os_no "No")
 (os_pad "Pad (Default)")
 (os_pad_mapping "Mapping")
 (os_pad_mapping_desc "Useful when using an instrument from a another console")
 (os_pad_mapping_select_desc "Select the controls you would like to remap to")
+(os_reset_everything "[Reset Everything]")
+(os_reset_everything_desc "Reset all slot options (allowed instruments and join order)")
 (os_rb2drums "Rock Band 2 Drums")
 (os_rbdrums "Rock Band 1 Drums")
 (os_rbguitar "Rock Band Guitar")
+(os_slot1 "Slot 1")
+(os_slot1_desc "Allowed instruments for the far left slot")
+(os_slot2 "Slot 2")
+(os_slot2_desc "Allowed instruments for the middle left slot")
+(os_slot3 "Slot 3")
+(os_slot3_desc "Allowed instruments for the middle right slot")
+(os_slot4 "Slot 4")
+(os_slot4_desc "Allowed instruments for the far right slot")
+(os_slot_options "Slot Options")
+(os_slot_options_desc "Adjust the order and allowed instruments for player slots")
+#ifdef RB3E
+(os_slot_options_reboot "Would you like to restart the game to apply your settings?\n\nAll unsaved progress will be lost!")
+#endif
+(os_slot_options_warn "Note: Changing Slot Options requires a restart to take effect.")
+(os_strings_keys_only "Strings & Keys Only")
+(os_strings_keys_only_desc "Only Guitar, Bass, and Keys can be in this slot")
+(os_vocals_only "Vocals Only")
+(os_vocals_only_desc "Only Vocals can be in this slot")
+(os_yesreboot "Yes, reboot")
+
 
 ; Server Locale
 (go_overshell_register_online "Play on GoCentral")

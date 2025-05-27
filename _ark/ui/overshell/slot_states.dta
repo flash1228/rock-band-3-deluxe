@@ -2527,20 +2527,28 @@
             (overshell_real_bass_22 $dx_icon_real_bass)
             "G"
          }
-      ""}
+      }
    }
    {if $dx_in_show_flow
+      {switch {$this get_slot_num}
+         (0 {if {! $slot0_icon} {set $slot0_icon "<alt>N</alt>"}})
+         (1 {if {! $slot1_icon} {set $slot1_icon "<alt>N</alt>"}})
+         (2 {if {! $slot2_icon} {set $slot2_icon "<alt>N</alt>"}})
+         (3 {if {! $slot3_icon} {set $slot3_icon "<alt>N</alt>"}})
+      }
       {switch {$this get_slot_num}
          (0 {set $thisicon $slot0_icon})
          (1 {set $thisicon $slot1_icon})
          (2 {set $thisicon $slot2_icon})
          (3 {set $thisicon $slot3_icon})
       }
-      {$this
-         update_controller_type
-         {{$this get_user} get_controller_type}
-         $thisicon
-      ""}
+      {if $thisicon
+         {$this
+            update_controller_type
+            {{$this get_user} get_controller_type}
+            $thisicon
+         }
+      }
    }
 )
 (kState_ChoosePart
@@ -2704,7 +2712,7 @@
             {dx_play_a_show_panel dx_slot_voted}
          }
       }
-      {resize $dx_play_a_show_active_instruments 0}
+      ;{resize $dx_play_a_show_active_instruments 0}
       {switch {$component selected_sym}
          (overshell_guitar {push_back $dx_play_a_show_active_instruments guitar})
          (overshell_bass {push_back $dx_play_a_show_active_instruments bass})

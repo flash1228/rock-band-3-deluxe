@@ -59,6 +59,19 @@ DX_CURRENT_SONG_CLEAR
 {set $dx_icon_real_guitar "g"}
 {set $dx_icon_real_bass "b"}
 {set $dx_icon_drum_pro "d"}
+
+{set $dx_linear_join_order FALSE}
+
+{set $dx_instruments_slot_1 (guitar real_guitar keys)}
+{set $dx_instruments_slot_2 (drum)}
+{set $dx_instruments_slot_3 (vocals)}
+{set $dx_instruments_slot_4 (guitar real_guitar keys)}
+
+{set $dx_instruments_aim_slot_1 (guitar real_guitar keys drum vocals)}
+{set $dx_instruments_aim_slot_2 (guitar real_guitar keys drum vocals)}
+{set $dx_instruments_aim_slot_3 (guitar real_guitar keys drum vocals)}
+{set $dx_instruments_aim_slot_4 (guitar real_guitar keys drum vocals)}
+
 {set $dx_current_free_cam "Free camera: off"}
 {set $overshell_showing TRUE}
 {set $dx_stored_outro_vignette FALSE}
@@ -394,11 +407,13 @@ DX_CURRENT_SONG_CLEAR
 }
 #endif
 
+#ifndef RB3E
 #ifndef HX_WII
 {if_else {== $dx_detected_platform platform_rpcs3}
    {set $dx_more_info_toggle FALSE}
    {set $dx_more_info_toggle TRUE}
 }
+#endif
 #endif
 
 ;set mtv vars, trainer doesn't like these empty on boot

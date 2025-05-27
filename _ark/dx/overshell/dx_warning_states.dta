@@ -127,6 +127,42 @@
 }
 
 {push_back $dx_settings_main
+   (dxState_SlotOptionsWarn
+      (view
+         os_gotit
+      )
+      (enter
+         {handle
+            ($this set_confirm_actions os_slot_options_warn (os_gotit))})
+      (select
+         (os_gotit
+            {set $dx_slot_options_warn_seen TRUE}
+            {dx_state dxState_SlotOptions}
+         )
+      )
+      (cancel {dx_state dxState_ControllerMenu})
+   )
+}
+
+{push_back $dx_settings_main
+   (dxState_SlotOptionsReboot
+      (view
+         os_no
+         os_yesreboot
+      )
+      (enter
+         {set $dx_slot_options_changed FALSE}
+         {handle
+            ($this set_confirm_actions os_slot_options_reboot (os_no os_yesreboot))})
+      (select
+         (os_no {dx_state dxState_ControllerMenu})
+         (os_yesreboot {dx_rb3e_save_and_relaunch})
+      )
+      (cancel {dx_state dxState_ControllerMenu})
+   )
+}
+
+{push_back $dx_settings_main
    (dxState_TrackAngleSliderMsg
       (view
          overshell_continue
@@ -497,10 +533,7 @@
             {dx_settings_dta_writer}
             {dx_state dxState_TrackThemeLoader}
          )
-         (overshell_reboot
-            {dx_settings_dta_writer}
-            #ifdef RB3E {rb3e_relaunch_game} #endif
-         )
+         (overshell_reboot {dx_rb3e_save_and_relaunch})
       )
       (cancel {dx_state dxState_TrackThemeLoader})
    )
@@ -511,7 +544,7 @@
       (view overshell_continue overshell_cancel)
       (enter {handle ($this set_confirm_actions reboot_warning (overshell_continue overshell_cancel))})
       (select
-         (overshell_continue {rb3e_relaunch_game})
+         (overshell_continue {dx_rb3e_save_and_relaunch})
          (overshell_cancel {dx_state dxState_Advanced})
       )
       (cancel {dx_state dxState_Advanced})
