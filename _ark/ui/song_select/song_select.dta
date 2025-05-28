@@ -577,24 +577,24 @@
                      {if_else
                         {file_exists
                            #ifdef HX_PS3
-                           {sprint "dx/opensource/gen/" $sourcevar ".png_ps3"}
+                           {sprint "ui/resource/game_origins/gen/" $sourcevar ".png_ps3"}
                            #endif
                            #ifdef HX_WII
-                           {sprint "dx/opensource/gen/" $sourcevar ".png_wii"}
+                           {sprint "ui/resource/game_origins/gen/" $sourcevar ".png_wii"}
                            #endif
                            #ifdef HX_XBOX
-                           {sprint "dx/opensource/gen/" $sourcevar ".png_xbox"}
+                           {sprint "ui/resource/game_origins/gen/" $sourcevar ".png_xbox"}
                            #endif
                         }
                         {do
                            {{song_select_panel find song_demo.grp} set_showing TRUE}
-                           {{song_select_panel find demo.tex} set_bitmap {sprint "dx/opensource/" $sourcevar ".png"}}
+                           {{song_select_panel find demo.tex} set_bitmap {sprint "ui/resource/game_origins/" $sourcevar ".png"}}
                            {{song_select_panel find song_demo.lbl} set_showing FALSE}
                            {{song_select_panel find song_demo.lbl} set_token_fmt os_blnk}
                         }
                         {do
                            {{song_select_panel find song_demo.grp} set_showing TRUE}
-                           {{song_select_panel find demo.tex} set_bitmap "dx/opensource/custom.png"}
+                           {{song_select_panel find demo.tex} set_bitmap "ui/resource/game_origins/custom.png"}
                            {{song_select_panel find song_demo.lbl} set_showing FALSE}
                            {{song_select_panel find song_demo.lbl} set_token_fmt os_blnk}
                         }
