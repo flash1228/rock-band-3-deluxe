@@ -102,17 +102,12 @@
          ;{dx_set_star_display_pos}
          {$this dx_force_remote_vox}
          ; reset texts and hide them
-         {dx_game_hud_label dx_hud_label_time_remaining $dx_hud_time_remaining_text_size $dx_hud_time_remaining_text_font $dx_hud_time_remaining_text_alignment $dx_hud_time_remaining_text_kerning $dx_hud_time_remaining_text_x $dx_hud_time_remaining_text_z $dx_hud_time_remaining_text_y $dx_hud_time_remaining_text_r $dx_hud_time_remaining_text_g $dx_hud_time_remaining_text_b TRUE}
-         {if {&& {! {gamemode in_mode practice}} {! {gamemode in_mode trainer}}}
-            {dx_song_progress_label dx_song_progress_label_back_border TRUE}
-            {dx_song_progress_label dx_song_progress_label_back TRUE}
-            {dx_song_progress_label dx_song_progress_label_solo TRUE}
-            {dx_song_progress_label dx_song_progress_label_overdrive TRUE}
-            {dx_song_progress_label dx_song_progress_label_bre TRUE}
-            {dx_song_progress_label dx_song_progress_label_needle TRUE}
-            {dx_song_progress_label dx_song_progress_label TRUE}
-            {dx_get_this_countdown_array}
-            {dx_song_progress_instrument_label dx_song_progress_instrument_label TRUE}
+         ;{dx_game_hud_label dx_hud_label_time_remaining $dx_hud_time_remaining_text_size $dx_hud_time_remaining_text_font $dx_hud_time_remaining_text_alignment $dx_hud_time_remaining_text_kerning $dx_hud_time_remaining_text_x $dx_hud_time_remaining_text_z $dx_hud_time_remaining_text_y $dx_hud_time_remaining_text_r $dx_hud_time_remaining_text_g $dx_hud_time_remaining_text_b TRUE}         
+         {if {! {gamemode in_mode practice}}
+            {unless {scoreboard exists progress_handler}
+               {{{$this find scoreboard} find scoreboard.grp} add_object {dx_spawn_progress_bar {$this find scoreboard} {{$this find scoreboard} find scoreboard.grp}}}
+            }
+            {{scoreboard find progress_handler} populate_song_phrases}
          }
          {dx_game_hud_label dx_hud_label_band_streak $dx_hud_band_streak_text_size $dx_hud_band_streak_text_font $dx_hud_band_streak_text_alignment $dx_hud_band_streak_text_kerning $dx_hud_band_streak_text_x $dx_hud_band_streak_text_z $dx_hud_band_streak_text_y $dx_hud_band_streak_text_r $dx_hud_band_streak_text_g $dx_hud_band_streak_text_b TRUE}
          {beatmatch foreach_active_player $player
@@ -184,6 +179,7 @@
                {if $dx_mtvup {{{gamemode get track_panel} find mtv_overlay} mtv_formatter}} ;this is here to fix some issues with auto-positioning - luna
             )
          }
+         {{scoreboard find progress_handler} start_progress}
          {if {&& {modifier_mgr is_modifier_active mod_auto_play} $dx_insta_win}
             {script_task kTaskSeconds (delay 4)
                (script
