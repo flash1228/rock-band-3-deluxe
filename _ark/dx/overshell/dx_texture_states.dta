@@ -69,9 +69,9 @@
    (dxState_HighwayThemeGems
       (view
          os_gems
-         ;#ifndef HX_WII
-         ;os_gem_models
-         ;#endif
+         #ifndef HX_WII
+         os_gem_models
+         #endif
          os_smashers
          os_hits
          os_beat_lines
