@@ -69,8 +69,7 @@
          {foreach $entry $countdown_array
             {do
                ($total_seconds {beat_to_seconds $dx_end_of_song}) ;grab current song length in seconds
-               {if {!= {elem $entry 0} none}
-                  ;{dx_log_writer insane {sprint "phrase: " $entry}}
+               {if {&& {!= {elem $entry 0} none} {! {exists {elem $entry 0}}}}
                   {do
                      ($phrasename {elem $entry 0})
                      ($start_pos_frac {/ {beat_to_seconds {elem $entry 1}} $total_seconds})
