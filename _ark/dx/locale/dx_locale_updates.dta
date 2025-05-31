@@ -1743,7 +1743,7 @@
 (os_gem_themer "Highway Items...")
 (os_gem_themer_desc "Customization for notes")
 (os_moreoptions "More Options...")
-(os_moreoptions_desc "FPS, Post Processing, and more")
+(os_moreoptions_desc "Additional stage and band member options")
 (os_gem_models "Gem Models")
 (os_gem_models_desc "Models for the notes, seperate from texture themes")
 (os_highway "Highway...")
