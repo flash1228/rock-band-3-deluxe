@@ -24,7 +24,9 @@
 (dx_splash_23 "Sinto saudades da Hebe Camargo e seus selinhos")
 (dx_splash_24 "Não, mano, isso não é o YARG...")
 (dx_splash_25 "Já bebeu água hoje?")
-(dx_splash_26 "Você nem sequer jogou todas as músicas que tu tem baixadas!")
+(dx_splash_26
+   "Você nem sequer jogou todas as músicas que tu tem baixadas!"
+)
 (dx_splash_27 "Usar o Onyx pra converter músicas salva vidas!!!")
 (dx_splash_28 "Grita AGORA, que eu sei que tu quer gritar... GRITA!!!")
 (dx_splash_29 "DELUXE mano, DELUXE!!!")
@@ -33,10 +35,16 @@
 (dx_splash_32 "Amar só a Deus, ein!!!")
 (dx_splash_33 "Um absuuuurdo de lindo")
 (dx_splash_34 "Oi, solteiro???")
-(dx_splash_35 "Acredite ou não, tem uma custom do Hino do Brasil pra baixar!")
+(dx_splash_35
+   "Acredite ou não, tem uma custom do Hino do Brasil pra baixar!"
+)
 (dx_splash_36 "DELUXE!")
-(dx_splash_37 "Se fosse pelo interesse da burgesia, esta tradução não existiria!")
-(dx_splash_38 "Se fosse pelo interesse da burgesia, este MOD não existiria!")
+(dx_splash_37
+   "Se fosse pelo interesse da burgesia, esta tradução não existiria!"
+)
+(dx_splash_38
+   "Se fosse pelo interesse da burgesia, este MOD não existiria!"
+)
 (dx_splash_39 "Discord do tradutor: @therogerland")
 (dx_splash_40 "Instagram do tradutor: @ruggeryiury")
 (dx_splash_41 "MPB agora é um gênero musical disponível pro jogo!")
@@ -53,7 +61,9 @@
 (dx_splash_52 "Overcharting é mó idiotice")
 (dx_splash_53 "Fim da Escala 6x1 JÁ!!!")
 (dx_splash_54 "Isso ta longe de ser o Guitar Hero...")
-(dx_splash_55 "Saudades do inglês? Infelizmente não aceitamos devoluções!")
+(dx_splash_55
+   "Saudades do inglês? Infelizmente não aceitamos devoluções!"
+)
 (dx_splash_56 "Palhetar sempre pra baixo é um vício a ser quebrado!")
 (dx_splash_57 "Quem cala, concente!")
 (dx_splash_58 "Link RPCN do tradutor: Ruggy (R MAIÚSCULO!!!)")
@@ -64,10 +74,14 @@
 (dx_splash_63 "Meu sonho de infância era ser bom na máquina de dança!")
 (dx_splash_64 "Algumas frases que você vai ler por aqui rimam, sabia?")
 (dx_splash_65 "Nada a declarar...")
-(dx_splash_66 "Pressione START (ou B no Xbox) (ou X no PS3) (ou Verde na Guitarra)")
+(dx_splash_66
+   "Pressione START (ou B no Xbox) (ou X no PS3) (ou Verde na Guitarra)"
+)
 (dx_splash_67 "Índio forte cueca fraca índio peida cueca rasga")
 (dx_splash_68 "Hora de tomar um banho, você não acha?")
-(dx_splash_69 "Espero de coração que tu não precise acordar cedo amanhã!")
+(dx_splash_69
+   "Espero de coração que tu não precise acordar cedo amanhã!"
+)
 (dx_splash_70 "Nem tudo é um competição...")
 (dx_splash_71 "Melhor que jogar LOL, sem sombra de dúvidas")
 (dx_splash_72 "Delete a pasta System32 do seu PC!")
@@ -79,7 +93,9 @@
 (dx_splash_78 "GRYBO")
 (dx_splash_79 "As músicas do Guitar Flash foram pegas dessa franquia!!!")
 (dx_splash_80 "Tome cuidado, as vezes esse jogo crasha!")
-(dx_splash_81 "Esta tradução está disponível de graça!!! Cuidado com golpes!!!")
+(dx_splash_81
+   "Esta tradução está disponível de graça!!! Cuidado com golpes!!!"
+)
 (dx_splash_82 "Só os Clássicos!")
 (dx_splash_83 "Cuidado pra não jogar a baqueta longe!")
 (dx_splash_84 "Já parou pra pensar na vida útil da sua guitarra?")
@@ -94,7 +110,9 @@
 (dx_splash_93 "Preferir jogar LOL que o RB3DX é mal caratismo!")
 (dx_splash_94 "Um vírus foi detectado!!!")
 (dx_splash_95 "To vendo você pela webcam!!!")
-(dx_splash_96 "O falecido Orkut tem interação online completa com esse jogo!")
+(dx_splash_96
+   "O falecido Orkut tem interação online completa com esse jogo!"
+)
 (dx_splash_97 "Bora fazer e acontecer!")
 (dx_splash_98 "Banda de Rock 3!")
 (dx_splash_99 "Open source!")
@@ -108,7 +126,9 @@
 (dx_splash_107 "Essa tradução foi feita por um esquerdista")
 (dx_splash_108 "O rato roeu a roupa do Rei de Roma")
 (dx_splash_109 "Três pratos de trigo para três tigres tristes")
-(dx_splash_110 "Essa tradução foi feita por um homossexual, você acredita?")
+(dx_splash_110
+   "Essa tradução foi feita por um homossexual, você acredita?"
+)
 (dx_splash_111 "Baixe todas as DLC!!!")
 (dx_splash_112 "De boa na lagoa")
 (dx_splash_113 "Fora Bolsonaro!")
@@ -117,7 +137,9 @@
 (dx_splash_116 "Mó doideira!")
 (dx_splash_117 "Juntando o útil ao agradável")
 (dx_splash_118 "Segura as pontas!")
-(dx_splash_119 "Olá, tenho 27 anos... Bem... Teria se eu não tivesse morrido...")
+(dx_splash_119
+   "Olá, tenho 27 anos... Bem... Teria se eu não tivesse morrido..."
+)
 (dx_splash_120 "Pague sua conta de internet!")
 #ifdef HX_XBOX
 (dx_splash_121 "Erro fatal interceptado!")
@@ -144,9 +166,15 @@
 (dx_splash_135 "Que tal um beijo da boca, ein?")
 (dx_splash_136 "QWERTYUIOP ASDFGHJKL ZXCVBNM")
 (dx_splash_137 "Pimba na bulimba!")
-(dx_splash_138 "VERSÃO PARA DESENVOLVEDORES! PROIBIDO DISTRIBUIR AO PÚBLICO!")
-(dx_splash_139 "Se você não gosta de LGBTQIAPN+, não jogue essa tradução")
-(dx_splash_140 "Se você não gosta do Comunismo, não jogue essa tradução")
+(dx_splash_138
+   "VERSÃO PARA DESENVOLVEDORES! PROIBIDO DISTRIBUIR AO PÚBLICO!"
+)
+(dx_splash_139
+   "Se você não gosta de LGBTQIAPN+, não jogue essa tradução"
+)
+(dx_splash_140
+   "Se você não gosta do Comunismo, não jogue essa tradução"
+)
 (dx_splash_141 "Vai um cafézinho???")
 (dx_splash_142 "Hora de brincar!")
 (dx_splash_143 "Delicioso na medida certa!")
@@ -155,7 +183,9 @@
 (dx_splash_146 "Se você pode sonhar, pode realizar!")
 (dx_splash_147 "O sucesso é a melhor forma de vingança")
 (dx_splash_148 "Tudo passa, nem que seja por cima de você")
-(dx_splash_149 "Tente não jogar tudo para o alto, porque depois você terá que catar")
+(dx_splash_149
+   "Tente não jogar tudo para o alto, porque depois você terá que catar"
+)
 (dx_splash_150 "Tequila é melhor que Whiskey")
 (dx_splash_151 "Vai ter jogo do Flamengo hoje?")
 (dx_splash_152 "Vocês já ouviram falar da vaia Cearense?")
