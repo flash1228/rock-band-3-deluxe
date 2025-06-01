@@ -18,8 +18,6 @@
    (volume -17.0) ; vanilla: -20.0
    (fade_time 1.0)
    (music
-      ;#define MAX_MEM_MODE (1)
-      #ifndef MAX_MEM_MODE
       ; UNFINISHED, lunawashere
       ; shortname - song name - artist - verb (press orange to BLANK)                        vvv   for volume, import ogg into reaper and normalize
       ; ({do {dx_store_meta_info "shortname" "Title" "Artist" "none"} "loops/rb4/shortname"} 0.0)
@@ -356,18 +354,9 @@
       ; https://rhythmverse.co/songfile/2fe493405a61498285749b5e751bb107
       ({do {dx_store_meta_info "strumtest_real_guitar" "Strum Test, with Real Bass" "Chris the Bill and the Gang" "join the $36 club"} "loops/others/strumtest_real_guitar"}
          -1.49
-      )
-      ; forbidden
+      ) ; forbidden
       ; Holiday-specific (todo: implement this)
       ;({do {dx_store_meta_info "alliwantforchristmas" "All I Want for Christmas Is You" "Mariah Carey" "spread holiday cheer!"} "loops/others/alliwantforchristmas"} -0.86)
-      #endif
-      #endif
-      #ifdef MAX_MEM_MODE
-      ; this one is outside of other ifdefs, as it is the smallest one that exists
-      ; https://rhythmverse.co/songfile/2fe493405a61498285749b5e751bb107
-      ({do {dx_store_meta_info "zzyysspp" " " " " "join the $36 club"} "fc/donnaken_fc"}
-         -99.99
-      )
       #endif
    )
    (scenes
