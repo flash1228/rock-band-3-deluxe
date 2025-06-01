@@ -438,7 +438,6 @@
       coop_track_panel
       gem_trainer_panel
    )
-   ;(my_enter {dx_presence_manager})
    GAME_SCREEN_HANDLERS
    GEM_TRAINER_SCREEN_BUTTON_HANDLING
 }
@@ -453,7 +452,6 @@
       gem_trainer_panel
    )
    (focus gem_trainer_panel)
-   ;(my_enter {dx_presence_manager})
    GAME_SCREEN_HANDLERS
    GEM_TRAINER_SCREEN_BUTTON_HANDLING
 }

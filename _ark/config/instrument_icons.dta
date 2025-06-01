@@ -10,3 +10,5 @@
 (real_bass $dx_icon_real_bass "b" "A" "A")
 (drum_pro $dx_icon_drum_pro "d" "d" "d")
 (no_part "N" "N" "N" "N")
+; for all of the above, the vanilla value was the sam as the quoted letter directly after it
+; ex. $dx_icon_bass was "B"

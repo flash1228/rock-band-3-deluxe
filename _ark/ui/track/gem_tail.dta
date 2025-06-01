@@ -34,25 +34,19 @@
             )
          )
          (enter
-            {$this set
-               guitar_sustain_y_pos
-               {if_else {modifier_mgr is_modifier_active mod_brutalmode}
-                  90
-                  0
-               }
-            }
-            {$this set
-               real_guitar_sustain_y_pos
-               {if_else {modifier_mgr is_modifier_active mod_brutalmode}
-                  90
-                  0
-               }
-            }
-            {$this set
-               real_keys_sustain_y_pos
-               {if_else {modifier_mgr is_modifier_active mod_brutalmode}
-                  90
-                  0
+            {do
+               ($arr
+                  (guitar_sustain_y_pos real_guitar_sustain_y_pos real_keys_sustain_y_pos)
+               )
+               ($mod {modifier_mgr is_modifier_active mod_brutalmode})
+               ($pos
+                  {if_else $mod
+                     90
+                     0
+                  }
+               )
+               {foreach $entry $arr
+                  {$this set $entry $pos}
                }
             }
          )

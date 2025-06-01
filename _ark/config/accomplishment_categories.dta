@@ -122,4 +122,13 @@
 (acc_cat_prokeys6 (group acc_grp_prokeys))
 (acc_cat_prokeys7 (group acc_grp_prokeys))
 (acc_cat_prokeys_dlc (group acc_grp_prokeys))
-DX_GOAL_CATA
+;dx categories follow
+(acc_cat_guitar_dx (group acc_grp_guitar))
+(acc_cat_bass_dx (group acc_grp_bass))
+(acc_cat_band_trackpack (group acc_grp_band))
+(acc_cat_band_dx (group acc_grp_band))
+(acc_cat_vox_dx (group acc_grp_vox))
+(acc_cat_prodrums_dx (group acc_grp_prodrums))
+(acc_cat_prokeys_dx (group acc_grp_prokeys))
+(acc_cat_drums_dx (group acc_grp_drums))
+(acc_cat_harmonyvox_dx (group acc_grp_harmonyvox))

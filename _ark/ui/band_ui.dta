@@ -131,13 +131,11 @@
          )
          (SELECT_MSG
             {if {== $component opt1.btn}
-               {platform_mgr signin
-                  1
-                  TRUE
-                  #ifdef HX_WII
-                  $user
-                  #endif
-               }
+               #ifndef HX_WII
+               {platform_mgr signin 1 TRUE}
+               #else
+               {platform_mgr signin 1 TRUE $user}
+               #endif
             }
          )
          (SELECT_DONE_MSG

@@ -63,7 +63,7 @@
          (start_super_streak
             {if {! [hide_feedback]}
                {super_streak_start.trig trigger}
-               {bass_super_streak.lbl set_token_fmt {sprint bass_streak}} ; dx - reset bass streak locale since popups mess with it
+               {bass_super_streak.lbl set_token_fmt bass_streak} ; dx - reset bass streak locale since popups mess with it
                {script_task kTaskSeconds (delay 4.0) (script {$this end_super_streak})}
             }
          )
