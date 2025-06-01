@@ -18,6 +18,8 @@
    (volume -17.0) ; vanilla: -20.0
    (fade_time 1.0)
    (music
+      ;#define MAX_MEM_MODE (1)
+      #ifndef MAX_MEM_MODE
       ; UNFINISHED, lunawashere
       ; shortname - song name - artist - verb (press orange to BLANK)                        vvv   for volume, import ogg into reaper and normalize
       ; ({do {dx_store_meta_info "shortname" "Title" "Artist" "none"} "loops/rb4/shortname"} 0.0)
@@ -43,6 +45,8 @@
       ({do {dx_store_meta_info "simpleton" "Simpleton" "The Acrobrats" "none"} shellmusic_multi_simpleton}
          -0.54
       )
+      ;wii uses biks, and thus, all of our new ones are about twice too large for wii
+      #ifndef HX_WII
       ; Rock Band
       ({do {dx_store_meta_info "29fingers" "29 Fingers" "The Konks" "count the thumbs"} "loops/rb1/29fingers"}
          -2.27
@@ -345,15 +349,30 @@
       ) ; forbidden
       ({do {dx_store_meta_info "PsychobillyFreakoutRHH_rb" "Psychobilly Freakout" "Reverend Horton Heat" "none"} "loops/others/psychobillyfreakout"}
          -2.22
-      ) ; https://rhythmverse.co/songfile/2fe493405a61498285749b5e751bb107
-      ({do {dx_store_meta_info "strumtest_real_guitar" "Strum Test, with Real Bass" "Chris the Bill and the Gang" "join the $36 club"} "loops/others/strumtest_real_guitar"}
-         -1.49
       ) ; rb3 beta (also forbidden)
       ({do {dx_store_meta_info "wheneverwherever" "Whenever, Wherever" "Shakira" "none"} "loops/others/wheneverwherever"}
          0.25
-      ) ; forbidden
+      )
+      ; forbidden
       ; Holiday-specific (todo: implement this)
       ;({do {dx_store_meta_info "alliwantforchristmas" "All I Want for Christmas Is You" "Mariah Carey" "spread holiday cheer!"} "loops/others/alliwantforchristmas"} -0.86)
+      #endif
+      #endif
+      #ifndef HX_WII
+      ; this one is outside of other ifdefs, as it is the smallest one that exists
+      ; https://rhythmverse.co/songfile/2fe493405a61498285749b5e751bb107
+      ({do {dx_store_meta_info "strumtest_real_guitar" "Strum Test, with Real Bass" "Chris the Bill and the Gang" "join the $36 club"} "loops/others/strumtest_real_guitar"}
+         -1.49
+      )
+      #endif
+      #ifdef MAX_MEM_MODE
+      #ifdef HX_WII
+      ;this is the smallest one for vanilla as a fallback on wii
+      ({do {dx_store_meta_info "simpleton" "Simpleton" "The Acrobrats" "none"} shellmusic_multi_simpleton}
+         -0.54
+      )
+      #endif
+      #endif
    )
    (scenes
       #include metamusic_scenes.dta
