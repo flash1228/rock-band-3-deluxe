@@ -353,25 +353,21 @@
       ({do {dx_store_meta_info "wheneverwherever" "Whenever, Wherever" "Shakira" "none"} "loops/others/wheneverwherever"}
          0.25
       )
+      ; https://rhythmverse.co/songfile/2fe493405a61498285749b5e751bb107
+      ({do {dx_store_meta_info "strumtest_real_guitar" "Strum Test, with Real Bass" "Chris the Bill and the Gang" "join the $36 club"} "loops/others/strumtest_real_guitar"}
+         -1.49
+      )
       ; forbidden
       ; Holiday-specific (todo: implement this)
       ;({do {dx_store_meta_info "alliwantforchristmas" "All I Want for Christmas Is You" "Mariah Carey" "spread holiday cheer!"} "loops/others/alliwantforchristmas"} -0.86)
       #endif
       #endif
-      #ifndef HX_WII
+      #ifdef MAX_MEM_MODE
       ; this one is outside of other ifdefs, as it is the smallest one that exists
       ; https://rhythmverse.co/songfile/2fe493405a61498285749b5e751bb107
-      ({do {dx_store_meta_info "strumtest_real_guitar" "Strum Test, with Real Bass" "Chris the Bill and the Gang" "join the $36 club"} "loops/others/strumtest_real_guitar"}
-         -1.49
+      ({do {dx_store_meta_info "zzyysspp" " " " " "join the $36 club"} "fc/donnaken_fc"}
+         -99.99
       )
-      #endif
-      #ifdef MAX_MEM_MODE
-      #ifdef HX_WII
-      ;this is the smallest one for vanilla as a fallback on wii
-      ({do {dx_store_meta_info "simpleton" "Simpleton" "The Acrobrats" "none"} shellmusic_multi_simpleton}
-         -0.54
-      )
-      #endif
       #endif
    )
    (scenes
