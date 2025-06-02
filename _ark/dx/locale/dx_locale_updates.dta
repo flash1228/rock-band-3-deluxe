@@ -89,7 +89,7 @@
 ; Cache warn
 #ifdef RB3E
 (dx_cache_warn_btn "Clear and reboot game")
-(dx_cache_warn_desc "We noticed you just updated Rock Band 3 Deluxe!\nThat's awesome, but we need you to clear your song cache before continuing to avoid any issues.\n\nRB3Enhanced can handle this for you by pressing the button below. You can also clear your cache at any time from the \qOptions>Extras\q menu.\n\nYou can continue without clearing your cache by pressing cancel, but you may be missing pro upgrades, and some songs may not work properly.")
+(dx_cache_warn_desc "We noticed you just updated Rock Band 3 Deluxe!\nThat's awesome, but we need you to clear your song cache before continuing to avoid any issues.\n\nRB3Enhanced can handle this for you by pressing the button below. You can also clear your cache at any time from the \qOptions>Extras\q menu.\n\nYou can continue without clearing your cache by pressing <alt>r</alt>, but you may be missing pro upgrades, and some songs may not work properly.")
 (dx_cache_warn_header "Slow Your Roll!")
 (dx_rbdxcache_path " ")
 (delete_cache "Delete Song Cache")
