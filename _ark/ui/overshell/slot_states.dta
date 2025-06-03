@@ -2020,6 +2020,7 @@
 #define DX_OPTIONS_SET_DATA (
    {do
       ($arr {array 0})
+      {push_back $arr refresh_library}
       {if_else {== {ui current_screen} song_select_screen}
          {push_back $arr report_song_location}
          {push_back $arr overshell_credits}
@@ -2028,7 +2029,9 @@
       #ifdef HX_XBOX
       {push_back $arr overshell_audition}
       #endif
+      #ifdef RB3E
       {if {! {$this in_game}} {push_back $arr delete_cache}}
+      #endif
       {if_else {== {ui current_screen} song_select_screen}
          {push_back $arr $dx_current_free_cam}
          {push_back $arr os_screensaver}
