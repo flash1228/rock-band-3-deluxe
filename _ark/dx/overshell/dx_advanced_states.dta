@@ -3,17 +3,17 @@
          #ifndef HX_WII os_menu_options #endif
          os_functional_options
          os_pedantic_settings
-         {if_else $dx_debug
-            {if_else {session_mgr is_local}
-               os_debug
-               0
-            }
+         {if_else {&& $dx_debug {session_mgr is_local}}
+            os_debug
             0
          }
          #ifdef HX_XBOX
          #ifdef RB3E
          #ifndef RB3E_EMULATOR
-         os_reboot
+         {if_else {$this in_game}
+            0
+            os_reboot
+         }
          #endif
          #endif
          #endif
