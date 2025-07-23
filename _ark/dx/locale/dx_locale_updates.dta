@@ -358,6 +358,7 @@
 (os_dx_swap_gender_on "Swap Cosmetics: ON")
 (os_judgment_dbg_off "Judgment Dbg: OFF")
 (os_judgment_dbg_on "Judgment Dbg: ON")
+(os_testsongs "Test Songs...")
 (os_time_remain_dbg_off "Time Remain Dbg: OFF")
 (os_time_remain_dbg_on "Time Remain Dbg: ON")
 (os_uptime "RB3DX Uptime")
@@ -366,6 +367,9 @@
 (rootarray_dumped "Current root array dumped to game folder.")
 (rootarray_dumped2 "Current root array dumped to individual array DTAs in game folder.")
 (songs_updates_generated "YARG Updates Generated")
+
+; Debug Songs (Menu Locale)
+(dx_calibrationtest "Calibration Test")
 
 ; Deluxe notifications
 (audition_no_rock_central "Audition mode requires a connection to the game servers, but the game servers are not available at this time.  Please try again later.")

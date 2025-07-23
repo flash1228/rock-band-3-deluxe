@@ -386,6 +386,9 @@
          #endif
          do_script
          os_uptime
+         #ifndef HX_WII
+         os_testsongs  ; Songs folder is removed on Wii
+         #endif
          os_dumplyrics
          os_dumproot
          os_dumproot2
@@ -421,6 +424,8 @@
          (os_uptime
             {dx_uptime_onscreen}
          )
+         (os_testsongs
+            {dx_state dxState_TestSongs})
          (print_hmx
             {print_hmx_panel}
          )
@@ -487,6 +492,21 @@
       (cancel
          {dx_state dxState_Advanced}
       )
+   )
+
+   (dxState_TestSongs
+      (view
+         dx_calibrationtest
+      )
+      (select
+         (dx_calibrationtest
+            ;{set $dx_test_song TRUE}  ; TODO: Implement score invalidation
+            {meta_performer set_song dx_calibrationtest}
+            {gamemode set_mode qp_coop}
+            {ui sync_screen {music_library get_next_screen} 0}
+         )
+      )
+      (cancel {dx_state dxState_Debug})
    )
 
    (dxState_PositionRemapper
