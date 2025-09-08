@@ -244,8 +244,20 @@
 (dx_splash_11 "Nobody cares about modding The Beatles Rock Band!")
 (dx_splash_12 "Up Up Down Down Left Right Left Right B A Start!")
 (dx_splash_13 "Powered by Milo!")
+#ifdef HX_XBOX
 (dx_splash_14 "Don't forget to clear your song cache!")
+#else
+(dx_splash_14 "Lanes, am I right?")
+#endif
+#ifndef HX_PS3
+#ifndef RB3E
 (dx_splash_15 "Why aren't you using RB3Enhanced?")
+#else
+(dx_splash_15 "Shout out RB3Enhanced!")
+#endif
+#else
+(dx_splash_15 "PlayStation 3 has 1 game (this one)")
+#endif
 (dx_splash_16 "Yes, you can turn off lanes.")
 (dx_splash_17 "The hit window shrinks!")
 (dx_splash_18 "Also try Amplitude!")

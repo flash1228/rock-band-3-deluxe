@@ -1247,6 +1247,8 @@
 (dx_setlist_infinite_desc "You've played the endless setlists, now play all 3 back to back in this absolute gauntlet of a set.")
 (help_back "BACK")
 (help_search "HOLD FOR SEARCH")
+(help_search_keyboard "START TYPING TO SEARCH")
+(help_keyboard "SHOW KEYBOARD")
 (os_blnk " ")
 (os_more_info_toggle_off "Hold for metadata: OFF")
 #ifdef HX_PS3
@@ -1264,16 +1266,12 @@
 (overshell_real_bass_22 "Pro Bass 22")
 (press_to_load_meta "Hold <alt>b</alt> to load metadata")
 (song_search "Song Search")
-#ifdef NOT_YET_MERGED
-#ifdef RB3E
 (song_search_desc "Search for Song Title or Artist Name")
 (song_search_title "Song/Artist")
-#endif
-#endif
-#ifndef NOT_YET_MERGED
-(song_search_desc "Search for Song Title or Shortname")
-(song_search_title "Song Title")
-#endif
+(search_cache_generate_button "Generate Search Cache")
+(search_cache_generate_desc "Your search cache is missing or outdated. Would you like to (re)generate it? This will take a while, especially on console.")
+(search_cache_generate_starting "Starting search cache generation...")
+(search_cache_generate_progress "Generating search cache\n({string:done}/{string:total})")
 (the2020s "'20s Songs")
 
 ; Overdrive
@@ -1334,17 +1332,17 @@
 (play_a_show_loading_hw "Loading... This will take some time.\nYour console may freeze temporarily.")
 (play_a_show_loading_emu "Loading... This will take some time.")
 (play_a_show_lock_in "Locking in")
-(play_a_show_long "A long song")
+(play_a_show_long "A long song (4-7m)")
 (play_a_show_med "A completely random song")
 (play_a_show_missing_inst "this song is missing one of your instruments")
 (play_a_show_pick_songs "Loading... <alt>This may take a while...</alt>")
 (play_a_show_pressstart "Press <alt>s</alt>\nto rock!")
-(play_a_show_really_long "A REALLY long song")
-(play_a_show_really_short "A REALLY short song")
+(play_a_show_really_long "A REALLY long song (7m+)")
+(play_a_show_really_short "A REALLY short song (0-2m)")
 (play_a_show_refresh "Refresh Options")
 (play_a_show_refreshed "Options Refreshed")
 (play_a_show_refreshing "Options Refreshing")
-(play_a_show_short "A short song")
+(play_a_show_short "A short song (2-4m)")
 (play_a_show_slow "A slow song")
 (play_a_show_source "A song from %s")
 (play_a_show_submitting "Submitting")
@@ -2082,5 +2080,6 @@
 #include dx_locale_sources.dta
 #include dx_locale_updates_assets.dta
 #include dx_locale_sections.dta
+#include dx_locale_metamusic.dta
 #include dx_locale_tips.dta
 #include dx_locale_latin_1.dta
