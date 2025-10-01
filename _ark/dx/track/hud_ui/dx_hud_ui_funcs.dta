@@ -12,7 +12,10 @@
 {func
    dx_set_scoreboard_pos
    {if {gamemode in_mode qp_coop}
-      {{{coop_track_panel find scoreboard} find scoreboard.grp} set_local_pos {+ $scoreboardpos_0 $dx_score_base_0} {+ $scoreboardpos_1 $dx_score_base_1} {+ $scoreboardpos_2 DX_SCORE_BASE_2_AUTOPOS}}
+      {if_else {modifier_mgr is_modifier_active mod_karaoke}
+         {{{coop_track_panel find scoreboard} find scoreboard.grp} set_local_pos 8 0 -50}
+         {{{coop_track_panel find scoreboard} find scoreboard.grp} set_local_pos {+ $scoreboardpos_0 $dx_score_base_0} {+ $scoreboardpos_1 $dx_score_base_1} {+ $scoreboardpos_2 DX_SCORE_BASE_2_AUTOPOS}}
+      }
       {{{coop_track_panel find star_meter_multiplier} find cap.grp} set_local_pos $dx_score_base_0 $dx_score_base_1 DX_SCORE_BASE_2_AUTOPOS}
       {{{coop_track_panel find star_meter_multiplier} find draw.grp} set_local_pos $dx_score_base_0 $dx_score_base_1 DX_SCORE_BASE_2_AUTOPOS}
       {{{coop_track_panel find star_meter_multiplier} find particle_anim.grp} set_local_pos $dx_score_base_0 $dx_score_base_1 DX_SCORE_BASE_2_AUTOPOS}
@@ -85,7 +88,10 @@
       {$thislabel set alt_italics 0.1}
       {$thislabel set alt_text_size 1}
       {$thislabel set alt_z_offset 0}
-      {$thislabel set alignment $alignment}
+      {if_else {modifier_mgr is_modifier_active mod_karaoke}
+         {$thislabel set alignment kMiddleLeft}
+         {$thislabel set alignment $alignment}
+      }
       {$thislabel set fit_type kFitWrap}
       {if_else {&& {== $dx_mtv_pos_x 16.8} {== $dx_mtv_pos_y 13.78} {== $dx_mtv_pos_z 57}} ;if mtv overlay is default pos
          ;handle autopos
@@ -117,7 +123,7 @@
    {if_else {&& {== $dx_mtv_pos_x 16.80} {== $dx_mtv_pos_y 13.78} {== $dx_mtv_pos_z 57}} ;if mtv overlay is default pos
       {$thislabel set_local_pos
          ; X pos
-         {if_else {>= {beatmatch num_active_players} 2}
+         {if_else {&& {>= {beatmatch num_active_players} 2} {! {modifier_mgr is_modifier_active mod_karaoke}}}
             {- {if_else {!= {rnd aspect} kWidescreenAspect} {- $x 7.65} $x} 1.74} ;band play scenario (move to make room for streak box)
             {if_else {!= {rnd aspect} kWidescreenAspect} {- $x 7.65} $x} ;singleplayer scenario (default)
          }
@@ -756,13 +762,16 @@
          {set $dx_lyric_display_fading_offset 0.75}
 
          {$this set_local_pos 0 33 8.5}
-         {$this set_local_scale 1 1 1}
+         {if_else {modifier_mgr is_modifier_active mod_karaoke}
+            {$this set_local_scale 1.25 1.25 1.25}
+            {$this set_local_scale 1 1 1}
+         }
          {[current] set alignment kMiddleCenter}
          {[upcoming] set alignment kMiddleCenter}
          {[fading] set alignment kMiddleCenter}
          {if_else {== {rnd aspect} 1}
-            {set [charlimit] 65}
-            {set [charlimit] 80}
+            {set [charlimit] {if_else {modifier_mgr is_modifier_active mod_karaoke} 55 65}}
+            {set [charlimit] {if_else {modifier_mgr is_modifier_active mod_karaoke} 70 80}}
          }
          {set [animrate] 1}
          {$this position_extra_labels}
@@ -923,10 +932,22 @@
    {{lyric_display upcoming} set_token_fmt {sprint ""}}
    {{lyric_display fading} set_token_fmt {sprint ""}}
 
-   {if_else {&& $dx_lyric_display_enabled {! {gamemode in_mode practice}} {!= {song_mgr num_vocal_parts {meta_performer song}} 0} {|| {! $lyrics_player_active} $dx_vox_lyric_display} $dx_lyric_display_phrases}
+   {if_else
+         {&&
+            ;must always be true
+            $dx_lyric_display_enabled
+            $dx_lyric_display_phrases
+            {! {gamemode in_mode practice}}
+            {!= {song_mgr num_vocal_parts {meta_performer song}} 0}
+            {||
+               {modifier_mgr is_modifier_active mod_karaoke}
+               {! $lyrics_player_active}
+               $dx_vox_lyric_display
+            }
+         }
       {do
          {set $lyrics_out TRUE}
-         {if_else $lyrics_player_active
+         {if_else {&& {! {modifier_mgr is_modifier_active mod_karaoke}} $lyrics_player_active}
             {lyric_display set_vox_pos $lyrics_player_harms}
             {lyric_display set_normal_pos}
          }

@@ -24,9 +24,9 @@
 ; dx - enable debug mode
 (
    (G_BLUE G_BLUE G_BLUE G_ORANGE G_ORANGE G_ORANGE) ; the code the user has to enter, BBBOOO
-   {if {&& {! $dx_debug} {main_hub_panel is_up}} ; check if we're on the main menu
+   {if {&& {! $debug_mode} {main_hub_panel is_up}} ; check if we're on the main menu
       {dx_modal_messenger debug_mode_enabled_modal} ; display the warning modal
-      {set $dx_debug TRUE} ; enable debug mode
+      {set $debug_mode TRUE} ; enable debug mode
       {set $dx_debug_first TRUE} ; this is just to show the warning state upon entering debug settings
    }
 )

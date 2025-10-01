@@ -95,7 +95,7 @@
       }
    )
    (dx_track_panel_enter
-      {$this set dx_is_nohud {|| {modifier_mgr is_modifier_active mod_nohud} {modifier_mgr is_modifier_active mod_fakejuke}}}
+      {$this set dx_is_nohud {|| {modifier_mgr is_modifier_active mod_nohud} {modifier_mgr is_modifier_active mod_karaoke} {modifier_mgr is_modifier_active mod_fakejuke}}}
       {if {|| {! {gamemode in_mode trainer} {! {gamemode in_mode campaign}}}} ;position objects based on user preference
          {if {! {$this exists lyric_display}}
             {dx_create_lyric_display}
@@ -160,6 +160,10 @@
                {dx_track_fc_reset $dx_fc_glow $player}
                {dx_set_player_names $dx_diff_popups $player}
                {dx_show_track_username $dx_track_username $player}
+            }
+            {if {modifier_mgr is_modifier_active mod_karaoke}
+               {set_this {find_obj DX_VOCALDIR player_intro}}
+               {$this iterate UILabel $l {$l set_token_fmt os_blnk}}
             }
          }
          {dx_set_song_speed}

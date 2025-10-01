@@ -245,6 +245,34 @@
             {do
                {modifier_mgr toggle_modifier_enabled $modifier}
                {disable_modifier mod_auto_play}
+               {disable_modifier mod_nohud}
+               ;{disable_modifier mod_nopause}
+               ;{disable_modifier mod_dx_no_overdrive}
+               {leave_dx_settings}
+               {$this leave_options}
+               {overshell update_all}
+               {if {session_mgr is_local}
+                  {ui sync_screen meta_loading_main_screen 0}
+               }
+            }
+         }
+      }
+   )
+   (mod_karaoke
+      {do
+         {session disconnect}
+         {session_mgr disconnect}
+      }
+      {unless {{$this get_session_mgr} is_online_enabled}
+         {unless {modifier_mgr is_modifier_active mod_karaoke}
+            {set $in_dx_settings TRUE}
+            {set $this_state dxState_KaraokeWarn}
+            {$this show_state kState_OptionsExtras}
+         }
+         {if {modifier_mgr is_modifier_active mod_karaoke}
+            {do
+               {modifier_mgr toggle_modifier_enabled $modifier}
+               {disable_modifier mod_auto_play}
                ;{disable_modifier mod_nohud}
                ;{disable_modifier mod_nopause}
                ;{disable_modifier mod_dx_no_overdrive}
@@ -407,14 +435,14 @@
          )
          (quick ;only shows the 8 quick chat presets
             {do
-               {push_back $options {sprintf "1: %s" $dx_chat_preset_0}}
-               {push_back $options {sprintf "2: %s" $dx_chat_preset_1}}
-               {push_back $options {sprintf "3: %s" $dx_chat_preset_2}}
-               {push_back $options {sprintf "4: %s" $dx_chat_preset_3}}
-               {push_back $options {sprintf "5: %s" $dx_chat_preset_4}}
-               {push_back $options {sprintf "6: %s" $dx_chat_preset_5}}
-               {push_back $options {sprintf "7: %s" $dx_chat_preset_6}}
-               {push_back $options {sprintf "8: %s" $dx_chat_preset_7}}
+               {push_back $options {sprintf "1: %s" $dx_chat_preset_1}}
+               {push_back $options {sprintf "2: %s" $dx_chat_preset_2}}
+               {push_back $options {sprintf "3: %s" $dx_chat_preset_3}}
+               {push_back $options {sprintf "4: %s" $dx_chat_preset_4}}
+               {push_back $options {sprintf "5: %s" $dx_chat_preset_5}}
+               {push_back $options {sprintf "6: %s" $dx_chat_preset_6}}
+               {push_back $options {sprintf "7: %s" $dx_chat_preset_7}}
+               {push_back $options {sprintf "8: %s" $dx_chat_preset_8}}
             }
          )
          (FALSE ;restores vanilla online options when not in chat menu

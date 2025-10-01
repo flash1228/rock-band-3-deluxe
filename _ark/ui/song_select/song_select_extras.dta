@@ -141,6 +141,7 @@
          }
          {recoil.trg trigger}
          {music_library report_sort_and_filters}
+         {set $probeforfinder TRUE}
       }
    )
    (BUTTON_DOWN_MSG
@@ -188,6 +189,7 @@
                      {$main_provider starting_option}
                      $user
                   }
+                  
                }
                {do
                   {push_basic_confirm_dialog tour_filter_locked}
@@ -201,6 +203,29 @@
             }
             {if {&& $sort_check_1 {!= {options.lst selected_data} 1}}
                {set $sort_check_2 FALSE}
+            }
+            {unless {$main_provider can_select_multiple_options}
+               {if {== {settings.lst selected_data} 1}
+                  {set_var {sprint "dx_song_select_sort_setting_" {settings.lst selected_data}} {options.lst selected_data}}
+                  {dx_values_dta_writer}
+               }
+               {if {== {settings.lst selected_data} 2}
+                  {do
+                     ($loaded_inst {str_elem {{elem {{song_select_panel find gamertag.lbl} get_children} 0} get text} 5})
+                     ($tracked_cat FALSE)
+                     {switch $loaded_inst
+                        ((G B) {set $tracked_cat strings})
+                        ((D d) {set $tracked_cat drums})
+                        ((K k) {set $tracked_cat keys})
+                        ((V 2 3) {set $tracked_cat vocals})
+                        ((g b) {set $tracked_cat pro_strings})
+                     }
+                     {if $tracked_cat
+                        {set_var {sprint "dx_song_select_score_setting_" $tracked_cat} {options.lst selected_data}}
+                        {dx_values_dta_writer}
+                     }
+                  }
+               }
             }
             {$main_provider select_setting_option {options.lst selected_data}}
             {$this status_changed}
@@ -224,6 +249,7 @@
             {{music_library get view_settings_provider} reset_all_settings}
             {{music_library get view_settings_provider} reset_active_setting}
          }
+         {set $sort_check_2 FALSE}
          {song_select_filter_panel status_changed}
       }
       {ui pop_screen}

@@ -38,6 +38,7 @@
 DX_LOG_CLEAR
 DX_JSON_CLEAR
 DX_CURRENT_SONG_CLEAR
+{set $last_selected 0}
 {set $dx_playlist_array ()}
 {resize $dx_playlist_array 0}
 {write_file DX_PLAYLIST_DTA_PATH $dx_playlist_array}
@@ -371,6 +372,7 @@ DX_CURRENT_SONG_CLEAR
 {set $dx_detected_platform platform_xbox_rb3e}
 {set $dx_hardware TRUE}
 {set $dx_emulator FALSE}
+{set $rb3e_update_warn 0}
 #else
 {set $dx_detected_platform platform_xbox}
 {set $dx_hardware TRUE}
@@ -445,6 +447,17 @@ DX_CURRENT_SONG_CLEAR
 }
 #endif
 #endif
+
+#ifdef RB3E
+{set $rb3e_party_ip FALSE}
+#endif
+
+{set $dx_song_select_sort_setting_1 none}
+{set $dx_song_select_score_setting_strings none}
+{set $dx_song_select_score_setting_drums none}
+{set $dx_song_select_score_setting_vocals none}
+{set $dx_song_select_score_setting_keys none}
+{set $dx_song_select_score_setting_pro_strings none}
 
 ;set mtv vars, trainer doesn't like these empty on boot
 ;{set $artistvar "No Artist Found"}
@@ -834,14 +847,14 @@ DX_CURRENT_SONG_CLEAR
 {set $dx_overdrive_keys_shading FALSE}
 
 ;quick chat settings
-{set $dx_chat_preset_0 "Hello!"}
-{set $dx_chat_preset_1 "Restart the song"}
-{set $dx_chat_preset_2 "What a save!"}
-{set $dx_chat_preset_3 "Activate!"}
-{set $dx_chat_preset_4 "Have you tried practice mode?"}
-{set $dx_chat_preset_5 "I choked."}
-{set $dx_chat_preset_6 "Be right back!"}
-{set $dx_chat_preset_7 "Gotta go!"}
+{set $dx_chat_preset_1 "Hello!"}
+{set $dx_chat_preset_2 "Restart the song"}
+{set $dx_chat_preset_3 "What a save!"}
+{set $dx_chat_preset_4 "Activate!"}
+{set $dx_chat_preset_5 "Have you tried practice mode?"}
+{set $dx_chat_preset_6 "I choked."}
+{set $dx_chat_preset_7 "Be right back!"}
+{set $dx_chat_preset_8 "Gotta go!"}
 
 ; Mic deploy sensitivity
 {set $dx_mic_deploy_sens 0.3}
@@ -1204,5 +1217,5 @@ DX_CURRENT_SONG_CLEAR
 }
 #endif
 #ifdef HX_WII
-{set $dx_debug 1}
+{set $debug_mode 1}
 #endif

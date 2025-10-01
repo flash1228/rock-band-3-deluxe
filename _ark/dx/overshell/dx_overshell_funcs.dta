@@ -214,6 +214,7 @@
                {== $this_state dxState_BrutalWarn}
                {== $this_state dxState_TrackSpeeds}
                {== $this_state dxState_FakeJukeWarn}
+               {== $this_state dxState_KaraokeWarn}
                {== $this_state dxState_AutoPlayWarn}
                {== $this_state dxState_ModifierSongLoad}
                {== $this_state dxState_CHModeWarn}
@@ -239,6 +240,10 @@
          {dx_state_pos_tracker $this_state {$current_list selected_sym}}
       }
       {set $this_state $state}
+      {set $last_selected 0}
+      {if {== $last_tracked_state $this_state}
+         {set $last_selected {if_else $current_list {$current_list selected_data} {chars.lst selected_data}}}
+      }
       ;get list items from state array
       {foreach $entry {find $syscfg dx_settings $this_state view}
          ;view gets included so don't add it to the list
@@ -353,6 +358,9 @@
                      (delay 0.025)
                      (script
                         {fire_lasers $this_list_content $dx_picked_view $this_state}
+                        {if {== $last_tracked_state $this_state}
+                           {$current_list set_selected $last_selected}
+                        }
                      )
                   }
                }
@@ -361,6 +369,9 @@
                   {do
                      {$current_list set_data $this_list_content}
                      {fire_lasers $this_list_content $dx_picked_view $this_state}
+                     {if {== $last_tracked_state $this_state}
+                        {$current_list set_selected $last_selected}
+                     }
                   }
                   {$current_list set_data (no list data found)}
                }

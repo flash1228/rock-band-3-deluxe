@@ -3,7 +3,7 @@
          #ifndef HX_WII os_menu_options #endif
          os_functional_options
          os_pedantic_settings
-         {if_else {&& $dx_debug {session_mgr is_local}}
+         {if_else {&& $debug_mode {session_mgr is_local}}
             os_debug
             0
          }
@@ -44,6 +44,11 @@
          #ifndef RB3E
          {if_else $dx_more_info_toggle os_more_info_toggle_on os_more_info_toggle_off}
          #endif
+         #ifdef RB3E
+         #ifndef HX_WII
+         {if_else $rb3e_party_ip os_party_ip_on os_party_ip_off}
+         #endif
+         #endif
          {switch $dx_instrument_icons
             (rb3 os_icons_rb3)
             (rb4 os_icons_rb4)
@@ -67,6 +72,12 @@
             {set $dx_more_info_toggle {! $dx_more_info_toggle}}
             {if {== {ui current_screen} song_select_screen}
                {song_select_panel refresh_selected_song}
+            }
+         )
+         (os_party_ip
+            {set $rb3e_party_ip {! $rb3e_party_ip}}
+            {if {== {ui current_screen} song_select_screen}
+               {song_select_panel update_title}
             }
          )
          (os_icons_rb3
@@ -412,7 +423,7 @@
       #endif
       (select
          (os_debug_mode
-            {set $dx_debug FALSE}
+            {set $debug_mode FALSE}
             {dx_state dxState_Advanced}
          )
          (os_milo {dx_state dxState_MiloPanels})
@@ -902,27 +913,27 @@
 
    (dxState_ChatSettings
       (view
-         {sprintf "1: %s" $dx_chat_preset_0}
-         {sprintf "2: %s" $dx_chat_preset_1}
-         {sprintf "3: %s" $dx_chat_preset_2}
-         {sprintf "4: %s" $dx_chat_preset_3}
-         {sprintf "5: %s" $dx_chat_preset_4}
-         {sprintf "6: %s" $dx_chat_preset_5}
-         {sprintf "7: %s" $dx_chat_preset_6}
-         {sprintf "8: %s" $dx_chat_preset_7}
+         {sprintf "1: %s" $dx_chat_preset_1}
+         {sprintf "2: %s" $dx_chat_preset_2}
+         {sprintf "3: %s" $dx_chat_preset_3}
+         {sprintf "4: %s" $dx_chat_preset_4}
+         {sprintf "5: %s" $dx_chat_preset_5}
+         {sprintf "6: %s" $dx_chat_preset_6}
+         {sprintf "7: %s" $dx_chat_preset_7}
+         {sprintf "8: %s" $dx_chat_preset_8}
       )
       (message os_pick_a_phrase)
       (button
          (kAction_Confirm
             {switch {$current_list selected_data}
-               (0 {set $dx_selected_chat_index 0})
-               (1 {set $dx_selected_chat_index 1})
-               (2 {set $dx_selected_chat_index 2})
-               (3 {set $dx_selected_chat_index 3})
-               (4 {set $dx_selected_chat_index 4})
-               (5 {set $dx_selected_chat_index 5})
-               (6 {set $dx_selected_chat_index 6})
-               (7 {set $dx_selected_chat_index 7})
+               (0 {set $dx_selected_chat_index 1})
+               (1 {set $dx_selected_chat_index 2})
+               (2 {set $dx_selected_chat_index 3})
+               (3 {set $dx_selected_chat_index 4})
+               (4 {set $dx_selected_chat_index 5})
+               (5 {set $dx_selected_chat_index 6})
+               (6 {set $dx_selected_chat_index 7})
+               (7 {set $dx_selected_chat_index 8})
             }
             {dx_state dxState_SelectChatPreset}
          )
@@ -938,7 +949,6 @@
       (button
          (kAction_Confirm
             {switch $dx_selected_chat_index
-               (0 {set $dx_chat_preset_0 {localize {$current_list selected_sym}}})
                (1 {set $dx_chat_preset_1 {localize {$current_list selected_sym}}})
                (2 {set $dx_chat_preset_2 {localize {$current_list selected_sym}}})
                (3 {set $dx_chat_preset_3 {localize {$current_list selected_sym}}})
@@ -946,6 +956,7 @@
                (5 {set $dx_chat_preset_5 {localize {$current_list selected_sym}}})
                (6 {set $dx_chat_preset_6 {localize {$current_list selected_sym}}})
                (7 {set $dx_chat_preset_7 {localize {$current_list selected_sym}}})
+               (8 {set $dx_chat_preset_8 {localize {$current_list selected_sym}}})
             }
             {dx_state dxState_ChatSettings}
          )

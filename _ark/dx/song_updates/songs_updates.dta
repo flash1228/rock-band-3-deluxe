@@ -15433,8 +15433,38 @@
    (song_tonality 1)
    (song
       (vocal_parts 3)
+      (tracks
+         (
+            (drum
+               (0 1 2 3 4)
+            )
+            (bass 5)
+            (guitar
+               (6 7)
+            )
+            (vocals
+               (8 9)
+            )
+            (keys
+               (10 11)
+            )
+         )
+      )
    )
    (extra_authoring disc_update)
+   (rank
+      (drum 273)
+      (guitar 259)
+      (bass 240)
+      (vocals 239)
+      (keys 82)
+      (real_keys 82)
+      (band 242)
+   )
+   (version 30)
+   (keys_author
+      "BowlsforRick"
+   )
    (song_length 207727)
    (format 10)
    (encoding latin1)
@@ -61143,6 +61173,12 @@
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 992437)
+   (genre rock)
+   (year_released 1969)
 )
 (adayinthelife
    (author
@@ -61184,6 +61220,12 @@
    (keys_author
       "Erniewan"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 311762)
+   (genre psychadelic)
+   (year_released 1967)
 )
 (aharddaysnight
    (author
@@ -61197,6 +61239,12 @@
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 224542)
+   (genre psychadelic)
+   (year_released 1967)
 )
 (andyourbirdcansing
    (author
@@ -61261,11 +61309,23 @@
    (strings_author
       "OrangeHarrison"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 173329)
+   (genre rock)
+   (year_released 1969)
 )
 (beingformrkite
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 160975)
+   (genre psychadelic)
+   (year_released 1967)
 )
 (birthday
    (author
@@ -61395,6 +61455,12 @@
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 160186)
+   (genre psychadelic)
+   (year_released 1967)
 )
 (getback
    (author
@@ -61416,11 +61482,23 @@
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 159574)
+   (genre rock)
+   (year_released 1965)
 )
 (goldencarrytheend
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 316518)
+   (genre rock)
+   (year_released 1969)
 )
 (goodmorning
    (author
@@ -61505,6 +61583,12 @@
    (strings_author
       "PikminGuts92"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 29000)
+   (genre rock)
+   (year_released 1969)
 )
 (heybulldog
    (author
@@ -61638,6 +61722,12 @@
    (keys_author
       "Erniewan"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 149475)
+   (genre rock)
+   (year_released 1965)
 )
 (isawherstandingthere
    (author
@@ -61683,6 +61773,12 @@
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 167493)
+   (genre psychadelic)
+   (year_released 1967)
 )
 (lucyinthesky
    (author
@@ -61696,21 +61792,45 @@
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 209440)
+   (genre rock)
+   (year_released 1969)
 )
 (michelle
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 176148)
+   (genre rock)
+   (year_released 1965)
 )
 (norwegianwood
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 129121)
+   (genre rock)
+   (year_released 1965)
 )
 (nowhereman
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 170628)
+   (genre rock)
+   (year_released 1965)
 )
 (octopusgarden
    (author
@@ -61760,6 +61880,12 @@
    (keys_author
       "Erniewan"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 208344)
+   (genre rock)
+   (year_released 1969)
 )
 (paperbackwriter
    (author
@@ -61773,6 +61899,12 @@
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 192983)
+   (genre rock)
+   (year_released 1969)
 )
 (revolution
    (author
@@ -61803,6 +61935,12 @@
    (real_bass_tuning
       (0 0 0 0)
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 150750)
+   (genre rock)
+   (year_released 1965)
 )
 (sgtpepperlittlehelp
    (author
@@ -61816,11 +61954,23 @@
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 86355)
+   (genre psychadelic)
+   (year_released 1967)
 )
 (shesleavinghome
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 220748)
+   (genre psychadelic)
+   (year_released 1967)
 )
 (something
    (author
@@ -61870,6 +62020,12 @@
    (keys_author
       "Erniewan"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 224059)
+   (genre rock)
+   (year_released 1969)
 )
 (taxman
    (author
@@ -61927,11 +62083,23 @@
    (keys_author
       "Erniewan"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 175004)
+   (genre rock)
+   (year_released 1965)
 )
 (thinkforyourself
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 143806)
+   (genre rock)
+   (year_released 1965)
 )
 (tickettoride
    (author
@@ -61961,16 +62129,34 @@
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 138475)
+   (genre rock)
+   (year_released 1965)
 )
 (whatgoeson
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 171909)
+   (genre rock)
+   (year_released 1965)
 )
 (whenim64
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 165135)
+   (genre psychadelic)
+   (year_released 1967)
 )
 (whilemyguitargentlyweeps
    (author
@@ -62020,6 +62206,12 @@
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 308300)
+   (genre psychadelic)
+   (year_released 1967)
 )
 (yellowsubmarine
    (author
@@ -62033,6 +62225,12 @@
    (author
       "Harmonix"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 229198)
+   (genre rock)
+   (year_released 1969)
 )
 (youwontseeme
    (author
@@ -62085,6 +62283,12 @@
    (strings_author
       "Erniewan"
    )
+   (artist
+      "The Beatles"
+   )
+   (song_length 208963)
+   (genre rock)
+   (year_released 1965)
 )
 (AFeast
    (game_origin ugc_lost)

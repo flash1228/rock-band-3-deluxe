@@ -204,3 +204,73 @@
    dx_chat73 dx_chat74 dx_chat75 dx_chat76 dx_chat77 dx_chat78
    dx_chat79
 )
+
+#define DX_SOURCE_SWITCH (
+   (
+      (
+         allthesmallthings buddyholly callingdrlove crushcrushcrush 
+         dieallright gimmethreesteps interstatelovesong jokerandthe
+         littlesister liveforever marchofthepigs moonagedaydream
+         morethanafeeling movealong siva synchronicity2
+         teenagelobotomy thekill truckin wecarealot 
+      )
+      {set $sourcevar rbtp_vol_1}
+   )
+   (
+      (
+         afterlife callme elscorcho girlswhoplayguitars
+         girluwant indestructible ithurts justwhatineeded
+         messageinabottle monkeygonetoheaven perfectdrug rio 
+         saintsoflosangeles simpleman snowheyoh thisaintascene
+         timeisrunningout whydoyouloveme yougotanotherthingcoming zero 
+      )
+      {set $sourcevar rbtp_vol_2}
+   )
+   (
+      (
+         allrightnow babaoriley badtothebone behindblueeyes 
+         californiauberalles cantstandlosingyou closertotheheart funk49 
+         hitmewithyourbestshot holidayincambodia hymn43 kissthemforme 
+         letloverule lovespreads peaceofmind redbarchetta 
+         rockandrollband takethemoney thejoker truthhitseverybody
+      )
+      {set $sourcevar rbtp_classic_rock}
+   )
+   (
+      (
+         3sand7s areyoudeadyet blindedbyfear bullsonparade 
+         closer doa forever hairofthedog 
+         istandalone killedbydeath laidtorest levitate 
+         mastersoftheuniverse reddevil screamingfor shockwave 
+         thrasher transmaniaconmc twoweeks wakingthedemon 
+      )
+      {set $sourcevar rbtp_metal}
+   )
+   (
+      (
+         3dimesdown anymanofmine cantletgo_lucinda crylonely
+         freeandeasy gone_mg goodtime gunpowderandlead 
+         hillbillydeluxe itoldyouso meandmygang mudonthetires 
+         ontheroadagain satelliteradio shescountry shethinksmytractorssexy 
+         sinwagon sudsinabucket swing thegambler thisonesforthegirls
+      )
+      {set $sourcevar rbtp_country_1}
+   )
+   (
+      (
+         alright awfulbeautifullife backwoods crazytown 
+         giddyonup intentionalheartache kissagirl mamatried 
+         manofme parrtyfortwo perfectday rainisagoodthing 
+         rideadkins ringoffire2 settlin sideways 
+         singlewhitefemale summernights thatshowcountryboysroll  
+         twang alright2 awfulbeautifullife2 backwoods2 
+         crazytown2 giddyonup2 intentionalheartache2 kissagirl2 
+         mamatried2 manofme2 parrtyfortwo2 perfectday2 
+         rainisagoodthing2 rideadkins2 ringoffire3 settlin2 
+         sideways2 singlewhitefemale2 summernights2 thatshowcountryboysroll2 
+         thenightthelightswentout2 twang2 thenightthelightswentout
+      )
+      {set $sourcevar rbtp_country_2}
+   )
+   kDataUnhandled
+)
