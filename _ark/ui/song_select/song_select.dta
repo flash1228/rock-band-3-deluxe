@@ -75,39 +75,17 @@
       {dx_search_panel keyboard_msg $key $shift $ctrl $alt}
    )
    (poll
-      {if
-         {||
-            $dx_in_show_flow
-            #ifdef RB3E
-            TRUE
-            #else
-            {! $dx_more_info_toggle}
-            #endif
-         }
-         {if {song.lst is_scrolling}
-            {if {exists author_finder}
-               {delete author_finder}
-            }
-         }
+      {if $probeforfinder
          {if
-            {&&
-               {! {song.lst is_scrolling}}
-               {== {{music_library get_highlighted_node} get_node_type} kNodeSong}
-               $probeforfinder
+            {||
+               $dx_in_show_flow
+               #ifdef RB3E
+               TRUE
+               #else
+               {! $dx_more_info_toggle}
+               #endif
             }
-            {if
-               {||
-                  {file_exists
-                     {sprint
-                        {song_mgr song_path {{music_library get_highlighted_node} get_token}}
-                        "/../../gen/songs.dtb"
-                     }
-                  }
-                  {song_mgr is_song_mounted {{music_library get_highlighted_node} get_token}}
-               }
-               {set $probeforfinder FALSE}
-               {$this dx_authorfinder}
-            }
+            {$this dx_more_info_load TRUE}
          }
       }
    )
@@ -120,9 +98,6 @@
             {song_select_filter_panel filter_enter}
             {{music_library get view_settings_provider} select_setting 1}
             {{music_library get view_settings_provider} select_setting_option $dx_song_select_sort_setting_1}
-            {if {== $dx_song_select_sort_setting_1 1}
-               {set $sort_check_2 TRUE}
-            }
             {music_library report_sort_and_filters}
             {song_select_filter_panel filter_exit}
          }
@@ -155,31 +130,56 @@
       }
    )
    (dx_more_info_load
-      {if {song.lst is_scrolling}
+      ($probe)
+      {if_else {song.lst is_scrolling}
          {if {exists author_finder}
             {delete author_finder}
          }
-      }
-      {if
-         {&&
-            {! {song.lst is_scrolling}}
-            {== {{music_library get_highlighted_node} get_node_type} kNodeSong}
-            $probeforfinder
-         }
-         {if
-            {||
-               {file_exists
-                  {sprint
-                     {song_mgr song_path {{music_library get_highlighted_node} get_token}}
-                     "/../../gen/songs.dtb"
+         {if {&& $probe {== {{music_library get_highlighted_node} get_node_type} kNodeSong}}
+            {do
+               ($token {{music_library get_highlighted_node} get_token})
+               ($song_path {sprint {song_mgr song_path $token} "/../../gen/songs.dtb"})
+               {if
+                  {||
+                     {file_exists $song_path}
+                     {song_mgr is_song_mounted $token}
                   }
+                  {set $probeforfinder FALSE}
+                  {$this dx_authorfinder}
                }
-               {song_mgr is_song_mounted {{music_library get_highlighted_node} get_token}}
             }
-            {set $probeforfinder FALSE}
-            {$this dx_authorfinder}
          }
       }
+   )
+   (dx_authorfinder
+      {if {! {gamemode in_mode trainer}}
+         {do
+            {if {exists author_finder}
+               {delete author_finder}
+            }
+            {script_task kTaskUISeconds
+               #ifndef RB3E
+               (delay 0.75)
+               #endif
+               (name author_finder)
+               (script
+                  {$this dx_authorpoll {{music_library get_highlighted_node} get_token}}
+                  {$this apply_authorfinder_metadata}
+               )
+            }
+         }
+      }
+   )
+   (dx_authorpoll
+      ($shortname)
+      #ifdef RB3E
+      {$this rb3e_author_finder $shortname}
+      #else
+      {dx_author_finder_var_reset}
+      {meta_performer set_song {symbol $shortname}}
+      {set $dx_song_data_processed FALSE}
+      {preload_panel dx_load_tip_and_author_finder}
+      #endif
    )
    (rb3e_author_finder
       ($shortname)
@@ -212,349 +212,155 @@
          }
       }
    )
-   (dx_authorpoll
-      ($shortname)
+   (apply_authorfinder_metadata
+      {if $sourcevar
+         {switch {{music_library get_highlighted_node} get_token}
+            DX_SOURCE_SWITCH
+         }
+      }
       #ifdef RB3E
-      {$this rb3e_author_finder $shortname}
-      #else
-      {dx_author_finder_var_reset}
-      {meta_performer set_song {symbol $shortname}}
-      {set $dx_song_data_processed FALSE}
-      {preload_panel dx_load_tip_and_author_finder}
+      {if {== $sourcevar rb1_dlc}
+         {set $sourcevar dlc}
+      }
+      {if {== $sourcevar DOWNLOADED}
+         {set $sourcevar customs}
+      }
       #endif
-   )
-   (dx_authorfinder
-      {set $dx_song_data_processed FALSE}
-      {set $dx_path_failed FALSE}
-      {if_else
-         #ifdef RB3E
-         TRUE
-         #else
-         {&&
-            {! $dx_path_failed}
-            $dx_author_finder_is_enabled
-            {! {gamemode in_mode trainer}}
-         }
-         #endif
+      {if_else $sourcevar
+         {dx_song_name_year_title.lbl set_token_fmt {localize $sourcevar}}
+         {dx_song_name_year_title.lbl set_token_fmt os_blnk}
+      }
+      {if_else $authorvar
+         {dx_song_name_album_title.lbl set_token_fmt stringify $authorvar}
+         {dx_song_name_album_title.lbl set_token_fmt os_blnk}
+      }
+
+      {{song_select_panel find song_demo.grp} set_local_scale 0.16 1 0.2}
+      {{song_select_panel find song_demo.grp} set_local_pos 70 0 -120}
+      {if_else $sourcevar
          {do
-            {if {exists author_finder}
-               {delete author_finder}
+            ($ext
+               #ifdef HX_PS3 ".png_ps3" #endif
+               #ifdef HX_XBOX ".png_xbox" #endif
+               #ifdef HX_WII ".png_wii" #endif
+            )
+            ($exists {file_exists {sprint "ui/resource/game_origins/gen/" $sourcevar $ext}})
+            ($image {if_else $exists $sourcevar "custom"})
+            ($folder {if_else {== $dx_detected_platform platform_rpcs3} "game_origins_128" "game_origins"})
+            {{song_select_panel find song_demo.grp} set_showing TRUE}
+            {{song_select_panel find demo.tex} set_bitmap
+               {sprint "ui/resource/" $folder "/" $image ".png"}
             }
-            {script_task kTaskUISeconds
-               #ifndef RB3E
-               (delay 0.75)
-               #endif
-               (name author_finder)
-               (script
-                  #ifdef RB3E
-                  {$this rb3e_author_finder {{music_library get_highlighted_node} get_token}}
-                  #else
-                  {dx_author_finder_var_reset}
-                  {meta_performer set_song {{music_library get_highlighted_node} get_token}}
-                  {set $dx_song_data_processed FALSE}
-                  {preload_panel dx_load_tip_and_author_finder}
-                  #endif
-                  {if $sourcevar
-                     {switch {{music_library get_highlighted_node} get_token}
-                        DX_SOURCE_SWITCH
-                     }
-                  }
-                  #ifdef RB3E
-                  {if {== $sourcevar rb1_dlc}
-                     {set $sourcevar dlc}
-                  }
-                  {if {== $sourcevar DOWNLOADED}
-                     {set $sourcevar customs}
-                  }
-                  #endif
-                  {if_else $sourcevar
-                     {dx_song_name_year_title.lbl set_token_fmt {localize $sourcevar}}
-                     {dx_song_name_year_title.lbl set_token_fmt os_blnk}
-                  }
-                  {if_else $albumvar
-                     {dx_song_name_album.lbl set_album_name
-                        {music_library get_highlighted_node}
-                     }
-                     {dx_song_name_album.lbl set_album_name
-                        {music_library get_highlighted_node}
-                     }
-                  }
-                  {if_else $authorvar
-                     {dx_song_name_album_title.lbl set_token_fmt stringify $authorvar}
-                     {dx_song_name_album_title.lbl set_token_fmt os_blnk}
-                  }
-                  {{song_select_panel find song_demo.grp} set_local_scale 0.16 1 0.2}
-                  {{song_select_panel find song_demo.grp} set_local_pos 70 0 -120}
-                  {if_else $sourcevar
-                     {if_else
-                        {file_exists
-                           #ifdef HX_PS3
-                           {sprint "ui/resource/game_origins/gen/" $sourcevar ".png_ps3"}
-                           #endif
-                           #ifdef HX_WII
-                           {sprint "ui/resource/game_origins/gen/" $sourcevar ".png_wii"}
-                           #endif
-                           #ifdef HX_XBOX
-                           {sprint "ui/resource/game_origins/gen/" $sourcevar ".png_xbox"}
-                           #endif
-                        }
-                        {do
-                           {{song_select_panel find song_demo.grp} set_showing TRUE}
-                           {if_else {== $dx_detected_platform platform_rpcs3}
-                              {{song_select_panel find demo.tex} set_bitmap
-                                 {sprint "ui/resource/game_origins_128/" $sourcevar ".png"}
-                              }
-                              {{song_select_panel find demo.tex} set_bitmap
-                                 {sprint "ui/resource/game_origins/" $sourcevar ".png"}
-                              }
-                           }
-                           {{song_select_panel find song_demo.lbl} set_showing FALSE}
-                           {{song_select_panel find song_demo.lbl} set_token_fmt os_blnk}
-                        }
-                        {do
-                           {{song_select_panel find song_demo.grp} set_showing TRUE}
-                           {if_else {== $dx_detected_platform platform_rpcs3}
-                              {{song_select_panel find demo.tex} set_bitmap
-                                 "ui/resource/game_origins_128/custom.png"
-                              }
-                              {{song_select_panel find demo.tex} set_bitmap
-                                 "ui/resource/game_origins/custom.png"
-                              }
-                           }
-                           {{song_select_panel find song_demo.lbl} set_showing FALSE}
-                           {{song_select_panel find song_demo.lbl} set_token_fmt os_blnk}
-                        }
-                     }
-                     {{song_select_panel find song_demo.grp} set_showing FALSE}
-                  }
-               )
-            }
+            {{song_select_panel find song_demo.lbl} set_showing FALSE}
+            {{song_select_panel find song_demo.lbl} set_token_fmt os_blnk}
          }
-         {do
-            {dx_song_name_year_title.lbl set_token_fmt os_blnk}
-            {dx_song_name_album_title.lbl set_token_fmt os_blnk}
-            {dx_song_name_album.lbl set_album_name
-               {music_library get_highlighted_node}
-            }
-         }
+         {{song_select_panel find song_demo.grp} set_showing FALSE}
       }
    )
    (lbl_maker
-      ($label $x $y $align)
-      {new BandLabel $label}
-      {$label set resource_name pentatonic_outline}
-      {$label set alt_style_enabled TRUE}
-      {$label set alt_font_resource_name instrument_icons_small}
-      {if {! {exists song_diff_color.color}}
-         {new UIColor song_diff_color.color}
-         {song_diff_color.color set
-            color
-            {pack_color 1 1 1}
+      ($label $x $y $align $token)
+      {do
+         ;we handle diff labels slightly differently and its not worth it to have an
+         ;extra func to handle that
+         ($is_diff {has_substr $label "_diff"})
+         ($diff_font
+            #ifdef HX_WII
+            instrument_icons_small
+            #else
+            instruments_icons_rings
+            #endif
+         )
+         ($alt_font {if_else $is_diff $diff_font instrument_icons_small})
+         ($size {if_else $is_diff 32 30})
+         ($alt_size {if_else $is_diff 40 30})
+         ($z_offset {if_else $is_diff 4 0})
+         ($color_names (song_diff_color.color song_grey_color.color))
+         ($colors ({pack_color 1 1 1} {pack_color 0.2 0.2 0.2}))
+         {new BandLabel $label}
+         {$label set resource_name pentatonic_outline}
+         {$label set alt_style_enabled TRUE}
+         {$label set alt_font_resource_name $alt_font}
+         {foreach_int $i 0 1
+            {do
+               ($color_name {elem $color_names $i})
+               ($color {elem $colors $i})
+               {if {! {exists $color_name}}
+                  {new UIColor $color_name}
+                  {$color_name set color $color}
+               }
+            }
          }
+         {$label set markup TRUE}
+         {$label set_showing TRUE}
+         {$label set_local_scale 1 1 1}
+         {$label set_local_pos $x 0 $y}
+         {$label set set_token_fmt $token}
+         {$label set text_size $size}
+         {$label set alt_text_size $alt_size}
+         {$label set alt_z_offset $z_offset}
+         {$label set fit_type 2}
+         {$label set alignment $align}
+         {$label set width 300}
+         {$label set height 40}
+         {$label set alpha 1}
+         {live_diffs.grp add_object $label}
+         {$label set_trans_parent live_diffs.grp}
       }
-      {if {! {exists song_grey_color.color}}
-         {new UIColor song_grey_color.color}
-         {song_grey_color.color set
-            color
-            {pack_color 0.2 0.2 0.2}
-         }
-      }
-      {$label set markup TRUE}
-      {$label set_showing TRUE}
-      {$label set_local_scale 1 1 1}
-      {$label set_local_pos $x 0 $y}
-      {$label set set_token_fmt $content}
-      {$label set text_size 30}
-      {$label set alt_text_size 30}
-      {$label set alt_z_offset 0}
-      {$label set fit_type 2}
-      {$label set alignment $align}
-      {$label set width 300}
-      {$label set height 40}
-      {$label set alpha 1}
-      ;{$label set alt_text_color song_diff_color.color}
-      {live_diffs.grp add_object $label}
-      {$label set_trans_parent live_diffs.grp}
-   )
-   (diff_lbl_maker
-      ($label $x $y $align)
-      {new BandLabel $label}
-      {$label set resource_name pentatonic_outline}
-      {$label set alt_style_enabled TRUE}
-      {$label set
-         alt_font_resource_name
-         #ifdef HX_WII
-         instrument_icons_small
-         #else
-         instruments_icons_rings
-         #endif
-      }
-      {if {! {exists song_diff_color.color}}
-         {new UIColor song_diff_color.color}
-         {song_diff_color.color set
-            color
-            {pack_color 1 1 1}
-         }
-      }
-      {$label set markup TRUE}
-      {$label set_showing TRUE}
-      {$label set_local_scale 1 1 1}
-      {$label set_local_pos $x 0 $y}
-      {$label set set_token_fmt $content}
-      {$label set text_size 32}
-      {$label set alt_text_size 40}
-      {$label set alt_z_offset 4}
-      {$label set fit_type 2}
-      {$label set alignment $align}
-      {$label set width 300}
-      {$label set height 40}
-      {$label set alpha 1}
-      ;{$label set alt_text_color song_diff_color.color}
-      {live_diffs.grp add_object $label}
-      {$label set_trans_parent live_diffs.grp}
    )
    (dx_diff_maker
-      ;{live_diffs.grp set_showing TRUE}
       {if {! {exists dx_guitar.lbl}}
-         {$this lbl_maker dx_guitar.lbl -83.6 -84.8 kMiddleCenter}
+         {foreach $entry
+            (
+               (dx_guitar.lbl -83.6 -84.8 kMiddleCenter dx_diff_1) (dx_guitar_diff.lbl -83.6 -85 kMiddleCenter os_blnk)
+               (dx_bass.lbl -44 -84.8 kMiddleCenter dx_diff_0) (dx_bass_diff.lbl -44 -85 kMiddleCenter os_blnk)
+               (dx_keys.lbl 36.1 -84.7 kMiddleCenter dx_diff_4) (dx_keys_diff.lbl 36 -85 kMiddleCenter os_blnk)
+               (dx_drum.lbl -3.5 -85 kMiddleCenter dx_diff_2) (dx_drum_diff.lbl -4 -85 kMiddleCenter os_blnk)
+               (dx_vocals.lbl 76.6 -85 kMiddleCenter dx_diff_3) (dx_vocals_diff.lbl 76.4 -85 kMiddleCenter os_blnk)
+               (dx_real_guitar.lbl -83.4 -124.8 kMiddleCenter inst_icon_real_guitar) (dx_real_guitar_diff.lbl -84 -125 kMiddleCenter os_blnk)
+               (dx_real_bass.lbl -43.4 -124.8 kMiddleCenter inst_icon_real_bass) (dx_real_bass_diff.lbl -44 -125 kMiddleCenter os_blnk)
+               (dx_real_keys.lbl 36.5 -124.6 kMiddleCenter inst_icon_real_keys) (dx_real_keys_diff.lbl 36 -125 kMiddleCenter os_blnk)
+               (dx_real_drum.lbl -3.4 -125 kMiddleCenter inst_icon_real_bass_drum) (dx_real_drum_diff.lbl -4 -125 kMiddleCenter os_blnk)
+               (dx_real_vocals.lbl 76.1 -125.1 kMiddleCenter dx_diff_5) (dx_real_vocals_diff.lbl 76 -125 kMiddleCenter os_blnk)
+               (dx_song_name_length.lbl 94 -53 kMiddleRight os_blnk) (dx_song_name_length_title.lbl 14 -53 kMiddleLeft os_blnk)
+               (dx_song_name_album.lbl -5 -12 kMiddleCenter os_blnk) (dx_song_name_album_title.lbl -5 -22 kMiddleCenter os_blnk)
+               (dx_song_name_genre.lbl 94 -35 kMiddleRight os_blnk) (dx_song_name_genre_title.lbl -103 -35 kMiddleLeft dx_genre)
+               (dx_song_name_year.lbl -33 -53 kMiddleRight os_blnk) (dx_song_name_year_title.lbl -103 -53 kMiddleLeft dx_year)
+            )
+            {do
+               ($label {elem $entry 0})
+               ($x {elem $entry 1})
+               ($y {elem $entry 2})
+               ($align {elem $entry 3})
+               ($token {elem $entry 4})
+               {if {! {exists $label}}
+                  {$this lbl_maker $label $x $y $align $token}
+               }
+            }
+         }
       }
-      {if {! {exists dx_guitar_diff.lbl}}
-         {$this diff_lbl_maker dx_guitar_diff.lbl -83.6 -85 kMiddleCenter}
+      {foreach $entry
+         (
+            dx_song_name_length.lbl dx_song_name_length_title.lbl
+            dx_song_name_album.lbl dx_song_name_album_title.lbl
+            dx_song_name_genre.lbl dx_song_name_genre_title.lbl
+            dx_song_name_year.lbl dx_song_name_year_title.lbl
+         )
+         {$entry set alt_font_resource_name pentatonic_outline}
+         {$entry set text_size 13}
+         {$entry set alt_text_size 13}
       }
-      {dx_guitar.lbl set_token_fmt dx_diff_1}
 
-      {if {! {exists dx_bass.lbl}}
-         {$this lbl_maker dx_bass.lbl -44 -84.8 kMiddleCenter}
-      }
-      {if {! {exists dx_bass_diff.lbl}}
-         {$this diff_lbl_maker dx_bass_diff.lbl -44 -85 kMiddleCenter}
-      }
-      {dx_bass.lbl set_token_fmt dx_diff_0}
-
-      {if {! {exists dx_keys.lbl}}
-         {$this lbl_maker dx_keys.lbl 36.1 -84.7 kMiddleCenter}
-      }
-      {if {! {exists dx_keys_diff.lbl}}
-         {$this diff_lbl_maker dx_keys_diff.lbl 36 -85 kMiddleCenter}
-      }
-      {dx_keys.lbl set_token_fmt dx_diff_4}
-
-      {if {! {exists dx_drum.lbl}}
-         {$this lbl_maker dx_drum.lbl -3.5 -85 kMiddleCenter}
-      }
-      {if {! {exists dx_drum_diff.lbl}}
-         {$this diff_lbl_maker dx_drum_diff.lbl -4 -85 kMiddleCenter}
-      }
-      {dx_drum.lbl set_token_fmt dx_diff_2}
-
-      {if {! {exists dx_vocals.lbl}}
-         {$this lbl_maker dx_vocals.lbl 76.6 -85 kMiddleCenter}
-      }
-      {if {! {exists dx_vocals_diff.lbl}}
-         {$this diff_lbl_maker dx_vocals_diff.lbl 76.4 -85 kMiddleCenter}
-      }
-      {dx_vocals.lbl set_token_fmt dx_diff_3}
-
-      {if {! {exists dx_real_guitar.lbl}}
-         {$this lbl_maker dx_real_guitar.lbl -83.4 -124.8 kMiddleCenter}
-      }
-      {if {! {exists dx_real_guitar_diff.lbl}}
-         {$this diff_lbl_maker dx_real_guitar_diff.lbl -84 -125 kMiddleCenter}
-      }
-      {dx_real_guitar.lbl set_token_fmt inst_icon_real_guitar}
-
-      {if {! {exists dx_real_bass.lbl}}
-         {$this lbl_maker dx_real_bass.lbl -43.4 -124.8 kMiddleCenter}
-      }
-      {if {! {exists dx_real_bass_diff.lbl}}
-         {$this diff_lbl_maker dx_real_bass_diff.lbl -44 -125 kMiddleCenter}
-      }
-      {dx_real_bass.lbl set_token_fmt inst_icon_real_bass}
-
-      {if {! {exists dx_real_keys.lbl}}
-         {$this lbl_maker dx_real_keys.lbl 36.5 -124.6 kMiddleCenter}
-      }
-      {if {! {exists dx_real_keys_diff.lbl}}
-         {$this diff_lbl_maker dx_real_keys_diff.lbl 36 -125 kMiddleCenter}
-      }
-      {dx_real_keys.lbl set_token_fmt inst_icon_real_keys}
-
-      {if {! {exists dx_real_drum.lbl}}
-         {$this lbl_maker dx_real_drum.lbl -3.4 -125 kMiddleCenter}
-      }
-      {if {! {exists dx_real_drum_diff.lbl}}
-         {$this diff_lbl_maker dx_real_drum_diff.lbl -4 -125 kMiddleCenter}
-      }
-      {dx_real_drum.lbl set_token_fmt inst_icon_real_drum}
-
-      {if {! {exists dx_real_vocals.lbl}}
-         {$this lbl_maker dx_real_vocals.lbl 76.1 -125.1 kMiddleCenter}
-         {dx_real_vocals.lbl set alt_font_resource_name instruments_icons_rings}
-      }
-      {if {! {exists dx_real_vocals_diff.lbl}}
-         {$this diff_lbl_maker dx_real_vocals_diff.lbl 76 -125 kMiddleCenter}
-      }
-      {dx_real_vocals.lbl set_token_fmt dx_diff_5}
-
-      {if {! {exists dx_song_name_length.lbl}}
-         {$this lbl_maker dx_song_name_length.lbl 94 -53 kMiddleRight}
-      }
-      {if {! {exists dx_song_name_length_title.lbl}}
-         {$this lbl_maker dx_song_name_length_title.lbl 14 -53 kMiddleLeft}
-      }
-      {dx_song_name_length.lbl set alt_font_resource_name pentatonic_outline}
-      {dx_song_name_length_title.lbl set alt_text_size 13}
-      {dx_song_name_length_title.lbl set text_size 13}
-      {dx_song_name_length_title.lbl set_token_fmt os_blnk}
-      {dx_song_name_length.lbl set text_size 13}
-      {dx_song_name_length.lbl set alt_text_size 13}
-
-      {if {! {exists dx_song_name_album.lbl}}
-         {$this lbl_maker dx_song_name_album.lbl -5 -12 kMiddleCenter}
-      }
-      {if {! {exists dx_song_name_album_title.lbl}}
-         {$this lbl_maker dx_song_name_album_title.lbl -5 -22 kMiddleCenter}
-      }
-      {dx_song_name_album.lbl set alt_font_resource_name pentatonic_outline}
+      {dx_real_vocals.lbl set alt_font_resource_name instruments_icons_rings}
       {dx_song_name_album_title.lbl set alt_font_resource_name buttons}
-      {dx_song_name_album.lbl set text_size 13}
-      {dx_song_name_album.lbl set alt_text_size 13}
+
       {if_else $sourcevar
          {dx_song_name_album_title.lbl set_token_fmt {localize $sourcevar}}
          {dx_song_name_album_title.lbl set_token_fmt os_blnk}
       }
-      {dx_song_name_album_title.lbl set text_size 13}
-      {dx_song_name_album_title.lbl set alt_text_size 13}
       {dx_song_name_album.lbl set width 200}
       {dx_song_name_album_title.lbl set width 200}
       {dx_song_name_album.lbl set height 10}
       {dx_song_name_album_title.lbl set height 10}
-
-      {if {! {exists dx_song_name_genre.lbl}}
-         {$this lbl_maker dx_song_name_genre.lbl 94 -35 kMiddleRight}
-      }
-      {if {! {exists dx_song_name_genre_title.lbl}}
-         {$this lbl_maker dx_song_name_genre_title.lbl -103 -35 kMiddleLeft}
-      }
-      {dx_song_name_genre.lbl set alt_font_resource_name pentatonic_outline}
-      {dx_song_name_genre.lbl set text_size 13}
-      {dx_song_name_genre.lbl set alt_text_size 13}
-      {dx_song_name_genre_title.lbl set_token_fmt dx_genre}
-      {dx_song_name_genre_title.lbl set text_size 13}
-      {dx_song_name_genre_title.lbl set alt_text_size 13}
-
-      {if {! {exists dx_song_name_year.lbl}}
-         {$this lbl_maker dx_song_name_year.lbl -33 -53 kMiddleRight}
-      }
-      {if {! {exists dx_song_name_year_title.lbl}}
-         {$this lbl_maker dx_song_name_year_title.lbl -103 -53 kMiddleLeft}
-      }
-      {dx_song_name_year.lbl set alt_font_resource_name pentatonic_outline}
-      {dx_song_name_year.lbl set text_size 13}
-      {dx_song_name_year.lbl set alt_text_size 13}
-      {dx_song_name_year_title.lbl set_token_fmt dx_year}
-      {dx_song_name_year_title.lbl set text_size 13}
-      {dx_song_name_year_title.lbl set alt_text_size 13}
    )
    #define DX_SET_DIFFS
    (
@@ -581,43 +387,46 @@
          DX_SET_DIFFS
       }
    )
+   #define ALL_SONG_SELECT_LABELS
+   (
+      (
+         dx_guitar.lbl
+         dx_guitar_diff.lbl
+         dx_bass.lbl
+         dx_bass_diff.lbl
+         dx_keys.lbl
+         dx_keys_diff.lbl
+         dx_drum.lbl
+         dx_drum_diff.lbl
+         dx_vocals.lbl
+         dx_vocals_diff.lbl
+         dx_real_guitar.lbl
+         dx_real_guitar_diff.lbl
+         dx_real_bass.lbl
+         dx_real_bass_diff.lbl
+         dx_real_keys.lbl
+         dx_real_keys_diff.lbl
+         dx_real_drum.lbl
+         dx_real_drum_diff.lbl
+         dx_real_vocals.lbl
+         dx_real_vocals_diff.lbl
+         dx_song_name_length.lbl
+         dx_song_name_length_title.lbl
+         dx_song_name_album.lbl
+         dx_song_name_album_title.lbl
+         dx_song_name_genre.lbl
+         dx_song_name_genre_title.lbl
+         dx_song_name_year.lbl
+         dx_song_name_year_title.lbl
+      )
+   )
    (fade_diffs
       ($key1 $key2)
       {if {! {exists diffs_fade.anim}}
          {new PropAnim diff_fade.anim}
          {do
             ($keys (0 1 0))
-            {foreach $entry
-               (
-                  dx_guitar.lbl
-                  dx_guitar_diff.lbl
-                  dx_bass.lbl
-                  dx_bass_diff.lbl
-                  dx_keys.lbl
-                  dx_keys_diff.lbl
-                  dx_drum.lbl
-                  dx_drum_diff.lbl
-                  dx_vocals.lbl
-                  dx_vocals_diff.lbl
-                  dx_real_guitar.lbl
-                  dx_real_guitar_diff.lbl
-                  dx_real_bass.lbl
-                  dx_real_bass_diff.lbl
-                  dx_real_keys.lbl
-                  dx_real_keys_diff.lbl
-                  dx_real_drum.lbl
-                  dx_real_drum_diff.lbl
-                  dx_real_vocals.lbl
-                  dx_real_vocals_diff.lbl
-                  dx_song_name_length.lbl
-                  dx_song_name_length_title.lbl
-                  dx_song_name_album.lbl
-                  dx_song_name_album_title.lbl
-                  dx_song_name_genre.lbl
-                  dx_song_name_genre_title.lbl
-                  dx_song_name_year.lbl
-                  dx_song_name_year_title.lbl
-               )
+            {foreach $entry ALL_SONG_SELECT_LABELS
                {diff_fade.anim add_keys $entry (alpha) kPropFloat}
                {diff_fade.anim add_keys $entry (alt_alpha) kPropFloat}
                {foreach_int $i 0 {size $keys}
@@ -633,37 +442,7 @@
    )
    (rings_show
       ($show)
-      {foreach $entry
-         (
-            dx_guitar.lbl
-            dx_guitar_diff.lbl
-            dx_bass.lbl
-            dx_bass_diff.lbl
-            dx_keys.lbl
-            dx_keys_diff.lbl
-            dx_drum.lbl
-            dx_drum_diff.lbl
-            dx_vocals.lbl
-            dx_vocals_diff.lbl
-            dx_real_guitar.lbl
-            dx_real_guitar_diff.lbl
-            dx_real_bass.lbl
-            dx_real_bass_diff.lbl
-            dx_real_keys.lbl
-            dx_real_keys_diff.lbl
-            dx_real_drum.lbl
-            dx_real_drum_diff.lbl
-            dx_real_vocals.lbl
-            dx_real_vocals_diff.lbl
-            dx_song_name_length.lbl
-            dx_song_name_length_title.lbl
-            dx_song_name_album.lbl
-            dx_song_name_album_title.lbl
-            dx_song_name_genre.lbl
-            dx_song_name_genre_title.lbl
-            dx_song_name_year.lbl
-            dx_song_name_year_title.lbl
-         )
+      {foreach $entry ALL_SONG_SELECT_LABELS
          {$entry set_showing $show}
       }
       {foreach $entry
@@ -684,33 +463,22 @@
       {{song_select_panel find song_demo.lbl} set_showing FALSE}
       {{song_select_panel find song_demo.lbl} set_token_fmt os_blnk}
       #ifdef RB3E
-      {set $probeforfinder TRUE}
-      {$this dx_more_info_load}
+      {$this dx_more_info_load TRUE}
       #else
-      {if_else $dx_author_finder_is_enabled
-         {if_else $dx_more_info_toggle
-            {do
-               {dx_song_name_album_title.lbl set_token_fmt press_to_load_meta}
-               {dx_song_name_album.lbl set_album_name
-                  {music_library get_highlighted_node}
-               }
-               {dx_song_name_year_title.lbl set_token_fmt os_blnk}
-            }
-            {do
-               {dx_song_name_album_title.lbl set_token_fmt lb_waiting}
-               {dx_song_name_album.lbl set_token_fmt lb_waiting}
-               {dx_song_name_year_title.lbl set_token_fmt lb_waiting}
-            }
+      {if_else $dx_more_info_toggle
+         {do
+            {dx_song_name_album_title.lbl set_token_fmt press_to_load_meta}
+            {dx_song_name_year_title.lbl set_token_fmt os_blnk}
          }
          {do
-            {dx_song_name_year_title.lbl set_token_fmt os_blnk}
-            {dx_song_name_album_title.lbl set_token_fmt os_blnk}
-            {dx_song_name_album.lbl set_album_name
-               {music_library get_highlighted_node}
-            }
+            {dx_song_name_album_title.lbl set_token_fmt lb_waiting}
+            {dx_song_name_year_title.lbl set_token_fmt lb_waiting}
          }
       }
       #endif
+      {dx_song_name_album.lbl set_album_name
+         {music_library get_highlighted_node}
+      }
       {dx_song_name_genre_title.lbl set_token_fmt
          {{music_library get_highlighted_node} genre}
       }
@@ -719,94 +487,50 @@
          {{music_library get_highlighted_node} year_released}
       }
       ;song_length
-      {dx_song_name_length.lbl set_token_fmt
-         title_length_fmt
-         (
-            (title "")
-            (minutes
-               {int {/ {{music_library get_highlighted_node} get_total_ms} 60000}}
+      {do
+         ($ms {{music_library get_highlighted_node} get_total_ms})
+         {dx_song_name_length.lbl set_token_fmt
+            title_length_fmt
+            (
+               (title "")
+               (minutes {int {/ $ms 60000}})
+               (seconds {int {/ {mod $ms 60000} 1000}})
+               (ms {mod $ms 1000})
             )
-            (seconds
-               {int
-                  {/ {mod {{music_library get_highlighted_node} get_total_ms} 60000} 1000}
-               }
-            )
-            (ms {mod {{music_library get_highlighted_node} get_total_ms} 1000})
-         )
+         }
       }
 
-      {dx_guitar_diff.lbl set_token_fmt
-         {if_else {guitar.idd get has_part}
-            {switch {guitar.idd get difficulty}
-               DX_INS_DIFF_MAP
+      {foreach $entry (guitar bass drum keys real_guitar real_bass real_keys real_vocals real_drum)
+         {do
+            ($idd_name
+               {switch $entry
+                  (real_guitar guitar_pro)
+                  (real_bass bass_pro)
+                  (real_keys keys_pro)
+                  (real_drum drum) ;sorry
+                  (real_vocals drum_pro) ;sorry
+                  $entry
+               }
+            )
+            ($label {sprint "dx_" $entry ".lbl"})
+            ($label_diff {sprint "dx_" $entry "_diff.lbl"})
+            ($idd {sprint $idd_name ".idd"})
+            {$label_diff set_token_fmt
+               {if_else {$idd get has_part}
+                  {switch {$idd get difficulty}
+                     DX_INS_DIFF_MAP
+                  }
+                  os_blnk
+               }
             }
-            os_blnk
-         }
-      }
-      {dx_guitar.lbl set_token_fmt
-         {if_else {guitar.idd get has_part}
-            "<alt>C</alt>"
-            "<alt>C</alt>"
-         }
-      }
-      {if_else {guitar.idd get has_part}
-         {dx_guitar.lbl set alt_text_color song_diff_color.color}
-         {dx_guitar.lbl set alt_text_color song_grey_color.color}
-      }
-      {dx_bass_diff.lbl set_token_fmt
-         {if_else {bass.idd get has_part}
-            {switch {bass.idd get difficulty}
-               DX_INS_DIFF_MAP
+            {if_else {$idd get has_part}
+               {$label set alt_text_color song_diff_color.color}
+               {$label set alt_text_color song_grey_color.color}
             }
-            os_blnk
+            {$label set_token_fmt {sprint "diff_icon_" $entry}}
          }
       }
-      {dx_bass.lbl set_token_fmt
-         {if_else {bass.idd get has_part}
-            "<alt>T</alt>"
-            "<alt>T</alt>"
-         }
-      }
-      {if_else {bass.idd get has_part}
-         {dx_bass.lbl set alt_text_color song_diff_color.color}
-         {dx_bass.lbl set alt_text_color song_grey_color.color}
-      }
-      {dx_keys_diff.lbl set_token_fmt
-         {if_else {keys.idd get has_part}
-            {switch {keys.idd get difficulty}
-               DX_INS_DIFF_MAP
-            }
-            os_blnk
-         }
-      }
-      {dx_keys.lbl set_token_fmt
-         {if_else {keys.idd get has_part}
-            "<alt>t</alt>"
-            "<alt>t</alt>"
-         }
-      }
-      {if_else {keys.idd get has_part}
-         {dx_keys.lbl set alt_text_color song_diff_color.color}
-         {dx_keys.lbl set alt_text_color song_grey_color.color}
-      }
-      {dx_drum_diff.lbl set_token_fmt
-         {if_else {drum.idd get has_part}
-            {switch {drum.idd get difficulty}
-               DX_INS_DIFF_MAP
-            }
-            os_blnk
-         }
-      }
-      {dx_drum.lbl set_token_fmt
-         {if_else {drum.idd get has_part}
-            "<alt>E</alt>"
-            "<alt>E</alt>"
-         }
-      }
-      {if_else {drum.idd get has_part}
-         {dx_drum.lbl set alt_text_color song_diff_color.color}
-         {dx_drum.lbl set alt_text_color song_grey_color.color}
-      }
+      ;this is special
       {dx_vocals_diff.lbl set_token_fmt
          {switch {harmony.idd get num_vocal_parts}
             (
@@ -824,118 +548,12 @@
       }
       {dx_vocals.lbl set_token_fmt
          {switch {harmony.idd get num_vocal_parts}
-            (0 {sprint "<alt>I</alt>"})
-            (1 {sprint "<alt>I</alt>"})
-            (2 {sprint "<alt>c</alt>"})
-            (3 {sprint "<alt>e</alt>"})
+            (0 diff_icon_solo_vocals)
+            (1 diff_icon_solo_vocals)
+            (2 diff_icon_harm2)
+            (3 diff_icon_harm3)
          }
       }
-
-      {dx_real_guitar_diff.lbl set_token_fmt
-         {if_else {guitar_pro.idd get has_part}
-            {switch {guitar_pro.idd get difficulty}
-               DX_INS_DIFF_MAP
-            }
-            os_blnk
-         }
-      }
-      {dx_real_guitar.lbl set_token_fmt
-         {if_else {guitar_pro.idd get has_part}
-            "<alt>U</alt>"
-            "<alt>U</alt>"
-         }
-      }
-      {if_else {guitar_pro.idd get has_part}
-         {dx_real_guitar.lbl set alt_text_color song_diff_color.color}
-         {dx_real_guitar.lbl set alt_text_color song_grey_color.color}
-      }
-      {dx_real_bass_diff.lbl set_token_fmt
-         {if_else {bass_pro.idd get has_part}
-            {switch {bass_pro.idd get difficulty}
-               DX_INS_DIFF_MAP
-            }
-            os_blnk
-         }
-      }
-      {dx_real_bass.lbl set_token_fmt
-         {if_else {bass_pro.idd get has_part}
-            "<alt>A</alt>"
-            "<alt>A</alt>"
-         }
-      }
-      {if_else {bass_pro.idd get has_part}
-         {dx_real_bass.lbl set alt_text_color song_diff_color.color}
-         {dx_real_bass.lbl set alt_text_color song_grey_color.color}
-      }
-      {dx_real_keys_diff.lbl set_token_fmt
-         {if_else {keys_pro.idd get has_part}
-            {switch {keys_pro.idd get difficulty}
-               DX_INS_DIFF_MAP
-            }
-            os_blnk
-         }
-      }
-      {dx_real_keys.lbl set_token_fmt
-         {if_else {keys_pro.idd get has_part}
-            "<alt>i</alt>"
-            "<alt>i</alt>"
-         }
-      }
-      {if_else {keys_pro.idd get has_part}
-         {dx_real_keys.lbl set alt_text_color song_diff_color.color}
-         {dx_real_keys.lbl set alt_text_color song_grey_color.color}
-      }
-      {dx_real_drum_diff.lbl set_token_fmt
-         {if_else {drum.idd get has_part}
-            {switch {drum.idd get difficulty}
-               DX_INS_DIFF_MAP
-            }
-            os_blnk
-         }
-      }
-      {dx_real_drum.lbl set_token_fmt
-         {if_else {drum.idd get has_part}
-            "<alt>R</alt>"
-            "<alt>R</alt>"
-         }
-      }
-      {if_else {drum.idd get has_part}
-         {dx_real_drum.lbl set alt_text_color song_diff_color.color}
-         {dx_real_drum.lbl set alt_text_color song_grey_color.color}
-      }
-      {dx_real_vocals_diff.lbl set_token_fmt
-         {switch {drum_pro.idd get difficulty}
-            DX_INS_DIFF_MAP
-         }
-      }
-      ;{switch {harmony.idd get num_vocal_parts}
-      ;   ((0 1) {dx_real_vocals.lbl set alt_text_color song_grey_color.color})
-      ;   {dx_real_vocals.lbl set alt_text_color song_diff_color.color}
-      ;}
-      {dx_real_vocals.lbl set_token_fmt {sprint "<alt>U</alt>"}}
-      ;harms below, replacing with band
-      ;{dx_real_vocals_diff.lbl set_token_fmt
-      ;   {switch {harmony.idd get num_vocal_parts}
-      ;      ((2 3)
-      ;         {switch {harmony.idd get difficulty}
-      ;            DX_INS_DIFF_MAP
-      ;         }
-      ;      )
-      ;      ((0 1) os_blnk)
-      ;   }
-      ;}
-      ;{switch {harmony.idd get num_vocal_parts}
-      ;   ((0 1) {dx_real_vocals.lbl set alt_text_color song_grey_color.color})
-      ;   {dx_real_vocals.lbl set alt_text_color song_diff_color.color}
-      ;}
-      ;{dx_real_vocals.lbl set_token_fmt
-      ;   {switch {harmony.idd get num_vocal_parts}
-      ;      (0 {sprint "<alt>I</alt>"})
-      ;      (1 {sprint "<alt>I</alt>"})
-      ;      (2 {sprint "<alt>c</alt>"})
-      ;      (3 {sprint "<alt>e</alt>"})
-      ;   }
-      ;}
    )
    (handle_to_task
       {script_task kTaskSeconds
@@ -1000,6 +618,50 @@
       {$this dx_user_sort}
       {$this dx_user_sort_scores}
       {dx_song_select_enter}
+      {dx_presence_manager}
+      ;{dx_sv_menu_logo_set sv4_panel}
+      {set $dx_trainer_real_guitar FALSE}
+      {set $dx_trainer_real_bass FALSE}
+      {set $dx_trainer_real_keys FALSE}
+      {set $dx_trainer_real_drum FALSE}
+      {set $dx_skip_game_setup FALSE}
+      {if {! $dx_prep_show_flow}
+         {set $dx_playing_a_show FALSE}
+      }
+      #ifdef HX_WII
+      {unless $dx_event_mode
+         {if $dx_prep_show_flow
+            {dx_modal_messenger dx_play_a_show_intro}
+         }
+      }
+      #endif
+      {overshell set_active_status kOvershellInShell}
+      {overshell update_all}
+      {unless $dx_song_select_noise {synth stop_all_sfx TRUE}} ; dx - removes the annoying noises in song select
+      {$this dx_diff_maker}
+      ;remove high song count warning
+      ;{if
+      ;   #ifdef HX_PS3
+      ;   {&&
+      ;      $dx_confirm_song_count
+      ;      #ifdef REGION_EUROPE
+      ;      {! {file_exists "GD:/dev_hdd0/game/BLES00986/USRDIR/dx_high_memory.dta"}}
+      ;      #else
+      ;      {! {file_exists "GD:/dev_hdd0/game/BLUS30463/USRDIR/dx_high_memory.dta"}}
+      ;      #endif
+      ;   }
+      ;   #else
+      ;   $dx_confirm_song_count
+      ;   #endif
+      ;   {set $high_song_count 4500}
+      ;   {unless $rb3e_checked_song_count
+      ;      {set $rb3e_checked_song_count TRUE}
+      ;      {if {> {{song_select_panel find song.lst} num_data} $high_song_count}
+      ;         {dx_modal_messenger_symbol high_song_count_warn}
+      ;      }
+      ;   }
+      ;}
+      {dx_admin_mode}
       #ifdef HX_WII
       {rnd set_in_game TRUE}
       #endif
@@ -1048,9 +710,57 @@
          $picked_song
       }
    )
+   (endurance_handler
+      {if {|| $dx_customizer $dx_auto_endurance}
+         {script_task kTaskSeconds
+            (delay {if_else {== $dx_auto_endurance dx_selected} 1.5 0})
+            (script
+               {if_else {== $dx_auto_endurance dx_random}
+                  {script_task kTaskSeconds
+                     (delay 2)
+                     (script
+                        {song.lst refresh}
+                        {song.lst set_selected_simulate_scroll {random_int 0 {song.lst num_data}}}
+                        {script_task kTaskSeconds
+                           (delay 2)
+                           (script
+                              {song.lst refresh}
+                              {song.lst set_selected_simulate_scroll {random_int 0 {song.lst num_data}}}
+                              {script_task kTaskSeconds
+                                 (delay 2)
+                                 (script
+                                    {song.lst refresh}
+                                    {song.lst set_selected_simulate_scroll {random_int 0 {song.lst num_data}}}
+                                    {script_task kTaskSeconds
+                                       (delay 2)
+                                       (script
+                                          {if_else {== {{music_library get_highlighted_node} get_node_type} kNodeSong}
+                                             {do
+                                                {gamemode set_mode qp_coop}
+                                                {music_library select_highlighted_node {input_mgr get_user}}
+                                             }
+                                             {$task loop}
+                                          }
+                                       )
+                                    }
+                                 )
+                              }
+                           )
+                        }
+                     )
+                  }
+                  {do
+                     {gamemode set_mode qp_coop}
+                     {music_library select_highlighted_node {input_mgr get_user}}
+                  }
+               }
+            )
+         }
+      }
+   )
    (TRANSITION_COMPLETE_MSG
       {dx_restore_online_transitions}
-      {dx_song_select_endurance}
+      {$this endurance_handler}
       {if [resume_setlist_edit]
          {ui push_screen edit_setlist_screen}
          {set [resume_setlist_edit] FALSE}
@@ -1826,7 +1536,7 @@
                   {song.lst is_scrolling}}}
             {unless [waiting_for_sort]
                {song.lst set_scroll_user $user}
-               {if_else {&& {music_library can_headers_be_selected} $sort_check_2}
+               {if_else {&& {music_library can_headers_be_selected} {== {music_library get_current_sort_name} by_artist}}
                   {do
                      {song.lst set_selected_simulate_scroll {+ {song.lst selected_pos} 1}}
                      {set $pause_scroll_sound TRUE}
@@ -1859,8 +1569,28 @@
             }
          )
          #ifndef HX_WII
-         DX_SONG_LIST_LEFT_ACTION
-         DX_SONG_LIST_RIGHT_ACTION
+         ({&&
+            {== $action kAction_Left}
+            {!
+               {song.lst is_scrolling}}}
+         {unless
+            [waiting_for_sort]
+            {song.lst set_scroll_user $user}
+            {song.lst set_selected_simulate_scroll {- {song.lst selected_pos} 1}}
+            {set $pause_scroll_sound TRUE}
+            {song.lst set_selected_simulate_scroll {- {song.lst selected_pos} 9}}
+            {set $pause_scroll_sound FALSE}}) ; dx scroll the list up by 10 slots when pressing left dpad
+         ({&&
+            {== $action kAction_Right}
+            {!
+               {song.lst is_scrolling}}}
+         {unless
+            [waiting_for_sort]
+            {song.lst set_scroll_user $user}
+            {song.lst set_selected_simulate_scroll {+ {song.lst selected_pos} 1}}
+            {set $pause_scroll_sound TRUE}
+            {song.lst set_selected_simulate_scroll {+ {song.lst selected_pos} 9}}
+            {set $pause_scroll_sound FALSE}}) ; dx scroll the list down by 10 slots when pressing right dpad
          #endif
          ({&&
                #ifdef HX_WII
@@ -1874,7 +1604,7 @@
                   {song.lst is_scrolling}}}
             {unless [waiting_for_sort]
                {song.lst set_scroll_user $user}
-               {if_else {&& {music_library can_headers_be_selected} $sort_check_2}
+               {if_else {&& {music_library can_headers_be_selected} {== {music_library get_current_sort_name} by_artist}}
                   {do
                      {song.lst set_selected_simulate_scroll {- {song.lst selected_pos} 1}}
                      {set $pause_scroll_sound TRUE}
@@ -1923,8 +1653,7 @@
       {cond
          #ifndef RB3E
          ({&& {== $action kAction_ShellOption} $dx_more_info_toggle}
-            {set $probeforfinder TRUE}
-            {$this dx_more_info_load}
+            {$this dx_more_info_load TRUE}
          )
          #endif
          ({== $action kAction_Confirm}
@@ -2206,7 +1935,9 @@
                            #ifdef HX_WII
                            TRUE
                            #else
-                           {! {$item is_ugc}}
+                           ;always load trainers lol
+                           TRUE
+                           ;{! {$item is_ugc}}
                            #endif
                            {'||'
                               {&&
@@ -2536,7 +2267,6 @@
       }
    )
    (hide_details
-      ;{$this refresh_selected_song}
       {if {== {{music_library get_highlighted_node} get_node_type} kNodeSong}
          {drum_pro.idd set_song {{music_library get_highlighted_node} get_token}}
          {$this call_diffs {{music_library get_highlighted_node} get_token}}
@@ -2563,7 +2293,6 @@
          }
       }
       {$this set_focus song.lst}
-      ;{set $probeforfinder TRUE}
    )
    (input_user_left
       {if [details_mode]
@@ -2727,27 +2456,16 @@
                   {album_art.pic set mesh {album_art.pic get mesh}}
                }
             )
-            {if_else
-               #ifdef HX_PS3
-               {file_exists
-                  {sprint "songs/updates/" $token "/gen/" $token "_keep.png_ps3"}
+            {do
+               ($ext
+                  #ifdef HX_PS3 "png_ps3" #endif
+                  #ifdef HX_XBOX "png_xbox" #endif
+                  #ifdef HX_WII "png_wii" #endif
+               )
+               {if_else {file_exists {sprint "songs/updates/" $token "/gen/" $token "_keep." $ext}}
+                  {album_art.pic set tex_file {sprint "songs/updates/" $token "/" $token "_keep.png"}}
+                  {album_art.pic set tex_file {$item album_art_path}}
                }
-               #endif
-               #ifdef HX_XBOX
-               {file_exists
-                  {sprint "songs/updates/" $token "/gen/" $token "_keep.png_xbox"}
-               }
-               #endif
-               #ifdef HX_WII
-               {file_exists
-                  {sprint "songs/updates/" $token "/gen/" $token "_keep.png_wii"}
-               }
-               #endif
-               {album_art.pic set
-                  tex_file
-                  {sprint "songs/updates/" $token "/" $token "_keep.png"}
-               }
-               {album_art.pic set tex_file {$item album_art_path}}
             }
             {album_art.pic set mesh {album_art.pic get mesh}}
          }

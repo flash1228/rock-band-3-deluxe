@@ -341,5 +341,4 @@
 #include ../read_write/dx_presence_funcs.dta
 #include ../read_write/dx_currentsong_funcs.dta
 #endif
-#include song_select/dx_song_select_funcs.dta
 #include practice/dx_practice_funcs.dta

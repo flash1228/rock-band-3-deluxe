@@ -347,6 +347,9 @@
                   kDataUnhandled
                }
             }
+            {if {== $dx_season halloween}
+               {{{{$panel find sv8_a} find cityscape_ao} find moon.tex} set_bitmap "dx/custom_textures/_additional_textures/blood_moon.png"}
+            }
             {{{{$panel find sv8_a} find cityscape_ao} find logo.tex} set_bitmap {sprint "dx/custom_textures/_additional_textures/logo-" $dx_season #ifdef RB3E "-rb3e" #endif ".png"}}
             {{{{$panel find sv8_a} find cityscape_ao} find logo.mesh} set_local_pos_index 0 -750}
             {{{{$panel find sv8_a} find cityscape_ao} find logo.mesh} set_local_rot_index 2 -30}
