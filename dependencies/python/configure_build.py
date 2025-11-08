@@ -64,6 +64,8 @@ match sys.platform:
         ninja.variable("arkhelper", "dependencies\\windows\\arkhelper.exe")
         ninja.variable("dtab", "dependencies\\windows\\dtab.exe")
         ninja.variable("dtacheck", "dependencies\\windows\\dtacheck.exe")
+        ninja.variable("prefabulous", "dependencies\\windows\\prefabulous.exe")
+        ninja.rule("prefab_import", 'cmd /c ""%prefabulous%" "%scene%" "%in%" && type nul > "%out%""', description="PREFAB %in% -> %scene%", pool="console",)
     case "darwin":
         ninja.variable("silence", "> /dev/null")
         ninja.rule("copy", "cp $in $out", description="COPY $in")
@@ -83,6 +85,8 @@ match sys.platform:
         ninja.variable("arkhelper", "dependencies/macos/arkhelper")
         ninja.variable("dtab", "dependencies/macos/dtab")
         ninja.variable("dtacheck", "dependencies/macos/dtacheck")
+        ninja.variable("prefabulous", "dependencies/macos/prefabulous")  # or linux path
+        ninja.rule("prefab_import", '"$prefabulous" "$scene" "$in" && touch "$out"', description="PREFAB $in -> $scene", pool="console",)
     case "linux":
         ninja.variable("silence", "> /dev/null")
         ninja.rule("copy", "cp --reflink=auto $in $out",description="COPY $in")
@@ -102,6 +106,8 @@ match sys.platform:
         ninja.variable("arkhelper", "dependencies/linux/arkhelper")
         ninja.variable("dtab", "dependencies/linux/dtab")
         ninja.variable("dtacheck", "dependencies/linux/dtacheck")
+        ninja.variable("prefabulous", "dependencies/linux/prefabulous")
+        ninja.rule("prefab_import", '"$prefabulous" "$scene" "$in" && touch "$out"', description="PREFAB $in -> $scene", pool="console",)
 
 match args.platform:
     case "ps3":
@@ -153,6 +159,8 @@ def ark_file_filter(file: Path):
     if ".DS_Store" in file.parts:
         return False
     if file.is_dir():
+        return False
+    if file.name.startswith("prefabs.milo_"):
         return False
     if file.suffix.endswith("_ps3") and args.platform != "ps3":
         return False
@@ -378,6 +386,50 @@ for f in filter(ark_file_filter, Path("_ark").rglob("*")):
             if not out_path.name.endswith("_update.txt"):
                 ninja.build(str(out_path), "copy", str(f))
                 ark_files.append(str(out_path))
+
+if args.platform in ("ps3", "xbox"):
+    milo_name = f"prefabs.milo_{'ps3' if args.platform == 'ps3' else 'xbox'}"
+
+    # Prefer main/shared, fallback to shared
+    src_candidates = [
+        Path("_ark", "char", "main", "shared", "gen", milo_name),
+        Path("_ark", "char", "shared", "gen", milo_name),
+    ]
+    src_scene = next((p for p in src_candidates if p.exists()), None)
+
+    staged_scene = Path("obj", args.platform, "ark", "char", "main", "shared", "gen", milo_name)
+
+    if src_scene is not None:
+        # Always stage the base scene (this ensures it lands in obj/... even if no prefabs to add)
+        ninja.build(str(staged_scene), "copy", str(src_scene))
+        ark_files.append(str(staged_scene))
+
+        custom_dir = Path("_ark", "char", "custom_prefabs")
+        if custom_dir.exists() and src_scene is not None:
+            stamps_dir = Path("obj", args.platform, "stamps")
+            stamps_dir.mkdir(parents=True, exist_ok=True)
+
+            last_stamp = None
+            for pf in sorted(custom_dir.iterdir()):
+                if not (pf.is_file() and pf.suffix == "" and pf.name != ".gitkeep"):
+                    continue
+
+                stamp = stamps_dir / f"prefab_{pf.name}.stamp"
+
+                implicit_inputs = [str(staged_scene)]
+                if last_stamp is not None:
+                    implicit_inputs.append(str(last_stamp))
+
+                # NOTE: pf is the *explicit input*, so rule can use $in
+                ninja.build(
+                    str(stamp),
+                    "prefab_import",
+                    str(pf),
+                    implicit=implicit_inputs,
+                    variables={"scene": str(staged_scene)},
+                )
+                ark_files.append(str(stamp))
+                last_stamp = stamp
 
 # write version info
 dta = Path("obj", args.platform, "raw", "dx", "locale", "dx_version.dta")
