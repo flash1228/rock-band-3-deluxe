@@ -456,6 +456,18 @@
          }
       }
    )
+   (keyboard_msg ($key $shift $ctrl $alt)
+      {if {! {$this in_vocal_mode}}
+         {if {== $key KB_RIGHT}
+            {$this inc_speed}
+            {dpad_right.trig trigger}
+         }
+         {if {== $key KB_LEFT}
+            {$this dec_speed}
+            {dpad_left.trig trigger}
+         }
+      }
+   )
    (inc_speed
       {set $p_speed {gamecfg get practice_speed}}
       {if {> $p_speed 0}
