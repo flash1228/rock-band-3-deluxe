@@ -287,13 +287,24 @@
     }
 }
 
+{func dx_shortcut_handler ($key $shift $ctrl $alt)
+    {set $consume_input FALSE}
+    {if {&& $debug_mode {session_mgr is_local} $alt {== {char $key} "a"}}
+        {run DX_ACE_PATH}
+        {set $consume_input TRUE}
+    }
+    $consume_input
+}
+
 {func dx_keyboard_handler ($key $shift $ctrl $alt)
-    {if_else {!= {type $focused_input_field} kDataObject}
-        {do
-            {{ui focus_panel} keyboard_msg $key $shift $ctrl $alt}
-        }
-        {do
-            {$focused_input_field keyboard_msg $key $shift $ctrl $alt}
+    {unless {dx_shortcut_handler $key $shift $ctrl $alt}
+        {if_else {!= {type $focused_input_field} kDataObject}
+            {do
+                {{ui focus_panel} keyboard_msg $key $shift $ctrl $alt}
+            }
+            {do
+                {$focused_input_field keyboard_msg $key $shift $ctrl $alt}
+            }
         }
     }
 }
