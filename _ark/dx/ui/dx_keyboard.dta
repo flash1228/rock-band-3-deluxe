@@ -53,6 +53,9 @@
                 {$this send_update_msg}
             )
             (delete_char
+                {if {== {strlen [buf]} 0}
+                    {[sink_obj] input_field_overdelete}
+                }
                 {if_else {$this has_highlight}
                     {$this erase_highlight}
                     {if {> [caret] 0}
@@ -136,7 +139,9 @@
             )
 
             (accept
-                {dx_keyboard_unfocus}
+                {if [unfocus_on_accept]
+                    {dx_keyboard_unfocus}
+                }
                 {[sink_obj] input_field_accept $this [buf]}
             )
 
@@ -242,11 +247,13 @@
             {text.lbl set alignment kMiddleLeft}
             {text.lbl set width 600}
             {text.lbl set height 40}
+            {text.lbl set draw_order 10}
             {text.lbl set_trans_parent $this}
             {$this set sink_obj kDataUnhandled}
             {$this set buf ""}
             {$this set caret 0}
             {$this set focused FALSE}
+            {$this set unfocus_on_accept TRUE}
             {$this set highlight_start -1}
             {$this set highlight_end -1}
             {$this set length_limit 32} ; Note: only applies to the virtual keyboard at the moment
@@ -263,7 +270,7 @@
             {highlight.mat set color {pack_color 1 0 0}}
             {highlight.mat set alpha 0.5}
             {highlight.mesh set mat highlight.mat}
-            {highlight.mesh set draw_order -1}
+            {highlight.mesh set draw_order 2}
             {highlight.mesh set_trans_parent $this}
             {highlight.mesh set_showing FALSE}
 
@@ -287,10 +294,56 @@
     }
 }
 
+#ifdef DX_CONSOLE
+{func try_toggle_console
+    {do
+        {with overshell
+            {unless {find_elem {slots.grp get_array objects} {object dx_console}}
+                {slots.grp add_object dx_console}
+            }
+        }
+        {if_else {dx_console get is_open}
+            {dx_console close}
+            {dx_console open}
+        }
+    }
+}
+; Shortcut for opening the console by pressing enter without any text fields focused
+; Intended for the 360 chatpad, where pressing backtick isn't very easy and also causes some other characters to be entered.
+{func enter_console_shortcut ($key)
+    {do 
+        ($out FALSE)
+        {if {!= {type $focused_input_field} kDataObject}
+            {unless {dx_console get is_open}
+                {if {== $key 10}
+                    {set $out TRUE}
+                }
+            }
+        }
+        {if {== {char $key} "`"}
+            {set $out TRUE}
+        }
+        $out
+    }
+}
+#else
+; Do nothing!
+{func try_toggle_console
+    kDataUnhandled
+}
+{func enter_console_shortcut ($key)
+    FALSE
+}
+#endif
+
 {func dx_shortcut_handler ($key $shift $ctrl $alt)
     {set $consume_input FALSE}
     {if {&& $debug_mode {session_mgr is_local} $alt {== {char $key} "a"}}
         {run DX_ACE_PATH}
+        {set $consume_input TRUE}
+    }
+    {if {enter_console_shortcut $key}
+        {try_toggle_console}
         {set $consume_input TRUE}
     }
     $consume_input

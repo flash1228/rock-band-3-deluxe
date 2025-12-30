@@ -3391,7 +3391,13 @@
                   }
                }
             }
-            {dx_ultra_shadows $dx_ultra_shadows}
+            {unless {session is_in_game}
+               {dx_ultra_shadows $dx_ultra_shadows}
+            }
+            {if {&& $dx_apply_postproc {exists game} {session is_in_game}}
+               {dx_ultra_shadows $dx_ultra_shadows}
+               {set $dx_apply_postproc FALSE}
+            }
          )
          (stop_shot
             {if [stop_movie]

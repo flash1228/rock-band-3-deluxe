@@ -292,6 +292,98 @@
       )
    }
 }
+{func dx_get_festive ($worlddir)
+   {with $worlddir
+      {new ParticleSys snow.part}
+      {snow.part set fancy TRUE}
+      {snow.part set_local_pos -1300 1300 1256}
+      {new Mat snow.mat}
+      {snow.mat copy star_particle.mat kCopyShallow}
+      {new Tex snow.tex}
+      {snow.tex set_bitmap "dx/custom_textures/_additional_textures/snow_particle.png"}
+      {snow.mat set diffuse_tex snow.tex}
+      {snow.part set mat snow.mat}
+      ; The Wii barely likes 32 particles in one particle system, let alone 300!
+      #ifndef HX_WII
+      {snow.part set max_parts 300}
+      #else
+      {snow.part set max_parts 32}
+      #endif
+      ; Many of these Vector2 properties are actually a range.
+      ; x = min, y = max
+      {snow.part set (emit_rate x) 2.0}
+      {snow.part set (emit_rate y) 3.0}
+
+      {snow.part set (speed x) 0.2}
+      {snow.part set (speed y) 2}
+
+      {snow.part set (life x) 90}
+      {snow.part set (life y) 110}
+
+      {snow.part set (start_size x) 15}
+      {snow.part set (start_size y) 20}
+
+      {snow.part set (force_dir z) -0.5}
+      {snow.part set (force_dir x) -0.2}
+
+      {snow.part set start_alpha_high 0.8}
+      {snow.part set start_alpha_low 0.6}
+      {snow.part set end_alpha_low 0}
+      {snow.part set end_alpha_high 0}
+
+      {snow.part set (box_extent_1 x) -1700}
+      {snow.part set (box_extent_1 y) -1700}
+      {snow.part set (box_extent_1 z) 0}
+      {snow.part set (box_extent_2 x) 1700}
+      {snow.part set (box_extent_2 y) 1700}
+      {snow.part set (box_extent_2 z) 20}
+      {cityscape.grp add_object snow.part}
+      {$this sync_objects}
+
+      {difference_clouds.tex set_bitmap "dx/custom_textures/_additional_textures/difference_clouds.png"}
+      {difference_clouds.mat set color {pack_color 0.3 0.3 0.3}}
+      {sky_dome02.mesh set_showing FALSE}
+      {new Mesh sky_dome_inverted.mesh}
+      {sky_dome_inverted.mesh copy sky_dome.mesh kCopyShallow}
+      {sky_dome_inverted.mesh set_local_scale_index 2 -0.493}
+      {sky_dome_inverted.mesh set_local_pos_index 2 -215}
+      {sky_dome.mat set cull FALSE}
+      {sky.grp add_object sky_dome_inverted.mesh}
+
+      {new PropAnim wind.anim}
+
+      {wind.anim add_keys snow.part (force_dir x) kPropFloat}
+      {wind.anim add_keys snow.part (force_dir y) kPropFloat}
+
+      {set $forcex {snow.part get (force_dir x)}}
+      {set $forcey {snow.part get (force_dir y)}}
+      {thread_task kTaskUISeconds (script
+         {wind.anim set_key_val snow.part (force_dir x) 0 $forcex}
+         {wind.anim set_key_val snow.part (force_dir y) 0 $forcey}
+         {set $forcex {random_float -0.3 -0.02}}
+         {set $forcey {random_float -0.05 0.05}}
+         {wind.anim set_key_val snow.part (force_dir x) 1 $forcex}
+         {wind.anim set_key_val snow.part (force_dir y) 1 $forcey}
+         {set $animtime {random_float 10 20}}
+         ;{dx_log_writer insane {sprint "Animating for " $animtime " seconds, prev: " {snow.part get (force_dir x)} " " {snow.part get (force_dir y)}}}
+         {wind.anim animate (range 0 1) (period $animtime) (units kTaskUISeconds)}
+         {$task sleep $animtime}
+         {$task loop}
+      )}
+   }
+}
+; Hides that crowd full of ~200 people in line at the theater, MASSIVELY improves performance
+{func dx_optimize_splash ($worlddir)
+   {with $worlddir
+      {foreach $camshot (main.shot outro_shell.shot)
+         {while {> {$camshot size (crowds)} 0}
+            {$camshot remove (crowds 0)}
+         }
+      }
+      {WorldCrowdTheater.crd set_showing FALSE}
+      {WorldCrowdTheater2.crd set_showing FALSE}
+   }
+}
 {func
    dx_sv_menu_logo_set
    ($panel)
@@ -324,6 +416,11 @@
             {if {== $dx_season halloween}
                {{{{$panel find sv8_a} find cityscape_ao} find moon.tex} set_bitmap "dx/custom_textures/_additional_textures/blood_moon.png"}
             }
+            {if {== $dx_season christmas}
+               {dx_get_festive {{$panel find sv8_a} find cityscape_ao}}
+            }
+            ; Always optimize the splash on the menu even on console, since that crowd is mostly covered up by overshell
+            {dx_optimize_splash {{$panel find sv8_a} find cityscape_ao}}
             {{{{$panel find sv8_a} find cityscape_ao} find logo.tex} set_bitmap {sprint "dx/custom_textures/_additional_textures/logo-" $dx_season #ifdef RB3E "-rb3e" #endif ".png"}}
             {{{{$panel find sv8_a} find cityscape_ao} find logo.mesh} set_local_pos_index 0 -750}
             {{{{$panel find sv8_a} find cityscape_ao} find logo.mesh} set_local_rot_index 2 -30}

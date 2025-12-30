@@ -237,10 +237,9 @@
                      }
                }
             }
-            {{coop_track_panel find crowd_meter} set_showing {== $dx_crowd_meter_hud dx_on}}
             {do
                ($show {! {modifier_mgr is_modifier_active mod_karaoke}})
-               {{coop_track_panel find crowd_meter} set_showing $show}
+               {{coop_track_panel find crowd_meter} set_showing {&& $show {== $dx_crowd_meter_hud dx_on}}}
                {{{coop_track_panel find scoreboard} find star_display} set_showing $show}
                {{{coop_track_panel find scoreboard} find numbers.grp} set_showing $show}
                {{{coop_track_panel find scoreboard} find sb_lens} set_showing $show}

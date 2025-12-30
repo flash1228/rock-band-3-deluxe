@@ -8,6 +8,7 @@
          {if_else $dx_countdown_enabled os_countdown_on os_countdown_off}
          {if_else $dx_precise_percent os_precise_percent_on os_precise_percent_off}
          ;{if_else $dx_player_icons os_player_icons_on os_player_icons_off}
+         {if_else $dx_fps_counter os_fps_counter_on os_fps_counter_off}
       )
       (select
          (os_song_timerprogress {dx_state dxState_SongProgress})
@@ -30,6 +31,7 @@
             {overshell enter}
             SET_STRIP_COLOR
          )
+         (os_fps_counter {dx_fps_counter set_visible {! $dx_fps_counter}})
       )
       (cancel {dx_state dxState_Advanced})
    )

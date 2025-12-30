@@ -295,6 +295,12 @@
       }
    )
    (enter
+      {unless $dx_fps_counter_init
+         {set $dx_fps_counter_init TRUE}
+         {with overshell
+            {slots.grp add_object dx_fps_counter}
+         }
+      }
       {memcardmgr add_sink $this (save_load_all_complete_msg)}
       {$this hide_waiting}
       {gamecfg set coop_intro_category INTRO}
@@ -368,6 +374,11 @@
       {if_else $hide
          {connect_controller02.mat set alpha 0}
          {connect_controller02.mat set alpha 1}
+      }
+   )
+   (poll
+      {if $dx_fps_counter
+         {dx_fps_counter do_poll}
       }
    )
 }

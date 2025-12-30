@@ -2,6 +2,10 @@
 #include ../dx_song_update_hash.dta
 #include dx_hyper_finder.dta
 #include dx_keyboard.dta
+#ifdef DX_CONSOLE
+#include dx_console.dta
+#endif
+#include dx_fps_counter.dta
 
 #ifndef HX_WII {if {file_exists DX_EVENT_FILE_PATH} {dx_event_dta_reader}} #endif
 
@@ -866,6 +870,22 @@ DX_CURRENT_SONG_CLEAR
 {set $dx_admin_mode FALSE}
 
 {set $dx_instrument_icons rb3}
+
+; I tried this as a macro and it would crash the game
+{set $dx_valid_venues (
+   small_venues big_venues arena_venues festival_venues venues_video
+   small_club_01 small_club_02 small_club_03 small_club_04 small_club_05
+   small_club_06 small_club_10 small_club_11 small_club_13 small_club_14
+   small_club_15
+   big_club_01 big_club_02 big_club_04 big_club_05 big_club_06 big_club_07
+   big_club_08 big_club_09 big_club_10 big_club_11 big_club_12 big_club_13
+   big_club_14 big_club_15 big_club_17
+   arena_01 arena_02 arena_03 arena_04 arena_06 arena_07 arena_10 arena_11
+   arena_12
+   festival_01 festival_02
+   video_01 video_02 video_03 video_04 video_05 video_06 video_07
+   none
+)}
 
 {if {file_exists DX_SETTINGS_FILE_PATH}
    {if {> {size {read_file DX_SETTINGS_FILE_PATH}} 0}

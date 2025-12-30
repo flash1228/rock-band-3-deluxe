@@ -67,6 +67,7 @@
    {dx_setting_saver dx_settings dx_fullcombo_sound $dx_fullcombo_sound}
    {dx_setting_saver dx_settings dx_jurgen_sound $dx_jurgen_sound}
    {dx_setting_saver dx_settings dx_precise_percent $dx_precise_percent}
+   {dx_setting_saver dx_settings dx_fps_counter $dx_fps_counter}
    ;{dx_setting_saver dx_settings dx_nice_sound $dx_nice_sound}
    {dx_setting_saver dx_settings dx_song_select_noise $dx_song_select_noise}
    {dx_setting_saver dx_settings dx_scroll_sound $dx_scroll_sound}
@@ -109,23 +110,7 @@
       {if_else
          {&&
             {== $force TRUE}
-            {||
-               {== $dx_venue small_venues} {== $dx_venue big_venues} {== $dx_venue arena_venues}
-               {== $dx_venue festival_venues} {== $dx_venue venues_video}
-               {== $dx_venue small_club_01} {== $dx_venue small_club_02} {== $dx_venue small_club_03}
-               {== $dx_venue small_club_04} {== $dx_venue small_club_05} {== $dx_venue small_club_06}
-               {== $dx_venue small_club_10} {== $dx_venue small_club_11} {== $dx_venue small_club_13}
-               {== $dx_venue small_club_14} {== $dx_venue small_club_15} {== $dx_venue big_club_01}
-               {== $dx_venue big_club_02} {== $dx_venue big_club_04} {== $dx_venue big_club_05}
-               {== $dx_venue big_club_06} {== $dx_venue big_club_07} {== $dx_venue big_club_08}
-               {== $dx_venue big_club_09} {== $dx_venue big_club_10} {== $dx_venue big_club_11}
-               {== $dx_venue big_club_12} {== $dx_venue big_club_13} {== $dx_venue big_club_14}
-               {== $dx_venue big_club_15} {== $dx_venue big_club_17} {== $dx_venue arena_01}
-               {== $dx_venue arena_02} {== $dx_venue arena_03} {== $dx_venue arena_04}
-               {== $dx_venue arena_06} {== $dx_venue arena_07} {== $dx_venue arena_10}
-               {== $dx_venue arena_11} {== $dx_venue arena_12} {== $dx_venue festival_01}
-               {== $dx_venue festival_02} {== $dx_venue none}
-            }
+            {contains $dx_valid_venues $dx_venue}
          }
          $dx_venue
          FALSE

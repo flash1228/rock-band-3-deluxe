@@ -42,7 +42,7 @@
    {dx_read_setting dx_stored_outro_vignette}
    {dx_read_setting dx_black_song_transition}
    {dx_read_setting dx_default_transitions}
-   {dx_read_setting emulate_fps}
+   {dx_read_setting_with_name emulate_fps emulatefps}
    {dx_read_setting dx_vsync}
    {dx_read_setting_with_name track_speed trackspeed}
    {dx_read_setting trackspeed_guitar}
@@ -66,6 +66,8 @@
    {dx_read_setting dx_fullcombo_sound}
    {dx_read_setting dx_jurgen_sound}
    {dx_read_setting dx_precise_percent}
+   {dx_read_setting dx_fps_counter}
+   {dx_fps_counter set_visible $dx_fps_counter}
    {dx_read_setting dx_scroll_sound}
    {dx_read_setting dx_song_select_noise}
    {dx_read_setting_with_name dx_whammy_fx_enabled dx_whammy_fx}
@@ -100,7 +102,14 @@
    {dx_read_setting dx_enable_mv_venues}
    {dx_read_setting dx_end_song_feedback}
    {dx_read_setting dx_you_rock}
-   {dx_read_setting dx_rb3dx_venue}
+   {dx_read_setting_with_name dx_rb3dx_venue dx_venue}
+   {if {&& $dx_venue {! {contains $dx_valid_venues $dx_venue}}}
+      {dx_log_writer insane {sprint "Warning: dx_venue setting has invalid value: " $dx_venue}}
+      {set $dx_venue 0}
+   }
+   {if $dx_venue
+      {set $force TRUE}
+   }
    {dx_read_setting dx_joypad_type_guitar}
    {dx_read_setting dx_joypad_type_keys}
    {dx_read_setting dx_joypad_type_vocals}
