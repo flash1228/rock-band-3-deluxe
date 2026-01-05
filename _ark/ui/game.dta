@@ -204,6 +204,9 @@
          {$this dx_on_game_enter}
       }
       #endif
+      {if {gamemode in_mode practice}
+         {trainer_background_panel set_showing {!= $dx_venue none}}
+      }
       {$this set_showing TRUE}
       {set [delayed_mic_check] FALSE}
       {rnd set_in_game TRUE}

@@ -1,4 +1,3 @@
-#include ../../dx/ui/band/dx_manage_band_handles.dta
 {new ManageBandPanel
    manage_band_panel
    (file "manage_band.milo")

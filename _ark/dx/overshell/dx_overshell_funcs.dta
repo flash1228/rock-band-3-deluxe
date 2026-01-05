@@ -580,15 +580,3 @@
       {dx_track_update_lengths}
    }
 }
-{func enable_modifier
-   ($modifier)
-   {unless {modifier_mgr is_modifier_active $modifier}
-      {modifier_mgr toggle_modifier_enabled $modifier}
-   }
-}
-{func disable_modifier
-   ($modifier)
-   {if {modifier_mgr is_modifier_active $modifier}
-      {modifier_mgr toggle_modifier_enabled $modifier}
-   }
-}

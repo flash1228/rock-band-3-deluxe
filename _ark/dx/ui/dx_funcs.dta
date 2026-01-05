@@ -311,33 +311,6 @@
       }
    }
 }
-{func dx_unlock_pre_orders
-   ($user)
-   {if {== {ui current_screen} main_hub_screen}
-      {switch {$user get_slot_num}
-         (0
-            {main_hub_panel unlock_gamestop_award 0}
-            {main_hub_panel unlock_x79_award 0}
-            {main_hub_panel unlock_d2010_award 0}
-         )
-         (1
-            {main_hub_panel unlock_gamestop_award 1}
-            {main_hub_panel unlock_x79_award 1}
-            {main_hub_panel unlock_d2010_award 1}
-         )
-         (2
-            {main_hub_panel unlock_gamestop_award 2}
-            {main_hub_panel unlock_x79_award 2}
-            {main_hub_panel unlock_d2010_award 2}
-         )
-         (3
-            {main_hub_panel unlock_gamestop_award 3}
-            {main_hub_panel unlock_x79_award 3}
-            {main_hub_panel unlock_d2010_award 3}
-         )
-      }
-   }
-}
 {func dx_array_eq ($left $right)
    {do
       ($pass {== {size $left} {size $right}})
@@ -375,6 +348,18 @@
          }
       }
       $return
+   }
+}
+{func enable_modifier
+   ($modifier)
+   {unless {modifier_mgr is_modifier_active $modifier}
+      {modifier_mgr toggle_modifier_enabled $modifier}
+   }
+}
+{func disable_modifier
+   ($modifier)
+   {if {modifier_mgr is_modifier_active $modifier}
+      {modifier_mgr toggle_modifier_enabled $modifier}
    }
 }
 #endif

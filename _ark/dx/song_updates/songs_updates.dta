@@ -9253,6 +9253,23 @@
    (genre punk)
    (song
       (vocal_parts 3)
+      (tracks
+         (
+            (drum
+               (0 1 2 3)
+            )
+            (bass 4)
+            (guitar
+               (5 6)
+            )
+            (vocals
+               (7 8)
+            )
+            (keys
+               (9 10)
+            )
+         )
+      )
    )
    (extra_authoring disc_update)
    (upgrade_version 1)
@@ -9261,15 +9278,21 @@
       (guitar 270)
       (bass 270)
       (vocals 195)
+      (keys 321)
       (real_guitar 480)
       (real_bass 260)
+      (real_keys 321)
       (band 245)
    )
+   (version 30)
    (real_guitar_tuning
       (0 0 0 0 0 0)
    )
    (real_bass_tuning
       (0 0 0 0)
+   )
+   (keys_author
+      "BowlsforRick, SonicSBL"
    )
    (strings_author
       "RK"
@@ -9281,7 +9304,6 @@
       (guitar vocal_percussion)
    )
    (format 10)
-   (version 1)
    (game_origin rb1)
    (rating 2)
    (year_released 2000)
@@ -15145,8 +15167,38 @@
    (song_tonality 0)
    (song
       (vocal_parts 3)
+      (tracks
+         (
+            (drum
+               (0 1 2 3)
+            )
+            (bass 4)
+            (guitar
+               (5 6)
+            )
+            (vocals
+               (7 8)
+            )
+            (keys
+               (9 10)
+            )
+         )
+      )
    )
    (extra_authoring disc_update)
+   (rank
+      (drum 247)
+      (guitar 219)
+      (bass 207)
+      (vocals 134)
+      (keys 272)
+      (real_keys 272)
+      (band 213)
+   )
+   (version 30)
+   (keys_author
+      "JohnSmith, SonicSBL"
+   )
    (song_length 154545)
    (format 10)
    (loading_phrase
@@ -40108,6 +40160,8 @@
 )
 (UGC_5000345
    (game_origin ugc1)
+   (vocal_tonic_note 11)
+   (song_tonality 1)
    (author
       "RockGamer"
    )
@@ -40393,6 +40447,8 @@
 )
 (UGC_5000740
    (game_origin ugc1)
+   (vocal_tonic_note 2)
+   (song_tonality 1)
    (author
       "Rhythm Authors"
    )
@@ -40683,6 +40739,8 @@
 )
 (UGC_5000990
    (game_origin ugc1)
+   (vocal_tonic_note 7)
+   (song_tonality 0)
    (author
       "WaveGroup"
    )
@@ -40697,6 +40755,8 @@
 )
 (UGC_5000993
    (game_origin ugc1)
+   (vocal_tonic_note 2)
+   (song_tonality 0)
    (author
       "WaveGroup"
    )
@@ -40801,6 +40861,8 @@
 )
 (UGC_5001076
    (game_origin ugc1)
+   (vocal_tonic_note 0)
+   (song_tonality 1)
    (author
       "WaveGroup"
    )
@@ -41163,6 +41225,8 @@
 )
 (UGC_5001344
    (game_origin ugc1)
+   (vocal_tonic_note 9)
+   (song_tonality 1)
    (author
       "Rhythm Authors"
    )
@@ -41401,6 +41465,8 @@
 )
 (UGC_5001459
    (game_origin ugc1)
+   (vocal_tonic_note 2)
+   (song_tonality 0)
    (author
       "RockGamer"
    )
@@ -41419,6 +41485,8 @@
 )
 (UGC_5001460
    (game_origin ugc1)
+   (vocal_tonic_note 9)
+   (song_tonality 0)
    (author
       "RockGamer"
    )
@@ -51408,6 +51476,26 @@
 )
 (rapeme
    (game_origin rb3dlc)
+   (extra_authoring disc_update)
+   (upgrade_version 1)
+   (rank
+      (drum 213)
+      (guitar 190)
+      (bass 208)
+      (vocals 192)
+      (real_guitar 180)
+      (real_bass 140)
+      (band 200)
+   )
+   (real_guitar_tuning
+      (0 0 0 0 0 0)
+   )
+   (real_bass_tuning
+      (0 0 0 0)
+   )
+   (strings_author
+      "MatthNerd"
+   )
    (loading_phrase
       "On the censored version of In Utero sold in big-box stores, this song was relabeled \qWaif Me,\q as they refused to stock the album due to its title. About this, Cobain said, \qOne of the main reasons I signed to a major label was so people would be able to buy our records at Kmart. In some towns, that's the only place kids can buy records\q."
    )
@@ -65340,13 +65428,13 @@
       (guitar 235)
       (bass 255)
       (vocals 299)
-      (keys 385)
-      (real_keys 443)
+      (keys 464)
+      (real_keys 464)
       (band 249)
    )
    (version 30)
    (keys_author
-      "Septekka"
+      "Septekka, SonicSBL"
    )
    (author
       "Harmonix, Rhythm Authors"
@@ -65607,6 +65695,49 @@
    (format 10)
    (author
       "Harmonix"
+   )
+)
+(complicated
+   (extra_authoring disc_update)
+   (song
+      (tracks
+         (
+            (drum
+               (0 1)
+            )
+            (bass
+               (2 3)
+            )
+            (guitar
+               (4 5)
+            )
+            (vocals
+               (6 7)
+            )
+            (keys
+               (8 9)
+            )
+         )
+      )
+   )
+   (rank
+      (vocals 240)
+      (bass 212)
+      (guitar 198)
+      (drum 156)
+      (keys 375)
+      (real_keys 429)
+      (band 232)
+   )
+   (version 30)
+   (keys_author
+      "JohnSmith, SonicSBL"
+   )
+   (loading_phrase
+      "This song describes a situation many girls of Avril's age are familiar with: Their boyfriend is great when they're alone, but around his friends he acts like an idiot."
+   )
+   (author
+      "Harmonix, Rhythm Authors"
    )
 )
 (countingstars
@@ -66551,6 +66682,46 @@
    )
    (strings_author
       "Nyxyxylyth"
+   )
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(janiesgotagun
+   (extra_authoring disc_update)
+   (song
+      (tracks
+         (
+            (drum
+               (0 1)
+            )
+            (bass
+               (2 3)
+            )
+            (guitar
+               (4 5)
+            )
+            (vocals
+               (6 7)
+            )
+            (keys
+               (8 9)
+            )
+         )
+      )
+   )
+   (rank
+      (vocals 300)
+      (bass 186)
+      (guitar 279)
+      (drum 180)
+      (keys 289)
+      (real_keys 289)
+      (band 263)
+   )
+   (version 30)
+   (keys_author
+      "SonicSBL"
    )
    (author
       "Harmonix, Rhythm Authors"
@@ -68466,6 +68637,46 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(takincareofbusiness
+   (extra_authoring disc_update)
+   (song
+      (tracks
+         (
+            (drum
+               (0 1)
+            )
+            (bass
+               (2 3)
+            )
+            (guitar
+               (4 5)
+            )
+            (vocals
+               (6 7)
+            )
+            (keys
+               (8 9)
+            )
+         )
+      )
+   )
+   (rank
+      (drum 159)
+      (guitar 287)
+      (bass 200)
+      (vocals 189)
+      (keys 343)
+      (real_keys 423)
+      (band 219)
+   )
+   (version 30)
+   (keys_author
+      "SonicSBL"
+   )
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (tasteslikekevinbacon_rbn
    (extra_authoring disc_update)
 )
@@ -69422,6 +69633,87 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(complicated
+   (song
+      (tracks
+         (
+            (drum
+               (0 1)
+            )
+            (bass
+               (2 3)
+            )
+            (guitar
+               (4 5)
+            )
+            (vocals
+               (6 7)
+            )
+            (keys
+               (8 9)
+            )
+         )
+      )
+   )
+   (rank
+      (vocals 240)
+      (bass 212)
+      (guitar 198)
+      (drum 156)
+      (keys 375)
+      (real_keys 429)
+      (band 232)
+   )
+   (version 30)
+   (keys_author
+      "JohnSmith, SonicSBL"
+   )
+   (loading_phrase
+      "This song describes a situation many girls of Avril's age are familiar with: Their boyfriend is great when they're alone, but around his friends he acts like an idiot."
+   )
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(janiesgotagun
+   (song
+      (tracks
+         (
+            (drum
+               (0 1)
+            )
+            (bass
+               (2 3)
+            )
+            (guitar
+               (4 5)
+            )
+            (vocals
+               (6 7)
+            )
+            (keys
+               (8 9)
+            )
+         )
+      )
+   )
+   (rank
+      (vocals 300)
+      (bass 186)
+      (guitar 279)
+      (drum 180)
+      (keys 289)
+      (real_keys 289)
+      (band 263)
+   )
+   (version 30)
+   (keys_author
+      "SonicSBL"
+   )
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (americaneulogy
    (solo
       (guitar)
@@ -70275,14 +70567,6 @@
 (coldheart
    (loading_phrase
       "This club-ready single blends together four of Elton John's much-loved tracks for a song about a relationship that's gone icy."
-   )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(complicated
-   (loading_phrase
-      "This song describes a situation many girls of Avril's age are familiar with: Their boyfriend is great when they're alone, but around his friends he acts like an idiot."
    )
    (author
       "Harmonix, Rhythm Authors"
@@ -71632,11 +71916,6 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(janiesgotagun
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (johnnybgoode
    (author
       "Harmonix, Rhythm Authors"
@@ -71973,11 +72252,6 @@
    )
 )
 (takemehomecountryroads2
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(takincareofbusiness
    (author
       "Harmonix, Rhythm Authors"
    )

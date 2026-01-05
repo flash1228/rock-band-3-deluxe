@@ -125,7 +125,9 @@
          {all.grp set_showing TRUE}
          {start.trg trigger}
          {settings.trg trigger}
-         {$this set_focus settings.lst}
+         {if {&& {! $dx_playing_a_show} {! $dx_prep_show_flow} {! $dx_in_show_flow}}
+            {$this set_focus settings.lst}
+         }
          {settings.lst refresh}
          {with song_select_panel
             {song.lst set_state kComponentNormal}
