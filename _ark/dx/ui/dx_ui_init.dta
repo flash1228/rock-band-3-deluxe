@@ -17,6 +17,8 @@
 }
 {set $dx_button_list (kPad_L2 kPad_R2 kPad_L1 kPad_R1 kPad_Tri kPad_Circle kPad_X kPad_Square kPad_Select kPad_L3 kPad_R3 kPad_Start kPad_DUp kPad_DRight kPad_DDown kPad_DLeft)}
 
+{set $dx_window_offset 0}
+
 #ifndef HX_WII
 ;needs font on wii
 {set $dx_song_select_rings TRUE}
@@ -433,21 +435,6 @@ DX_CURRENT_SONG_CLEAR
 }
 #endif
 #endif
-
-; adjust judgments window to match console input offsets
-#ifdef HX_XBOX
-{set $dx_window_offset 16.683350016683352}  ; xenon input offset
-#endif
-#ifdef HX_PS3
-{if_else {== $dx_detected_platform platform_rpcs3}
-   {set $dx_window_offset 0}  ; high framerates are weird
-   {set $dx_window_offset 43.683350016683352}  ; ps3 input offset
-}
-#endif
-#ifdef HX_WII
-{set $dx_window_offset 83.41675008341676}  ; ngc input offset
-#endif
-; that is a neversoft reference btw
 
 #ifdef RB3E
 {set $rb3e_party_ip FALSE}
