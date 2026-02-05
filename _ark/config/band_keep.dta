@@ -7,7 +7,6 @@
 #include ../dx/read_write/dx_currentsong_funcs.dta
 #include ../dx/track/track/dx_track_color_macros.dta
 #include ../dx/macros/dx_conf_macros.dta
-#include ../dx/ui/endgame/dx_endgame_macros.dta
 #include ../dx/game/dx_game_macros.dta
 #include ../dx/ui/dx_ui_macros.dta
 #include ../dx/overshell/dx_overshell_macros.dta

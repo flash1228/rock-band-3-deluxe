@@ -97,6 +97,7 @@
    )
    (dx_on_game_over
       {if $dx_mtvup {{{gamemode get track_panel} find mtv_overlay} set_showing FALSE}}
+      {set $dx_mtvup FALSE}
       {dx_game_var_reset}
       {dx_invalidate_scores}
       {dx_game_over_clean_highways}
@@ -109,6 +110,7 @@
             {dx_clean_solo_box $player {$player instrument}}
          }
       }
+      {set $dx_mtvup FALSE}
       {if {&& $dx_you_rock {! {gamemode in_mode practice}} {! {gamemode in_mode trainer}}}
          {{coop_track_panel find tracker_broadcast_display} set_showing TRUE}
          {{{coop_track_panel find tracker_broadcast_display} find band_message.lbl} set_showing TRUE}

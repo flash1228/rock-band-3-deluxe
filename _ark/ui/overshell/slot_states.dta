@@ -2713,6 +2713,9 @@
       }
       {choose_part.lst restart_highlight_matanim}
       {choose_part.lst refresh}
+      {if {gamemode in_mode trainer}
+         {$this update_part_select_list}
+      }
       DX_UPDATE_ICON
    )
    (enter

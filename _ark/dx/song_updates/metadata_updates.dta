@@ -73,7 +73,6 @@
 (brassinpocket (name "Brass in Pocket (Cover)") (master 0) (covered_by "WaveGroup") (album_art TRUE) (year_recorded 2007))
 (buffalosoldier (genre reggaeska) (year_released 1983) (album_name "Confrontation") (album_track_number 2))
 (burn (genre industrial) (album_name "Natural Born Killers: A Soundtrack for an Oliver Stone Film"))
-(burnitdown (name "BURN IT DOWN") (album_name "LIVING THINGS"))
 (burymealive (artist "We Are the Fallen"))
 (byebyelove (genre new_wave))
 (callme (year_released 1980) (album_name "American Gigolo") (album_track_number 1))
@@ -510,6 +509,7 @@
 (blazeofglory (artist "Jon Bon Jovi") (album_name "Blaze of Glory") (album_track_number 3))
 (breath (genre alternative))
 (bringinontheheartbreak (genre glam))
+(burnitdown (name "BURN IT DOWN") (album_name "LIVING THINGS"))
 (closer2 (genre industrial))
 (cold (genre numetal))
 (dollydagger (genre blues))
@@ -525,6 +525,7 @@
 (headlikeahole (genre industrial))
 (helloiloveyou (genre psychadelic))
 (highwaychile (genre psychadelic))
+(idontwannabeasoldier (name "I Don't Wanna Be a Soldier Mama"))
 (illbethereforyou (album_name "New Jersey") (album_track_number 10))
 (imalright (year_released 1980) (album_name "Caddyshack: Music from the Motion Picture") (album_track_number 1))
 (itsmylife2 (album_name "Crush") (album_track_number 1))
@@ -630,6 +631,7 @@
 (kidsinthestreet (artist "The All-American Rejects"))
 (moveslikejagger (name "Moves Like Jagger (ft. Christina Aguilera)") (artist "Maroon 5"))
 (shine (genre alternative))
+(sing (name "SING"))
 (weareyoung (name "We Are Young (ft. Janelle Monáe)") (artist "Fun.") (encoding latin1))
 
 ; Rock Band Network 1.0 changes
@@ -724,7 +726,7 @@
 (UGC_5002205 (name "We Like the Moon") (genre rock))
 (UGC_5002213 (genre classical))
 (UGC_5002218 (rank (drum 242) (guitar 333) (bass 293) (vocals 1) (band 267)))
-(UGC_5002229 (name "Unfurling a Darkened Gospel") (album_name "Job for a Cowboy"))
+(UGC_5002229 (name "Unfurling a Darkened Gospel") (artist "Job for a Cowboy"))
 (UGC_5002233 (rank (drum 448) (guitar 409) (bass 436) (vocals 1) (band 345)))
 (UGC_5002239 (name "Last Train to Awesometown"))
 (UGC_5002285 (album_name "Back to Earth/I Have Returned"))
@@ -1065,6 +1067,13 @@
 (lessthan (genre industrial))
 (marchofthepigsfnf (genre industrial))
 (thehandthat_fnf (genre industrial))
+
+; Lost Rock Band DLC Changes
+(behindblueeyes_cover (covered_by "WaveGroup"))
+(brownsugar (covered_by "WaveGroup"))
+(comeasyouare_cover (covered_by "WaveGroup"))
+(wecarealot_cover (covered_by "WaveGroup"))
+
 
 ; Remove RB3 version from song titles
 ;(alright2 (name "Alright"))
