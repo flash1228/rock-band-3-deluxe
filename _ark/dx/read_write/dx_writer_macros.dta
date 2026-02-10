@@ -311,14 +311,9 @@
    {dx_setting_saver dx_modifiers mod_static_fills {modifier_mgr is_modifier_active mod_static_fills}}
    {dx_setting_saver dx_modifiers mod_chord_numbers {modifier_mgr is_modifier_active mod_chord_numbers}}
    {dx_setting_saver dx_modifiers mod_nohud {modifier_mgr is_modifier_active mod_nohud}}
-   {if_else {modifier_mgr is_modifier_active mod_miss_sounds}
-      {dx_setting_saver dx_modifiers mod_miss_sounds FALSE}
-      {dx_setting_saver dx_modifiers mod_miss_sounds TRUE}
-   }
-   {if_else {modifier_mgr is_modifier_active mod_remote_texture_sync}
-      {dx_setting_saver dx_modifiers mod_remote_texture_sync FALSE}
-      {dx_setting_saver dx_modifiers mod_remote_texture_sync TRUE}
-   }
+   {dx_setting_saver dx_modifiers mod_miss_sounds {modifier_mgr is_modifier_active mod_miss_sounds}}
+   {dx_setting_saver dx_modifiers mod_remote_texture_sync {modifier_mgr is_modifier_active mod_remote_texture_sync}}
+   {dx_setting_saver dx_modifiers mod_char_hide {modifier_mgr is_modifier_active mod_char_hide}}
    {dx_setting_saver dx_modifiers mod_practiceoverdrive {modifier_mgr is_modifier_active mod_practiceoverdrive}}
    {dx_setting_saver dx_modifiers mod_kick_bounce {modifier_mgr is_modifier_active mod_kick_bounce}}
    {dx_setting_saver dx_modifiers mod_nolanes {modifier_mgr is_modifier_active mod_nolanes}}

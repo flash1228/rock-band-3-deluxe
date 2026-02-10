@@ -1042,6 +1042,7 @@
    (SELECT_MSG
       {switch {$component selected_sym}
          (overshell_confirm_yes
+            {dx_char_hider FALSE} ;force restore chars
             {set $dx_mtvup FALSE}
             {world_panel unload}
             {dx_countdown_var_reset}

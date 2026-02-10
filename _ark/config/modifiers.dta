@@ -17,6 +17,7 @@
    ;visual
    (mod_kick_bounce)
    (mod_air_guitar)
+   (mod_char_hide default_enabled)
    (mod_remote_texture_sync default_enabled delayed_effect) ; syncs custom track themes between online players
    (mod_mhx_color_shuffle
       #ifdef RB3E

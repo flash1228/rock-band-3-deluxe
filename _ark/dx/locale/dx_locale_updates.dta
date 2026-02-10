@@ -245,6 +245,8 @@
 (enable_popup_help_desc "Shows pop-ups in-game to assist newer players\nex: Reminding Drummers to use the kick pedal")
 (mod_air_guitar "Air Instruments")
 (mod_air_guitar_desc "Who needs a real guitar anyway?")
+(mod_char_hide "Hide No-Part Chars")
+(mod_char_hide_desc "Hide characters without a part in a song")
 (mod_auto_kick "Auto Kick")
 (mod_auto_kick_desc "Don't have a kick pedal? No problem!")
 (mod_auto_play "Autoplay")

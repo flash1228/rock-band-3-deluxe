@@ -97,6 +97,7 @@
    )
    (dx_on_game_over
       {if $dx_mtvup {{{gamemode get track_panel} find mtv_overlay} set_showing FALSE}}
+      {dx_char_hider FALSE} ;force restore characters
       {set $dx_mtvup FALSE}
       {dx_game_var_reset}
       {dx_invalidate_scores}
@@ -104,6 +105,7 @@
    )
    (dx_on_game_won
       {dx_game_over_clean_highways}
+      {dx_char_hider FALSE} ;force restore characters
       {if {&& $dx_mtvup {! {gamemode in_mode practice}} {! {gamemode in_mode trainer}}}
          {if $dx_mtvup {{{gamemode get track_panel} find mtv_overlay} set_showing FALSE}}
          {beatmatch foreach_active_player $player
