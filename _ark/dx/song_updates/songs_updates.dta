@@ -315,9 +315,6 @@
       (guitar)
    )
    (format 10)
-   (loading_phrase
-      "The theme song to the cartoon Johnny Test has attracted controversy for sounding suspiciously like \qAmerican Idiot.\q Ironically, Johnny's best friend is a dog named Dukey."
-   )
    (author
       "Harmonix"
    )
@@ -17941,7 +17938,6 @@
       "Drop in the Park"
    )
    (album_track_number 8)
-   (extra_authoring disc_update)
    (song_id 1005487)
    (song_length 313181)
    (solo
@@ -17950,6 +17946,7 @@
    (format 10)
    (game_origin rb1_dlc)
    (rating 2)
+   (extra_authoring pearljam)
    (loading_phrase
       "When they recorded \qAlive,\q Pearl Jam were still going by their original band moniker, Mookie Blaylock, named after the New Jersey Nets basketball player."
    )
@@ -18134,15 +18131,41 @@
    )
    (song
       (vocal_parts 3)
+      (tracks
+         (
+            (drum
+               (0 1)
+            )
+            (bass 2)
+            (guitar
+               (3 4)
+            )
+            (vocals 5)
+            (keys 6 7)
+         )
+      )
+      (crowd_channels 8 9)
    )
    (extra_authoring disc_update)
+   (rank
+      (drum 142)
+      (guitar 155)
+      (bass 124)
+      (vocals 451)
+      (keys 168)
+      (real_keys 168)
+      (band 218)
+   )
+   (version 30)
+   (keys_author
+      "SonicSBL"
+   )
    (song_id 1005253)
    (song_length 343181)
    (solo
       (guitar vocal_percussion)
    )
    (format 10)
-   (version 2)
    (game_origin rb1_dlc)
    (rating 2)
    (author
@@ -28766,6 +28789,39 @@
    (drum_bank
       "sfx/rb2_kit01_bank.milo"
    )
+   (extra_authoring disc_update)
+   (song
+      (tracks
+         (
+            (drum
+               (0 1 2)
+            )
+            (bass 3)
+            (guitar
+               (4 5)
+            )
+            (vocals
+               (6 7)
+            )
+            (keys
+               (8 9)
+            )
+         )
+      )
+   )
+   (rank
+      (drum 348)
+      (guitar 275)
+      (bass 220)
+      (vocals 299)
+      (keys 378)
+      (real_keys 367)
+      (band 299)
+   )
+   (version 30)
+   (keys_author
+      "BowlsforRick, SonicSBL"
+   )
    (song_id 1005390)
    (song_length 200909)
    (solo
@@ -37618,8 +37674,40 @@
    )
    (song
       (vocal_parts 3)
+      (tracks
+         (
+            (drum
+               (0 1 2 3 4 5)
+            )
+            (bass
+               (6)
+            )
+            (guitar
+               (7 8)
+            )
+            (vocals
+               (9 10)
+            )
+            (keys
+               (11 12)
+            )
+         )
+      )
    )
    (extra_authoring disc_update)
+   (rank
+      (drum 221)
+      (guitar 202)
+      (bass 204)
+      (vocals 181)
+      (keys 220)
+      (real_keys 220)
+      (band 206)
+   )
+   (version 30)
+   (keys_author
+      "Stock123"
+   )
    (song_id 1005603)
    (song_length 265909)
    (format 10)
@@ -56065,7 +56153,6 @@
       (vocals 180)
       (band 243)
    )
-   (extra_authoring disc_update)
 )
 (UGC_5004028
    (game_origin ugc1)
@@ -57996,7 +58083,6 @@
       (vocals 218)
       (band 292)
    )
-   (extra_authoring disc_update)
 )
 (UGC_5004913
    (game_origin ugc1)
@@ -60543,7 +60629,6 @@
       "sfx/gdrb_kit_bank.milo"
    )
    (extra_authoring disc_update)
-   (upgrade_version 1)
    (song
       (tracks
          (
@@ -60570,17 +60655,9 @@
       (vocals 155)
       (keys 166)
       (real_keys 179)
-      (real_guitar 193)
-      (real_bass 136)
       (band 158)
    )
    (version 30)
-   (real_guitar_tuning
-      (0 0 0 0 0 0)
-   )
-   (real_bass_tuning
-      (0 0 0 0)
-   )
    (keys_author
       "StackOverflow0x & sageamagoo"
    )
@@ -60727,9 +60804,6 @@
       (guitar)
    )
    (format 10)
-   (loading_phrase
-      "'Holiday' was featured in the 2005 video game Tony Hawk's American Wasteland."
-   )
    (author
       "Harmonix"
    )
@@ -61138,7 +61212,7 @@
       "sfx/gdrb_kit_bank.milo"
    )
    (loading_phrase
-      "This song is about the band's experiences moving out of their parents' houses into an abandoned warehouse in Oakland, CA. \qIt's about West Oakland, living in a warehouse with a lot of people, a bunch of artists and musicians, punks and whatever just lived all up and down, bums and junkies and thugs and gang members and stuff that just lived in that area. It's no place you want to walk around at night, but it's a neat warehouse where you can play basketball and stuff\q, says Billie Joe Armstrong."
+      "This song is about the band's experiences moving out of their parents' houses into an abandoned warehouse in Oakland, CA."
    )
    (author
       "Harmonix"
@@ -61894,7 +61968,6 @@
 )
 (downunder
    (game_origin rb3dlc)
-   (extra_authoring disc_update)
    (author
       "Harmonix"
    )
@@ -71905,7 +71978,6 @@
    (author
       "wesjett08"
    )
-   (extra_authoring disc_update)
 )
 (UGC_5011518
    (game_origin ugc2)
@@ -72080,7 +72152,6 @@
    (author
       "FairwoodStudios"
    )
-   (extra_authoring disc_update)
 )
 (UGC_5011646
    (game_origin ugc2)
@@ -73461,6 +73532,9 @@
    (game_origin lost_dlc)
    (drum_bank
       "sfx/rb1_kit_bank.milo"
+   )
+   (loading_phrase
+      "Metallica played \qFuel\q live a few times before it came out on \qReLoad\q under its original name \qFuel for Fire\q."
    )
 )
 (kingnothing
@@ -75785,9 +75859,6 @@
 )
 (marchofthepigsfnf
    (genre industrial)
-   (loading_phrase
-      "'March of the Pigs' is in 29/8 time signature, one of the most complicated meters ever to appear in a hit song."
-   )
 )
 (thehandthat_fnf
    (genre industrial)
@@ -75799,12 +75870,6 @@
    (extra_authoring disc_update)
    (author
       "Harmonix"
-   )
-)
-(3am
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
    )
 )
 (adventureofalifetime
@@ -75852,15 +75917,6 @@
    )
    (strings_author
       "Ruggy"
-   )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(ainttalkinboutlove
-   (extra_authoring disc_update)
-   (loading_phrase
-      "'Ain't Talkin' 'Bout Love' starts with an arpeggiated chord progression in the key of A minor. Eddie actually played a wrong note during the intro but decided to keep it for the record."
    )
    (author
       "Harmonix, Rhythm Authors"
@@ -75946,15 +76002,6 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(andthecradlewillrock
-   (extra_authoring disc_update)
-   (loading_phrase
-      "'And the Cradle Will Rock...' begins with what sounds like guitar chords, but is actually a Wurlitzer electric piano hooked up to a MXR flanger then played through Eddie's Marshall amp."
-   )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (angel3
    (extra_authoring disc_update)
    (song
@@ -75995,36 +76042,6 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(ayo
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(backwoodsco
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(badcatholics
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(beatsports
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(bestsongever
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (beyondtheflame
    (extra_authoring disc_update)
 )
@@ -76050,12 +76067,6 @@
    (vocal_tonic_note 4)
    (author
       "Harmonix"
-   )
-)
-(blackseas
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
    )
 )
 (borntobewild
@@ -76094,12 +76105,6 @@
    (keys_author
       "Septekka, SonicSBL"
    )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(breakfastattiffanys
-   (extra_authoring disc_update)
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -76158,18 +76163,6 @@
 )
 (burnitdown_rbn
    (extra_authoring disc_update)
-)
-(chandelier
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(cocoon
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
 )
 (complicated
    (extra_authoring disc_update)
@@ -76255,21 +76248,6 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(cryin
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(dancethenightaway
-   (extra_authoring disc_update)
-   (loading_phrase
-      "Originally titled \qDance Lolita Dance,\q Eddie convinced Dave that \qDance the Night Away\q was a more suitable title and the chorus was changed."
-   )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (dawnpatrol
    (extra_authoring disc_update)
    (upgrade_version 1)
@@ -76301,12 +76279,6 @@
    )
 )
 (deadblack
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(desire
    (extra_authoring disc_update)
    (author
       "Harmonix, Rhythm Authors"
@@ -76350,18 +76322,6 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(dontwannafight
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(downinahole
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (dreamgenie
    (extra_authoring disc_update)
    (upgrade_version 1)
@@ -76383,12 +76343,6 @@
    (strings_author
       "Augusto, Ruggy"
    )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(failure
-   (extra_authoring disc_update)
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -76420,18 +76374,6 @@
 )
 (foreplaylongtime_short
    (extra_authoring disc_update)
-)
-(forgetabouttomorrow
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(foundoutaboutyou
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
 )
 (freewill
    (extra_authoring disc_update)
@@ -76482,12 +76424,6 @@
 (greengrass_short
    (extra_authoring disc_update)
 )
-(happy2
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (hardtimes
    (extra_authoring disc_update)
    (song
@@ -76524,12 +76460,6 @@
    (keys_author
       "JIManji, Ultimate_MANG0, BowlsforRick"
    )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(hatemyself
-   (extra_authoring disc_update)
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -76591,12 +76521,6 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(heyjealousy
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (higher_rbn
    (extra_authoring disc_update)
 )
@@ -76640,50 +76564,8 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(homegrown
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(honeyimgood
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(hotforteacher
-   (extra_authoring disc_update)
-   (loading_phrase
-      "Warning...do not attempt this guitar part without adult supervision!"
-   )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (i_kendrick
    (extra_authoring disc_update)
-)
-(iris
-   (extra_authoring disc_update)
-   (loading_phrase
-      "Johnny Rzeznik wrote this song for the movie City Of Angels, where it is sung from the perspective of Nicolas Cage's character. In the film, Cage plays an angel sent to help humans make their transition to the afterlife. When he falls in love with a human, he must choose between love and eternal life."
-   )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(irresistible
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(iwannadancewithsomebody
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
 )
 (iwillsurvive
    (extra_authoring disc_update)
@@ -76885,18 +76767,6 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(killingisjustameans
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(kingoftheworld
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (labamba
    (extra_authoring disc_update)
    (song
@@ -76954,12 +76824,6 @@
       "Harmonix"
    )
 )
-(littletalks
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (livinonaprayer
    (extra_authoring disc_update)
    (loading_phrase
@@ -77005,24 +76869,6 @@
    (keys_author
       "SonicSBL"
    )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(lovestinks
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(loveyourself
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(lyingfromyou
-   (extra_authoring disc_update)
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -77117,12 +76963,6 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(monalisa
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (mygodisthesun
    (extra_authoring disc_update)
    (upgrade_version 1)
@@ -77144,18 +76984,6 @@
    (strings_author
       "Ruggy"
    )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(myowneyes
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(nevermore
-   (extra_authoring disc_update)
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -77308,12 +77136,6 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(pompeii
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (ragdoll
    (extra_authoring disc_update)
    (song
@@ -77441,21 +77263,6 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(rockthistown
-   (extra_authoring disc_update)
-   (loading_phrase
-      "The Stray Cats' eponymous debut album provided them with three straight hits - \qRunaway Boys\q, \qRock This Town\q, and \qStray Cat Strut\q."
-   )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(rude
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (rudemood
    (extra_authoring disc_update)
    (song_id 1005444)
@@ -77465,21 +77272,6 @@
    (rating 1)
    (author
       "Harmonix"
-   )
-)
-(runninwiththedevil
-   (extra_authoring disc_update)
-   (loading_phrase
-      "'Runnin' with the Devil' fades in with car horns, which were mounted in a wooden cabinet and used in between songs to add to the party environment."
-   )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(safeandsound
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
    )
 )
 (satchboogie
@@ -77518,12 +77310,6 @@
    (strings_author
       "The Other Side"
    )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(september
-   (extra_authoring disc_update)
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -77575,12 +77361,6 @@
    (strings_author
       "Ruggy"
    )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(sing_ed
-   (extra_authoring disc_update)
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -77674,12 +77454,6 @@
    (strings_author
       "Ruggy"
    )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(sorry_bieber
-   (extra_authoring disc_update)
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -77789,18 +77563,6 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(summertimeboy
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(sundaybloodysunday
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (supersonic
    (extra_authoring disc_update)
    (song
@@ -77827,12 +77589,6 @@
    (game_origin rb1_dlc)
    (author
       "Harmonix"
-   )
-)
-(sweaterweather
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
    )
 )
 (sweaterweather2
@@ -77883,12 +77639,6 @@
    (strings_author
       "Aloquendiar, Carl Mylo, Ruggy"
    )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(takemetochurch
-   (extra_authoring disc_update)
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -78104,12 +77854,6 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(thereflex
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (thesign
    (extra_authoring disc_update)
    (upgrade_version 1)
@@ -78162,37 +77906,7 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(thesoundofsilence
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(thestage
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (thetriumph
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(thevengefulone
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(thischarmingman
-   (extra_authoring disc_update)
-   (author
-      "Harmonix"
-   )
-)
-(thisishowwedoit
    (extra_authoring disc_update)
    (author
       "Harmonix, Rhythm Authors"
@@ -78204,32 +77918,8 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(throne
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(thunderandlightning
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(tomyromeo
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (trainkeptarollin_short
    (extra_authoring disc_update)
-)
-(trainwreck1979
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
 )
 (travellingband
    (extra_authoring disc_update)
@@ -78318,27 +78008,6 @@
       "Harmonix"
    )
 )
-(wasteamoment
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(werenotgonnatakeit
-   (extra_authoring disc_update)
-   (loading_phrase
-      "This was the song that catapulted Twisted Sister to fame. They promoted this single with an innovative video with cartoonish violence featuring a young kid that turns into frontman Dee Snider, telling his father he's 'Not gonna take it!'"
-   )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(whatifiwasnothing
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (whygo
    (extra_authoring disc_update)
    (song_id 1005484)
@@ -78357,20 +78026,8 @@
       "Harmonix"
    )
 )
-(wickedgarden
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (wontgetfooled_short
    (extra_authoring disc_update)
-)
-(wouldyoustillbethere
-   (extra_authoring disc_update)
-   (author
-      "Harmonix, Rhythm Authors"
-   )
 )
 (youmakelovingfun
    (extra_authoring disc_update)
@@ -78473,12 +78130,6 @@
    (strings_author
       "kevinturner"
    )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(zombie
-   (extra_authoring disc_update)
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -78670,14 +78321,6 @@
 (freebird
    (loading_phrase
       "FINE. They're NOT just heckling you this time. SIGH."
-   )
-   (author
-      "Harmonix"
-   )
-)
-(getfree
-   (loading_phrase
-      "This was the most added track on US radio for the week of May 19, 2002."
    )
    (author
       "Harmonix"
@@ -78894,9 +78537,25 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(ainttalkinboutlove
+   (loading_phrase
+      "'Ain't Talkin' 'Bout Love' starts with an arpeggiated chord progression in the key of A minor. Eddie actually played a wrong note during the intro but decided to keep it for the record."
+   )
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (angelofdeath
    (loading_phrase
       "This song was originally set to appear in \qGuitar Hero: Metallica\q thanks to Lars Ulrich's involvement. However, due to pressure from Microsoft over the band's lyrical themes, the song had to be replaced last minute with \qWar Ensemble\q instead."
+   )
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(andthecradlewillrock
+   (loading_phrase
+      "'And the Cradle Will Rock...' begins with what sounds like guitar chords, but is actually a Wurlitzer electric piano hooked up to a MXR flanger then played through Eddie's Marshall amp."
    )
    (author
       "Harmonix, Rhythm Authors"
@@ -78998,6 +78657,14 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(dancethenightaway
+   (loading_phrase
+      "Originally titled \qDance Lolita Dance,\q Eddie convinced Dave that \qDance the Night Away\q was a more suitable title and the chorus was changed."
+   )
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (dancingwithmyself
    (loading_phrase
       "'Dancing with Myself' was originally released by Billy Idol's band Generation X. The version in GH5 is the more radio-friendly solo effort, but this version is the original."
@@ -79022,6 +78689,14 @@
 (getlucky
    (loading_phrase
       "When talking about his collaboration with Daft Punk in The Collaborators album, Pharrell Williams refers to the duo as 'the robots', often talking about them as though they had come from another planet, yet still able to write human music."
+   )
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(hotforteacher
+   (loading_phrase
+      "Warning...do not attempt this guitar part without adult supervision!"
    )
    (author
       "Harmonix, Rhythm Authors"
@@ -79059,6 +78734,14 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(iris
+   (loading_phrase
+      "Johnny Rzeznik wrote this song for the movie City Of Angels, where it is sung from the perspective of Nicolas Cage's character. In the film, Cage plays an angel sent to help humans make their transition to the afterlife. When he falls in love with a human, he must choose between love and eternal life."
+   )
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (iwannarock
    (loading_phrase
       "The title captures the essence of the song perfectly - Dee Snider wants to rock. This song resonates with young people who were feeling overwhelmed by the expectations of their parents and teachers to conform to social norms and behave appropriately."
@@ -79091,6 +78774,22 @@
 (onebigholiday
    (loading_phrase
       "The video for \qOne Big Holiday\q is done in the style of wayang kulit, Indonesian shadow puppetry. My Morning Jacket is also known to incorporate puppetry into their stage shows."
+   )
+)
+(rockthistown
+   (loading_phrase
+      "The Stray Cats' eponymous debut album provided them with three straight hits - \qRunaway Boys\q, \qRock This Town\q, and \qStray Cat Strut\q."
+   )
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(runninwiththedevil
+   (loading_phrase
+      "'Runnin' with the Devil' fades in with car horns, which were mounted in a wooden cabinet and used in between songs to add to the party environment."
+   )
+   (author
+      "Harmonix, Rhythm Authors"
    )
 )
 (shiver
@@ -79135,19 +78834,12 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(allthesmallthings_fnf
+(werenotgonnatakeit
    (loading_phrase
-      "blink-182's Tom DeLonge wrote \qAll the Small Things\q after his girlfriend complained that he hadn't written any songs about her."
+      "This was the song that catapulted Twisted Sister to fame. They promoted this single with an innovative video with cartoonish violence featuring a young kid that turns into frontman Dee Snider, telling his father he's 'Not gonna take it!'"
    )
-)
-(americanidiotfnf
-   (loading_phrase
-      "The theme song to the cartoon Johnny Test has attracted controversy for sounding suspiciously like \qAmerican Idiot.\q Ironically, Johnny's best friend is a dog named Dukey."
-   )
-)
-(astronautmaskedwolf_fnf
-   (loading_phrase
-      "Like many of Masked Wolf's songs, this song tackles the topics of mental health and well being. During the chorus, his depression is described as feeling as if he's \qrollin' down in the deep\q ocean, comparing his feelings to astronauts preparing for their trips by spending time underwater."
+   (author
+      "Harmonix, Rhythm Authors"
    )
 )
 (barbiegirl
@@ -79155,64 +78847,9 @@
       "In 1997, Mattel filed a lawsuit against the band, claiming they infringed on the Barbie trademark and portrayed Barbie as a sexual object, referring to her as a \qBlonde Bimbo\q."
    )
 )
-(basketcase_fnf
-   (loading_phrase
-      "Billie Joe Armstrong wrote \qBasket Case\q about his struggle with anxiety; years before he would be diagnosed with panic disorder, he thought he was going crazy. Armstrong said, \qThe only way I could know what the hell was going on was to write a song about it\q."
-   )
-)
-(batteryfnf
-   (loading_phrase
-      "This song was inspired by the Old Waldorf Club on San Francisco's Battery Street, where Metallica often played in the early days."
-   )
-)
-(beforeiforget_fnfestival
-   (loading_phrase
-      "Singer Corey Taylor has stated that the lyrics for \qBefore I Forget\q are open to interpretation, which is how he likes it. This song deals with evolution and the nature of man."
-   )
-)
-(boulevardoffnf
-   (loading_phrase
-      "'Boulevard of Broken Dreams' follows the same chord progression as Oasis' 'Wonderwall', which Noel Gallagher wasn't happy about. 'They should have the decency to wait until I am dead [before stealing my songs].' They've since made up."
-   )
-)
-(buddyholly_fnf
-   (loading_phrase
-      "To show her appreciation for being mentioned in the lyrics, Mary Tyler Moore signed a copy of the \qBuddy Holly\q single and sent it to Weezer."
-   )
-)
-(cakebytheocean_fnfestival
-   (loading_phrase
-      "When asked about the meaning behind \qCake By The Ocean\q, Joe Jonas said that it could be up to interpretation, from eating pastries while soaking up the sun or having sex on the beach. It can be whatever you want it to be."
-   )
-)
-(carryonwaywardson_fnf
-   (loading_phrase
-      "Kansas keyboardist Kerry Livgren, who wrote \qCarry on Wayward Son,\q later became a big name in Christian rock."
-   )
-)
-(dirtylittle_fnfestival
-   (loading_phrase
-      "The video for \qDirty Little Secret\q draws from an art project in which people confessed their deepest secrets on anonymous postcards."
-   )
-)
-(entersandmanfnf
-   (loading_phrase
-      "'Enter Sandman' was covered by clean-cut crooner Pat Boone on his 1997 album 'In a Metal Mood: No More Mr. Nice Guy.'"
-   )
-)
 (fadetoblack
    (loading_phrase
       "James Hetfield wrote the lyrics to \qFade to Black\q at a time when he was depressed because the band had their musical gear stolen."
-   )
-)
-(feelgoodinc_fnfestival
-   (loading_phrase
-      "Rappers De La Soul provide the backing for front character 2D's singing, for which they won a Grammy in the Best Pop Collaboration with Vocals category."
-   )
-)
-(forwhomthebelltolls
-   (loading_phrase
-      "The lyrics of \qFor Whom the Bell Tolls\q are based on the Ernest Hemingway novel of the same name."
    )
 )
 (fuel2
@@ -79225,34 +78862,9 @@
       "The lyrics are all in Korean except for the line, \qHey... Sexy Lady\q."
    )
 )
-(holidayfnf
-   (loading_phrase
-      "'Holiday' was featured in the 2005 video game Tony Hawk's American Wasteland."
-   )
-)
-(hysteria_fnfestival
-   (loading_phrase
-      "When Muse released \qHysteria\q as a single, they had a contest to let one of their fans design the cover art."
-   )
-)
-(intheendfnf
-   (loading_phrase
-      "Inexplicably, a cover of \qIn the End\q appeared on the third Kidz Bop record."
-   )
-)
-(killinginthenamefnf
-   (loading_phrase
-      "This incendiary song makes the point that some members of the US police force were, and possibly still are, members of the Ku Klux Klan."
-   )
-)
 (masterofpuppets
    (loading_phrase
       "In 2006 Metallica appeared on the animated TV show The Simpsons in the back of Hans Moleman's pickup truck performing a brief part of the intro to \qMaster of Puppets\q."
-   )
-)
-(miserybusinessfnf
-   (loading_phrase
-      "'Misery Business' was featured in 'Guitar Hero: World Tour' in 2008. Be sure to check out World Tour Definitive Edition!"
    )
 )
 (nothingelsematters
@@ -79265,39 +78877,14 @@
       "'One' is inspired by the novel Johnny Got His Gun by Dalton Trumbo that tells the story of a soldier who has lost his arms, and legs and who cannot speak, hear or see."
    )
 )
-(sabotage_fnfestival
-   (loading_phrase
-      "In case you're wondering, Buddy Rich was a famous jazz drummer who was notorious for his acerbic sense of humor and offstage tantrums."
-   )
-)
-(santeria_fnfestival
-   (loading_phrase
-      "Parts of this song, such as the bass and part of the guitar solo, as well as part of the intro, can be heard in an earlier Sublime song called \qLincoln Highway Dub\q."
-   )
-)
 (seekanddestroy
    (loading_phrase
       "Kirk Hammett has said that when he was in Exodus he thought Metallica had songs like \qSeek and Destroy\q with riffs that were \qpure class\q."
    )
 )
-(sevennationarmy_fnf
-   (loading_phrase
-      "The White Stripes have no bass player, so the popular riff is actually a guitar with an octave effect to sound like a bass."
-   )
-)
-(song2_fnfestival
-   (loading_phrase
-      "Originally called \qSong 2\q because Blur had yet to think of a name, it was also the second track on the album, was the second single from the album to be released, and is exactly two minutes and two seconds long. jnack was in LEGO Rock Band btw."
-   )
-)
 (sweetchildomine
    (loading_phrase
       "Slash would play the opening lick to warm up before practice. It was meant to be nothing more than just to get his fingers moving. Axl absolutely loved it however, and before long they had a new song come together based on the one simple riff."
-   )
-)
-(themiddle2_fnfestival
-   (loading_phrase
-      "The lyrics of \qThe Middle\q were the band cheering itself up after losing a record-label contract. The song helped get them a second one."
    )
 )
 (theunforgiven
@@ -79310,29 +78897,9 @@
       "'Toxic' was the most-searched song on Google in 2004, with Spears being the most-searched artist that year."
    )
 )
-(toxicityfnf
-   (loading_phrase
-      "Of the five albums by System of a Down, \qToxicity\q is the only one to avoid getting a parental advisory sticker."
-   )
-)
-(uptownfunkfnf
-   (loading_phrase
-      "The Vance Joy song 'Riptide' was on the charts when \qUptown Funk\q was released. Both tracks mention Michelle Pfeiffer, which is a little odd considering the actress hadn't been in any blockbuster movies in a while."
-   )
-)
-(welcometoparadise_fnf
-   (loading_phrase
-      "This song is about the band's experiences moving out of their parents' houses into an abandoned warehouse in Oakland, CA. \qIt's about West Oakland, living in a warehouse with a lot of people, a bunch of artists and musicians, punks and whatever just lived all up and down, bums and junkies and thugs and gang members and stuff that just lived in that area. It's no place you want to walk around at night, but it's a neat warehouse where you can play basketball and stuff\q, says Billie Joe Armstrong."
-   )
-)
 (welcometothejungle
    (loading_phrase
       "A cover of this song was originally going to be in the setlist of Rock Band 1. A demo video of the song being played still exists."
-   )
-)
-(whatigot_fnfestival
-   (loading_phrase
-      "The refrain from \qWhat I Got\q is based on the song \qLoving\q by Jamaican reggae singer Half-Pint, and also cribs a lyric from The Fugees' \qNappy Heads\q."
    )
 )
 (whatislove
@@ -79340,19 +78907,9 @@
       "This song became popular after being featured in a recurring Saturday Night Live sketch that showcased three guys going clubbing, where the men bobbed their heads in sync."
    )
 )
-(whenicomearound_fnf
-   (loading_phrase
-      "Before the song's music video was filmed, MTV aired a live performance of the song by the band at Woodstock '94, which started a fashion trend of people wearing sweaters like the striped sweater Billie Joe Armstrong wore in the performance."
-   )
-)
 (whereverimayroam
    (loading_phrase
       "The lyrics of this song talk about touring and life on the road. James Hetfield has called \qWherever I May Roam\q the ultimate road dog song."
-   )
-)
-(wouldfnf
-   (loading_phrase
-      "The Alice in Chains song \qGod Smack\q gave its name to one of the biggest metal bands of the past decade."
    )
 )
 (alright
@@ -79435,6 +78992,11 @@
       "Harmonix"
    )
 )
+(thischarmingman
+   (author
+      "Harmonix"
+   )
+)
 (twang
    (author
       "Harmonix"
@@ -79472,6 +79034,11 @@
    )
 )
 (falsealarm
+   (author
+      "Harmonix"
+   )
+)
+(getfree
    (author
       "Harmonix"
    )
@@ -79778,6 +79345,11 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(3am
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (absolutely
    (author
       "Harmonix, Rhythm Authors"
@@ -79823,6 +79395,11 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(ayo
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (babycomeback
    (author
       "Harmonix, Rhythm Authors"
@@ -79833,7 +79410,17 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(backwoodsco
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (badcaseoflovingyou
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(badcatholics
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -79848,6 +79435,11 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(beatsports
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (believe
    (author
       "Harmonix, Rhythm Authors"
@@ -79858,12 +79450,22 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(bestsongever
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (bigrig
    (author
       "Harmonix, Rhythm Authors"
    )
 )
 (bitch
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(blackseas
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -79889,6 +79491,11 @@
    )
 )
 (bodylikeabackroad
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(breakfastattiffanys
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -79938,6 +79545,11 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(chandelier
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (chelseadagger
    (author
       "Harmonix, Rhythm Authors"
@@ -79954,6 +79566,11 @@
    )
 )
 (closer3
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(cocoon
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -79978,6 +79595,11 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(cryin
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (cutewithoutthee
    (author
       "Harmonix, Rhythm Authors"
@@ -79989,6 +79611,11 @@
    )
 )
 (dearmariacount
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(desire
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80013,7 +79640,17 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(dontwannafight
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (dontyouforgetaboutme
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(downinahole
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80083,6 +79720,11 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(failure
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (famouslastwords
    (author
       "Harmonix, Rhythm Authors"
@@ -80109,6 +79751,16 @@
    )
 )
 (followyou
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(forgetabouttomorrow
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(foundoutaboutyou
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80163,6 +79815,16 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(happy2
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(hatemyself
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (heathens
    (author
       "Harmonix, Rhythm Authors"
@@ -80183,12 +79845,27 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(heyjealousy
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (heyya
    (author
       "Harmonix, Rhythm Authors"
    )
 )
 (highroad
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(homegrown
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(honeyimgood
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80238,12 +79915,22 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(irresistible
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (ithinkwerealonenow
    (author
       "Harmonix, Rhythm Authors"
    )
 )
 (itsbeenalittleheavylately
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(iwannadancewithsomebody
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80278,7 +79965,17 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(killingisjustameans
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (kingforaday
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(kingoftheworld
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80303,6 +80000,11 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(littletalks
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (liveinthemoment
    (author
       "Harmonix, Rhythm Authors"
@@ -80319,6 +80021,21 @@
    )
 )
 (loveinanelevator
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(lovestinks
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(loveyourself
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(lyingfromyou
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80348,6 +80065,11 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(monalisa
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (morethevictim
    (author
       "Harmonix, Rhythm Authors"
@@ -80359,6 +80081,16 @@
    )
 )
 (mrjones
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(myowneyes
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(nevermore
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80409,6 +80141,11 @@
    )
 )
 (peoplearepeople
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(pompeii
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80468,6 +80205,16 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(rude
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(safeandsound
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (savetonight
    (author
       "Harmonix, Rhythm Authors"
@@ -80479,6 +80226,11 @@
    )
 )
 (seether
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(september
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80508,6 +80260,11 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(sing_ed
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (slowride
    (author
       "Harmonix, Rhythm Authors"
@@ -80519,6 +80276,11 @@
    )
 )
 (somethingjustlikethis
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(sorry_bieber
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80568,6 +80330,16 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(summertimeboy
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(sundaybloodysunday
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (superfreak
    (author
       "Harmonix, Rhythm Authors"
@@ -80578,12 +80350,22 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(sweaterweather
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (takemehomecountry
    (author
       "Harmonix, Rhythm Authors"
    )
 )
 (takemehomecountryroads2
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(takemetochurch
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80633,7 +80415,32 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(thereflex
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(thesoundofsilence
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(thestage
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (thesummoning
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(thevengefulone
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(thisishowwedoit
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80648,7 +80455,17 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(throne
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (thunder2
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(thunderandlightning
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80668,6 +80485,11 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(tomyromeo
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (torn
    (author
       "Harmonix, Rhythm Authors"
@@ -80679,6 +80501,11 @@
    )
 )
 (tourniquet
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(trainwreck1979
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80728,7 +80555,17 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(wasteamoment
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (waylesssad
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(whatifiwasnothing
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80748,7 +80585,17 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(wickedgarden
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (witharmswideopen
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(wouldyoustillbethere
    (author
       "Harmonix, Rhythm Authors"
    )
@@ -80764,6 +80611,11 @@
    )
 )
 (youshouldbedancing2
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
+(zombie
    (author
       "Harmonix, Rhythm Authors"
    )

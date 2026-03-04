@@ -105,7 +105,6 @@
    {dx_setting_saver dx_settings dx_enable_mv_venues $dx_enable_mv_venues}
    {dx_setting_saver dx_settings dx_prompt_save $dx_prompt_save}
    ;{dx_setting_saver dx_settings dx_confirm_song_count $dx_confirm_song_count}
-   {dx_setting_saver dx_settings dx_connected_server $dx_connected_server}
    {dx_setting_saver dx_settings dx_rb3dx_venue
       {if_else
          {&&
@@ -323,6 +322,7 @@
    {dx_setting_saver dx_modifiers mod_dx_no_overdrive {modifier_mgr is_modifier_active mod_dx_no_overdrive}}
    {dx_setting_saver dx_modifiers mod_mhx_color_shuffle {modifier_mgr is_modifier_active mod_mhx_color_shuffle}}
    {dx_setting_saver dx_modifiers mod_highlight_key {modifier_mgr is_modifier_active mod_highlight_key}}
+   {dx_setting_saver dx_modifiers mod_vocal_coda {modifier_mgr is_modifier_active mod_vocal_coda}}
 )
 #define DX_LOG_CLEAR
 (
