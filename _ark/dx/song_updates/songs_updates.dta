@@ -36869,7 +36869,7 @@
 )
 (prequeltothesequel
    (vocal_tonic_note 1)
-   (song_tonality 1)
+   (song_tonality 0)
    (drum_bank
       "sfx/rb2_kit01_bank.milo"
    )
@@ -75803,14 +75803,39 @@
 (UGC_5006920
    (genre punk)
 )
+(theseeker
+   (genre hardrock)
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (highhopes
    (artist
       "Panic! at the Disco"
    )
 )
+(inagaddadavida
+   (genre psychadelic)
+)
+(ourlovewillstillbethere
+   (genre rock)
+)
+(picturesofmatchstickmen
+   (genre psychadelic)
+)
 (rescueme2
    (artist
       "Thirty Seconds to Mars"
+   )
+)
+(stranglehold
+   (genre hardrock)
+   (extra_authoring disc_update)
+   (loading_phrase
+      "Nugent didn't sing lead on this. Derek St. Holmes, who was the vocalist with his band, did. Nugent resented the attention Holmes received on stage and eventually sang all the hits himself. His explanation: \qThere's only one alpha wolf, and that's me\q."
+   )
+   (author
+      "Harmonix, Rhythm Authors"
    )
 )
 (themanwhosoldtheworld
@@ -75844,7 +75869,7 @@
 (wearefamily
    (genre disco)
 )
-(highhopes_fnfestival
+(highhopesfnf
    (artist
       "Panic! at the Disco"
    )
@@ -75860,7 +75885,7 @@
 (marchofthepigsfnf
    (genre industrial)
 )
-(thehandthat_fnf
+(thehandthatfnf
    (genre industrial)
 )
 (stopandstare
@@ -77554,15 +77579,6 @@
       "Harmonix"
    )
 )
-(stranglehold
-   (extra_authoring disc_update)
-   (loading_phrase
-      "Nugent didn't sing lead on this. Derek St. Holmes, who was the vocalist with his band, did. Nugent resented the attention Holmes received on stage and eventually sang all the hits himself. His explanation: \qThere's only one alpha wolf, and that's me\q."
-   )
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (supersonic
    (extra_authoring disc_update)
    (song
@@ -78505,6 +78521,14 @@
       "Harmonix, Rhythm Authors"
    )
 )
+(toysintheattic
+   (loading_phrase
+      "'Toys In The Attic' is an old expression that means 'Going Crazy.' The song is actually about a guy losing his mind."
+   )
+   (author
+      "Harmonix, Rhythm Authors"
+   )
+)
 (uptownfunk
    (loading_phrase
       "The Vance Joy song 'Riptide' was on the charts when \qUptown Funk\q was released. Both tracks mention Michelle Pfeiffer, which is a little odd considering the actress hadn't been in any blockbuster movies in a while."
@@ -79305,22 +79329,12 @@
       "Harmonix, Rhythm Authors"
    )
 )
-(theseeker
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
 (thewarrior
    (author
       "Harmonix, Rhythm Authors"
    )
 )
 (thewolf
-   (author
-      "Harmonix, Rhythm Authors"
-   )
-)
-(toysintheattic
    (author
       "Harmonix, Rhythm Authors"
    )
