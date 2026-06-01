@@ -5568,6 +5568,30 @@
    (real_bass_tuning (0 0 0 0))
    (strings_author "RK")
 )
+(tellherno
+   (song
+      (tracks
+         (
+            (drum (0 1))
+            (bass (2))
+            (guitar (3))
+            (vocals (4 5))
+            (keys (6))
+         )
+      )
+   )
+   (rank
+      (drum 211)
+      (guitar 204)
+      (bass 152)
+      (vocals 194)
+      (keys 267)
+      (real_keys 378)
+      (band 201)
+   )
+   (version 30)
+   (keys_author "Stock123")
+)
 (terriblelie
    (upgrade_version 1)
    (rank
@@ -7652,12 +7676,12 @@
       (guitar 345)
       (bass 330)
       (vocals 245)
-      (keys 1)
-      (real_keys 1)
+      (keys 287)
+      (real_keys 293)
       (band 280)
    )
    (version 30)
-   (keys_author "EdTanguy")
+   (keys_author "EdTanguy, BowlsforRick")
 )
 (seasonsofwither
    (upgrade_version 1)
